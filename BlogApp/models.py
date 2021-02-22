@@ -9,6 +9,7 @@ class Guest(models.Model):
     email = models.EmailField()  # can't change
     phone = models.IntegerField()
     profile_picture = models.ImageField(null=True)
+    skype = models.CharField(max_length=50, null=True)
 
     def __str__(self):
         return self.name

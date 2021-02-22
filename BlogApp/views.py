@@ -12,13 +12,21 @@ from .forms import *
 
 def index(request):
     try:
-        posts = Post.objects.filter(user=request.user)
+        posts = Post.objects.all()
     except TypeError:
         template = loader.get_template('Blog/unauthenticated.html')
         return HttpResponse(template.render())
 
     context = {'posts': posts}
     return render(request, 'index.html', context)
+
+@login_required(login_url='login')
+def post_page(request, pk):
+
+    post = Post.objects.filter(id=pk)
+    
+    context = {'post': post}
+    return render(request, 'Blog/post.html', context)
 
 
 @login_required(login_url='login')
@@ -103,6 +111,15 @@ def register_page(request):
 def logout_user(request):
     logout(request)
     return redirect('Blog:login')
+
+
+def profile(request, pk):
+
+    user = Guest.objects.filter(id=pk)
+    posts = Post.objects.filter(user=request.user)
+
+    context = {'posts': posts, 'user':user}
+    return render(request, 'Blog/profile.html', context)
 
 # TODO create a post page with dynamic url
 # TODO post name is also a link to post page
