@@ -1,0 +1,14 @@
+<{% extends 'Blog/base.html' %}
+{% block content %}
+
+			<h3>Register</h3>
+		<form action="#" method="POST">
+        {% csrf_token %}
+            {{ form.username }}
+            {{ form.password1 }}
+            {{ form.password2 }}
+			<input type="submit" value="Register Account" class="btn btn-success"
+            style="position: absolute; top: 34%; width: 22.8%; left: 38.3%;">
+		</form>
+
+{% endblock %}

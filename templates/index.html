@@ -1,0 +1,24 @@
+{% extends 'Blog/base.html' %}
+{% block content %}
+
+<div class="tasks">
+
+    {% for post in posts %}
+    <div class="label">
+    <h2>{{ post.name }}
+    <p></p>
+        <span>{{ post.description }}</span>
+    </h2>
+  <p></p>
+  <a href="{% url 'Blog:update' post.id %}" class="btn btn-sm btn-info"
+     style="width: 49%">Update</a>
+  <a href="{% url 'Blog:delete' post.id %}" class="btn btn-sm btn-danger"
+     style="width: 49%">Delete</a>
+  </div>
+    {% endfor %}
+<p></p>
+    <a href="{% url 'Blog:create' %}" class="btn btn-sm btn-success"
+    style="width: 100%">Create</a>
+</div>
+
+{% endblock %}

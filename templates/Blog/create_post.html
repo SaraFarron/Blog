@@ -1,0 +1,10 @@
+{% extends 'Blog/base.html' %}
+{% block content %}
+
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" name="Submit" class="btn btn-sm btn-success">
+</form>
+
+{% endblock %}

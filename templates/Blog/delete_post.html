@@ -1,0 +1,17 @@
+{% extends 'Blog/base.html' %}
+{% block content %}
+
+    <p style="text-align: center">Are you sure you want to delete "{{ task }}"?</p>
+<form action="{% url 'Blog:delete' task.id %}" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" name="Confirm" id="add_word_button">
+    <a href="{% url 'Blog:home' %} "
+       class="btn btn-sm"
+       style="left: 60%;
+       background-color: #1F78B4;
+       padding: 0 0 0 0px;
+       border-width: 1px">Cancel</a>
+</form>
+
+{% endblock %}
