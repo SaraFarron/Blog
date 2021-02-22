@@ -1,7 +1,7 @@
 {% extends 'Blog/base.html' %}
 {% block content %}
 
-<h1>{{ post.name }}</h1>
+<h1><span>{{ post.name }} Author: {{ post.user.name }}</span></h1>
 <h3>{{ post.description }}</h3>
 <h4>{{ post.text }}</h4>
 

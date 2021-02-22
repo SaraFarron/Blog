@@ -6,7 +6,7 @@
     {% for post in posts %}
     <div class="label">
     <h2><a href="{% url 'Blog:post' post.id %}">{{ post.name }}</a>
-    <p></p>
+    <p>Author: {{ post.user }}</p>
         <span>{{ post.description }}</span>
     </h2>
   <p></p>

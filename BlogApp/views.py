@@ -10,7 +10,7 @@ from .models import *
 from .forms import *
 
 
-def index(request):
+def index(request):  # order_by()
     try:
         posts = Post.objects.all()
     except TypeError:
@@ -23,7 +23,7 @@ def index(request):
 @login_required(login_url='login')
 def post_page(request, pk):
 
-    post = Post.objects.filter(id=pk)
+    post = Post.objects.get(id=pk)
     
     context = {'post': post}
     return render(request, 'Blog/post.html', context)
@@ -51,7 +51,7 @@ def update_post(request, pk):
         form = PostForm(request.POST, instance=post)
         if form.is_valid():
             form.save()
-            return redirect('/guest/' + str(post.user.id))
+            return redirect('Blog:home')
 
     context = {'form': form}
     return render(request, 'Blog/create_post.html', context)
@@ -121,8 +121,7 @@ def profile(request, pk):
     context = {'posts': posts, 'user':user}
     return render(request, 'Blog/profile.html', context)
 
-# TODO create a post page with dynamic url
-# TODO post name is also a link to post page
+# TODO create a post page with dynamic url | backend ready
 # TODO user profile page, that includes:
 #  name, last name, avatar, email , phone, skype, posts
 # TODO home page shows all posts, posts has author name,
