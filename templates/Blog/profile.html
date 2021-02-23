@@ -1,11 +1,21 @@
 {% extends 'Blog/base.html' %}
 {% block content %}
+    {% load static %}
 
-{{ user.name }}
-{{ user.email }}
-{{ user.phone }}
-{{ user.avatar }}
-{{ user.skype }}
+<div class="container">
+    <h2>{{ user.name }}</h2>
+    <h3>{{ user.email }}</h3>
+    <h3>{{ user.phone }}</h3>
+    <img src="{% static '/images/violet.jpg' %}" width="10%" height="10%">
+    <h3>{{ user.skype }}</h3>
+</div>
+    {% for post in posts %}
+    <div class="container">
+        <h2><a href="{% url 'Blog:post' post.id %}">{{ post.name }}</a></h2>
+        <h3>{{ post.creation_date }}</h3>
+        <h3>{{ post.description }}</h3>
 
+    </div>
+    {% endfor %}
 
 {% endblock %}

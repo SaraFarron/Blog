@@ -10,7 +10,8 @@ from .models import *
 from .forms import *
 
 
-def index(request):  # order_by()
+def index(request):
+    """TODO sort by date and author"""
 
     try:
         posts = Post.objects.all()
@@ -25,8 +26,7 @@ def index(request):  # order_by()
     
     # if request.method == 'GET':
 
-
-    context = {'posts': posts}
+    context = {'posts': posts, 'user': request.user.id}
     return render(request, 'index.html', context)
 
 
@@ -44,7 +44,6 @@ def index(request):  # order_by()
 
 #     context = {'posts': posts}
 #     return render(request, 'index.html', context)
-
 
 
 @login_required(login_url='login')
@@ -111,25 +110,33 @@ def login_page(request):
     return render(request, 'Blog/login.html', context)
 
 
-@unauthenticated_user
+# @unauthenticated_user
 def register_page(request):
-    form = CreateUserForm
+    """TODO auth register system does not work"""
+
+    if request.user.is_authenticated:
+        return redirect('Blog:home')
+
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
         if form.is_valid():
             user = form.save()
             username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            # user = authenticate(username=username, password=password)
+            login(request, user)
 
-            group = Group.objects.get(name='guest')
-            user.groups.add(group)
+            # group = Group.objects.get(name='guest')
+            # user.groups.add(group)
             Guest.objects.create(
                 user=user,
                 name=username,
             )
+
             messages.success(request, f'Account {username} created successfully')
-            return redirect('Blog:login')  # redirect to profile page
-        else:
-            pass
+            return redirect(f'Blog:profile/{Guest.objects.get(name=username).id}')
+    else:
+        form = CreateUserForm()
 
     context = {'form': form}
     return render(request, 'Blog/register.html', context)
@@ -142,15 +149,8 @@ def logout_user(request):
 
 def profile(request, pk):
 
-    user = Guest.objects.filter(id=pk)
-    posts = Post.objects.filter(user=request.user)
+    user = Guest.objects.get(id=pk)
+    posts = Post.objects.filter(user=user)
 
-    context = {'posts': posts, 'user':user}
+    context = {'posts': posts, 'user': user}
     return render(request, 'Blog/profile.html', context)
-
-# TODO create a post page with dynamic url | backend ready
-# TODO user profile page, that includes:
-#  name, last name, avatar, email , phone, skype, posts
-# TODO home page shows all posts, posts has author name,
-#  can be sorted by date and author
-# TODO Users can leave comments under posts (cannot comment your own post)
