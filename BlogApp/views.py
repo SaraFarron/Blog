@@ -11,14 +11,41 @@ from .forms import *
 
 
 def index(request):  # order_by()
+
     try:
         posts = Post.objects.all()
     except TypeError:
         template = loader.get_template('Blog/unauthenticated.html')
         return HttpResponse(template.render())
 
+    if request.GET.get('order_by_author'):
+        posts = Post.objects.all().order_by('user')
+    elif request.GET.get('order_by_date'):
+        posts = Post.objects.all().order_by('creation_date')
+    
+    # if request.method == 'GET':
+
+
     context = {'posts': posts}
     return render(request, 'index.html', context)
+
+
+# def order_post_by_author(request):
+
+#     posts = Post.objects.order_by('user')
+
+#     context = {'posts': posts}
+#     return render(request, 'index.html', context)
+
+
+# def order_post_by_date(request):
+
+#     posts = Post.objects.order_by('creation_date')
+
+#     context = {'posts': posts}
+#     return render(request, 'index.html', context)
+
+
 
 @login_required(login_url='login')
 def post_page(request, pk):

@@ -2,6 +2,15 @@
 {% block content %}
 
 <div class="tasks">
+    <div class="container">
+        <form action="#" method="get">
+            <input type="text" value="8" name="mytextbox" size="1"/>
+            <input type="submit" class="btn" value="Order by author" name="order_by_author">
+            <input type="text" value="9" name="mytextbox" size="1"/>
+            <input type="submit" class="btn" value="Order by date" name="order_by_date">
+        </form>
+        
+    </div>
 
     {% for post in posts %}
     <div class="label">
