@@ -49,10 +49,12 @@ def index(request):
 
 @login_required(login_url='login')
 def post_page(request, pk):
+    """TODO add create comment button"""
 
     post = Post.objects.get(id=pk)
+    comments = Comment.objects.filter(post=post)
     
-    context = {'post': post}
+    context = {'post': post, 'comments': comments}
     return render(request, 'Blog/post.html', context)
 
 

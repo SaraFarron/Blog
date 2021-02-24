@@ -5,6 +5,7 @@
 		<form action="#" method="POST">
         {% csrf_token %}
             {{ form.username }}
+            {{ form.email }}
             {{ form.password1 }}
             {{ form.password2 }}
 			<input type="submit" value="Register Account" class="btn btn-success"

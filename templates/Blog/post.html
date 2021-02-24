@@ -4,5 +4,16 @@
 <h1><span>{{ post.name }} <p>Author: {{ post.user }}</p> </span></h1>
 <h3>{{ post.description }}</h3>
 <h4>{{ post.text }}</h4>
+<div class="container">
+    {% for comment in comments %}
+
+    <div class="container">
+        <p>{{comment.author}}</p>
+        <p>{{comment.publication_date}}</p>
+        <p>{{comment.text}}</p>
+    </div>
+
+    {% endfor %}
+</div>
 
 {% endblock %}
