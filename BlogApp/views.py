@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 from django.shortcuts import render
 from django.template import loader
+from django.urls import reverse
 
 from .decorators import *
 from .models import *
@@ -26,7 +27,7 @@ def index(request):
     
     # if request.method == 'GET':
 
-    context = {'posts': posts, 'user': request.user.id}
+    context = {'posts': posts, 'user': request.user.username}
     return render(request, 'index.html', context)
 
 
@@ -60,7 +61,7 @@ def create_post(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
-            form.instance.user = request.user
+            form.instance.user = Guest.objects.get(name=request.user)
             form.save()
             return redirect('Blog:home')
     form = PostForm
@@ -71,6 +72,7 @@ def create_post(request):
 
 @login_required(login_url='login')
 def update_post(request, pk):
+    """TODO user cannot change other users' posts"""
     post = Post.objects.get(id=pk)
     form = PostForm(instance=post)
     if request.method == 'POST':
@@ -85,6 +87,8 @@ def update_post(request, pk):
 
 @login_required(login_url='login')
 def delete_post(request, pk):
+    """TODO user cannot change other users' posts"""
+
     post = Post.objects.get(id=pk)
     if request.method == 'POST':
         post.delete()
@@ -112,7 +116,7 @@ def login_page(request):
 
 # @unauthenticated_user
 def register_page(request):
-    """TODO auth register system does not work"""
+    """TODO error while redirect, reverse doesn't work"""
 
     if request.user.is_authenticated:
         return redirect('Blog:home')
@@ -122,19 +126,14 @@ def register_page(request):
         if form.is_valid():
             user = form.save()
             username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            # user = authenticate(username=username, password=password)
             login(request, user)
-
-            # group = Group.objects.get(name='guest')
-            # user.groups.add(group)
             Guest.objects.create(
                 user=user,
                 name=username,
             )
 
             messages.success(request, f'Account {username} created successfully')
-            return redirect(f'Blog:profile/{Guest.objects.get(name=username).id}')
+            return redirect(f'Blog:profile/{username}')  # error here
     else:
         form = CreateUserForm()
 
@@ -149,7 +148,7 @@ def logout_user(request):
 
 def profile(request, pk):
 
-    user = Guest.objects.get(id=pk)
+    user = Guest.objects.get(name=pk)
     posts = Post.objects.filter(user=user)
 
     context = {'posts': posts, 'user': user}
