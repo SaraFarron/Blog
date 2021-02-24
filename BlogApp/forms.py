@@ -10,6 +10,12 @@ class PostForm(ModelForm):
         fields = ['name', 'text', 'description']
 
 
+class CommentForm(ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['text']
+
+
 class CreateUserForm(UserCreationForm):
     class Meta:
         model = User

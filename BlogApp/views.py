@@ -155,3 +155,20 @@ def profile(request, pk):
 
     context = {'posts': posts, 'user': user}
     return render(request, 'Blog/profile.html', context)
+
+def create_comment(request, pk, path):
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            form.instance.author = Guest.objects.get(name=request.user)
+            form.instance.post = Post.objects.get(id=pk)
+            form.save()
+            return redirect(path)
+    form = CommentForm
+
+    context = {'form': form}
+    return render(request, 'Blog/create_post.html', context)
+
+def delete_comment(request, pk):
+    pass
