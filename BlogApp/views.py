@@ -9,7 +9,9 @@ from .decorators import *
 from .forms import *
 
 
+# @login_required(login_url='login')
 def index(request):
+    """TODO error appears if user is not authentificated"""
 
     try:
         posts = Post.objects.all().order_by('user')
@@ -102,9 +104,7 @@ def login_page(request):
     return render(request, 'Blog/login.html', context)
 
 
-# @unauthenticated_user
 def register_page(request):
-    """TODO error while redirect, reverse doesn't work"""
 
     if request.user.is_authenticated:
         return redirect('Blog:home')
@@ -119,9 +119,8 @@ def register_page(request):
                 user=user,
                 name=username,
             )
-
             messages.success(request, f'Account {username} created successfully')
-            return redirect(f'Blog:profile/{username}')  # error here
+            return HttpResponseRedirect(reverse('Blog:profile', args=(username,)))  
     else:
         form = CreateUserForm()
 
