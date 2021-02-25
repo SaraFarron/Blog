@@ -17,9 +17,7 @@ class Guest(models.Model):
 
 
 class Post(models.Model):
-    """TODO Users can leave comments under posts
-    (cannot comment your own post)"""
-
+    
     name = models.CharField(max_length=200, default='Untitled')
     creation_date = models.DateTimeField(auto_now_add=True, null=True)
     text = models.TextField()

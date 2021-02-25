@@ -6,9 +6,10 @@
 <h4>{{ post.text }}</h4>
 <div class="container">
 
+    {% if request.user|stringformat:'s' != post.user|stringformat:'s' %}
     <p><a href="{% url 'Blog:create_comment' post.id %}" class="btn btn-sm btn-success"
         style="width: 100%">Leave a comment</a></p>
-
+    {% endif %}
     {% for comment in comments %}
 
     <div class="container">
