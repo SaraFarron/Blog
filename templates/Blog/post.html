@@ -6,7 +6,7 @@
 <h4>{{ post.text }}</h4>
 <div class="container">
 
-    <p><a href="{% url 'Blog:create_comment' post.id requst.path %}" class="btn btn-sm btn-success"
+    <p><a href="{% url 'Blog:create_comment' post.id %}" class="btn btn-sm btn-success"
         style="width: 100%">Leave a comment</a></p>
 
     {% for comment in comments %}

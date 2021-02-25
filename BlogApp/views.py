@@ -1,13 +1,11 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, logout, login
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import Group
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.template import loader
-from django.urls import reverse
 
 from .decorators import *
-from .models import *
 from .forms import *
 
 
@@ -49,7 +47,6 @@ def index(request):
 
 @login_required(login_url='login')
 def post_page(request, pk):
-    """TODO add create comment button"""
 
     post = Post.objects.get(id=pk)
     comments = Comment.objects.filter(post=post)
@@ -72,9 +69,10 @@ def create_post(request):
     return render(request, 'Blog/create_post.html', context)
 
 
+@user_owns_the_post
 @login_required(login_url='login')
 def update_post(request, pk):
-    """TODO user cannot change other users' posts"""
+
     post = Post.objects.get(id=pk)
     form = PostForm(instance=post)
     if request.method == 'POST':
@@ -87,9 +85,9 @@ def update_post(request, pk):
     return render(request, 'Blog/create_post.html', context)
 
 
+@user_owns_the_post
 @login_required(login_url='login')
 def delete_post(request, pk):
-    """TODO user cannot change other users' posts"""
 
     post = Post.objects.get(id=pk)
     if request.method == 'POST':
@@ -156,19 +154,19 @@ def profile(request, pk):
     context = {'posts': posts, 'user': user}
     return render(request, 'Blog/profile.html', context)
 
-def create_comment(request, pk, path):
+
+@user_owns_the_post(comment=True)
+def create_comment(request, pk):
 
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
+            post = Post.objects.get(id=pk)
             form.instance.author = Guest.objects.get(name=request.user)
             form.instance.post = Post.objects.get(id=pk)
             form.save()
-            return redirect(path)
+            return HttpResponseRedirect(reverse('Blog:post', args=(post.id,)))
     form = CommentForm
 
     context = {'form': form}
     return render(request, 'Blog/create_post.html', context)
-
-def delete_comment(request, pk):
-    pass
