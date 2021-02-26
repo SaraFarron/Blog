@@ -9,9 +9,8 @@ from .decorators import *
 from .forms import *
 
 
-# @login_required(login_url='login')
+@login_required(login_url='Blog:login')
 def index(request):
-    """TODO error appears if user is not authentificated"""
 
     try:
         posts = Post.objects.all().order_by('user')
@@ -35,7 +34,7 @@ def index_order_by_date(request):
     return render(request, 'index.html', context)
 
 
-@login_required(login_url='login')
+@login_required(login_url='Blog:login')
 def post_page(request, pk):
 
     post = Post.objects.get(id=pk)
@@ -45,7 +44,7 @@ def post_page(request, pk):
     return render(request, 'Blog/post.html', context)
 
 
-@login_required(login_url='login')
+@login_required(login_url='Blog:login')
 def create_post(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
@@ -60,7 +59,7 @@ def create_post(request):
 
 
 @user_owns_the_post
-@login_required(login_url='login')
+@login_required(login_url='Blog:login')
 def update_post(request, pk):
 
     post = Post.objects.get(id=pk)
@@ -76,7 +75,7 @@ def update_post(request, pk):
 
 
 @user_owns_the_post
-@login_required(login_url='login')
+@login_required(login_url='Blog:login')
 def delete_post(request, pk):
 
     post = Post.objects.get(id=pk)

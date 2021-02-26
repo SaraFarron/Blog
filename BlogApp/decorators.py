@@ -16,7 +16,6 @@ def unauthenticated_user(view_func):
 
 
 def user_owns_the_post(view_func):
-    """TODO Fix decorator"""
 
     def wrapper_func(request, pk, *args, **kwargs):
         post = Post.objects.get(id=pk)
