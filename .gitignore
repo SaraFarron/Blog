@@ -2,3 +2,5 @@
 .vscode/
 /BlogApp/__pycache__/
 /BlogApp/migrations/
+/api/__pycache__/
+/api/migrations/
