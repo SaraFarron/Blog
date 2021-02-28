@@ -25,7 +25,7 @@ def index(request):
 def index_order_by_date(request):
 
     try:
-        posts = Post.objects.all().order_by('creation_date')
+        posts = Post.objects.all().order_by('-creation_date')
     except TypeError:
         template = loader.get_template('Blog/unauthenticated.html')
         return HttpResponse(template.render())
@@ -119,7 +119,7 @@ def register_page(request):
                 name=username,
             )
             messages.success(request, f'Account {username} created successfully')
-            return HttpResponseRedirect(reverse('Blog:profile', args=(username,)))  
+            return HttpResponseRedirect(reverse('Blog:profile', args=(username,)))
     else:
         form = CreateUserForm()
 
@@ -136,8 +136,9 @@ def profile(request, pk):
 
     user = Guest.objects.get(name=pk)
     posts = Post.objects.filter(user=user)
+    profile_picture = user.profile_picture.url
 
-    context = {'posts': posts, 'user': user}
+    context = {'posts': posts, 'user': user, 'pfp': profile_picture}
     return render(request, 'Blog/profile.html', context)
 
 
@@ -155,3 +156,19 @@ def create_comment(request, pk):
 
     context = {'form': form}
     return render(request, 'Blog/create_post.html', context)
+
+
+@login_required(login_url='Blog:login')
+def profile_settings(request):
+
+    user = Guest.objects.get(name=request.user)
+    profile_picture = user.profile_picture.url
+    form = ProfileSetForm(instance=user)
+
+    if request.method == 'POST':
+        form = ProfileSetForm(request.POST, request.FILES, instance=user)
+        if form.is_valid():
+            form.save()
+
+    context = {'pfp': profile_picture, 'form': form}
+    return render(request, 'Blog/profile_settings.html', context)

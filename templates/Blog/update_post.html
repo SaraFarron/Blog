@@ -1,9 +1,10 @@
 {% extends 'Blog/base.html' %}
 {% block content %}
 
+<div class="post">
 <form action="" method="post">
     {% csrf_token %}
     {{ form }}
 </form>
-
+</div>
 {% endblock %}

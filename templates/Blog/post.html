@@ -1,24 +1,21 @@
 {% extends 'Blog/base.html' %}
 {% block content %}
 
-<h1><span>{{ post.name }} <p>Author: {{ post.user }}</p> </span></h1>
-<h3>{{ post.description }}</h3>
-<h4>{{ post.text }}</h4>
-<div class="container">
-
-    {% if request.user|stringformat:'s' != post.user|stringformat:'s' %}
-    <p><a href="{% url 'Blog:create_comment' post.id %}" class="btn btn-sm btn-success"
-        style="width: 100%">Leave a comment</a></p>
-    {% endif %}
-    {% for comment in comments %}
-
-    <div class="container">
-        <p>{{comment.author}}</p>
-        <p>{{comment.publication_date}}</p>
-        <p>{{comment.text}}</p>
-    </div>
-
-    {% endfor %}
+<div class="post">
+  <h1><span>{{ post.name }} <p>Author: {{ post.user }}</p> </span></h1>
+  <h4>{{ post.text }}</h4>
 </div>
+    {% if request.user|stringformat:'s' != post.user|stringformat:'s' %}
+      <a href="{% url 'Blog:create_comment' post.id %}" class="btn btn-sm btn-success"
+          style="margin-left: 10px; display: inline-block;">Leave a comment</a>
+    {% endif %}
+
+    {% for comment in comments %}
+    <div class="post" style="margin-bottom: 0">
+        <h5 id="name">{{comment.author}}</h5>
+        <h6>{{comment.publication_date}}</h6>
+        <h5>{{comment.text}}</h5>
+    </div>
+    {% endfor %}
 
 {% endblock %}

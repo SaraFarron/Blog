@@ -3,9 +3,9 @@
     {% load static %}
 
 <div class="post">
-    <img src="{% static '/images/violet.jpg' %}" width="10%" height="10%">
+    <img class="profile-pic" src="{{ pfp }}">
     <h2 id="name">{{ user.name }}</h2>
-    <h5><a href="" style="color: #1F78B4">Edit profile</a></h5>
+    <h5><a href="{% url 'Blog:profile_settings' %}" style="color: #1F78B4">Edit profile</a></h5>
     <h3> Email: {{ user.email }}</h3>
     <h3> Phone: {{ user.phone }}</h3>
     <h3> Skype: {{ user.skype }}</h3>

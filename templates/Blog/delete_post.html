@@ -1,17 +1,18 @@
 {% extends 'Blog/base.html' %}
 {% block content %}
-
-    <p style="text-align: center">Are you sure you want to delete "{{ task }}"?</p>
-<form action="{% url 'Blog:delete' task.id %}" method="post">
+<div class="post">
+    <p style="text-align: center">Are you sure you want to delete {{ post }}?</p>
+<form action="{% url 'Blog:delete' post.id %}" method="post">
     {% csrf_token %}
     {{ form }}
-    <input type="submit" name="Confirm" id="add_word_button">
+    <input type="submit"
+           name="Confirm"
+           class="btn btn-sm btn-danger"
+           value="Delete"
+           style="position: relative; left: 35%">
     <a href="{% url 'Blog:home' %} "
-       class="btn btn-sm"
-       style="left: 60%;
-       background-color: #1F78B4;
-       padding: 0 0 0 0px;
-       border-width: 1px">Cancel</a>
+       class="btn btn-sm btn-info"
+       style="position: relative; left: 45%;">Cancel</a>
 </form>
-
+</div>
 {% endblock %}

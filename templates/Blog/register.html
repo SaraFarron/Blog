@@ -1,19 +1,16 @@
 {% extends 'Blog/base.html' %}
 {% block content %}
-
-			<h3>Register</h3>
-		<form action="#" method="POST">
-        {% csrf_token %}
-            <!-- {{ form.username }}
-            {{ form.email }}
-            {{ form.password1 }}
-            {{ form.password2 }} -->
-            <p><input type="text" name="username" placeholder="username" class="field"></p>
-            <p><input type="email" name="email" placeholder="email" class="field"></p>
-			<p><input type="password" name="password1" placeholder="password" class="field"></p>
-            <p><input type="password" name="password2" placeholder="password" class="field"></p>
-			<input type="submit" value="Register Account" class="btn btn-success"
-            style="position: absolute; top: 34%; width: 22.8%; left: 38.3%;">
-		</form>
-
+<div class="post">
+	<h3 style="font-family: Arial, Helvetica, sans-serif">Register a new account</h3>
+<form action="#" method="POST">
+      {% csrf_token %}
+        <p><input type="text" name="username" placeholder="username"
+                  class="field" style="width: 49%"></p>
+        <p><input type="email" name="email" placeholder="email" class="field"></p>
+	    <p><input type="password" name="password1" placeholder="password" class="field"></p>
+        <p><input type="password" name="password2" placeholder="confirm password" class="field"></p>
+	<input type="submit" value="Register Account" class="btn btn-success"
+          style="width: 49%">
+</form>
+</div>
 {% endblock %}

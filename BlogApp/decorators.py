@@ -19,7 +19,7 @@ def user_owns_the_post(view_func):
 
     def wrapper_func(request, pk, *args, **kwargs):
         post = Post.objects.get(id=pk)
-        if request.user == post.user:
+        if str(request.user) == str(post.user):
             return view_func(request, pk, *args, **kwargs)
         else:
             return HttpResponseRedirect(reverse('Blog:home'))
