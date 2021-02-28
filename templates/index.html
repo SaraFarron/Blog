@@ -1,34 +1,32 @@
 {% extends 'Blog/base.html' %}
 {% block content %}
 
-<div class="tasks">
+<div class="content">
     <div class="container">
+        {% if request.path == '/blog/' %}
+            <a href="{% url 'Blog:home_by_date' %}" class="btn btn-sm btn-info"
+            style="width: 49%">Sort by date</a>
+        {% else %}
+            <a href="{% url 'Blog:home' %}" class="btn btn-sm btn-info"
+            style="width: 49%">Sort by author</a>
+        {% endif %}
+        <a href="{% url 'Blog:create' %}" class="btn btn-sm btn-success"
+    style="width: 50%; margin: 10px; display: inline">Create</a>
     </div>
-    {% if request.path == '/blog/' %}
-    <a href="{% url 'Blog:home_by_date' %}" class="btn btn-sm btn-info"
-    style="width: 49%">Sort by date</a>
-    {% else %}
-    <a href="{% url 'Blog:home' %}" class="btn btn-sm btn-info"
-    style="width: 49%">Sort by author</a>
-    {% endif %}
-
     {% for post in posts %}
-    <div class="label">
-    <h2><a href="{% url 'Blog:post' post.id %}">{{ post.name }}</a>
-    <p>Author: {{ post.user }}</p>
-    <p>posted: {{ post.creation_date }}</p>
-        <span>{{ post.description }}</span>
-    </h2>
-  <p></p>
-  <a href="{% url 'Blog:update' post.id %}" class="btn btn-sm btn-info"
-     style="width: 49%">Update</a>
-  <a href="{% url 'Blog:delete' post.id %}" class="btn btn-sm btn-danger"
-     style="width: 49%">Delete</a>
-  </div>
+        <div class="post">
+            <h3>{{ post.user }}'s on {{ post.creation_date }}</h3>
+            <h1><a href="{% url 'Blog:post' post.id %}">{{ post.name }}</a></h1>
+            <h3>{{ post.description }}</h3>
+            <p></p>
+            <a href="{% url 'Blog:update' post.id %}" class="btn btn-sm btn-info"
+                style="width: 29%">Update</a>
+            <a href="{% url 'Blog:delete' post.id %}" class="btn btn-sm btn-danger"
+                style="width: 29%">Delete</a>
+        </div>
     {% endfor %}
 <p></p>
-    <a href="{% url 'Blog:create' %}" class="btn btn-sm btn-success"
-    style="width: 100%">Create</a>
+    
 </div>
 
 {% endblock %}
