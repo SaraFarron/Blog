@@ -1,17 +1,16 @@
 {% extends 'Blog/base.html' %}
 {% block content %}
 
-<div class="content">
+
     <div class="container">
         {% if request.path == '/blog/' %}
-            <a href="{% url 'Blog:home_by_date' %}" class="btn btn-sm btn-info"
-            style="width: 49%">Sort by date</a>
+            <a href="{% url 'Blog:home_by_date' %}"
+               class="order">Sort by date</a>
         {% else %}
-            <a href="{% url 'Blog:home' %}" class="btn btn-sm btn-info"
-            style="width: 49%">Sort by author</a>
+            <a href="{% url 'Blog:home' %}" class="order">Sort by author</a>
         {% endif %}
         <a href="{% url 'Blog:create' %}" class="btn btn-sm btn-success"
-    style="width: 50%; margin: 10px; display: inline">Create</a>
+    style="width: 70%; margin: 10px; display: inline">Create post</a>
     </div>
     {% for post in posts %}
         <div class="post">
@@ -27,6 +26,6 @@
     {% endfor %}
 <p></p>
     
-</div>
+
 
 {% endblock %}
