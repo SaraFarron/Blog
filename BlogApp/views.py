@@ -172,3 +172,5 @@ def profile_settings(request):
 
     context = {'pfp': profile_picture, 'form': form}
     return render(request, 'Blog/profile_settings.html', context)
+
+# TODO Switch to class-based views

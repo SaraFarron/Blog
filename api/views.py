@@ -1,11 +1,8 @@
-from django.shortcuts import render
-from django.http import JsonResponse
-
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializers import PostSerializer
 
 from BlogApp.models import Post
+from .serializers import PostSerializer
 
 
 @api_view(['GET'])
@@ -62,3 +59,6 @@ def post_delete(request, pk):
     post.delete()
 
     return Response('Item successfully delete!')
+
+# TODO Switch to class-based views
+# TODO Create cool api, not this shit
