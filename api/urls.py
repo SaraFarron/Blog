@@ -10,4 +10,3 @@ urlpatterns = [
     path('post-update/<str:pk>/', views.post_update, name="post-update"),
     path('post-delete/<str:pk>/', views.post_delete, name="post-delete"),
 ]
-# TODO Fix this abomination
