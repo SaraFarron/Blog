@@ -3,20 +3,21 @@ from . import views
 
 
 app_name = 'Blog'
+
 urlpatterns = [
-    path('', views.index, name='home'),
-    path('order_by_date', views.index_order_by_date, name='home_by_date'),
-    path('post/<str:pk>', views.post_page, name='post'),
+    path('', views.Home.as_view(), name='home'),
+    path('order_by_date', views.HomeByDate.as_view(), name='home_by_date'),
+    path('post/<str:pk>', views.PostPage.as_view(), name='post'),
 
-    path('create/', views.create_post, name='create'),
-    path('update/<str:pk>', views.update_post, name='update'),
-    path('delete/<str:pk>', views.delete_post, name='delete'),
+    path('create/', views.CreatePost.as_view(), name='create'),
+    path('update/<str:pk>', views.UpdatePost.as_view(), name='update'),
+    path('delete/<str:pk>', views.DeletePost.as_view(), name='delete'),
 
-    path('new_comment/<str:pk>', views.create_comment, name='create_comment'),
+    path('new_comment/<str:pk>', views.CreateComment.as_view(), name='create_comment'),
 
-    path('login', views.login_page, name='login'),
-    path('logout', views.logout_user, name='logout'),
-    path('register', views.register_page, name='register'),
-    path('user/<str:pk>', views.profile, name='profile'),
-    path('settings', views.profile_settings, name='profile_settings'),
+    path('login', views.LoginPage.as_view(), name='login'),
+    path('logout', views.LogoutUser.as_view(), name='logout'),
+    path('register', views.RegisterPage.as_view(), name='register'),
+    path('user/<str:pk>', views.Profile.as_view(), name='profile'),
+    path('settings', views.ProfileSettings.as_view(), name='profile_settings'),
 ]

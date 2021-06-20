@@ -2,7 +2,7 @@
 
     git clone https://github.com/SaraFarron/Blog.git
     cd Blog
-    docker-compose up
+    docker-compose build .
 
 На Linux возможна потребуется sudo
 

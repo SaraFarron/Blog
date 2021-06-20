@@ -4,92 +4,106 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.template import loader
+from django.views import View
+from django.utils.decorators import method_decorator
 
 from .decorators import *
 from .forms import *
 
 
-@login_required(login_url='Blog:login')
-def index(request):
+class Home(View):
 
-    try:
-        posts = Post.objects.all().order_by('user')
-    except TypeError:
-        template = loader.get_template('Blog/unauthenticated.html')
-        return HttpResponse(template.render())
+    @method_decorator(login_required(login_url='Blog:login'))
+    def get(self, request, *args, **kwargs):
+        try:
+            posts = Post.objects.all().order_by('user')
+        except TypeError:
+            template = loader.get_template('Blog/unauthenticated.html')
+            return HttpResponse(template.render())
 
-    context = {'posts': posts, 'user': request.user.username}
-    return render(request, 'index.html', context)
-
-
-def index_order_by_date(request):
-
-    try:
-        posts = Post.objects.all().order_by('-creation_date')
-    except TypeError:
-        template = loader.get_template('Blog/unauthenticated.html')
-        return HttpResponse(template.render())
-
-    context = {'posts': posts, 'user': request.user.username}
-    return render(request, 'index.html', context)
+        context = {'posts': posts, 'user': request.user.username}
+        return render(request, 'index.html', context)
 
 
-@login_required(login_url='Blog:login')
-def post_page(request, pk):
+class HomeByDate(View):
+    def get(self, request, *args, **kwargs):
+        try:
+            posts = Post.objects.all().order_by('-creation_date')
+        except TypeError:
+            template = loader.get_template('Blog/unauthenticated.html')
+            return HttpResponse(template.render())
 
-    post = Post.objects.get(id=pk)
-    comments = Comment.objects.filter(post=post)
-    
-    context = {'post': post, 'comments': comments}
-    return render(request, 'Blog/post.html', context)
+        context = {'posts': posts, 'user': request.user.username}
+        return render(request, 'index.html', context)
 
 
-@login_required(login_url='Blog:login')
-def create_post(request):
-    if request.method == 'POST':
+class PostPage(View):
+
+    @method_decorator(login_required(login_url='Blog:login'))
+    def get(self, request, pk, *args, **kwargs):
+        post = Post.objects.get(id=pk)
+        comments = Comment.objects.filter(post=post)
+
+        context = {'post': post, 'comments': comments}
+        return render(request, 'Blog/post.html', context)
+
+
+class CreatePost(View):
+
+    @method_decorator(login_required(login_url='Blog:login'))
+    def get(self, request, *args, **kwargs):
+        form = PostForm
+
+        context = {'form': form}
+        return render(request, 'Blog/create_post.html', context)
+
+    def post(self, request, *args, **kwargs):
         form = PostForm(request.POST)
         if form.is_valid():
             form.instance.user = Guest.objects.get(name=request.user)
             form.save()
             return redirect('Blog:home')
-    form = PostForm
+        form = PostForm
 
-    context = {'form': form}
-    return render(request, 'Blog/create_post.html', context)
+        context = {'form': form}
+        return render(request, 'Blog/create_post.html', context)
 
 
-@user_owns_the_post
-@login_required(login_url='Blog:login')
-def update_post(request, pk):
+class UpdatePost(View):
+    decorators = [login_required(login_url='Blog:login'), user_owns_the_post]
 
-    post = Post.objects.get(id=pk)
-    form = PostForm(instance=post)
-    if request.method == 'POST':
-        form = PostForm(request.POST, instance=post)
-        if form.is_valid():
-            form.save()
+    @method_decorator(decorators)
+    def get(self, request, pk):
+        post = Post.objects.get(id=pk)
+        form = PostForm(instance=post)
+        if request.method == 'POST':
+            form = PostForm(request.POST, instance=post)
+            if form.is_valid():
+                form.save()
+                return redirect('Blog:home')
+
+        context = {'form': form}
+        return render(request, 'Blog/create_post.html', context)
+
+
+class DeletePost(View):
+    decorators = [login_required(login_url='Blog:login'), user_owns_the_post]
+
+    @method_decorator(decorators)
+    def get(self, request, pk):
+        post = Post.objects.get(id=pk)
+        if request.method == 'POST':
+            post.delete()
             return redirect('Blog:home')
 
-    context = {'form': form}
-    return render(request, 'Blog/create_post.html', context)
+        context = {'post': post}
+        return render(request, 'Blog/delete_post.html', context)
 
 
-@user_owns_the_post
-@login_required(login_url='Blog:login')
-def delete_post(request, pk):
+class LoginPage(View):
 
-    post = Post.objects.get(id=pk)
-    if request.method == 'POST':
-        post.delete()
-        return redirect('Blog:home')
-
-    context = {'post': post}
-    return render(request, 'Blog/delete_post.html', context)
-
-
-@unauthenticated_user
-def login_page(request):
-    if request.method == 'POST':
+    @method_decorator(unauthenticated_user)
+    def get(self, request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
@@ -99,18 +113,18 @@ def login_page(request):
         else:
             messages.info(request, 'Username or password is incorrect')
 
-    context = {}
-    return render(request, 'Blog/login.html', context)
+        context = {}
+        return render(request, 'Blog/login.html', context)
 
 
-def register_page(request):
-
-    if request.user.is_authenticated:
-        return redirect('Blog:home')
-
-    if request.method == 'POST':
+# TODO Make redirect if user is authenticated
+class RegisterPage(View):
+    def get(self, request):
         form = CreateUserForm(request.POST)
-        if form.is_valid():
+        user = request.user
+        if user.is_authenticated:
+            return redirect('Blog:profile')
+        elif form.is_valid():
             user = form.save()
             username = form.cleaned_data.get('username')
             login(request, user)
@@ -120,31 +134,30 @@ def register_page(request):
             )
             messages.success(request, f'Account {username} created successfully')
             return HttpResponseRedirect(reverse('Blog:profile', args=(username,)))
-    else:
-        form = CreateUserForm()
-
-    context = {'form': form}
-    return render(request, 'Blog/register.html', context)
 
 
-def logout_user(request):
-    logout(request)
-    return redirect('Blog:login')
+class LogoutUser(View):
+    def get(self, request):
+        logout(request)
+        return redirect('Blog:login')
 
 
-def profile(request, pk):
+class Profile(View):
 
-    user = Guest.objects.get(name=pk)
-    posts = Post.objects.filter(user=user)
-    profile_picture = user.profile_picture.url
+    @method_decorator(login_required(login_url='Blog:login'))
+    def get(self, request, pk):
+        user = Guest.objects.get(name=pk)
+        posts = Post.objects.filter(user=user)
+        profile_picture = user.profile_picture.url
 
-    context = {'posts': posts, 'user': user, 'pfp': profile_picture}
-    return render(request, 'Blog/profile.html', context)
+        context = {'posts': posts, 'user': user, 'pfp': profile_picture}
+        return render(request, 'Blog/profile.html', context)
 
 
-def create_comment(request, pk):
+class CreateComment(View):
 
-    if request.method == 'POST':
+    @method_decorator(login_required(login_url='Blog:login'))
+    def post(self, request, pk):
         form = CommentForm(request.POST)
         if form.is_valid():
             post = Post.objects.get(id=pk)
@@ -152,25 +165,34 @@ def create_comment(request, pk):
             form.instance.post = Post.objects.get(id=pk)
             form.save()
             return HttpResponseRedirect(reverse('Blog:post', args=(post.id,)))
-    form = CommentForm
+        form = CommentForm
 
-    context = {'form': form}
-    return render(request, 'Blog/create_post.html', context)
+        context = {'form': form}
+        return render(request, 'Blog/create_post.html', context)
+
+    @method_decorator(login_required(login_url='Blog:login'))
+    def get(self, request, pk):
+        form = CommentForm
+
+        context = {'form': form}
+        return render(request, 'Blog/create_post.html', context)
 
 
-@login_required(login_url='Blog:login')
-def profile_settings(request):
 
-    user = Guest.objects.get(name=request.user)
-    profile_picture = user.profile_picture.url
-    form = ProfileSetForm(instance=user)
+class ProfileSettings(View):
 
-    if request.method == 'POST':
-        form = ProfileSetForm(request.POST, request.FILES, instance=user)
-        if form.is_valid():
-            form.save()
+    @method_decorator(login_required(login_url='Blog:login'))
+    def get(self, request):
+        user = Guest.objects.get(name=request.user)
+        profile_picture = user.profile_picture.url
+        form = ProfileSetForm(instance=user)
 
-    context = {'pfp': profile_picture, 'form': form}
-    return render(request, 'Blog/profile_settings.html', context)
+        if request.method == 'POST':
+            form = ProfileSetForm(request.POST, request.FILES, instance=user)
+            if form.is_valid():
+                form.save()
+
+        context = {'pfp': profile_picture, 'form': form}
+        return render(request, 'Blog/profile_settings.html', context)
 
 # TODO Switch to class-based views
