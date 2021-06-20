@@ -1,12 +1,13 @@
 from django.urls import path
 from . import views
 
-urlpatterns = [
-    path('', views.api_overview, name="api-overview"),
-    path('post-list/', views.post_list, name="post-list"),
-    path('post-detail/<str:pk>/', views.post_detail, name="post-detail"),
-    path('post-create/', views.post_create, name="post-create"),
 
-    path('post-update/<str:pk>/', views.post_update, name="post-update"),
-    path('post-delete/<str:pk>/', views.post_delete, name="post-delete"),
+urlpatterns = [
+    path('', views.ApiOverview.as_view(), name="api-overview"),
+    path('post-list', views.PostList.as_view(), name="post-list"),
+    path('post-detail/<str:pk>', views.PostDetail.as_view(), name="post-detail"),
+    path('post-create', views.PostCreate.as_view(), name="post-create"),
+
+    path('post-update/<str:pk>', views.PostUpdate.as_view(), name="post-update"),
+    path('post-delete/<str:pk>', views.PostDelete.as_view(), name="post-delete"),
 ]
