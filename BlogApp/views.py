@@ -104,6 +104,11 @@ class LoginPage(View):
 
     @method_decorator(unauthenticated_user)
     def get(self, request):
+        context = {}
+        return render(request, 'Blog/login.html', context)
+
+    @method_decorator(unauthenticated_user)
+    def post(self, request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
@@ -117,13 +122,13 @@ class LoginPage(View):
         return render(request, 'Blog/login.html', context)
 
 
-# TODO Make redirect if user is authenticated
 class RegisterPage(View):
-    def get(self, request):
+
+    @method_decorator(unauthenticated_user)
+    def post(self, request):
         form = CreateUserForm(request.POST)
-        user = request.user
-        if user.is_authenticated:
-            return redirect('Blog:profile')
+        if request.user.is_authenticated:
+            return redirect('Blog:home')
         elif form.is_valid():
             user = form.save()
             username = form.cleaned_data.get('username')
@@ -134,6 +139,11 @@ class RegisterPage(View):
             )
             messages.success(request, f'Account {username} created successfully')
             return HttpResponseRedirect(reverse('Blog:profile', args=(username,)))
+
+    @method_decorator(unauthenticated_user)
+    def get(self, request):
+        context = {}
+        return render(request, 'Blog/register.html', context)
 
 
 class LogoutUser(View):
@@ -178,7 +188,6 @@ class CreateComment(View):
         return render(request, 'Blog/create_post.html', context)
 
 
-
 class ProfileSettings(View):
 
     @method_decorator(login_required(login_url='Blog:login'))
@@ -194,5 +203,3 @@ class ProfileSettings(View):
 
         context = {'pfp': profile_picture, 'form': form}
         return render(request, 'Blog/profile_settings.html', context)
-
-# TODO Switch to class-based views
