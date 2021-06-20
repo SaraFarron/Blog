@@ -3,7 +3,7 @@
 
 
     <div class="container">
-        {% if request.path == '/blog/' %}
+        {% if request.path == '/' %}
             <a href="{% url 'Blog:home_by_date' %}"
                class="order">Sort by date</a>
         {% else %}
