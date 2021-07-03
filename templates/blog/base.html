@@ -34,21 +34,21 @@
       <h1>Hello, {{ request.user }} </h1>
       <ul class="navbar-nav ml-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="{% url 'Blog:home' %}">Home
+          <a class="nav-link" href="{% url 'blog:home' %}">Home
             <span class="sr-only">(current)</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'Blog:profile' user %}">Profile</a>
+          <a class="nav-link" href="{% url 'blog:profile' user %}">Profile</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'Blog:register' %}">Register</a>
+          <a class="nav-link" href="{% url 'blog:register' %}">Register</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'Blog:login' %}">Login</a>
+          <a class="nav-link" href="{% url 'blog:login' %}">Login</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'Blog:logout' %}">Logout</a>
+          <a class="nav-link" href="{% url 'blog:logout' %}">Logout</a>
         </li>
       </ul>
     </div>

@@ -1,8 +1,8 @@
-{% extends 'Blog/base.html' %}
+{% extends 'blog/base.html' %}
 {% block content %}
 <div class="post">
     <p style="text-align: center">Are you sure you want to delete {{ post }}?</p>
-<form action="{% url 'Blog:delete' post.id %}" method="post">
+<form action="{% url 'blog:delete' post.id %}" method="post">
     {% csrf_token %}
     {{ form }}
     <input type="submit"
@@ -10,7 +10,7 @@
            class="btn btn-sm btn-danger"
            value="Delete"
            style="position: relative; left: 35%">
-    <a href="{% url 'Blog:home' %} "
+    <a href="{% url 'blog:home' %} "
        class="btn btn-sm btn-info"
        style="position: relative; left: 45%;">Cancel</a>
 </form>

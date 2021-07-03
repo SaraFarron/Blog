@@ -8,7 +8,7 @@ def unauthenticated_user(view_func):
 
     def wrapper_func(request, *args, **kwargs):
         if request.user.is_authenticated:
-            return redirect('Blog:home')
+            return redirect('blog:home')
         else:
             return view_func(request, *args, **kwargs)
 
@@ -22,6 +22,6 @@ def user_owns_the_post(view_func):
         if str(request.user) == str(post.user):
             return view_func(request, pk, *args, **kwargs)
         else:
-            return HttpResponseRedirect(reverse('Blog:home'))
+            return HttpResponseRedirect(reverse('blog:home'))
 
     return wrapper_func

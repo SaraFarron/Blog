@@ -1,4 +1,4 @@
-{% extends 'Blog/base.html' %}
+{% extends 'blog/base.html' %}
 {% block content %}
 
 <div class="post">
@@ -6,8 +6,8 @@
   <h4>{{ post.text }}</h4>
 </div>
     {% if request.user|stringformat:'s' != post.user|stringformat:'s' %}
-      <a href="{% url 'Blog:create_comment' post.id %}" class="btn btn-sm btn-success"
-          style="margin-left: 10px; display: inline-block;">Leave a comment</a>
+      <a href="{% url 'blog:create_comment' post.id %}" class="btn btn-sm btn-success"
+         style="margin-left: 10px; display: inline-block;">Leave a comment</a>
     {% endif %}
 
     {% for comment in comments %}

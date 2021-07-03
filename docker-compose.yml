@@ -1,20 +1,45 @@
-version: "2.4"
+version: '3.7'
 
 services:
-  db:
-    image: postgres
-    volumes:
-      - ./data/db:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-  web:
-    build: .
-    command: python manage.py runserver 0.0.0.0:8000
-    volumes:
-      - .:/code
+  nginx:
+    build: ./nginx
     ports:
-      - "8000:8000"
+      - 1300:80
+    volumes:
+      - static_volume:/home/blog/static
+    depends_on:
+      - web
+    restart: "on-failure"
+  web:
+    build: . #build the image for the web service from the dockerfile in parent directory
+    command: sh -c "python manage.py collectstatic --no-input &&
+                    python manage.py makemigrations &&
+                    python manage.py migrate &&
+                    gunicorn blog.wsgi:application --bind 0.0.0.0:${APP_PORT}"
+    volumes:
+      - .:/microservice:rw # map data and files from parent directory in host to microservice directory in docker containe
+      - static_volume:/home/blog/static
+    env_file:
+      - .env
+    image: blog
+
+    expose:
+      - ${APP_PORT}
+    restart: "on-failure"
     depends_on:
       - db
+  db:
+    image: postgres:11-alpine
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+      - PGPORT=${DB_PORT}
+      - POSTGRES_USER=${DB_USER}
+    restart: "on-failure"
+
+volumes:
+  postgres_data:
+  static_volume:

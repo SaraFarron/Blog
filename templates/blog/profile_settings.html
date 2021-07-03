@@ -1,4 +1,4 @@
-{% extends 'Blog/base.html' %}
+{% extends 'blog/base.html' %}
 {% block content %}
     {% load static %}
 
@@ -6,7 +6,7 @@
 <div class="row">
 	<div class="col-md-3">
 		<div class="card card-body">
-			<a class="btn btn-warning" href="{% url 'Blog:profile' request.user %}"> &#8592; Back to Profile</a>
+			<a class="btn btn-warning" href="{% url 'blog:profile' request.user %}"> &#8592; Back to Profile</a>
 			<hr>
 			<h3 style="text-align: center">Account Settings</h3>
 			<hr>
