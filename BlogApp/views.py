@@ -14,7 +14,7 @@ from .forms import *
 class Home(View):
 
     @method_decorator(login_required(login_url='blog:login'))
-    def get(self, request, *args, **kwargs):
+    def get(self, request):
         try:
             posts = Post.objects.all().order_by('user')
         except TypeError:
@@ -26,7 +26,7 @@ class Home(View):
 
 
 class HomeByDate(View):
-    def get(self, request, *args, **kwargs):
+    def get(self, request):
         try:
             posts = Post.objects.all().order_by('-creation_date')
         except TypeError:
@@ -40,7 +40,7 @@ class HomeByDate(View):
 class PostPage(View):
 
     @method_decorator(login_required(login_url='blog:login'))
-    def get(self, request, pk, *args, **kwargs):
+    def get(self, request, pk):
         post = Post.objects.get(id=pk)
         comments = Comment.objects.filter(post=post)
 
@@ -51,13 +51,13 @@ class PostPage(View):
 class CreatePost(View):
 
     @method_decorator(login_required(login_url='blog:login'))
-    def get(self, request, *args, **kwargs):
+    def get(self, request, ):
         form = PostForm
 
         context = {'form': form}
         return render(request, 'blog/create_post.html', context)
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request, ):
         form = PostForm(request.POST)
         if form.is_valid():
             form.instance.user = Guest.objects.get(name=request.user)
@@ -100,70 +100,6 @@ class DeletePost(View):
         return render(request, 'blog/delete_post.html', context)
 
 
-class LoginPage(View):
-
-    @method_decorator(unauthenticated_user)
-    def get(self, request):
-        context = {}
-        return render(request, 'blog/login.html', context)
-
-    @method_decorator(unauthenticated_user)
-    def post(self, request):
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect('blog:home')
-        else:
-            messages.info(request, 'Username or password is incorrect')
-
-        context = {}
-        return render(request, 'blog/login.html', context)
-
-
-class RegisterPage(View):
-
-    @method_decorator(unauthenticated_user)
-    def post(self, request):
-        form = CreateUserForm(request.POST)
-        if request.user.is_authenticated:
-            return redirect('blog:home')
-        elif form.is_valid():
-            user = form.save()
-            username = form.cleaned_data.get('username')
-            login(request, user)
-            Guest.objects.create(
-                user=user,
-                name=username,
-            )
-            messages.success(request, f'Account {username} created successfully')
-            return HttpResponseRedirect(reverse('blog:profile', args=(username,)))
-
-    @method_decorator(unauthenticated_user)
-    def get(self, request):
-        context = {}
-        return render(request, 'blog/register.html', context)
-
-
-class LogoutUser(View):
-    def get(self, request):
-        logout(request)
-        return redirect('blog:login')
-
-
-class Profile(View):
-
-    @method_decorator(login_required(login_url='blog:login'))
-    def get(self, request, pk):
-        user = Guest.objects.get(name=pk)
-        posts = Post.objects.filter(user=user)
-        profile_picture = user.profile_picture.url
-
-        context = {'posts': posts, 'user': user, 'pfp': profile_picture}
-        return render(request, 'blog/profile.html', context)
-
-
 class CreateComment(View):
 
     @method_decorator(login_required(login_url='blog:login'))
@@ -186,20 +122,3 @@ class CreateComment(View):
 
         context = {'form': form}
         return render(request, 'blog/create_post.html', context)
-
-
-class ProfileSettings(View):
-
-    @method_decorator(login_required(login_url='blog:login'))
-    def get(self, request):
-        user = Guest.objects.get(name=request.user)
-        profile_picture = user.profile_picture.url
-        form = ProfileSetForm(instance=user)
-
-        if request.method == 'POST':
-            form = ProfileSetForm(request.POST, request.FILES, instance=user)
-            if form.is_valid():
-                form.save()
-
-        context = {'pfp': profile_picture, 'form': form}
-        return render(request, 'blog/profile_settings.html', context)

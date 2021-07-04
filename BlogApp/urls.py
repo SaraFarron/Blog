@@ -15,9 +15,9 @@ urlpatterns = [
 
     path('new_comment/<str:pk>', views.CreateComment.as_view(), name='create_comment'),
 
-    path('login', views.LoginPage.as_view(), name='login'),
-    path('logout', views.LogoutUser.as_view(), name='logout'),
-    path('register', views.RegisterPage.as_view(), name='register'),
-    path('user/<str:pk>', views.Profile.as_view(), name='profile'),
-    path('settings', views.ProfileSettings.as_view(), name='profile_settings'),
+    # path('login', views.LoginPage.as_view(), name='login'),
+    # path('logout', views.LogoutUser.as_view(), name='logout'),
+    # path('register', views.RegisterPage.as_view(), name='register'),
+    # path('user/<str:pk>', views.Profile.as_view(), name='profile'),
+    # path('settings', views.ProfileSettings.as_view(), name='profile_settings'),
 ]
