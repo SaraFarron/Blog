@@ -138,4 +138,4 @@ MEDIA_URL = '/images/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 
-STATIC_ROOT = '/home/sara/PycharmProjects/Blog/static'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
