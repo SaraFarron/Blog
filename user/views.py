@@ -81,10 +81,16 @@ class ProfileSettings(View):
         profile_picture = user.profile_picture.url
         form = ProfileSetForm(instance=user)
 
-        if request.method == 'POST':
-            form = ProfileSetForm(request.POST, request.FILES, instance=user)
-            if form.is_valid():
-                form.save()
+        context = {'pfp': profile_picture, 'form': form}
+        return render(request, 'user/profile_settings.html', context)
+
+    @method_decorator(login_required(login_url='user:login'))
+    def post(self, request):
+        user = Guest.objects.get(name=request.user)
+        profile_picture = user.profile_picture.url
+        form = ProfileSetForm(request.POST, request.FILES, instance=user)
+        if form.is_valid():
+            form.save()
 
         context = {'pfp': profile_picture, 'form': form}
         return render(request, 'user/profile_settings.html', context)

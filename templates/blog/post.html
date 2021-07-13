@@ -5,10 +5,10 @@
   <h1><span>{{ post.name }} <p>Author: {{ post.user }}</p> </span></h1>
   <h4>{{ post.text }}</h4>
 </div>
-    {% if request.user|stringformat:'s' != post.user|stringformat:'s' %}
-      <a href="{% url 'blog:create_comment' post.id %}" class="btn btn-sm btn-success"
-         style="margin-left: 10px; display: inline-block;">Leave a comment</a>
-    {% endif %}
+
+  <a href="{% url 'blog:create_comment' post.id %}" class="btn btn-sm btn-success"
+     style="margin-left: 10px; display: inline-block;">Leave a comment</a>
+
 
     {% for comment in comments %}
     <div class="post" style="margin-bottom: 0">
