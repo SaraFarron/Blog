@@ -3,7 +3,10 @@
     git clone https://github.com/SaraFarron/Blog.git
     cd Blog
 
-На Linux возможна потребуется sudo
+На Linux возможна потребуется sudo. Также в /Dockerfile следует заменить APP_USER на ваше имя пользователя,
+BASE_DIR при необходимости.
+
+Переименовать tmp.env в .env. При необходимости поменять STATIC_VOLUME по аналогии с BASE_DIR
 
 ## Использование
 
