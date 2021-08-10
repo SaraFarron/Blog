@@ -19,7 +19,8 @@ class Comment(models.Model):
     author = models.ForeignKey(Guest, on_delete=models.CASCADE)
     text = models.TextField()
     publication_date = models.DateTimeField(auto_now_add=True, null=True)
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True)
+    child_comments = models.ManyToManyField('Comment')
 
     def __str__(self):
         return f"{self.author}'s comment under {self.post.name}"
