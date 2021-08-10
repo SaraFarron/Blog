@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 
 class Guest(models.Model):
-
+    id = models.AutoField(primary_key=True)
     user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=200, null=True)  # should be unique
     date_created = models.DateTimeField(auto_now_add=True, null=True)

@@ -3,7 +3,7 @@ from user.models import Guest
 
 
 class Post(models.Model):
-    
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=200, default='Untitled')
     creation_date = models.DateTimeField(auto_now_add=True, null=True)
     text = models.TextField()
@@ -15,7 +15,7 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
-
+    id = models.AutoField(primary_key=True)
     author = models.ForeignKey(Guest, on_delete=models.CASCADE)
     text = models.TextField()
     publication_date = models.DateTimeField(auto_now_add=True, null=True)

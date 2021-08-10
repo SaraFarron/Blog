@@ -13,7 +13,7 @@ from .forms import *
 
 class Home(View):
 
-    @method_decorator(login_required(login_url='blog:login'))
+    @method_decorator(login_required(login_url='user:login'))
     def get(self, request):
         try:
             posts = Post.objects.all().order_by('user')
@@ -39,7 +39,7 @@ class HomeByDate(View):
 
 class PostPage(View):
 
-    @method_decorator(login_required(login_url='blog:login'))
+    @method_decorator(login_required(login_url='user:login'))
     def get(self, request, pk):
         post = Post.objects.get(id=pk)
         comments = Comment.objects.filter(post=post)
@@ -50,7 +50,7 @@ class PostPage(View):
 
 class CreatePost(View):
 
-    @method_decorator(login_required(login_url='blog:login'))
+    @method_decorator(login_required(login_url='user:login'))
     def get(self, request, ):
         form = PostForm
 
@@ -70,7 +70,7 @@ class CreatePost(View):
 
 
 class UpdatePost(View):
-    decorators = [login_required(login_url='blog:login'), user_owns_the_post]
+    decorators = [login_required(login_url='user:login'), user_owns_the_post]
 
     @method_decorator(decorators)
     def get(self, request, pk):
@@ -87,7 +87,7 @@ class UpdatePost(View):
 
 
 class DeletePost(View):
-    decorators = [login_required(login_url='blog:login'), user_owns_the_post]
+    decorators = [login_required(login_url='user:login'), user_owns_the_post]
 
     @method_decorator(decorators)
     def get(self, request, pk):
@@ -102,7 +102,7 @@ class DeletePost(View):
 
 class CreateComment(View):
 
-    @method_decorator(login_required(login_url='blog:login'))
+    @method_decorator(login_required(login_url='user:login'))
     def post(self, request, pk):
         form = CommentForm(request.POST)
         if form.is_valid():
@@ -116,7 +116,7 @@ class CreateComment(View):
         context = {'form': form}
         return render(request, 'blog/create_post.html', context)
 
-    @method_decorator(login_required(login_url='blog:login'))
+    @method_decorator(login_required(login_url='user:login'))
     def get(self, request, pk):
         form = CommentForm
 

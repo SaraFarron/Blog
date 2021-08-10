@@ -47,7 +47,10 @@ class RegisterPage(View):
                 name=username,
             )
             messages.success(request, f'Account {username} created successfully')
-            return HttpResponseRedirect(reverse('user:profile', args=(username,)))
+            return redirect('user:profile')
+        else:
+            messages.error(request, 'Passwords are different or this username has been taken')
+            return render(request, 'user/register.html')
 
     @method_decorator(unauthenticated_user)
     def get(self, request):
