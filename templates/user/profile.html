@@ -1,0 +1,22 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+    {% load static %}
+
+<div class="post">
+    <img class="profile-pic" src="{{ pfp }}">
+    <h2 id="name">{{ user.name }}</h2>
+    <h5><a href="{% url 'user:profile_settings' %}" style="color: #1F78B4">Edit profile</a></h5>
+    <h3> Email: {{ user.email }}</h3>
+    <h3> Phone: {{ user.phone }}</h3>
+    <h3> Skype: {{ user.skype }}</h3>
+</div>
+
+{% for post in posts %}
+<div class="post">
+    <h2><a href="{% url 'blog:post' post.id %}">{{ post.name }}</a></h2>
+    <h3>{{ post.creation_date }}</h3>
+    <h3>{{ post.description }}</h3>
+</div>
+{% endfor %}
+
+{% endblock %}

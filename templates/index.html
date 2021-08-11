@@ -1,0 +1,31 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+
+
+    <div class="container">
+        {% if request.path == '/' %}
+            <a href="{% url 'blog:home_by_date' %}"
+               class="order">Sort by date</a>
+        {% else %}
+            <a href="{% url 'blog:home' %}" class="order">Sort by author</a>
+        {% endif %}
+        <a href="{% url 'blog:create' %}" class="btn btn-sm btn-success"
+    style="width: 70%; margin: 10px; display: inline">Create post</a>
+    </div>
+    {% for post in posts %}
+        <div class="post">
+            <h3>{{ post.user }}'s on {{ post.creation_date }}</h3>
+            <h1><a href="{% url 'blog:post' post.id %}">{{ post.name }}</a></h1>
+            <h3>{{ post.description }}</h3>
+            <p></p>
+            <a href="{% url 'blog:update' post.id %}" class="btn btn-sm btn-info"
+                style="width: 29%">Update</a>
+            <a href="{% url 'blog:delete' post.id %}" class="btn btn-sm btn-danger"
+                style="width: 29%">Delete</a>
+        </div>
+    {% endfor %}
+<p></p>
+    
+
+
+{% endblock %}

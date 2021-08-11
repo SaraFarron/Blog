@@ -1,0 +1,16 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+
+<div class="post">
+			<h3 style="font-family: Arial, Helvetica, sans-serif">Login</h3>
+
+		<form action="#" method="POST">
+            {% csrf_token %}
+			<input type="text" name="username" placeholder="username"
+                   class="field" style="width: 49%">
+			<input type="password" name="password" placeholder="password" class="field">
+			<input type="submit" value="Login" class="btn btn-success"
+            style="position: absolute; top: 27%; width: 22.8%; left: 39%;">
+		</form>
+	</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+<div class="post">
+	<h3 style="font-family: Arial, Helvetica, sans-serif">Register a new account</h3>
+<form action="#" method="POST">
+      {% csrf_token %}
+        <p><input type="text" name="username" placeholder="username"
+                  class="field" style="width: 49%"></p>
+        <p><input type="email" name="email" placeholder="email" class="field"></p>
+	    <p><input type="password" name="password1" placeholder="password" class="field"></p>
+        <p><input type="password" name="password2" placeholder="confirm password" class="field"></p>
+	<input type="submit" value="Register Account" class="btn btn-success"
+          style="width: 49%">
+</form>
+</div>
+{% endblock %}
