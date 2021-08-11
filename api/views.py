@@ -31,7 +31,7 @@ class Comments(APIView):
         post = self.get_post(post_id)
         if type(comment_id) is int:
             comment = Comment.objects.create(
-                author=request.user,
+                author=request.user,  # TODO
                 text=request.data.get('text'),
                 post=None
             )
@@ -41,7 +41,7 @@ class Comments(APIView):
             parent_comment.save()
             return Response(status=200)
         comment = Comment.objects.create(
-            author=request.user,
+            author=request.user,  # TODO
             text=request.data.get('text'),
             post=post
         )
@@ -60,12 +60,22 @@ class Posts(APIView):
         return Response(serializer.data)
 
     def post(self, request):
-        serializer = PostSerializer(data=request.data)
+        name = request.data.get('name')
+        text = request.data.get('text')
+        description = request.data.get('description')
+        user = request.user
+        try:
+            post = Post.objects.create(
+                name=name,
+                text=text,
+                description=description,
+                # user=user TODO
+            )
+            post.save()
 
-        if serializer.is_valid():
-            serializer.save()
-
-        return Response(serializer.data)
+            return Response(status=200)
+        except ValueError or AttributeError:
+            return Response({'error': 'bad data was sent'}, status=400)
 
 
 class ApiOverview(APIView):
