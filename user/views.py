@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views import View
+from rest_framework.authtoken.models import Token
 
 from BlogApp.decorators import *
 from .forms import *
@@ -40,6 +41,9 @@ class RegisterPage(View):
             return redirect('blog:home')
         elif form.is_valid():
             user = form.save()
+            token = Token.objects.create(user=user)
+            token.save()
+            user.token = token.key
             username = form.cleaned_data.get('username')
             login(request, user)
             Guest.objects.create(
@@ -71,8 +75,9 @@ class Profile(View):
         user = Guest.objects.get(name=request.user)
         posts = Post.objects.filter(user=user)
         profile_picture = user.profile_picture.url
+        token = user.token
 
-        context = {'posts': posts, 'user': user, 'pfp': profile_picture}
+        context = {'posts': posts, 'user': user, 'pfp': profile_picture, 'token': token}
         return render(request, 'user/profile.html', context)
 
 

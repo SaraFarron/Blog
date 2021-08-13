@@ -1,3 +1,5 @@
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.core.exceptions import ObjectDoesNotExist
@@ -50,6 +52,9 @@ class Comments(APIView):
 
 
 class Posts(APIView):
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    permission_classes = [IsAuthenticated]
+
     def get(self, request):
         post_id = request.data.get('post')
         if type(post_id) is int:
@@ -69,7 +74,7 @@ class Posts(APIView):
                 name=name,
                 text=text,
                 description=description,
-                # user=user TODO
+                user=user
             )
             post.save()
 

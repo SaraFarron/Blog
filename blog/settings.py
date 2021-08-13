@@ -39,8 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'BlogApp.apps.BlogappConfig',
+    'django_extensions',
     'rest_framework.apps.RestFrameworkConfig',
+    'rest_framework.authtoken',
+    'BlogApp.apps.BlogappConfig',
     'api.apps.ApiConfig',
     'user.apps.UserConfig',
 ]
@@ -138,3 +140,13 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
 MEDIA_URL = '/images/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
+
+
+# DRF settings
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ]
+}

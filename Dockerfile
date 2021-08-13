@@ -5,6 +5,7 @@ WORKDIR /usr/src/server
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
+# Dependencies for postgres and pillow
 RUN apk update \
     && apk add --virtual build-deps gcc python3-dev musl-dev \
     && apk add postgresql-dev gcc python3-dev musl-dev \
