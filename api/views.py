@@ -1,8 +1,8 @@
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.views import APIView
 from django.core.exceptions import ObjectDoesNotExist
+from rest_framework.views import APIView
 from BlogApp.models import Post, Comment
 from .serializers import PostSerializer, CommentSerializer
 from user.models import Guest
@@ -12,19 +12,15 @@ class Comments(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
-    def get_post(self, post_id):
+    def get(self, request):
+        post_id = request.data.get('post')
         try:
             post = Post.objects.get(id=post_id)
         except ObjectDoesNotExist:
             return Response(
                 {'error': f'did not find post {post_id}'},
                 status=404
-            )  # Bug: this returns to method, not to user
-        return post
-
-    def get(self, request):
-        post_id = request.data.get('post')
-        post = self.get_post(post_id)
+            )
         comments = Comment.objects.filter(post=post)
         serializer = CommentSerializer(data=comments, many=True)
         if serializer.is_valid():
@@ -34,7 +30,13 @@ class Comments(APIView):
     def post(self, request):
         post_id = request.data.get('post')
         comment_id = request.data.get('comment')
-        post = self.get_post(post_id)
+        try:
+            post = Post.objects.get(id=post_id)
+        except ObjectDoesNotExist:
+            return Response(
+                {'error': f'did not find post {post_id}'},
+                status=404
+            )
         user = Guest.objects.get(user=request.user)
         if type(comment_id) is int:
             comment = Comment.objects.create(
@@ -67,7 +69,7 @@ class Posts(APIView):
         else:
             posts = Post.objects.all().order_by('-id')
         serializer = PostSerializer(posts, many=True)
-        return Response(serializer.data)
+        return Response(serializer.data, status=200)
 
     def post(self, request):
         name = request.data.get('name')
@@ -96,29 +98,33 @@ class ApiOverview(APIView):
             'post-update': '/update/<str:pk>/',
             'post-delete': '/delete/<str:pk>/',
         }
-        return Response(api_urls)
+        return Response(api_urls, status=200)
 
 
 class PostUpdate(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
-    def post(self, request, pk):
-        post = Post.objects.get(id=pk)
+    def post(self, request):
+        post = Post.objects.get(id=request.data.get('post'))
+        if post.user != request.user:
+            return Response({'error': 'cannot edit posts that are not yours'}, status=403)
         serializer = PostSerializer(instance=post, data=request.data)
 
         if serializer.is_valid():
             serializer.save()
 
-        return Response(serializer.data)
+        return Response(serializer.data, status=200)
 
 
 class PostDelete(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
-    def delete(self, request, pk):
-        post = Post.objects.get(id=pk)
+    def delete(self, request):
+        post = Post.objects.get(id=request.data.get('post'))
+        if post.user != request.user:
+            return Response({'error': 'cannot edit posts that are not yours'}, status=403)
         post.delete()
 
-        return Response('Item successfully deleted!')
+        return Response('Item successfully deleted!', status=200)
