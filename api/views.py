@@ -1,13 +1,17 @@
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.core.exceptions import ObjectDoesNotExist
 from BlogApp.models import Post, Comment
 from .serializers import PostSerializer, CommentSerializer
+from user.models import Guest
 
 
 class Comments(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
     def get_post(self, post_id):
         try:
             post = Post.objects.get(id=post_id)
@@ -31,9 +35,10 @@ class Comments(APIView):
         post_id = request.data.get('post')
         comment_id = request.data.get('comment')
         post = self.get_post(post_id)
+        user = Guest.objects.get(user=request.user)
         if type(comment_id) is int:
             comment = Comment.objects.create(
-                author=request.user,  # TODO
+                author=user,
                 text=request.data.get('text'),
                 post=None
             )
@@ -43,7 +48,7 @@ class Comments(APIView):
             parent_comment.save()
             return Response(status=200)
         comment = Comment.objects.create(
-            author=request.user,  # TODO
+            author=user,
             text=request.data.get('text'),
             post=post
         )
@@ -52,7 +57,7 @@ class Comments(APIView):
 
 
 class Posts(APIView):
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
@@ -68,7 +73,7 @@ class Posts(APIView):
         name = request.data.get('name')
         text = request.data.get('text')
         description = request.data.get('description')
-        user = request.user
+        user = Guest.objects.get(user=request.user)
         try:
             post = Post.objects.create(
                 name=name,
@@ -95,6 +100,9 @@ class ApiOverview(APIView):
 
 
 class PostUpdate(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
     def post(self, request, pk):
         post = Post.objects.get(id=pk)
         serializer = PostSerializer(instance=post, data=request.data)
@@ -106,10 +114,11 @@ class PostUpdate(APIView):
 
 
 class PostDelete(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
     def delete(self, request, pk):
         post = Post.objects.get(id=pk)
         post.delete()
 
         return Response('Item successfully deleted!')
-
-# TODO Create token auth
