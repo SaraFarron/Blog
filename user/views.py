@@ -35,11 +35,9 @@ class LoginPage(View):
 class RegisterPage(View):
 
     @method_decorator(unauthenticated_user)
-    def post(self, request):  # This is not ok, need redo
+    def post(self, request):
         form = CreateUserForm(request.POST)
-        if request.user.is_authenticated:
-            return redirect('blog:home')
-        elif form.is_valid():
+        if form.is_valid():
             user = form.save()
             token = Token.objects.create(user=user)
             token.save()
@@ -48,8 +46,8 @@ class RegisterPage(View):
             guest = Guest.objects.create(
                 user=user,
                 name=username,
+                token=token.key
             )
-            guest.token = token.key
             guest.save()
             messages.success(request, f'Account {username} created successfully')
             return redirect('user:profile')
