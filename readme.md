@@ -1,3 +1,12 @@
+#### Этот проект находится в стадии переработки / This project is currently under reconstruction
+
+Планируется разделение на dev и prod версию, добавление шифрования, тестов, комментариев в коде, после чего
+этот readme будет переписан и возможно будут добавляться какие-либо фичи
+
+
+It is planned to split this website into dev and prod versions, add encryption, tests, comments in the code, after which
+this readme file will be rewritten and possibly some features will be added 
+
 ## Установка
 
     git clone https://github.com/SaraFarron/Blog.git
