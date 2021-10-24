@@ -37,20 +37,24 @@ class RegisterPage(View):
     @method_decorator(unauthenticated_user)
     def post(self, request):
         form = CreateUserForm(request.POST)
+
         if form.is_valid():
             user = form.save()
             token = Token.objects.create(user=user)
             token.save()
             username = form.cleaned_data.get('username')
+            email = form.cleaned_data.get('email')
             login(request, user)
             guest = Guest.objects.create(
                 user=user,
                 name=username,
-                token=token.key
+                token=token.key,
+                email=email,
             )
             guest.save()
             messages.success(request, f'Account {username} created successfully')
             return redirect('user:profile')
+
         else:
             messages.error(request, 'Passwords are different or this username has been taken')
             return render(request, 'user/register.html')
