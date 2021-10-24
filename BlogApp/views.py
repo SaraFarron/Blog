@@ -76,11 +76,18 @@ class UpdatePost(View):
     def get(self, request, pk):
         post = Post.objects.get(id=pk)
         form = PostForm(instance=post)
-        if request.method == 'POST':
-            form = PostForm(request.POST, instance=post)
-            if form.is_valid():
-                form.save()
-                return redirect('blog:home')
+
+        context = {'form': form}
+        return render(request, 'blog/create_post.html', context)
+
+    @method_decorator(decorators)
+    def post(self, request, pk):
+        post = Post.objects.get(id=pk)
+        form = PostForm(request.POST, instance=post)
+
+        if form.is_valid():
+            form.save()
+            return redirect('blog:home')
 
         context = {'form': form}
         return render(request, 'blog/create_post.html', context)
@@ -92,12 +99,13 @@ class DeletePost(View):
     @method_decorator(decorators)
     def get(self, request, pk):
         post = Post.objects.get(id=pk)
-        if request.method == 'POST':
-            post.delete()
-            return redirect('blog:home')
-
         context = {'post': post}
         return render(request, 'blog/delete_post.html', context)
+
+    def post(self, request, pk):
+        post = Post.objects.get(id=pk)
+        post.delete()
+        return redirect('blog:home')
 
 
 class CreateComment(View):
