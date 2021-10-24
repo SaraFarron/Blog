@@ -1,11 +1,9 @@
-from django.contrib import messages
-from django.contrib.auth import authenticate, logout, login
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.template import loader
-from django.views import View
 from django.utils.decorators import method_decorator
+from django.views import View
 
 from .decorators import *
 from .forms import *
@@ -57,6 +55,7 @@ class CreatePost(View):
         context = {'form': form}
         return render(request, 'blog/create_post.html', context)
 
+    @method_decorator(login_required(login_url='user:login'))
     def post(self, request, ):
         form = PostForm(request.POST)
         if form.is_valid():
@@ -102,6 +101,7 @@ class DeletePost(View):
         context = {'post': post}
         return render(request, 'blog/delete_post.html', context)
 
+    @method_decorator(decorators)
     def post(self, request, pk):
         post = Post.objects.get(id=pk)
         post.delete()
