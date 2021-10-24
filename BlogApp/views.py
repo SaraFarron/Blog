@@ -113,6 +113,7 @@ class CreateComment(View):
     @method_decorator(login_required(login_url='user:login'))
     def post(self, request, pk):
         form = CommentForm(request.POST)
+
         if form.is_valid():
             post = Post.objects.get(id=pk)
             form.instance.author = Guest.objects.get(name=request.user)
@@ -125,7 +126,7 @@ class CreateComment(View):
         return render(request, 'blog/create_post.html', context)
 
     @method_decorator(login_required(login_url='user:login'))
-    def get(self, request, pk):
+    def get(self, request):
         form = CommentForm
 
         context = {'form': form}

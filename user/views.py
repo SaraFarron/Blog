@@ -96,7 +96,7 @@ class ProfileSettings(View):
         return render(request, 'user/profile_settings.html', context)
 
     @method_decorator(login_required(login_url='user:login'))
-    def post(self, request):
+    def post(self, request):  # TODO bug when changing username
         user = Guest.objects.get(name=request.user)
         profile_picture = user.profile_picture.url
         form = ProfileSetForm(request.POST, request.FILES, instance=user)
