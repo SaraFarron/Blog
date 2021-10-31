@@ -1,41 +1,53 @@
-#### Этот проект находится в стадии переработки / This project is currently under reconstruction
+#### Этот проект постоянно обновляется / This project is constantly updating 
 
-Планируется разделение на dev и prod версию, добавление шифрования, тестов, комментариев в коде, после чего
-этот readme будет переписан и возможно будут добавляться какие-либо фичи
+Планируется разделение на dev и prod версию, добавление шифрования, тестов, CI/CD, генерируемой документации,
+и будут добавляться фичи (добавление модерации, статистики просмотра и комментирования постов)
 
 
-It is planned to split this website into dev and prod versions, add encryption, tests, comments in the code, after which
-this readme file will be rewritten and possibly some features will be added 
+It is planned to split this website into dev and prod versions, add encryption, tests, CI/CD, generate docs,
+and some features will be added  (add moderation, posts' and comments' stats)
 
-## Установка
+## Установка / Installation
+
+Требуется докер / Docker is required
 
     git clone https://github.com/SaraFarron/Blog.git
     cd Blog
+
+Переименовать tmp.env в .env / Rename tmp.env to .env
+
     docker-compose build
 
-Переименовать tmp.env в .env
-
-## Использование
+## Использование / Usage
 
     docker-compose up
 
-## Описание
+Если вылетает ImportError переименуйте папку Blog в blog (которая лежит в одной директории с readme)
+
+If you get an ImportError rename directory Blog to blog (one in the same directory with readme)
+
+## Описание / Description
 
 Сайт мини-блог. При первом посещении пользователю требуется зарегистрироваться, при регистрации его отправляет
 на страницу профиля, где он может изменить что-то и увидеть свой api токен для авторизации запросов.
 Пользователи могут создавать статьи, менять их, удалять, а также оставлять комментарии. Изменять и удалять
-можно только свои статьи. API повторяет весь функционал
+можно только свои статьи. API повторяет весь функционал.
+
+Mini-blog site. On the first visit, the user needs to register, upon registration it is sent
+to the profile page, where he can change something and see his api token for authorizing requests.
+Users can create articles, change them, delete them, and also leave comments. Modify and delete
+you can only your own articles. API repeats all functionality. 
 
 ## TODO
 
-+ Сделать подтверждение регистрации по почте
-+ Добавить возможность отвечать на комментарии (в api есть, в вебе нет)
-+ Вход/регистрация через телегу, аккаунт гугл?
-+ Тесты
-+ Использовать миксины и прочие клевые штуки
-+ Добавить шифрование (lets encrypt)?
-+ Выставить на heroku, github pages, rasberry pi?
-+ Добавить фронт на js:
-  + проверять формы на фронте
-  + сортировка
-  + сохранение настроек в профиле
++ Добавить документацию api / Add api documentation
++ Модерация с админ панелью / Moderation with admin panel
++ Сделать подтверждение регистрации по почте / Make confirmation of registration by email
++ Добавить возможность отвечать на комментарии (в api есть, в вебе нет) / Add the ability to respond to comments (present in the api, but in the web)
++ Вход/регистрация через телегу, аккаунт гугл? / Login / registration via cart, google account?
++ Тесты, CI/CD / Tests, CI / CD
++ Использовать миксины и прочие клевые штуки / Use mixins and other cool stuff
++ Добавить шифрование (lets encrypt)? / Add encryption (lets encrypt)?
++ Выставить на heroku, github pages, raspberry pi? / Upload to heroku, github pages, raspberry pi?
++ Добавить фронт на js:  Add front on js:
+  + сделать бекенд как обычное api и обмениваться jsonом с фронтом / make the backend like a simple api and exchange json with the front 
