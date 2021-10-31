@@ -14,17 +14,21 @@ class LoginPage(View):
 
     @method_decorator(unauthenticated_user)
     def get(self, request):
+
         context = {}
         return render(request, 'user/login.html', context)
 
     @method_decorator(unauthenticated_user)
     def post(self, request):
+
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
+
         if user is not None:
             login(request, user)
             return redirect('blog:home')
+
         else:
             messages.info(request, 'Username or password is incorrect')
 
@@ -36,6 +40,7 @@ class RegisterPage(View):
 
     @method_decorator(unauthenticated_user)
     def post(self, request):
+
         form = CreateUserForm(request.POST)
 
         if form.is_valid():
@@ -61,12 +66,16 @@ class RegisterPage(View):
 
     @method_decorator(unauthenticated_user)
     def get(self, request):
+
         context = {}
         return render(request, 'user/register.html', context)
 
 
 class LogoutUser(View):
+
+    @method_decorator(login_required(login_url='user:login'))
     def get(self, request):
+
         logout(request)
         return redirect('user:login')
 
@@ -75,6 +84,7 @@ class Profile(View):
 
     @method_decorator(login_required(login_url='user:login'))
     def get(self, request):
+
         user = Guest.objects.get(name=request.user)
         posts = Post.objects.filter(user=user)
         profile_picture = user.profile_picture.url
@@ -88,6 +98,7 @@ class ProfileSettings(View):
 
     @method_decorator(login_required(login_url='user:login'))
     def get(self, request):
+
         user = Guest.objects.get(name=request.user)
         profile_picture = user.profile_picture.url
         form = ProfileSetForm(instance=user)
@@ -96,10 +107,12 @@ class ProfileSettings(View):
         return render(request, 'user/profile_settings.html', context)
 
     @method_decorator(login_required(login_url='user:login'))
-    def post(self, request):  # TODO bug when changing username
+    def post(self, request):
+
         user = Guest.objects.get(name=request.user)
         profile_picture = user.profile_picture.url
         form = ProfileSetForm(request.POST, request.FILES, instance=user)
+
         if form.is_valid():
             form.save()
 
