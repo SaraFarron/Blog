@@ -1,7 +1,3 @@
 .idea/
 .vscode/
 .env
-blogenv
-static/admin/
-static/rest_framework/
-assets
