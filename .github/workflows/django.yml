@@ -9,6 +9,17 @@ on:
 env:
   DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
 
+  # db parameters
+  DB_ENGINE: ${{ django.db.backends.postgresql }}
+  DB_NAME: ${{ postgres }}
+  DB_USER: ${{ postgres }}
+  DB_PASSWORD: ${{ postgres }}
+  DB_HOST: ${{ db }}
+  DB_PORT: ${{ 5432 }}
+
+  # app parameters
+  APP_PORT: ${{ 8000 }}
+
 jobs:
   build:
 
