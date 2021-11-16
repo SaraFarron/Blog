@@ -18,8 +18,8 @@ class Comment(models.Model):
     id = models.AutoField(primary_key=True)
     author = models.ForeignKey(Guest, on_delete=models.CASCADE)
     text = models.TextField()
-    publication_date = models.DateTimeField(auto_now_add=True, null=True)
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True)
+    publication_date = models.DateTimeField(auto_now_add=True)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
     child_comments = models.ManyToManyField('Comment')
 
     def __str__(self):
