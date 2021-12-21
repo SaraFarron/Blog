@@ -80,7 +80,6 @@ class CommentViewSet(ModelViewSet):
 
         else:
             comment = Comment.objects.create(
-                name=request.data.get('name'),
                 text=request.data.get('text'),
                 post=post,
                 author=author
@@ -88,4 +87,5 @@ class CommentViewSet(ModelViewSet):
             comment.save()
 
         return Response({}, status=HTTP_201_CREATED)
+
 # TODO override update method
