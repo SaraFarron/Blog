@@ -42,14 +42,15 @@ you can only your own articles. API repeats all functionality.
 
 #### 2021
 
-+ Добавить документацию api / Add api documentation
-+ Тесты, CI/CD / Tests, CI / CD
-+ Использовать миксины и прочие клевые штуки / Use mixins and other cool stuff
-+ Добавить страницу 404, убрать все места где вылетают трейсбеки джанго / Add 404 page and get rid of all places where django tracebacks appear 
++ Добавить документацию api / Add api documentation ✅
++ Тесты, CI/CD / Tests, CI / CD ✅❌
++ Использовать миксины и прочие клевые штуки / Use mixins and other cool stuff ✅
++ Добавить страницу 404, убрать все места где вылетают трейсбеки джанго / Add 404 page and get rid of all places where django tracebacks appear ❌
 
 #### 2022
 
 + Модерация с админ панелью / Moderation with admin panel
++ Добавить эндпоинт с пользователями в api / Add users' endpoint to api
 + Сделать подтверждение регистрации по почте / Make confirmation of registration by email
 + Добавить возможность отвечать на комментарии (в api есть, в вебе нет) / Add the ability to respond to comments (present in the api, but in the web)
 + Вход/регистрация через телегу, аккаунт гугл? / Login / registration via cart, google account?

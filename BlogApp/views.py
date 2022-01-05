@@ -131,3 +131,19 @@ class CreateComment(View):
 
         context = {'form': form}
         return render(request, 'blog/create_post.html', context)
+
+
+def handler404(request, exception=None):
+    return render(request, '404page.html')
+
+
+def handler400(request, exception=None):
+    return render(request, '400page.html')
+
+
+def handler403(request, exception=None):
+    return render(request, '403page.html')
+
+
+def handler500(request, exception=None):
+    return render(request, '500page.html')

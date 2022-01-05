@@ -50,3 +50,8 @@ urlpatterns = [
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+handler404 = 'BlogApp.views.handler404'
+handler400 = 'BlogApp.views.handler400'
+handler403 = 'BlogApp.views.handler403'
+handler500 = 'BlogApp.views.handler500'
