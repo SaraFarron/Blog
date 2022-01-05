@@ -1,5 +1,5 @@
-from rest_framework.serializers import (ModelSerializer, StringRelatedField, SlugRelatedField, IntegerField, ListField,
-                                        PrimaryKeyRelatedField)
+from rest_framework.fields import CharField
+from rest_framework.serializers import (ModelSerializer, StringRelatedField, SlugRelatedField, )
 from BlogApp.models import Post, Comment
 
 
@@ -12,8 +12,7 @@ class PostSerializer(ModelSerializer):
 
 
 class CommentSerializer(ModelSerializer):
-    post = IntegerField(required=True)
-    child_comments = ListField(required=False, read_only=True)
+    post = CharField(required=True)
     author = SlugRelatedField(
         read_only=True,
         slug_field='name'
@@ -22,4 +21,4 @@ class CommentSerializer(ModelSerializer):
     class Meta:
         model = Comment
         fields = '__all__'
-        depth = 3
+        depth = 1

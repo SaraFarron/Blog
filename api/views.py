@@ -1,10 +1,22 @@
 from rest_framework.response import Response
 from rest_framework.status import HTTP_201_CREATED
-from rest_framework.viewsets import ModelViewSet
-
+from rest_framework.viewsets import ModelViewSet, GenericViewSet
+from rest_framework.mixins import CreateModelMixin, ListModelMixin, DestroyModelMixin
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from BlogApp.models import Post, Comment
 from user.models import Guest
 from .serializers import PostSerializer, CommentSerializer
+
+
+class ActionBasedPermission(AllowAny):
+    """
+    Grant or deny access to a view, based on a mapping in view.action_permissions
+    """
+    def has_permission(self, request, view):
+        for klass, actions in getattr(view, 'action_permissions', {}).items():
+            if view.action in actions:
+                return klass().has_permission(request, view)
+        return False
 
 
 class PostViewSet(ModelViewSet):
@@ -25,6 +37,11 @@ class PostViewSet(ModelViewSet):
     """
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+    permission_classes = (ActionBasedPermission, )
+    action_permissions = {
+        IsAuthenticated: ['update', 'partial_update', 'destroy', 'create'],
+        AllowAny: ['list', 'retrieve']
+    }
 
     def create(self, request, *args, **kwargs):
         many = True if isinstance(request.data, list) else False
@@ -48,7 +65,7 @@ class PostViewSet(ModelViewSet):
         return Response({}, status=HTTP_201_CREATED)
 
 
-class CommentViewSet(ModelViewSet):
+class CommentViewSet(CreateModelMixin, ListModelMixin, DestroyModelMixin, GenericViewSet):
     """
     Comment ViewSet description
 
@@ -66,6 +83,11 @@ class CommentViewSet(ModelViewSet):
     """
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
+    permission_classes = (ActionBasedPermission, )
+    action_permissions = {
+        IsAuthenticated: ['update', 'partial_update', 'destroy', 'retrieve', 'create'],
+        AllowAny: ['list']
+    }
 
     def create(self, request, *args, **kwargs):
         many = True if isinstance(request.data, list) else False
@@ -87,5 +109,3 @@ class CommentViewSet(ModelViewSet):
             comment.save()
 
         return Response({}, status=HTTP_201_CREATED)
-
-# TODO override update method
