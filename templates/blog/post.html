@@ -2,7 +2,15 @@
 {% block content %}
 
 <div class="post">
-  <h1><span>{{ post.name }} <p>Author: {{ post.user }}</p> </span></h1>
+  <h1>
+      <span>{{ post.name }} <p>Author:
+          {% if post.user.is_moderator %}
+      <span style="color: #e85353">{{ post.user }}</span>
+      {% else %}
+              {{ post.user }}
+      {% endif %}
+      </p> </span>
+  </h1>
   <h4>{{ post.text }}</h4>
 </div>
 

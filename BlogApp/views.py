@@ -19,7 +19,7 @@ class Home(View):
             template = loader.get_template('blog/unauthenticated.html')
             return HttpResponse(template.render())
 
-        context = {'posts': posts, 'user': request.user.username}
+        context = {'posts': posts, 'user': request.user}
         return render(request, 'index.html', context)
 
 
@@ -50,6 +50,11 @@ class CreatePost(View):
 
     @method_decorator(login_required(login_url='user:login'))
     def get(self, request, ):
+        user = Guest.objects.get(name=request.user.username)
+
+        if user.is_banned:
+            return render(request, '403page.html')
+
         form = PostForm
 
         context = {'form': form}
@@ -126,7 +131,12 @@ class CreateComment(View):
         return render(request, 'blog/create_post.html', context)
 
     @method_decorator(login_required(login_url='user:login'))
-    def get(self, request):
+    def get(self, request, pk):
+        user = Guest.objects.get(name=request.user.username)
+
+        if user.is_banned or user.is_muted:
+            return render(request, '403page.html')
+
         form = CommentForm
 
         context = {'form': form}

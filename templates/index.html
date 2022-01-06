@@ -14,7 +14,12 @@
     </div>
     {% for post in posts %}
         <div class="post">
-            <h3>{{ post.user }}'s on {{ post.creation_date }}</h3>
+            {% if post.user.is_moderator is True %}
+                <h3 style="color: #e85353">{{ post.user }}</h3>
+            {% else %}
+                <h3>{{ post.user }}</h3>
+            {% endif %}
+            <h3>{{ post.creation_date }}</h3>
             <h1><a href="{% url 'blog:post' post.id %}">{{ post.name }}</a></h1>
             <h3>{{ post.description }}</h3>
             <p></p>
@@ -25,7 +30,5 @@
         </div>
     {% endfor %}
 <p></p>
-    
-
 
 {% endblock %}

@@ -1,10 +1,12 @@
 from django.contrib import messages
+from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth import authenticate, logout, login
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views import View
 from rest_framework.authtoken.models import Token
+from datetime import datetime
 
 from BlogApp.decorators import *
 from .forms import *
@@ -85,12 +87,19 @@ class Profile(View):
     @method_decorator(login_required(login_url='user:login'))
     def get(self, request):
 
-        user = Guest.objects.get(name=request.user)
-        posts = Post.objects.filter(user=user)
-        profile_picture = user.profile_picture.url
-        token = user.token
+        try:
+            user = Guest.objects.get(name=request.user)
+        except ObjectDoesNotExist:
+            return render(request, 'user/guest_does_not_exist.html')
 
-        context = {'posts': posts, 'user': user, 'pfp': profile_picture, 'token': token}
+        posts = Post.objects.filter(user=user)
+        last_time_banned = user.last_ban_date
+
+        context = {'posts': posts, 'user': user}
+
+        if last_time_banned:
+            time_since_ban = datetime.now() - last_time_banned
+            context['time_since_ban'] = time_since_ban
         return render(request, 'user/profile.html', context)
 
 

@@ -12,6 +12,10 @@ class Guest(models.Model):
     profile_picture = models.ImageField(null=True, blank=True, default='profile.png')
     skype = models.CharField(max_length=50, null=True, blank=True)
     token = models.CharField(max_length=256, unique=True, null=True)
+    is_moderator = models.BooleanField(default=False)
+    is_banned = models.BooleanField(default=False)
+    is_muted = models.BooleanField(default=False)
+    last_ban_date = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
         return self.name
