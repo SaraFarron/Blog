@@ -1,11 +1,11 @@
 from rest_framework.response import Response
 from rest_framework.status import HTTP_201_CREATED
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
-from rest_framework.mixins import CreateModelMixin, ListModelMixin, DestroyModelMixin
+from rest_framework.mixins import CreateModelMixin, ListModelMixin, DestroyModelMixin, RetrieveModelMixin
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from BlogApp.models import Post, Comment
 from user.models import Guest
-from .serializers import PostSerializer, CommentSerializer
+from .serializers import PostSerializer, CommentSerializer, UserSerializer
 
 
 class ActionBasedPermission(AllowAny):
@@ -109,3 +109,18 @@ class CommentViewSet(CreateModelMixin, ListModelMixin, DestroyModelMixin, Generi
             comment.save()
 
         return Response({}, status=HTTP_201_CREATED)
+
+
+class UsersViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
+    """
+    list: List users
+
+    retrieve: Retrieve user
+    """
+    queryset = Guest.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = (ActionBasedPermission,)
+    action_permissions = {
+        IsAuthenticated: ['update', 'partial_update', 'destroy', 'create'],
+        AllowAny: ['list', 'retrieve']
+    }

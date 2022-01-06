@@ -11,7 +11,9 @@
     <h3> Email: {{ user.email }}</h3>
     <h3> Phone: {{ user.phone }}</h3>
     <h3> Skype: {{ user.skype }}</h3>
+    {% if request_user == user.user %}
     <h3> API token: Token {{ user.token }}</h3>
+    {% endif %}
 </div>
 <div class="post">
     <h3>Ban status: {{ user.is_banned }}</h3>
