@@ -5,7 +5,9 @@
 <div class="post">
     <img class="profile-pic" src="{{ user.profile_picture.url }}">
     <h2 id="name">{{ user.name }}</h2>
+    {% if request_user == user.user %}
     <h5><a href="{% url 'user:profile_settings' %}" style="color: #1F78B4">Edit profile</a></h5>
+    {% endif %}
     <h3> Email: {{ user.email }}</h3>
     <h3> Phone: {{ user.phone }}</h3>
     <h3> Skype: {{ user.skype }}</h3>

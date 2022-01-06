@@ -5,12 +5,13 @@
   <h1>
       <span>{{ post.name }} <p>Author:
           {% if post.user.is_moderator %}
-      <span style="color: #e85353">{{ post.user }}</span>
+              <a  style="color: #e85353" href="{% url 'user:profile' post.user.user.id %}">{{ post.user }}</a>
       {% else %}
-              {{ post.user }}
+              <a  href="{% url 'user:profile' post.user.user.id %}">{{ post.user }}</a>
       {% endif %}
       </p> </span>
   </h1>
+  <h3>{{ post.description }}</h3>
   <h4>{{ post.text }}</h4>
 </div>
 
@@ -20,7 +21,7 @@
 
     {% for comment in comments %}
     <div class="post" style="margin-bottom: 0">
-        <h5 id="name">{{comment.author}}</h5>
+        <a id="name" href="{% url 'user:profile' comment.author.user.id %}">{{ comment.author }}</a>
         <h6>{{comment.publication_date}}</h6>
         <h5>{{comment.text}}</h5>
     </div>

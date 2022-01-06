@@ -8,7 +8,7 @@ urlpatterns = [
     path('login', views.LoginPage.as_view(), name='login'),
     path('logout', views.LogoutUser.as_view(), name='logout'),
     path('register', views.RegisterPage.as_view(), name='register'),
-    path('', views.Profile.as_view(), name='profile'),
+    path('<str:pk>', views.Profile.as_view(), name='profile'),
     path('settings', views.ProfileSettings.as_view(), name='profile_settings'),
 ]
 
