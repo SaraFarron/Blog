@@ -9,3 +9,5 @@ sqlparse
 psycopg2-binary
 django-extensions
 gunicorn
+coreapi
+drf-yasg[validation]

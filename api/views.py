@@ -1,130 +1,126 @@
-from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from django.core.exceptions import ObjectDoesNotExist
-from rest_framework.views import APIView
+from rest_framework.status import HTTP_201_CREATED
+from rest_framework.viewsets import ModelViewSet, GenericViewSet
+from rest_framework.mixins import CreateModelMixin, ListModelMixin, DestroyModelMixin, RetrieveModelMixin
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from BlogApp.models import Post, Comment
-from .serializers import PostSerializer, CommentSerializer
 from user.models import Guest
+from .serializers import PostSerializer, CommentSerializer, UserSerializer
 
 
-class Comments(APIView):
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
-
-    def get(self, request):
-        post_id = request.data.get('post')
-        try:
-            post = Post.objects.get(id=post_id)
-        except ObjectDoesNotExist:
-            return Response(
-                {'error': f'did not find post {post_id}'},
-                status=404
-            )
-        comments = Comment.objects.filter(post=post)
-        serializer = CommentSerializer(data=comments, many=True)
-        if serializer.is_valid():
-            serializer.save()
-        return Response(serializer.data, status=200)
-
-    def post(self, request):
-        post_id = request.data.get('post')
-        comment_id = request.data.get('comment')
-        try:
-            post = Post.objects.get(id=post_id)
-        except ObjectDoesNotExist:
-            return Response(
-                {'error': f'did not find post {post_id}'},
-                status=404
-            )
-        user = Guest.objects.get(user=request.user)
-        if type(comment_id) is int:
-            comment = Comment.objects.create(
-                author=user,
-                text=request.data.get('text'),
-                post=None
-            )
-            comment.save()
-            parent_comment = Comment.objects.get(id=comment_id)
-            parent_comment.child_comments.add(comment)
-            parent_comment.save()
-            return Response(status=200)
-        comment = Comment.objects.create(
-            author=user,
-            text=request.data.get('text'),
-            post=post
-        )
-        comment.save()
-        return Response(status=200)
+class ActionBasedPermission(AllowAny):
+    """
+    Grant or deny access to a view, based on a mapping in view.action_permissions
+    """
+    def has_permission(self, request, view):
+        for klass, actions in getattr(view, 'action_permissions', {}).items():
+            if view.action in actions:
+                return klass().has_permission(request, view)
+        return False
 
 
-class Posts(APIView):
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
+class PostViewSet(ModelViewSet):
+    """
+    Post ViewSet description
 
-    def get(self, request):
-        post_id = request.data.get('post')
-        if type(post_id) is int:
-            posts = Post.objects.get(id=post_id)
+    list: List posts
+
+    retrieve: Retrieve post
+
+    update: Update post
+
+    create: Create post
+
+    partial_update: Patch post
+
+    destroy: Delete post
+    """
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+    permission_classes = (ActionBasedPermission, )
+    action_permissions = {
+        IsAuthenticated: ['update', 'partial_update', 'destroy', 'create'],
+        AllowAny: ['list', 'retrieve']
+    }
+
+    def create(self, request, *args, **kwargs):
+        many = True if isinstance(request.data, list) else False
+        serializer = PostSerializer(data=request.data, many=many)
+        serializer.is_valid(raise_exception=True)
+        author = Guest.objects.get(user=request.user)
+
+        if many:
+            post_list = [Post(**data, user=author) for data in serializer.validated_data]
+            Post.objects.bulk_create(post_list)
+
         else:
-            posts = Post.objects.all().order_by('-id')
-        serializer = PostSerializer(posts, many=True)
-        return Response(serializer.data, status=200)
-
-    def post(self, request):
-        name = request.data.get('name')
-        text = request.data.get('text')
-        description = request.data.get('description')
-        user = Guest.objects.get(user=request.user)
-        try:
             post = Post.objects.create(
-                name=name,
-                text=text,
-                description=description,
-                user=user
+                name=request.data.get('name'),
+                text=request.data.get('text'),
+                description=request.data.get('description'),
+                user=author
             )
             post.save()
 
-            return Response(status=200)
-        except ValueError or AttributeError:
-            return Response({'error': 'bad data was sent'}, status=400)
+        return Response({}, status=HTTP_201_CREATED)
 
 
-class ApiOverview(APIView):
-    def get(self, request):
-        api_urls = {
-            'posts': '/posts/',
-            'comments': '/comments/',
-            'post-update': '/update/<str:pk>/',
-            'post-delete': '/delete/<str:pk>/',
-        }
-        return Response(api_urls, status=200)
+class CommentViewSet(CreateModelMixin, ListModelMixin, DestroyModelMixin, GenericViewSet):
+    """
+    Comment ViewSet description
 
+    list: List comments
 
-class PostUpdate(APIView):
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
+    retrieve: Retrieve comment
 
-    def post(self, request):
+    update: Update comment
+
+    create: Create comment
+
+    partial_update: Patch comment
+
+    destroy: Delete comment
+    """
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+    permission_classes = (ActionBasedPermission, )
+    action_permissions = {
+        IsAuthenticated: ['update', 'partial_update', 'destroy', 'retrieve', 'create'],
+        AllowAny: ['list']
+    }
+
+    def create(self, request, *args, **kwargs):
+        many = True if isinstance(request.data, list) else False
+        serializer = CommentSerializer(data=request.data, many=many)
+        serializer.is_valid(raise_exception=True)
+        author = Guest.objects.get(user=request.user)
         post = Post.objects.get(id=request.data.get('post'))
-        if post.user != request.user:
-            return Response({'error': 'cannot edit posts that are not yours'}, status=403)
-        serializer = PostSerializer(instance=post, data=request.data)
 
-        if serializer.is_valid():
-            serializer.save()
+        if many:
+            post_list = [Comment(**data, author=author) for data in serializer.validated_data]
+            Comment.objects.bulk_create(post_list)
 
-        return Response(serializer.data, status=200)
+        else:
+            comment = Comment.objects.create(
+                text=request.data.get('text'),
+                post=post,
+                author=author
+            )
+            comment.save()
+
+        return Response({}, status=HTTP_201_CREATED)
 
 
-class PostDelete(APIView):
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
+class UsersViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
+    """
+    list: List users
 
-    def delete(self, request):
-        post = Post.objects.get(id=request.data.get('post'))
-        if post.user != request.user:
-            return Response({'error': 'cannot edit posts that are not yours'}, status=403)
-        post.delete()
-
-        return Response('Item successfully deleted!', status=200)
+    retrieve: Retrieve user
+    """
+    queryset = Guest.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = (ActionBasedPermission,)
+    action_permissions = {
+        IsAuthenticated: ['update', 'partial_update', 'destroy', 'create'],
+        AllowAny: ['list', 'retrieve']
+    }

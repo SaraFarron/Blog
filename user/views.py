@@ -1,10 +1,12 @@
 from django.contrib import messages
+from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth import authenticate, logout, login
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views import View
 from rest_framework.authtoken.models import Token
+from datetime import datetime, timezone
 
 from BlogApp.decorators import *
 from .forms import *
@@ -83,14 +85,29 @@ class LogoutUser(View):
 class Profile(View):
 
     @method_decorator(login_required(login_url='user:login'))
-    def get(self, request):
+    def get(self, request, pk):
 
-        user = Guest.objects.get(name=request.user)
+        try:
+            user = Guest.objects.get(user=pk)
+        except ObjectDoesNotExist:
+            return render(request, 'user/guest_does_not_exist.html')
+
         posts = Post.objects.filter(user=user)
-        profile_picture = user.profile_picture.url
-        token = user.token
+        last_time_banned = user.last_ban_date
 
-        context = {'posts': posts, 'user': user, 'pfp': profile_picture, 'token': token}
+        context = {'posts': posts, 'user': user, 'request_user': request.user}
+
+        if last_time_banned:
+            time_since_ban = datetime.now(timezone.utc) - last_time_banned
+            seconds = time_since_ban.seconds
+
+            match seconds:
+                case seconds if seconds > 86400: time_since_ban = str(time_since_ban.days) + ' days'
+                case seconds if seconds > 3600: time_since_ban = str(round(seconds / 3600)) + ' hours'
+                case seconds if seconds > 60: time_since_ban = str(round(seconds / 60)) + ' minutes'
+                case _: time_since_ban = str(seconds) + ' seconds'
+
+            context['time_since_ban'] = time_since_ban
         return render(request, 'user/profile.html', context)
 
 

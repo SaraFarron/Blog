@@ -3,13 +3,25 @@
     {% load static %}
 
 <div class="post">
-    <img class="profile-pic" src="{{ pfp }}">
+    <img class="profile-pic" src="{{ user.profile_picture.url }}">
     <h2 id="name">{{ user.name }}</h2>
+    {% if request_user == user.user %}
     <h5><a href="{% url 'user:profile_settings' %}" style="color: #1F78B4">Edit profile</a></h5>
+    {% endif %}
     <h3> Email: {{ user.email }}</h3>
     <h3> Phone: {{ user.phone }}</h3>
     <h3> Skype: {{ user.skype }}</h3>
-    <h3> API token: {{ token }}</h3>
+    {% if request_user == user.user %}
+    <h3> API token: Token {{ user.token }}</h3>
+    {% endif %}
+</div>
+<div class="post">
+    <h3>Ban status: {{ user.is_banned }}</h3>
+    <h3>Mute status: {{ user.is_muted }}</h3>
+    {% if user.last_ban_date %}
+    <h3>Time since last ban: {{ time_since_ban }}</h3>
+    {% endif %}
+
 </div>
 
 {% for post in posts %}
