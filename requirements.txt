@@ -11,3 +11,4 @@ django-extensions
 gunicorn
 coreapi
 drf-yasg[validation]
+django-rosetta

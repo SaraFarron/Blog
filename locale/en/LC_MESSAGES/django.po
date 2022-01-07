@@ -1,0 +1,212 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-01-07 13:18+0000\n"
+"PO-Revision-Date: 2022-01-07 12:18+0000\n"
+"Last-Translator:   <admin@admin.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Translated-Using: django-rosetta 0.9.8\n"
+
+#: BlogApp/models.py:8
+msgid "Untitled"
+msgstr "Untitled"
+
+#: BlogApp/models.py:8
+msgid "name"
+msgstr ""
+
+#: BlogApp/models.py:10 BlogApp/models.py:21
+msgid "text"
+msgstr ""
+
+#: BlogApp/models.py:11
+msgid "description"
+msgstr ""
+
+#: blog/settings.py:120
+msgid "English"
+msgstr "English"
+
+#: blog/settings.py:121
+msgid "Russian"
+msgstr "Russian"
+
+#: templates/400page.html:6
+msgid "Bad Request"
+msgstr ""
+
+#: templates/403page.html:6
+msgid "Forbidden! Check your ban or mute status in your profile page"
+msgstr ""
+
+#: templates/403page.html:10
+msgid "Banned users cannot post or comment"
+msgstr ""
+
+#: templates/403page.html:11
+msgid "Muted users cannot comment"
+msgstr ""
+
+#: templates/404page.html:6
+msgid "Page not found"
+msgstr ""
+
+#: templates/500page.html:6
+msgid "Server not responding"
+msgstr ""
+
+#: templates/blog/base.html:50
+msgid "Hello"
+msgstr ""
+
+#: templates/blog/base.html:53
+msgid "Home"
+msgstr "Home"
+
+#: templates/blog/base.html:58
+msgid "Profile"
+msgstr ""
+
+#: templates/blog/base.html:61 templates/blog/unauthenticated.html:23
+msgid "Register"
+msgstr "Register"
+
+#: templates/blog/base.html:64 templates/blog/unauthenticated.html:21
+#: templates/user/login.html:6
+msgid "Login"
+msgstr "Login"
+
+#: templates/blog/base.html:67
+msgid "Logout"
+msgstr "Logout"
+
+#: templates/blog/create_post.html:9
+msgid "post"
+msgstr ""
+
+#: templates/blog/delete_post.html:5
+msgid "Are you sure you want to delete"
+msgstr ""
+
+#: templates/blog/delete_post.html:12 templates/index.html:30
+msgid "Delete"
+msgstr ""
+
+#: templates/blog/delete_post.html:16
+msgid "Cancel"
+msgstr ""
+
+#: templates/blog/post.html:7
+msgid "Author"
+msgstr ""
+
+#: templates/blog/post.html:20
+msgid "Leave a comment"
+msgstr ""
+
+#: templates/blog/unauthenticated.html:7
+msgid "Error 401"
+msgstr ""
+
+#: templates/blog/unauthenticated.html:18
+msgid "You need to be authorized"
+msgstr ""
+
+#: templates/index.html:9
+msgid "sort by date"
+msgstr ""
+
+#: templates/index.html:11
+msgid "sort by author"
+msgstr ""
+
+#: templates/index.html:14
+msgid "Create post"
+msgstr ""
+
+#: templates/index.html:28
+msgid "Update"
+msgstr ""
+
+#: templates/user/guest_does_not_exist.html:6
+msgid "Guest"
+msgstr ""
+
+#: templates/user/guest_does_not_exist.html:6
+msgid "does not exist"
+msgstr ""
+
+#: templates/user/login.html:10 templates/user/register.html:8
+msgid "username"
+msgstr ""
+
+#: templates/user/login.html:12 templates/user/register.html:11
+msgid "password"
+msgstr ""
+
+#: templates/user/profile.html:10
+msgid "edit profile"
+msgstr ""
+
+#: templates/user/profile.html:12 templates/user/register.html:10
+msgid "email"
+msgstr ""
+
+#: templates/user/profile.html:13
+msgid "phone"
+msgstr ""
+
+#: templates/user/profile.html:14
+msgid "skype"
+msgstr ""
+
+#: templates/user/profile.html:16
+msgid "API token"
+msgstr ""
+
+#: templates/user/profile.html:20
+msgid "Ban status"
+msgstr ""
+
+#: templates/user/profile.html:21
+msgid "Mute status"
+msgstr ""
+
+#: templates/user/profile.html:23
+msgid "Time since last ban"
+msgstr ""
+
+#: templates/user/profile.html:36
+msgid "No posts yet"
+msgstr "No posts yet"
+
+#: templates/user/profile_settings.html:10
+msgid "Back to profile"
+msgstr ""
+
+#: templates/user/profile_settings.html:12
+msgid "Account settings"
+msgstr ""
+
+#: templates/user/register.html:5
+msgid "Register a new account"
+msgstr ""
+
+#: templates/user/register.html:12
+msgid "confirm password"
+msgstr ""
+
+#~ msgid "Language"
+#~ msgstr "Language"

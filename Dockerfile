@@ -11,7 +11,8 @@ RUN apk update \
     && apk add postgresql-dev gcc python3-dev musl-dev \
     && apk add jpeg-dev zlib-dev libjpeg \
     && apk del build-deps \
-    && apk --no-cache add musl-dev linux-headers g++
+    && apk --no-cache add musl-dev linux-headers g++ \
+    && apk add gettext
 
 RUN pip install --upgrade pip
 COPY requirements.txt .

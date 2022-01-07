@@ -1,9 +1,10 @@
 {% load static %}
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Error 401</title>
+    <title>{% trans 'Error 401' %}</title>
     <link rel="stylesheet"
       type="text/css"
       href="{% static 'css/main.css' %}">
@@ -14,12 +15,12 @@
 </head>
 <body>
 <div class="label">
-    <h2 style="text-align: center">You need to create an account or login</h2>
+    <h2 style="text-align: center">{% trans 'You need to be authorized' %}</h2>
     <div class="tasks">
       <a href="{% url 'user:login' %}"
-         class="btn btn-sm btn-info">Login</a>
+         class="btn btn-sm btn-info">{% trans 'Login' %}</a>
       <a href="{% url 'user:register' %}"
-         class="btn btn-sm btn-info">Register</a>
+         class="btn btn-sm btn-info">{% trans 'Register' %}</a>
     </div>
 
 </div>
