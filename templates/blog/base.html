@@ -14,10 +14,26 @@
 </head>
 <body>
 
+{% load i18n %}
+
+
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-light static-top" 
   style="background-color: #d9ffd9;">
   <div class="container">
+
+      {% get_current_language as CURRENT_LANGUAGE %}
+      {% get_available_languages as AVAILABLE_LANGUAGES %}
+      {% get_language_info_list for AVAILABLE_LANGUAGES as languages %}
+
+      {% for language in languages %}
+      <div class="nav-item" style="padding-right: 10px">
+          <a href="/{{ language.code }}/"
+            {% if language.code == CURRENT_LANGUAGE %} class="nav-link"{% endif %}>
+            {{ language.name_local }}
+          </a>
+      </div>
+      {% endfor %}
 {#    <a class="navbar-brand" href="#">#}
 {#      <img src="http://placehold.it/150x50?text=Logo" alt="">#}
 {#    </a>#}
@@ -31,24 +47,24 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
-      <h1>Hello, {{ request.user }} </h1>
+      <h3>{% trans 'Hello' %}, {{ request.user }} </h3>
       <ul class="navbar-nav ml-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="{% url 'blog:home' %}">Home
+          <a class="nav-link" href="{% url 'blog:home' %}">{% trans 'Home' %}
             <span class="sr-only">(current)</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'user:profile' request.user.id %}">Profile</a>
+          <a class="nav-link" href="{% url 'user:profile' request.user.id %}">{% trans 'Profile' %}</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'user:register' %}">Register</a>
+          <a class="nav-link" href="{% url 'user:register' %}">{% trans 'Register' %}</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'user:login' %}">Login</a>
+          <a class="nav-link" href="{% url 'user:login' %}">{% trans 'Login' %}</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'user:logout' %}">Logout</a>
+          <a class="nav-link" href="{% url 'user:logout' %}">{% trans 'Logout' %}</a>
         </li>
       </ul>
     </div>

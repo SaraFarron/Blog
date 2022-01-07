@@ -1,25 +1,26 @@
 {% extends 'blog/base.html' %}
 {% block content %}
     {% load static %}
+    {% load i18n %}
 
 <div class="post">
     <img class="profile-pic" src="{{ user.profile_picture.url }}">
     <h2 id="name">{{ user.name }}</h2>
     {% if request_user == user.user %}
-    <h5><a href="{% url 'user:profile_settings' %}" style="color: #1F78B4">Edit profile</a></h5>
+    <h5><a href="{% url 'user:profile_settings' user.user.id %}" style="color: #1F78B4">{% trans 'edit profile' %}</a></h5>
     {% endif %}
-    <h3> Email: {{ user.email }}</h3>
-    <h3> Phone: {{ user.phone }}</h3>
-    <h3> Skype: {{ user.skype }}</h3>
+    <h3> {% trans 'email' %}: {{ user.email }}</h3>
+    <h3> {% trans 'phone' %}: {{ user.phone }}</h3>
+    <h3> {% trans 'skype' %}: {{ user.skype }}</h3>
     {% if request_user == user.user %}
-    <h3> API token: Token {{ user.token }}</h3>
+    <h3> {% trans 'API token' %}: Token {{ user.token }}</h3>
     {% endif %}
 </div>
 <div class="post">
-    <h3>Ban status: {{ user.is_banned }}</h3>
-    <h3>Mute status: {{ user.is_muted }}</h3>
+    <h3>{% trans 'Ban status' %}: {{ user.is_banned }}</h3>
+    <h3>{% trans 'Mute status' %}: {{ user.is_muted }}</h3>
     {% if user.last_ban_date %}
-    <h3>Time since last ban: {{ time_since_ban }}</h3>
+    <h3>{% trans 'Time since last ban' %}: {{ time_since_ban }}</h3>
     {% endif %}
 
 </div>
@@ -30,6 +31,10 @@
     <h3>{{ post.creation_date }}</h3>
     <h3>{{ post.description }}</h3>
 </div>
+{% empty %}
+    <div class="post">
+    <h3>{% trans 'No posts yet' %}</h3>
+    </div>
 {% endfor %}
 
 {% endblock %}

@@ -60,7 +60,7 @@ class RegisterPage(View):
             )
             guest.save()
             messages.success(request, f'Account {username} created successfully')
-            return redirect('user:profile')
+            return render(request, 'user/profile.html')
 
         else:
             messages.error(request, 'Passwords are different or this username has been taken')
@@ -114,7 +114,7 @@ class Profile(View):
 class ProfileSettings(View):
 
     @method_decorator(login_required(login_url='user:login'))
-    def get(self, request):
+    def get(self, request, pk):
 
         user = Guest.objects.get(name=request.user)
         profile_picture = user.profile_picture.url
@@ -124,7 +124,7 @@ class ProfileSettings(View):
         return render(request, 'user/profile_settings.html', context)
 
     @method_decorator(login_required(login_url='user:login'))
-    def post(self, request):
+    def post(self, request, pk):
 
         user = Guest.objects.get(name=request.user)
         profile_picture = user.profile_picture.url

@@ -1,0 +1,1 @@
+docker exec -it blog_web_1 django-admin makemessages --all --ignore=env

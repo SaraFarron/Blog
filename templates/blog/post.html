@@ -1,9 +1,10 @@
 {% extends 'blog/base.html' %}
 {% block content %}
+    {% load i18n %}
 
 <div class="post">
   <h1>
-      <span>{{ post.name }} <p>Author:
+      <span>{{ post.name }} <p>{% trans 'Author' %}:
           {% if post.user.is_moderator %}
               <a  style="color: #e85353" href="{% url 'user:profile' post.user.user.id %}">{{ post.user }}</a>
       {% else %}
@@ -16,7 +17,7 @@
 </div>
 
   <a href="{% url 'blog:create_comment' post.id %}" class="btn btn-sm btn-success"
-     style="margin-left: 10px; display: inline-block;">Leave a comment</a>
+     style="margin-left: 10px; display: inline-block;">{% trans 'Leave a comment' %}</a>
 
 
     {% for comment in comments %}

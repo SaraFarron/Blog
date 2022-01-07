@@ -1,8 +1,9 @@
 {% extends 'blog/base.html' %}
 {% block content %}
+    {% load i18n %}
 
     <div style="padding: 10px">
-        <h1> Guest {{ request.user }} does not exist! </h1>
+        <h1> {% trans 'Guest' %} {{ request.user }} {% trans 'does not exist' %} </h1>
     </div>
 
 {% endblock %}
