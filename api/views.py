@@ -100,6 +100,15 @@ class CommentViewSet(CreateModelMixin, ListModelMixin, DestroyModelMixin, Generi
             post_list = [Comment(**data, author=author) for data in serializer.validated_data]
             Comment.objects.bulk_create(post_list)
 
+        elif 'parent' in request.data.keys():
+            comment = Comment.objects.create(
+                text=request.data.get('text'),
+                post=post,
+                author=author,
+                parent_comment=request.data.get('parent')
+            )
+            comment.save()
+
         else:
             comment = Comment.objects.create(
                 text=request.data.get('text'),

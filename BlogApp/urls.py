@@ -14,4 +14,5 @@ urlpatterns = [
     path('delete/<str:pk>', views.DeletePost.as_view(), name='delete'),
 
     path('new_comment/<str:pk>', views.CreateComment.as_view(), name='create_comment'),
+    path('reply/<str:post_pk>/<str:comment>', views.Reply.as_view(), name='reply'),
 ]

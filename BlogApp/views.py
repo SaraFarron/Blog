@@ -121,9 +121,12 @@ class CreateComment(View):
 
         if form.is_valid():
             post = Post.objects.get(id=pk)
-            form.instance.author = Guest.objects.get(name=request.user)
-            form.instance.post = Post.objects.get(id=pk)
+            author = Guest.objects.get(name=request.user)
+
+            form.instance.author = author
+            form.instance.post = post
             form.save()
+
             return HttpResponseRedirect(reverse('blog:post', args=(post.id,)))
         form = CommentForm
 
@@ -141,6 +144,40 @@ class CreateComment(View):
 
         context = {'form': form}
         return render(request, 'blog/create_post.html', context)
+
+
+class Reply(View):
+
+    @method_decorator(login_required(login_url='user:login'))
+    def post(self, request, post_pk, comment):
+        form = ReplyForm(request.POST)
+
+        if form.is_valid():
+            post = Post.objects.get(id=post_pk)
+            parent_comment = Comment.objects.get(id=comment)
+            author = Guest.objects.get(name=request.user)
+
+            form.instance.author = author
+            form.instance.post = post
+            form.instance.parent_comment = parent_comment
+            form.save()
+
+            return HttpResponseRedirect(reverse('blog:post', args=(post.id,)))
+        form = ReplyForm
+
+        context = {'form': form}
+        return render(request, 'blog/reply.html', context)
+
+    @method_decorator(login_required(login_url='user:login'))
+    def get(self, request, post_pk, comment):
+        user = Guest.objects.get(name=request.user.username)
+
+        if user.is_banned or user.is_muted:
+            return render(request, '403page.html')
+        form = ReplyForm
+
+        context = {'form': form}
+        return render(request, 'blog/reply.html', context)
 
 
 def handler404(request, exception=None):
