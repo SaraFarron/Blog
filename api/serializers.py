@@ -17,6 +17,7 @@ class CommentSerializer(ModelSerializer):
         read_only=True,
         slug_field='name'
     )
+    parent_comment = CharField(required=False)
 
     class Meta:
         model = Comment

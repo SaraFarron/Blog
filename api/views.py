@@ -100,6 +100,17 @@ class CommentViewSet(CreateModelMixin, ListModelMixin, DestroyModelMixin, Generi
             post_list = [Comment(**data, author=author) for data in serializer.validated_data]
             Comment.objects.bulk_create(post_list)
 
+        elif 'parent_comment' in request.data.keys():
+            parent_comment = Comment.objects.get(id=request.data.get('parent_comment'))
+            comment = Comment.objects.create(
+                text=request.data.get('text'),
+                post=post,
+                author=author
+            )
+            comment.save()
+            parent_comment.replies.add(comment)
+            parent_comment.save()
+
         else:
             comment = Comment.objects.create(
                 text=request.data.get('text'),
@@ -109,6 +120,23 @@ class CommentViewSet(CreateModelMixin, ListModelMixin, DestroyModelMixin, Generi
             comment.save()
 
         return Response({}, status=HTTP_201_CREATED)
+
+    def list(self, request, *args, **kwargs):
+        comments = Comment.objects.all()
+        replies = []
+        for comment in comments:
+            replies += list(comment.replies.all())
+        for reply in replies:
+            comments = comments.exclude(id=reply.id)
+        queryset = comments
+
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
 
 
 class UsersViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):

@@ -1,0 +1,12 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+    {% load i18n %}
+
+<div class="post">
+  <form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+      <input type="submit" name="Submit" class="btn btn-sm btn-success" value="{% trans 'Reply' %}">
+</form>
+</div>
+{% endblock %}
