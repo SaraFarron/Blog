@@ -61,7 +61,7 @@ you can only your own articles. API repeats all functionality.
 + Добавить эндпоинт с пользователями в api / Add users' endpoint to api ✅
 + Добавить перевод на разные языки / Add a translation to various languages ✅
 + Сделать подтверждение регистрации по почте / Make confirmation of registration by email ❌
-+ Добавить возможность отвечать на комментарии (в api есть, в вебе нет) / Add the ability to respond to comments (present in the api, but in the web)
++ Добавить возможность отвечать на комментарии (в api есть, в вебе нет) / Add the ability to respond to comments (present in the api, but in the web) ✅
 + Разделение на dev и prod ветки / Division into dev and production branches
 + Добавить шифрование (lets encrypt)? / Add encryption (lets encrypt)?
 + Выставить на heroku, github pages, raspberry pi? / Upload to heroku, github pages, raspberry pi?
