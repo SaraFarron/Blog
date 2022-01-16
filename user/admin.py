@@ -25,6 +25,6 @@ def unmute_users(modeladmin, request, queryset):
 
 @admin.register(Guest)
 class GuestAdmin(admin.ModelAdmin):
-    list_display = ('name', 'date_created', 'email', 'is_muted', 'is_banned', 'is_moderator')
+    list_display = ('name', 'date_created', 'email', 'is_muted', 'is_banned', 'is_moderator', 'user')
     list_filter = ('date_created', 'email', 'is_moderator', 'last_ban_date')
     actions = [ban_users, mute_users, unmute_users, unban_users]

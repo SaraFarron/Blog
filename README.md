@@ -62,8 +62,14 @@ you can only your own articles. API repeats all functionality.
 + Добавить перевод на разные языки / Add a translation to various languages ✅
 + Сделать подтверждение регистрации по почте / Make confirmation of registration by email ❌
 + Добавить возможность отвечать на комментарии (в api есть, в вебе нет) / Add the ability to respond to comments (present in the api, but in the web)
-+ Вход/регистрация через телегу, аккаунт гугл? / Login / registration via cart, google account?
++ Разделение на dev и prod ветки / Division into dev and production branches
 + Добавить шифрование (lets encrypt)? / Add encryption (lets encrypt)?
 + Выставить на heroku, github pages, raspberry pi? / Upload to heroku, github pages, raspberry pi?
-+ Добавить фронт на js:  Add front on js:
-  + сделать бекенд как обычное api и обмениваться jsonом с фронтом / make the backend like a simple api and exchange json with the front 
++ Вход/регистрация через телегу, аккаунт гугл? / Login / registration via cart, google account?
++ Добавить рейтинг постов и комментариев / Add rating to posts and comments
++ Добавить возможность добавлять в закладки / Add save post feature
++ Добавить сортировку по популярности / Add sort by popular feature
++ Добавить поддержку markdown в посты / Add markdown support to posts
++ Добавить раздел истории комментариев в профиль / Add comments history section to profile
++ Добавить ЛС / Add DMs
++ 

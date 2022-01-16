@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-07 13:18+0000\n"
-"PO-Revision-Date: 2022-01-07 13:19+0000\n"
+"POT-Creation-Date: 2022-01-16 15:13+0000\n"
+"PO-Revision-Date: 2022-01-16 15:14+0000\n"
 "Last-Translator:   <admin@admin.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -118,6 +118,10 @@ msgstr "Автор"
 #: templates/blog/post.html:20
 msgid "Leave a comment"
 msgstr "Оставить Комментарий"
+
+#: templates/blog/post.html:26 templates/blog/reply.html:9
+msgid "Reply"
+msgstr "Ответить"
 
 #: templates/blog/unauthenticated.html:7
 msgid "Error 401"

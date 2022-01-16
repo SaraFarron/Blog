@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.template import loader
@@ -41,6 +42,11 @@ class PostPage(View):
     def get(self, request, pk):
         post = Post.objects.get(id=pk)
         comments = Comment.objects.filter(post=post)
+        replies = []
+        for comment in comments:
+            replies += list(comment.replies.all())
+        for reply in replies:
+            comments = comments.exclude(id=reply.id)
 
         context = {'post': post, 'comments': comments}
         return render(request, 'blog/post.html', context)
@@ -149,8 +155,19 @@ class CreateComment(View):
 class Reply(View):
 
     @method_decorator(login_required(login_url='user:login'))
+    def get(self, request, post_pk, comment):
+        user = Guest.objects.get(name=request.user.username)
+
+        if user.is_banned or user.is_muted:
+            return render(request, '403page.html')
+        form = CommentForm
+
+        context = {'form': form}
+        return render(request, 'blog/reply.html', context)
+
+    @method_decorator(login_required(login_url='user:login'))
     def post(self, request, post_pk, comment):
-        form = ReplyForm(request.POST)
+        form = CommentForm(request.POST)
 
         if form.is_valid():
             post = Post.objects.get(id=post_pk)
@@ -159,22 +176,11 @@ class Reply(View):
 
             form.instance.author = author
             form.instance.post = post
-            form.instance.parent_comment = parent_comment
-            form.save()
+            new_comment = form.save()
+            parent_comment.replies.add(new_comment)
 
             return HttpResponseRedirect(reverse('blog:post', args=(post.id,)))
-        form = ReplyForm
-
-        context = {'form': form}
-        return render(request, 'blog/reply.html', context)
-
-    @method_decorator(login_required(login_url='user:login'))
-    def get(self, request, post_pk, comment):
-        user = Guest.objects.get(name=request.user.username)
-
-        if user.is_banned or user.is_muted:
-            return render(request, '403page.html')
-        form = ReplyForm
+        form = CommentForm
 
         context = {'form': form}
         return render(request, 'blog/reply.html', context)
