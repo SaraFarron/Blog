@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 DEBUG = bool(os.environ.get('DEBUG'))
 
 ALLOWED_HOSTS = [
-    '0.0.0.0', 'localhost', '127.0.0.1'
+    'pacific-lake-54676.herokuapp.com', '0.0.0.0', 'localhost', '127.0.0.1'
 ]
 
 # Application definition
