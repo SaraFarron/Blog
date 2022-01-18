@@ -60,7 +60,9 @@ class RegisterPage(View):
             )
             guest.save()
             messages.success(request, f'Account {username} created successfully')
-            return render(request, 'user/profile.html')
+
+            context = {'user': guest}
+            return render(request, 'user/profile.html', context)
 
         else:
             messages.error(request, 'Passwords are different or this username has been taken')
