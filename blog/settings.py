@@ -153,7 +153,8 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# TODO In Django 4.0.1 there seems to be a bug with CompressedStorage, try when fix will be released
 
 MEDIA_URL = '/images/'
 
