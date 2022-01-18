@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'api.apps.ApiConfig',
     'user.apps.UserConfig',
     'rosetta',
+    'whitenoise.runserver_nostatic',
 ]
 
 MIDDLEWARE = [
