@@ -1,75 +1,21 @@
-#### Этот проект постоянно обновляется / This project is constantly updating 
+### Описание / Description
 
-Планируется разделение на dev и prod версию, добавление шифрования, тестов, CI/CD, генерируемой документации,
-и будут добавляться фичи (добавление модерации, статистики просмотра и комментирования постов)
+Сайт-блог, мой клон [DTF](www.dtf.ru) который я нагло копирую для своего развития как backend веб разработчика.
+Моя цель реализовать большую часть функционала бэкенд части DTF возможно с добавлением каких-либо своих особенностей.
+Фронт-энд и веб дизайн меня интересуют в меньшей части, поэтому внешний вид оставляет желать лучшего, а JS нет вообще.
 
+Blog-site, my clone of [DTF](www.dtf.ru), which I impudently copy for my personal growth in backend web development.
+My goal is to make most of DTF's backend functionality, maybe with my own features.
+I am not interested as much in frontend, that's why looks of website are not that great and JS is not present at all.
 
-It is planned to split this website into dev and prod versions, add encryption, tests, CI/CD, generate docs,
-and some features will be added  (add moderation, posts' and comments' stats)
+### Текущие известные проблемы / Currently known issues
 
-## Установка / Installation
+Сейчас на сайте не загружаются аватары в профиле пользователя из-за [бага](https://github.com/axnsan12/drf-yasg/issues/761)
+django 4.0.1 и whitenoise. Как только я найду решение проблемы или фикс будет выпущен я (надеюсь) уберу этот баг.
+Проблема присутствует только на [Heroku](https://pacific-lake-54676.herokuapp.com/en/), если запускать локально
+(как описано в README_dev.md) - проблема отсутствует
 
-Требуется докер / Docker is required
-
-    git clone https://github.com/SaraFarron/Blog.git
-    cd Blog
-
-Переименовать tmp.env в .env / Rename tmp.env to .env
-
-    docker-compose build
-
-## Использование / Usage
-
-    docker-compose up
-
-Если вылетает ImportError переименуйте папку Blog в blog (которая лежит в одной директории с readme)
-
-If you get an ImportError rename directory Blog to blog (one in the same directory with readme)
-
-Создать суперпользователя / Create superuser
-
-    docker exec -it blog_web_1 python manage.py createsuperuser
-
-Войти в консоль / Enter console
-
-    docker exec -it blog_web_1 python manage.py shell_plus
-
-## Описание / Description
-
-Сайт мини-блог. При первом посещении пользователю требуется зарегистрироваться, при регистрации его отправляет
-на страницу профиля, где он может изменить что-то и увидеть свой api токен для авторизации запросов.
-Пользователи могут создавать статьи, менять их, удалять, а также оставлять комментарии. Изменять и удалять
-можно только свои статьи. API повторяет весь функционал.
-
-Mini-blog site. On the first visit, the user needs to register, upon registration it is sent
-to the profile page, where he can change something and see his api token for authorizing requests.
-Users can create articles, change them, delete them, and also leave comments. Modify and delete
-you can only your own articles. API repeats all functionality. 
-
-## TODO
-
-#### 2021
-
-+ Добавить документацию api / Add api documentation ✅
-+ Тесты, CI/CD / Tests, CI / CD ✅❌
-+ Использовать миксины и прочие клевые штуки / Use mixins and other cool stuff ✅
-+ Добавить страницу 404, убрать все места где вылетают трейсбеки джанго / Add 404 page and get rid of all places where django tracebacks appear ✅
-
-#### 2022
-
-+ Модерация с админ панелью / Moderation with admin panel ✅
-+ Добавить эндпоинт с пользователями в api / Add users' endpoint to api ✅
-+ Добавить перевод на разные языки / Add a translation to various languages ✅
-+ Сделать подтверждение регистрации по почте / Make confirmation of registration by email ❌
-+ Добавить возможность отвечать на комментарии (в api есть, в вебе нет) / Add the ability to respond to comments (present in the api, but in the web) ✅
-+ Разделение на dev и prod ветки / Division into dev and production branches
-+ Добавить шифрование (lets encrypt)? / Add encryption (lets encrypt)?
-+ Выставить на heroku, github pages, raspberry pi? / Upload to heroku, github pages, raspberry pi? ✅
-+ Вход/регистрация через телегу, аккаунт гугл? / Login / registration via cart, google account?
-+ Добавить рейтинг постов и комментариев / Add rating to posts and comments
-+ Добавить возможность добавлять в закладки / Add save post feature
-+ Добавить сортировку по популярности / Add sort by popular feature
-+ Добавить поддержку markdown в посты / Add markdown support to posts
-+ Добавить раздел истории комментариев в профиль / Add comments history section to profile
-+ Добавить ЛС / Add DMs
-+ 
+Right now images do not upload in users' profiles because of a [bug](https://github.com/axnsan12/drf-yasg/issues/761)
+with django 4.0.1 and whitenoise. As soon as I will find a solution or a fix will be released I (hopefully) will remove 
+this bug. It is only present on [Heroku](https://pacific-lake-54676.herokuapp.com/en/) though, with running project 
+locally (as described in README_dev.md) this problem won't appear.
