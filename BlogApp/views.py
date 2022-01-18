@@ -12,7 +12,6 @@ from .forms import *
 
 class Home(View):
 
-    @method_decorator(login_required(login_url='user:login'))
     def get(self, request):
         try:
             posts = Post.objects.all().order_by('user')
