@@ -64,7 +64,7 @@ you can only your own articles. API repeats all functionality.
 + Добавить возможность отвечать на комментарии (в api есть, в вебе нет) / Add the ability to respond to comments (present in the api, but in the web) ✅
 + Разделение на dev и prod ветки / Division into dev and production branches
 + Добавить шифрование (lets encrypt)? / Add encryption (lets encrypt)?
-+ Выставить на heroku, github pages, raspberry pi? / Upload to heroku, github pages, raspberry pi?
++ Выставить на heroku, github pages, raspberry pi? / Upload to heroku, github pages, raspberry pi? ✅
 + Вход/регистрация через телегу, аккаунт гугл? / Login / registration via cart, google account?
 + Добавить рейтинг постов и комментариев / Add rating to posts and comments
 + Добавить возможность добавлять в закладки / Add save post feature
