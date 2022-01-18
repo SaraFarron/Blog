@@ -1,5 +1,4 @@
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.template import loader
@@ -12,7 +11,6 @@ from .forms import *
 
 class Home(View):
 
-    @method_decorator(login_required(login_url='user:login'))
     def get(self, request):
         try:
             posts = Post.objects.all().order_by('user')
