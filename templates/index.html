@@ -1,35 +1,42 @@
 {% extends 'blog/base.html' %}
 {% block content %}
-    {% load i18n %}
+{% load i18n %}
 
-
-    <div class="container">
-        {% if request.path == '/ru/' or request.path == '/en/' %}
-            <a href="{% url 'blog:home_by_date' %}"
-               class="order">{% trans 'sort by date' %}</a>
+<div class="container">
+    {% if request.path == '/ru/' or request.path == '/en/' %}
+        <a href="{% url 'blog:home_by_date' %}"
+           class="order">{% trans 'sort by date' %}</a>
+    {% else %}
+        <a href="{% url 'blog:home' %}" class="order">{% trans 'sort by author' %}</a>
+    {% endif %}
+    <a href="{% url 'blog:create' %}" class="btn btn-sm btn-success"
+style="width: 70%; margin: 10px; display: inline">{% trans 'Create post' %}</a>
+</div>
+{% for post in posts %}
+    <div class="post">
+        {% if post.user.is_moderator is True %}
+            <h3 style="color: #e85353">{{ post.user }}</h3>
         {% else %}
-            <a href="{% url 'blog:home' %}" class="order">{% trans 'sort by author' %}</a>
+            <h3>{{ post.user }}</h3>
         {% endif %}
-        <a href="{% url 'blog:create' %}" class="btn btn-sm btn-success"
-    style="width: 70%; margin: 10px; display: inline">{% trans 'Create post' %}</a>
-    </div>
-    {% for post in posts %}
-        <div class="post">
-            {% if post.user.is_moderator is True %}
-                <h3 style="color: #e85353">{{ post.user }}</h3>
-            {% else %}
-                <h3>{{ post.user }}</h3>
-            {% endif %}
-            <h3>{{ post.creation_date }}</h3>
-            <h1><a href="{% url 'blog:post' post.id %}">{{ post.name }}</a></h1>
-            <h3>{{ post.description }}</h3>
-            <p></p>
+        <h3>{{ post.creation_date }}</h3>
+        <h1><a href="{% url 'blog:post' post.id %}">{{ post.name }}</a></h1>
+        <h3>{{ post.description }}</h3>
+        <p></p>
+        <div style="position: relative">
             <a href="{% url 'blog:update' post.id %}" class="btn btn-sm btn-info"
                 style="width: 29%">{% trans 'Update' %}</a>
             <a href="{% url 'blog:delete' post.id %}" class="btn btn-sm btn-danger"
                 style="width: 29%">{% trans 'Delete' %}</a>
+            <a href="{% url 'blog:home' %}"
+               class="btn btn-sm btn-default"
+               style="position: absolute; right: 0; color: green; font-size: 20px">+</a>
+            <a href="{% url 'blog:home' %}"
+               class="btn btn-sm btn-default"
+               style="position: absolute; right: 30px; color: red; font-size: 20px">-</a>
+            <span style="position: absolute; right: 60px; top: 10px;">{{ post.rating }}</span>
         </div>
-    {% endfor %}
-<p></p>
+    </div>
+{% endfor %}
 
 {% endblock %}

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-16 15:13+0000\n"
+"POT-Creation-Date: 2022-01-19 14:45+0000\n"
 "PO-Revision-Date: 2022-01-07 12:18+0000\n"
 "Last-Translator:   <admin@admin.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,7 +27,11 @@ msgstr "Untitled"
 msgid "name"
 msgstr ""
 
-#: BlogApp/models.py:10 BlogApp/models.py:21
+#: BlogApp/models.py:9
+msgid "creation date"
+msgstr ""
+
+#: BlogApp/models.py:10 BlogApp/models.py:25
 msgid "text"
 msgstr ""
 
@@ -35,11 +39,39 @@ msgstr ""
 msgid "description"
 msgstr ""
 
-#: blog/settings.py:120
+#: BlogApp/models.py:12 BlogApp/models.py:24
+msgid "author"
+msgstr ""
+
+#: BlogApp/models.py:13 BlogApp/models.py:29
+msgid "rating"
+msgstr ""
+
+#: BlogApp/models.py:16
+msgid "number of comments"
+msgstr ""
+
+#: BlogApp/models.py:26
+msgid "publication date"
+msgstr ""
+
+#: BlogApp/models.py:27
+msgid "post name"
+msgstr ""
+
+#: BlogApp/models.py:28
+msgid "replies"
+msgstr ""
+
+#: BlogApp/models.py:34
+msgid "'s comment"
+msgstr ""
+
+#: blog/settings.py:128
 msgid "English"
 msgstr "English"
 
-#: blog/settings.py:121
+#: blog/settings.py:129
 msgid "Russian"
 msgstr "Russian"
 
@@ -92,6 +124,11 @@ msgstr "Login"
 msgid "Logout"
 msgstr "Logout"
 
+#: templates/blog/comment_base.html:8 templates/blog/post.html:47
+#: templates/blog/reply.html:9
+msgid "Reply"
+msgstr ""
+
 #: templates/blog/create_post.html:9
 msgid "post"
 msgstr ""
@@ -100,7 +137,8 @@ msgstr ""
 msgid "Are you sure you want to delete"
 msgstr ""
 
-#: templates/blog/delete_post.html:12 templates/index.html:30
+#: templates/blog/delete_post.html:12 templates/blog/post.html:20
+#: templates/index.html:30
 msgid "Delete"
 msgstr ""
 
@@ -112,12 +150,12 @@ msgstr ""
 msgid "Author"
 msgstr ""
 
-#: templates/blog/post.html:20
-msgid "Leave a comment"
+#: templates/blog/post.html:18 templates/index.html:28
+msgid "Update"
 msgstr ""
 
-#: templates/blog/post.html:26 templates/blog/reply.html:9
-msgid "Reply"
+#: templates/blog/post.html:32
+msgid "Leave a comment"
 msgstr ""
 
 #: templates/blog/unauthenticated.html:7
@@ -128,20 +166,16 @@ msgstr ""
 msgid "You need to be authorized"
 msgstr ""
 
-#: templates/index.html:9
+#: templates/index.html:8
 msgid "sort by date"
 msgstr ""
 
-#: templates/index.html:11
+#: templates/index.html:10
 msgid "sort by author"
 msgstr ""
 
-#: templates/index.html:14
+#: templates/index.html:13
 msgid "Create post"
-msgstr ""
-
-#: templates/index.html:28
-msgid "Update"
 msgstr ""
 
 #: templates/user/guest_does_not_exist.html:6
@@ -152,11 +186,11 @@ msgstr ""
 msgid "does not exist"
 msgstr ""
 
-#: templates/user/login.html:10 templates/user/register.html:8
+#: templates/user/login.html:10 templates/user/register.html:9
 msgid "username"
 msgstr ""
 
-#: templates/user/login.html:12 templates/user/register.html:11
+#: templates/user/login.html:12 templates/user/register.html:12
 msgid "password"
 msgstr ""
 
@@ -164,7 +198,7 @@ msgstr ""
 msgid "edit profile"
 msgstr ""
 
-#: templates/user/profile.html:12 templates/user/register.html:10
+#: templates/user/profile.html:12 templates/user/register.html:11
 msgid "email"
 msgstr ""
 
@@ -204,11 +238,11 @@ msgstr ""
 msgid "Account settings"
 msgstr ""
 
-#: templates/user/register.html:5
+#: templates/user/register.html:6
 msgid "Register a new account"
 msgstr ""
 
-#: templates/user/register.html:12
+#: templates/user/register.html:13
 msgid "confirm password"
 msgstr ""
 

@@ -45,13 +45,14 @@ API Docs:
 + Make confirmation of registration by email ❌
 + Add the ability to respond to comments (present in the api, but in the web) ✅
 + Division into dev and production branches ✅
-+ Add encryption (lets encrypt)?
 + Upload to heroku, github pages, raspberry pi? ✅
-+ Login / registration via cart, google account?
 + Add rating to posts and comments
++ Add comments counter to posts
 + Add save post feature
 + Add sort by popular feature
-+ Add markdown support to posts
 + Add comments history section to profile
++ Add GitHub link to navbar
++ Add markdown support to posts
 + Add DMs
-+ 
++ Add encryption (lets encrypt)?
++ Login / registration via cart, google account?

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-16 15:13+0000\n"
-"PO-Revision-Date: 2022-01-16 15:14+0000\n"
+"POT-Creation-Date: 2022-01-19 14:45+0000\n"
+"PO-Revision-Date: 2022-01-19 14:46+0000\n"
 "Last-Translator:   <admin@admin.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -24,12 +24,14 @@ msgid "Untitled"
 msgstr "Безымянный"
 
 #: BlogApp/models.py:8
-#, fuzzy
-#| msgid "username"
 msgid "name"
-msgstr "имя пользователя"
+msgstr "имя"
 
-#: BlogApp/models.py:10 BlogApp/models.py:21
+#: BlogApp/models.py:9
+msgid "creation date"
+msgstr "дата создания"
+
+#: BlogApp/models.py:10 BlogApp/models.py:25
 msgid "text"
 msgstr "текст"
 
@@ -37,11 +39,40 @@ msgstr "текст"
 msgid "description"
 msgstr "описание"
 
-#: blog/settings.py:120
+#: BlogApp/models.py:12 BlogApp/models.py:24
+msgid "author"
+msgstr "автор"
+
+#: BlogApp/models.py:13 BlogApp/models.py:29
+msgid "rating"
+msgstr "рейтинг"
+
+#: BlogApp/models.py:16
+msgid "number of comments"
+msgstr "количество комментариев"
+
+#: BlogApp/models.py:26
+msgid "publication date"
+msgstr "дата публикации"
+
+#: BlogApp/models.py:27
+#| msgid "name"
+msgid "post name"
+msgstr "название поста"
+
+#: BlogApp/models.py:28
+msgid "replies"
+msgstr "ответы"
+
+#: BlogApp/models.py:34
+msgid "'s comment"
+msgstr "комментарий"
+
+#: blog/settings.py:128
 msgid "English"
 msgstr "Английский"
 
-#: blog/settings.py:121
+#: blog/settings.py:129
 msgid "Russian"
 msgstr "Русский"
 
@@ -95,6 +126,11 @@ msgstr "Вход"
 msgid "Logout"
 msgstr "Выход"
 
+#: templates/blog/comment_base.html:8 templates/blog/post.html:47
+#: templates/blog/reply.html:9
+msgid "Reply"
+msgstr "Ответить"
+
 #: templates/blog/create_post.html:9
 msgid "post"
 msgstr "запостить"
@@ -103,7 +139,8 @@ msgstr "запостить"
 msgid "Are you sure you want to delete"
 msgstr "Вы уверены что хотите удалить?"
 
-#: templates/blog/delete_post.html:12 templates/index.html:30
+#: templates/blog/delete_post.html:12 templates/blog/post.html:20
+#: templates/index.html:30
 msgid "Delete"
 msgstr "Удалить"
 
@@ -115,13 +152,13 @@ msgstr "Отмена"
 msgid "Author"
 msgstr "Автор"
 
-#: templates/blog/post.html:20
+#: templates/blog/post.html:18 templates/index.html:28
+msgid "Update"
+msgstr "Обновить"
+
+#: templates/blog/post.html:32
 msgid "Leave a comment"
 msgstr "Оставить Комментарий"
-
-#: templates/blog/post.html:26 templates/blog/reply.html:9
-msgid "Reply"
-msgstr "Ответить"
 
 #: templates/blog/unauthenticated.html:7
 msgid "Error 401"
@@ -131,21 +168,17 @@ msgstr "Ошибка 401"
 msgid "You need to be authorized"
 msgstr "Вы должны быть авторизированы"
 
-#: templates/index.html:9
+#: templates/index.html:8
 msgid "sort by date"
 msgstr "сортировка по дате"
 
-#: templates/index.html:11
+#: templates/index.html:10
 msgid "sort by author"
 msgstr "сортировка по автору"
 
-#: templates/index.html:14
+#: templates/index.html:13
 msgid "Create post"
 msgstr "Создать пост"
-
-#: templates/index.html:28
-msgid "Update"
-msgstr "Обновить"
 
 #: templates/user/guest_does_not_exist.html:6
 msgid "Guest"
@@ -155,11 +188,11 @@ msgstr "Гость"
 msgid "does not exist"
 msgstr "не существует"
 
-#: templates/user/login.html:10 templates/user/register.html:8
+#: templates/user/login.html:10 templates/user/register.html:9
 msgid "username"
 msgstr "имя пользователя"
 
-#: templates/user/login.html:12 templates/user/register.html:11
+#: templates/user/login.html:12 templates/user/register.html:12
 msgid "password"
 msgstr "пароль"
 
@@ -167,7 +200,7 @@ msgstr "пароль"
 msgid "edit profile"
 msgstr "Настроить профиль"
 
-#: templates/user/profile.html:12 templates/user/register.html:10
+#: templates/user/profile.html:12 templates/user/register.html:11
 msgid "email"
 msgstr "эл. почта"
 
@@ -207,11 +240,11 @@ msgstr "Назад к профилю"
 msgid "Account settings"
 msgstr "Настройки аккаунта"
 
-#: templates/user/register.html:5
+#: templates/user/register.html:6
 msgid "Register a new account"
 msgstr "Зарегистрировать новый аккаунт"
 
-#: templates/user/register.html:12
+#: templates/user/register.html:13
 msgid "confirm password"
 msgstr "подтвердить пароль"
 

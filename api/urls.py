@@ -1,14 +1,16 @@
 from django.urls import path
 from django.conf.urls import include
 from rest_framework.routers import DefaultRouter
-from . import views
+from .views import *
 
 
 router = DefaultRouter()
-router.register(r'posts', views.PostViewSet)
-router.register(r'comments', views.CommentViewSet)
-router.register(r'users', views.UsersViewSet)
+router.register(r'posts', PostViewSet)
+router.register(r'comments', CommentViewSet)
+router.register(r'users', UsersViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('posts/rate', RatePostView.as_view()),
+    path('comments/rate', RateCommentView.as_view()),
 ]

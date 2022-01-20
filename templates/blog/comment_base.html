@@ -1,0 +1,17 @@
+{% extends 'blog/post.html' %}
+{% block comment_block %}
+{% load i18n %}
+
+<div class="post" style="margin-bottom: 0">
+    <a id="name" href="{% url 'user:profile' comment.author.user.id %}">{{ comment.author }}</a> {{comment.publication_date}}
+    <h5>{{comment.text}}</h5>
+    <a id="name" href="{% url 'blog:reply' post.id comment.id %}">{% trans 'Reply' %}</a>
+    {% for reply in comment.replies.all %}
+        <div class="post" style="margin-bottom: 0">
+        <a id="name" href="{% url 'user:profile' reply.author.user.id %}">{{ reply.author }}</a> {{reply.publication_date}}
+        <h5>{{reply.text}}</h5>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

@@ -1,6 +1,8 @@
+from django.db.models import QuerySet
 from rest_framework.response import Response
 from rest_framework.status import HTTP_201_CREATED
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
+from rest_framework.views import View, APIView
 from rest_framework.mixins import CreateModelMixin, ListModelMixin, DestroyModelMixin, RetrieveModelMixin
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from BlogApp.models import Post, Comment
@@ -152,3 +154,56 @@ class UsersViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
         IsAuthenticated: ['update', 'partial_update', 'destroy', 'create'],
         AllowAny: ['list', 'retrieve']
     }
+
+
+class CastVote(APIView):
+    queryset = None
+    permission_classes = (ActionBasedPermission,)
+    action_permissions = {
+        IsAuthenticated: ['update', 'partial_update', 'destroy', 'retrieve', 'create'],
+        AllowAny: ['list']
+    }
+
+    def get_queryset(self):
+        assert self.queryset is not None, (
+            "'%s' should either include a `queryset` attribute, "
+            "or override the `get_queryset()` method."
+            % self.__class__.__name__
+        )
+
+        queryset = self.queryset
+        if isinstance(queryset, QuerySet):
+            # Ensure queryset is re-evaluated on each request.
+            queryset = queryset.all()
+        return queryset
+
+    def patch(self, request):
+        query = self.get_queryset().objects.get(request.data['post'])
+        user = request.user
+        vote = request.data['vote']
+        if vote == 'upvote' and user not in query.upvoted_users.all():
+            query.rating += 1
+            query.upvoted_users.add(user)
+            return Response(status=200)
+        elif vote == 'downvote' and user not in query.downvoted_users.all():
+            query.rating -= 1
+            query.downvoted_users.add(user)
+            return Response(status=200)
+        else:
+            return Response(status=400)  # TODO Use UpdateMixin or right my own?
+
+
+class RatePostView(CastVote):
+    """
+    Rate a post
+    """
+    queryset = Post
+    serializer_class = PostSerializer
+
+
+class RateCommentView(CastVote):
+    """
+    Rate a comment
+    """
+    queryset = Comment
+    serializer_class = CommentSerializer
