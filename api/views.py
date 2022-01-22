@@ -1,10 +1,10 @@
 from django.db.models import QuerySet
+from rest_framework.mixins import CreateModelMixin, ListModelMixin, DestroyModelMixin, RetrieveModelMixin
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.status import HTTP_201_CREATED
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
-from rest_framework.views import View, APIView
-from rest_framework.mixins import CreateModelMixin, ListModelMixin, DestroyModelMixin, RetrieveModelMixin
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.views import APIView
 from BlogApp.models import Post, Comment
 from user.models import Guest
 from .serializers import PostSerializer, CommentSerializer, UserSerializer
@@ -158,13 +158,51 @@ class UsersViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
 
 class CastVote(APIView):
     queryset = None
+    serializer_class = None
     permission_classes = (ActionBasedPermission,)
     action_permissions = {
-        IsAuthenticated: ['update', 'partial_update', 'destroy', 'retrieve', 'create'],
-        AllowAny: ['list']
+        IsAuthenticated: ['update', 'partial_update', 'destroy', 'create'],
+        AllowAny: ['list', 'retrieve']
     }
 
+    def patch(self, request, *args, **kwargs):
+        query = self.get_queryset()
+        if query is Post:
+            query = query.objects.get(kwargs['post'])
+        elif query is Comment:
+            query = query.objects.get(kwargs['comment'])
+        user = request.user
+        vote = kwargs['vote']
+        if vote == 'upvote' and user not in query.upvoted_users.all():
+            query.rating += 1
+            query.upvoted_users.add(user)
+            response = Response(status=200)
+        elif vote == 'downvote' and user not in query.downvoted_users.all():
+            query.rating -= 1
+            query.downvoted_users.add(user)
+            response = Response(status=200)
+        else:
+            response = Response(status=400)
+        serializer = self.serializer_class(query, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return response
+
     def get_queryset(self):
+        """
+        Get the list of items for this view.
+        This must be an iterable, and may be a queryset.
+        Defaults to using `self.queryset`.
+
+        This method should always be used rather than accessing `self.queryset`
+        directly, as `self.queryset` gets evaluated only once, and those results
+        are cached for all subsequent requests.
+
+        You may want to override this if you need to provide different
+        querysets depending on the incoming request.
+
+        (Eg. return a list of items that is specific to the user)
+        """
         assert self.queryset is not None, (
             "'%s' should either include a `queryset` attribute, "
             "or override the `get_queryset()` method."
@@ -176,21 +214,6 @@ class CastVote(APIView):
             # Ensure queryset is re-evaluated on each request.
             queryset = queryset.all()
         return queryset
-
-    def patch(self, request):
-        query = self.get_queryset().objects.get(request.data['post'])
-        user = request.user
-        vote = request.data['vote']
-        if vote == 'upvote' and user not in query.upvoted_users.all():
-            query.rating += 1
-            query.upvoted_users.add(user)
-            return Response(status=200)
-        elif vote == 'downvote' and user not in query.downvoted_users.all():
-            query.rating -= 1
-            query.downvoted_users.add(user)
-            return Response(status=200)
-        else:
-            return Response(status=400)  # TODO Use UpdateMixin or right my own?
 
 
 class RatePostView(CastVote):
@@ -207,3 +230,11 @@ class RateCommentView(CastVote):
     """
     queryset = Comment
     serializer_class = CommentSerializer
+
+
+class SavePost:
+    pass
+
+
+class SaveComment:
+    pass
