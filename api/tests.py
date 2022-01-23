@@ -1,5 +1,5 @@
 import json
-from django.test import TestCase
+from rest_framework.test import APITestCase
 from rest_framework.authtoken.models import Token
 from rest_framework.test import APIClient
 from rest_framework import status
@@ -9,9 +9,10 @@ from .serializers import *
 token = Token.objects.get(user__username='admin')
 client = APIClient()
 client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
+# client.login(username='admin', password='admin')
 
 
-class PostViewSetTest(TestCase):
+class PostViewSetTest(APITestCase):
 
     def setUp(self) -> None:
         self.first_post = Post.objects.create(
