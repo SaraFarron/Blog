@@ -1,13 +1,34 @@
 from django.db.models import QuerySet
-from rest_framework.mixins import CreateModelMixin, ListModelMixin, DestroyModelMixin, RetrieveModelMixin
+from rest_framework.mixins import CreateModelMixin, ListModelMixin, DestroyModelMixin, RetrieveModelMixin, \
+    UpdateModelMixin
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
-from rest_framework.status import HTTP_201_CREATED
+from rest_framework.status import HTTP_201_CREATED, HTTP_200_OK
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 from rest_framework.views import APIView
-from BlogApp.models import Post, Comment
-from user.models import Guest
-from .serializers import PostSerializer, CommentSerializer, UserSerializer
+from .serializers import *
+
+
+class PatchModelMixin:
+    """
+    Update a model instance.
+    """
+    def partial_update(self, request, *args, **kwargs):
+        partial = True
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+
+        if getattr(instance, '_prefetched_objects_cache', None):
+            # If 'prefetch_related' has been applied to a queryset, we need to
+            # forcibly invalidate the prefetch cache on the instance.
+            instance._prefetched_objects_cache = {}
+
+        return Response(serializer.data)
+
+    def perform_update(self, serializer):
+        serializer.save()
 
 
 class ActionBasedPermission(AllowAny):
@@ -19,6 +40,15 @@ class ActionBasedPermission(AllowAny):
             if view.action in actions:
                 return klass().has_permission(request, view)
         return False
+
+
+def set_default_permissions():
+    permission_classes = (ActionBasedPermission,)
+    action_permissions = {
+        IsAuthenticated: ['update', 'partial_update', 'destroy', 'create'],
+        AllowAny: ['list', 'retrieve']
+    }
+    return permission_classes, action_permissions
 
 
 class PostViewSet(ModelViewSet):
@@ -39,11 +69,7 @@ class PostViewSet(ModelViewSet):
     """
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permission_classes = (ActionBasedPermission, )
-    action_permissions = {
-        IsAuthenticated: ['update', 'partial_update', 'destroy', 'create'],
-        AllowAny: ['list', 'retrieve']
-    }
+    permission_classes, action_permissions = set_default_permissions()
 
     def create(self, request, *args, **kwargs):
         many = True if isinstance(request.data, list) else False
@@ -85,11 +111,7 @@ class CommentViewSet(CreateModelMixin, ListModelMixin, DestroyModelMixin, Generi
     """
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
-    permission_classes = (ActionBasedPermission, )
-    action_permissions = {
-        IsAuthenticated: ['update', 'partial_update', 'destroy', 'retrieve', 'create'],
-        AllowAny: ['list']
-    }
+    permission_classes, action_permissions = set_default_permissions()
 
     def create(self, request, *args, **kwargs):
         many = True if isinstance(request.data, list) else False
@@ -149,14 +171,10 @@ class UsersViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
     """
     queryset = Guest.objects.all()
     serializer_class = UserSerializer
-    permission_classes = (ActionBasedPermission,)
-    action_permissions = {
-        IsAuthenticated: ['update', 'partial_update', 'destroy', 'create'],
-        AllowAny: ['list', 'retrieve']
-    }
+    permission_classes, action_permissions = set_default_permissions()
 
 
-class CastVote(APIView):
+class CastVote:
     queryset = None
     serializer_class = None
     permission_classes = (ActionBasedPermission,)
@@ -216,7 +234,7 @@ class CastVote(APIView):
         return queryset
 
 
-class RatePostView(CastVote):
+class RatePostView(CastVote, APIView):
     """
     Rate a post
     """
@@ -224,7 +242,7 @@ class RatePostView(CastVote):
     serializer_class = PostSerializer
 
 
-class RateCommentView(CastVote):
+class RateCommentView(CastVote, APIView):
     """
     Rate a comment
     """
@@ -232,9 +250,26 @@ class RateCommentView(CastVote):
     serializer_class = CommentSerializer
 
 
-class SavePost:
-    pass
+class Save:
+    queryset = None
+    permission_classes, action_permissions = set_default_permissions()
+
+    def patch(self, request, id):
+        """Toggle save"""
+        query = self.queryset.objects.get(id=id)
+        users = query.saved_by
+        user = request.user
+        if user not in users:
+            query.saved_by.add(user)
+        else:
+            query.saved_by.remove(user)
+        query.save()
+        return Response(status=HTTP_200_OK)
 
 
-class SaveComment:
-    pass
+class SavePostView(Save, APIView):
+    queryset = Post
+
+
+class SaveCommentView(Save, APIView):
+    queryset = Comment

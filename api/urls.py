@@ -11,6 +11,8 @@ router.register(r'users', UsersViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('posts/rate', RatePostView.as_view()),
-    path('comments/rate', RateCommentView.as_view()),
+    path('posts/rate/<int:id>', RatePostView.as_view()),
+    path('posts/save/<int:id>/', SavePostView.as_view()),
+    path('comments/rate/<int:id>', RateCommentView.as_view()),
+    path('comments/save/<int:id>', SaveCommentView.as_view()),
 ]

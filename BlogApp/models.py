@@ -14,6 +14,7 @@ class Post(models.Model):
     upvoted_users = models.ManyToManyField(Guest, related_name='upvoted_post_users')
     downvoted_users = models.ManyToManyField(Guest, related_name='downvoted_post_users')
     number_of_comments = models.IntegerField(default=0, verbose_name=_('number of comments'))
+    saved_by = models.ManyToManyField(Guest, related_name='post_saved_by', verbose_name=_('post saved by'))
 
     def __str__(self):
         return self.name
@@ -29,6 +30,7 @@ class Comment(models.Model):
     rating = models.IntegerField(default=0, verbose_name=_('rating'))
     upvoted_users = models.ManyToManyField(Guest, related_name='upvoted_comment_users')
     downvoted_users = models.ManyToManyField(Guest, related_name='downvoted_comment_users')
+    saved_by = models.ManyToManyField(Guest, related_name='comment_saved_by', verbose_name=_('comment saved by'))
 
     def __str__(self):
         return f"{self.author}" + _("'s comment")
