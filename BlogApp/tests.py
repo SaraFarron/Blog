@@ -5,13 +5,13 @@ from .views import *
 class PostModelTest(TestCase):
     post_id = None
 
-    @classmethod
-    def setUpTestData(cls) -> None:
-        post = Post.objects.create(name='TestPost',
-                                   description='Lorem ipsum',
-                                   text='Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-                                   user=Guest.objects.get(name='admin'))
-        cls.post_id = post.id
+    # @classmethod
+    # def setUpTestData(cls) -> None:
+    #     post = Post.objects.create(name='TestPost',
+    #                                description='Lorem ipsum',
+    #                                text='Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+    #                                user=Guest.objects.get(name='admin'))
+    #     cls.post_id = post.id
 
     def test_create(self):
         pass
