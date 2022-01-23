@@ -17,6 +17,7 @@ class Guest(models.Model):
     is_banned = models.BooleanField(default=False, verbose_name=_('is banned'))
     is_muted = models.BooleanField(default=False, verbose_name=_('is muted'))
     last_ban_date = models.DateTimeField(null=True, blank=True, verbose_name=_('last ban date'))
+    rating = models.IntegerField(default=0, verbose_name=_('rating'))
 
     def __str__(self):
         return self.name

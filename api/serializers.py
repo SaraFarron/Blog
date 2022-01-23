@@ -5,9 +5,11 @@ from BlogApp.models import Post, Comment, Guest
 
 
 class UserSerializer(ModelSerializer):
+    rating = IntegerField(read_only=True)
+
     class Meta:
         model = Guest
-        fields = ('name', 'email', 'phone', 'skype', 'is_banned', 'is_muted', 'last_ban_date', 'is_moderator')
+        fields = ('name', 'email', 'phone', 'skype', 'is_banned', 'is_muted', 'last_ban_date', 'is_moderator', 'rating')
 
 
 class PostSerializer(ModelSerializer):
