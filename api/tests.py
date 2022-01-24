@@ -7,11 +7,7 @@ from django.contrib.auth.models import User
 
 from .serializers import *
 
-# token = Token.objects.get(user__username='admin')
 client = APIClient()
-# client.force_authenticate(user=token.user, token=token)
-# client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
-# print(token.user)
 
 
 class BaseTestClass:
@@ -31,6 +27,20 @@ class BaseTestClass:
         )
         self.test_guest.save()
         client.credentials(HTTP_AUTHORIZATION='Token ' + token)
+
+    def create_post(self):
+        self.post_data = {
+
+            'description': 'Lorem ipsum dolor sit',
+            'text': 'Lorem ipsum dolor sit amet'
+        }
+        self.post = Post.objects.create(
+            user=self.test_guest,
+            name='TestPost_0',
+            text='Lorem ipsum dolor sit amet',
+            description='Lorem ipsum dolor sit'
+        )
+        self.post.save()
 
 
 class CreatePostTest(APITestCase, BaseTestClass):
@@ -89,14 +99,14 @@ class GetPostTest(APITestCase, BaseTestClass):
         response = client.get('/en/api/posts/')
         posts = Post.objects.all()
         serializer = PostSerializer(posts, many=True)
-        self.assertEqual(json.dumps(response.data), serializer.data)
+        self.assertEqual(response.json(), serializer.data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_retrieve(self):
         response = client.get(f'/en/api/posts/{self.first_post.pk}/')
         posts = Post.objects.get(pk=self.first_post.pk)
         serializer = PostSerializer(posts)
-        self.assertEqual(json.dumps(response.data), serializer.data)
+        self.assertEqual(response.json(), serializer.data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
 
@@ -153,4 +163,86 @@ class DeletePostTest(APITestCase, BaseTestClass):
 
     def test_delete_invalid(self):
         response = client.delete(f'/en/api/posts/{99}/')
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+
+class CreateCommentTest(APITestCase, BaseTestClass):
+
+    def setUp(self) -> None:
+        self.create_user()
+        self.create_post()
+        self.valid_payload = {
+            'post': self.post.id,
+            'author': self.test_guest.id,
+            'text': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit dor'
+        }
+        self.invalid_payload = {
+            'post': '',
+            'author': self.test_guest.id,
+            'text': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit dor'
+        }
+
+    def test_create_valid(self):
+        response = client.post(
+            '/en/api/comments/',
+            data=json.dumps(self.valid_payload),
+            content_type='application/json',
+        )
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def test_create_invalid(self):
+        response = client.post(
+            '/en/api/comments/',
+            data=json.dumps(self.invalid_payload),
+            content_type='application/json'
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+
+class GetCommentTest(APITestCase, BaseTestClass):
+
+    def setUp(self) -> None:
+        self.create_user()
+        self.create_post()
+        self.first_comment = Comment.objects.create(
+            post=self.post,
+            author=self.test_guest,
+            text='Lorem ipsum dolor sit amet'
+        )
+        self.second_comment = Comment.objects.create(
+            post=self.post,
+            author=self.test_guest,
+            text='Lorem ipsum dolor sit amet, consectetur'
+        )
+        self.third_comment = Comment.objects.create(
+            post=self.post,
+            author=self.test_guest,
+            text='Lorem ipsum dolor sit amet, consectetur adipiscing elit'
+        )
+
+    def test_list(self):
+        response = client.get('/en/api/comments/')
+        comments = Comment.objects.all()
+        serializer = CommentSerializer(comments, many=True)
+        self.assertEqual(response.json(), serializer.data)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+
+class DeleteCommentTest(APITestCase, BaseTestClass):
+
+    def setUp(self) -> None:
+        self.create_user()
+        self.create_post()
+        self.first_comment = Comment.objects.create(
+            post=self.post,
+            author=self.test_guest,
+            text='Lorem ipsum dolor sit amet'
+        )
+
+    def test_delete_valid(self):
+        response = client.delete(f'/en/api/comments/{self.first_comment.pk}/')
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+    def test_delete_invalid(self):
+        response = client.delete(f'/en/api/comments/{99}/')
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
