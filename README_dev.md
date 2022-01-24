@@ -33,7 +33,7 @@ API Docs:
 #### 2021
 
 + Add api documentation ✅
-+ Tests, CI / CD ✅❌
++ Tests, CI / CD ✅
 + Use mixins and other cool stuff ✅
 + Add 404 page and get rid of all places where django tracebacks appear ✅
 
