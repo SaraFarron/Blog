@@ -1,4 +1,4 @@
-from rest_framework.fields import CharField, IntegerField
+from rest_framework.fields import CharField, IntegerField, ChoiceField
 from rest_framework.serializers import ModelSerializer, StringRelatedField, SlugRelatedField
 
 from BlogApp.models import Post, Comment, Guest
@@ -43,3 +43,19 @@ class CommentSerializer(ModelSerializer):
         model = Comment
         fields = '__all__'
         depth = 1
+
+
+class RatePostSerializer(ModelSerializer):
+    rating = ChoiceField(choices=['upvote', 'downvote'])
+
+    class Meta:
+        model = Post
+        fields = ['rating']
+
+
+class RateCommentSerializer(ModelSerializer):
+    rating = ChoiceField(choices=['upvote', 'downvote'])
+
+    class Meta:
+        model = Comment
+        fields = ['rating']

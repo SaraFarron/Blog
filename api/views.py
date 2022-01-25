@@ -1,11 +1,9 @@
 from django.db.models import QuerySet
-from rest_framework.mixins import CreateModelMixin, ListModelMixin, DestroyModelMixin, RetrieveModelMixin, \
-    UpdateModelMixin
+from rest_framework.mixins import CreateModelMixin, ListModelMixin, DestroyModelMixin, RetrieveModelMixin
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.status import HTTP_201_CREATED, HTTP_200_OK
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
-from rest_framework.views import APIView
 from .serializers import *
 
 
@@ -234,20 +232,20 @@ class CastVote:
         return queryset
 
 
-class RatePostView(CastVote, APIView):
+class RatePostView(PatchModelMixin, GenericViewSet):
     """
     Rate a post
     """
-    queryset = Post
-    serializer_class = PostSerializer
+    queryset = Post.objects.all()
+    serializer_class = RatePostSerializer
 
 
-class RateCommentView(CastVote, APIView):
+class RateCommentView(PatchModelMixin, GenericViewSet):
     """
     Rate a comment
     """
-    queryset = Comment
-    serializer_class = CommentSerializer
+    queryset = Comment.objects.all()
+    serializer_class = RateCommentSerializer
 
 
 class Save:
@@ -267,9 +265,11 @@ class Save:
         return Response(status=HTTP_200_OK)
 
 
-class SavePostView(Save, APIView):
-    queryset = Post
+class SavePostView(PatchModelMixin, GenericViewSet):
+    """Save post"""
+    queryset = Post.objects.all()
 
 
-class SaveCommentView(Save, APIView):
-    queryset = Comment
+class SaveCommentView(PatchModelMixin, GenericViewSet):
+    """Save comment"""
+    queryset = Comment.objects.all()

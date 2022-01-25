@@ -8,11 +8,11 @@ router = DefaultRouter()
 router.register(r'posts', PostViewSet)
 router.register(r'comments', CommentViewSet)
 router.register(r'users', UsersViewSet)
+router.register(r'posts/rate', RatePostView)
+router.register(r'comments/rate', RateCommentView)
+router.register(r'posts/save', SavePostView)
+router.register(r'comments/save', SaveCommentView)
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('posts/rate/<int:id>', RatePostView.as_view()),
-    path('posts/save/<int:id>/', SavePostView.as_view()),
-    path('comments/rate/<int:id>', RateCommentView.as_view()),
-    path('comments/save/<int:id>', SaveCommentView.as_view()),
 ]
