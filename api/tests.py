@@ -253,20 +253,19 @@ class DeleteCommentTest(APITestCase, BaseTestClass):
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
 
-# TODO These tests should not pass but they do
 class RatePostTest(APITestCase, BaseTestClass):
 
     def setUp(self) -> None:
         self.create_user()
         self.create_post()
 
-    def upvote_valid(self):
+    def test_upvote_valid(self):
         response = client.patch(f'/en/api/posts/rate/{self.post.pk}/', kwargs={'rating': 'upvote'})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(self.post.rating, 1)
         self.assertEqual(self.test_guest.rating, 1)
 
-    def upvote_invalid(self):
+    def test_upvote_invalid(self):
         response = client.patch(f'/en/api/posts/rate/{self.post.pk}/', kwargs={'rating': 'up'})
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertEqual(self.post.rating, 0)
@@ -280,13 +279,13 @@ class RateCommentTest(APITestCase, BaseTestClass):
         self.create_post()
         self.create_comment()
 
-    def upvote_valid(self):
+    def test_upvote_valid(self):
         response = client.patch(f'/en/api/comments/rate/{self.comment.pk}/', kwargs={'rating': 'upvote'})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(self.post.rating, 1)
         self.assertEqual(self.test_guest.rating, 1)
 
-    def upvote_invalid(self):
+    def test_upvote_invalid(self):
         response = client.patch(f'/en/api/comments/rate/{self.comment.pk}/', kwargs={'rating': 'up'})
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertEqual(self.post.rating, 0)
