@@ -22,7 +22,7 @@ class Post(models.Model):
 
 class Comment(models.Model):
     id = models.AutoField(primary_key=True)
-    author = models.ForeignKey(Guest, on_delete=models.CASCADE, verbose_name=_('author'))
+    user = models.ForeignKey(Guest, on_delete=models.CASCADE, verbose_name=_('author'))
     text = models.TextField(verbose_name=_('text'))
     publication_date = models.DateTimeField(auto_now_add=True, verbose_name=_('publication date'))
     post = models.ForeignKey(Post, on_delete=models.CASCADE, verbose_name=_('post name'))
@@ -33,7 +33,7 @@ class Comment(models.Model):
     saved_by = models.ManyToManyField(Guest, related_name='comment_saved_by', verbose_name=_('comment saved by'))
 
     def __str__(self):
-        return f"{self.author}" + _("'s comment")
+        return f"{self.user}" + _("'s comment")
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

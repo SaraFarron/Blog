@@ -41,7 +41,6 @@ class BaseTestClass:
             text='Lorem ipsum dolor sit amet',
             description='Lorem ipsum dolor sit'
         )
-        self.post.save()
 
     def create_comment(self):
         self.comment = Comment.objects.create(
@@ -49,7 +48,6 @@ class BaseTestClass:
             author=self.test_guest,
             text='Lorem ipsum dolor sit amet'
         )
-        self.comment.save()
 
 
 class CreatePostTest(APITestCase, BaseTestClass):
@@ -261,6 +259,7 @@ class RatePostTest(APITestCase, BaseTestClass):
 
     def test_upvote_valid(self):
         response = client.patch(f'/en/api/posts/rate/{self.post.pk}/', kwargs={'rating': 'upvote'})
+        print(self.post.pk)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(self.post.rating, 1)
         self.assertEqual(self.test_guest.rating, 1)
@@ -268,8 +267,8 @@ class RatePostTest(APITestCase, BaseTestClass):
     def test_upvote_invalid(self):
         response = client.patch(f'/en/api/posts/rate/{self.post.pk}/', kwargs={'rating': 'up'})
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
-        self.assertEqual(self.post.rating, 0)
         self.assertEqual(self.test_guest.rating, 0)
+        self.assertEqual(self.post.rating, 0)
 
 
 class RateCommentTest(APITestCase, BaseTestClass):

@@ -115,7 +115,7 @@ class CreateComment(View):
             post = Post.objects.get(id=pk)
             author = Guest.objects.get(name=request.user)
 
-            form.instance.author = author
+            form.instance.user = author
             form.instance.post = post
             form.save()
 
@@ -160,7 +160,7 @@ class Reply(View):
             parent_comment = Comment.objects.get(id=comment)
             author = Guest.objects.get(name=request.user)
 
-            form.instance.author = author
+            form.instance.user = author
             form.instance.post = post
             new_comment = form.save()
             parent_comment.replies.add(new_comment)

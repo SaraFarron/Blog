@@ -20,6 +20,10 @@ Enter console
 
 `docker exec -it blog_web_1 python manage.py shell_plus`
 
+Enter db console
+
+`docker exec -it blog_db_1 psql -U postgres`
+
 URL:
 
 `localhost:8000/en/`

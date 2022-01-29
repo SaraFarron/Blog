@@ -28,7 +28,7 @@ class PostSerializer(ModelSerializer):
 class CommentSerializer(ModelSerializer):
     id = IntegerField(read_only=True)
     post = CharField(required=True)
-    author = SlugRelatedField(
+    user = SlugRelatedField(
         read_only=True,
         slug_field='name'
     )

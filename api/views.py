@@ -11,9 +11,13 @@ class PatchModelMixin:
     """
     Update a model instance.
     """
+
     def partial_update(self, request, *args, **kwargs):
         partial = True
-        instance = self.get_object()
+        instance = self.queryset.get(pk=kwargs['pk'])
+        # instance = self.get_object()
+        instance.rating += 1
+        instance.user.rating += 1
         serializer = self.get_serializer(instance, data=request.data, partial=partial)
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
@@ -127,7 +131,7 @@ class CommentViewSet(CreateModelMixin, ListModelMixin, DestroyModelMixin, Generi
             comment = Comment.objects.create(
                 text=request.data.get('text'),
                 post=post,
-                author=author
+                user=author
             )
             comment.save()
             parent_comment.replies.add(comment)
@@ -137,7 +141,7 @@ class CommentViewSet(CreateModelMixin, ListModelMixin, DestroyModelMixin, Generi
             comment = Comment.objects.create(
                 text=request.data.get('text'),
                 post=post,
-                author=author
+                user=author
             )
             comment.save()
 
@@ -236,24 +240,8 @@ class RatePostView(PatchModelMixin, GenericViewSet):
     """
     Rate a post
     """
-    queryset = Post.objects.all()
     serializer_class = RatePostSerializer
-
-    def partial_update(self, request, *args, **kwargs):
-        partial = True
-        instance = self.get_object()
-        instance.rating += 1  # TODO wrong instance
-        instance.user.rating += 1
-        serializer = self.get_serializer(instance, data=request.data, partial=partial)
-        serializer.is_valid(raise_exception=True)
-        self.perform_update(serializer)
-
-        if getattr(instance, '_prefetched_objects_cache', None):
-            # If 'prefetch_related' has been applied to a queryset, we need to
-            # forcibly invalidate the prefetch cache on the instance.
-            instance._prefetched_objects_cache = {}
-
-        return Response(serializer.data)
+    queryset = Post.objects.all()
 
 
 class RateCommentView(PatchModelMixin, GenericViewSet):
@@ -284,8 +272,10 @@ class Save:
 class SavePostView(PatchModelMixin, GenericViewSet):
     """Save post"""
     queryset = Post.objects.all()
+    serializer_class = PostSerializer
 
 
 class SaveCommentView(PatchModelMixin, GenericViewSet):
     """Save comment"""
     queryset = Comment.objects.all()
+    serializer_class = CommentSerializer

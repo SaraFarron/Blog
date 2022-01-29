@@ -34,7 +34,7 @@
     {% for comment in comments %}
         <div class="post" style="margin-bottom: 0">
             <div style="position: relative">
-                <a id="name" href="{% url 'user:profile' comment.author.user.id %}">{{ comment.author }}</a> {{comment.publication_date}}
+                <a id="name" href="{% url 'user:profile' comment.user.user.id %}">{{ comment.user }}</a> {{comment.publication_date}}
                 <a href="{% url 'blog:home' %}"
                    class="btn btn-sm btn-default"
                    style="position: absolute; right: 0; color: green; font-size: 20px">+</a>
@@ -47,7 +47,7 @@
             <a id="name" href="{% url 'blog:reply' post.id comment.id %}">{% trans 'Reply' %}</a>
             {% for reply in comment.replies.all %}
                 <div class="post" style="margin-bottom: 0">
-                <a id="name" href="{% url 'user:profile' reply.author.user.id %}">{{ reply.author }}</a> {{reply.publication_date}}
+                <a id="name" href="{% url 'user:profile' reply.user.user.id %}">{{ reply.user }}</a> {{reply.publication_date}}
                 <h5>{{reply.text}}</h5>
                 </div>
             {% endfor %}
