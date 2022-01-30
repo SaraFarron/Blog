@@ -117,13 +117,14 @@ class CreateComment(View):
 
             form.instance.user = author
             form.instance.post = post
+            form.instance.post.number_of_comments += 1
             form.save()
 
             return HttpResponseRedirect(reverse('blog:post', args=(post.id,)))
         form = CommentForm
 
         context = {'form': form}
-        return render(request, 'blog/create_post.html', context)
+        return render(request, 'blog/create_comment.html', context)
 
     @method_decorator(login_required(login_url='user:login'))
     def get(self, request, pk):
@@ -135,7 +136,7 @@ class CreateComment(View):
         form = CommentForm
 
         context = {'form': form}
-        return render(request, 'blog/create_post.html', context)
+        return render(request, 'blog/create_comment.html', context)
 
 
 class Reply(View):

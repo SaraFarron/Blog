@@ -1,0 +1,13 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+    {% load i18n %}
+
+<div class="post">
+  <form action="" method="post">
+    {% csrf_token %}
+    <input type="text" name="text" placeholder="{% trans 'text' %}"
+                   class="field" >
+      <input type="submit" name="Submit" class="btn btn-sm btn-success" value="{% trans 'comment' %}">
+</form>
+</div>
+{% endblock %}

@@ -34,7 +34,3 @@ class Comment(models.Model):
 
     def __str__(self):
         return f"{self.user}" + _("'s comment")
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.post.number_of_comments += 1

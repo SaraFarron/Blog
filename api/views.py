@@ -144,6 +144,8 @@ class CommentViewSet(CreateModelMixin, ListModelMixin, DestroyModelMixin, Generi
                 user=author
             )
             comment.save()
+            post.number_of_comments += 1
+            post.save()
 
         return Response({}, status=HTTP_201_CREATED)
 
