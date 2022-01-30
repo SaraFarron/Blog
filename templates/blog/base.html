@@ -57,7 +57,7 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'user:profile' request.user.id %}">{% trans 'Profile' %}</a>
         </li>
-          {% if not request.user %}
+          {% if not request.user.is_authenticated %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'user:register' %}">{% trans 'Register' %}</a>
         </li>
@@ -65,7 +65,7 @@
           <a class="nav-link" href="{% url 'user:login' %}">{% trans 'Login' %}</a>
         </li>
           {% endif %}
-          {% if request.user %}
+          {% if request.user.is_authenticated %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'user:logout' %}">{% trans 'Logout' %}</a>
         </li>
