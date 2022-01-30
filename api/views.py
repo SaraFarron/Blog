@@ -1,8 +1,7 @@
-from django.db.models import QuerySet
 from rest_framework.mixins import CreateModelMixin, ListModelMixin, DestroyModelMixin, RetrieveModelMixin
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
-from rest_framework.status import HTTP_201_CREATED, HTTP_200_OK
+from rest_framework.status import HTTP_201_CREATED, HTTP_200_OK, HTTP_403_FORBIDDEN
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 from .serializers import *
 
@@ -13,24 +12,38 @@ class PatchModelMixin:
     """
 
     def partial_update(self, request, *args, **kwargs):
-        partial = True
-        instance = self.queryset.get(pk=kwargs['pk'])
-        # instance = self.get_object()
-        instance.rating += 1
-        instance.user.rating += 1
-        serializer = self.get_serializer(instance, data=request.data, partial=partial)
-        serializer.is_valid(raise_exception=True)
-        self.perform_update(serializer)
+        instance = self.get_object()
+        action = request.data['rating']
+        user = Guest.objects.get(user=request.user)
 
-        if getattr(instance, '_prefetched_objects_cache', None):
-            # If 'prefetch_related' has been applied to a queryset, we need to
-            # forcibly invalidate the prefetch cache on the instance.
-            instance._prefetched_objects_cache = {}
+        match action:
+            case 'upvote':
+                if user not in instance.upvoted_users.all():
+                    instance.rating += 1
+                    instance.user.rating += 1
+                    instance.upvoted_users.add(user)
+                    if user in instance.downvoted_users.all():
+                        instance.downvoted_users.remove(user)
+                        instance.rating += 1
+                        instance.user.rating += 1
+                else:
+                    Response({'error': 'You already upvoted this'}, status=HTTP_403_FORBIDDEN)
+            case 'downvote':
+                if user not in instance.downvoted_users.all():
+                    instance.rating -= 1
+                    instance.user.rating -= 1
+                    instance.downvoted_users.add(user)
+                    if user in instance.upvoted_users.all():
+                        instance.upvoted_users.remove(user)
+                        instance.rating -= 1
+                        instance.user.rating -= 1
+                else:
+                    Response({'error': 'You already downvoted this'}, status=HTTP_403_FORBIDDEN)
+            case _:
+                return Response(status=HTTP_403_FORBIDDEN)
 
-        return Response(serializer.data)
-
-    def perform_update(self, serializer):
-        serializer.save()
+        instance.save()
+        return Response(status=HTTP_200_OK)
 
 
 class ActionBasedPermission(AllowAny):
@@ -176,66 +189,6 @@ class UsersViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
     queryset = Guest.objects.all()
     serializer_class = UserSerializer
     permission_classes, action_permissions = set_default_permissions()
-
-
-class CastVote:
-    queryset = None
-    serializer_class = None
-    permission_classes = (ActionBasedPermission,)
-    action_permissions = {
-        IsAuthenticated: ['update', 'partial_update', 'destroy', 'create'],
-        AllowAny: ['list', 'retrieve']
-    }
-
-    def patch(self, request, *args, **kwargs):
-        query = self.get_queryset()
-        if query is Post:
-            query = query.objects.get(kwargs['post'])
-        elif query is Comment:
-            query = query.objects.get(kwargs['comment'])
-        user = request.user
-        vote = kwargs['vote']
-        if vote == 'upvote' and user not in query.upvoted_users.all():
-            query.rating += 1
-            query.upvoted_users.add(user)
-            response = Response(status=200)
-        elif vote == 'downvote' and user not in query.downvoted_users.all():
-            query.rating -= 1
-            query.downvoted_users.add(user)
-            response = Response(status=200)
-        else:
-            response = Response(status=400)
-        serializer = self.serializer_class(query, data=request.data, partial=True)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return response
-
-    def get_queryset(self):
-        """
-        Get the list of items for this view.
-        This must be an iterable, and may be a queryset.
-        Defaults to using `self.queryset`.
-
-        This method should always be used rather than accessing `self.queryset`
-        directly, as `self.queryset` gets evaluated only once, and those results
-        are cached for all subsequent requests.
-
-        You may want to override this if you need to provide different
-        querysets depending on the incoming request.
-
-        (Eg. return a list of items that is specific to the user)
-        """
-        assert self.queryset is not None, (
-            "'%s' should either include a `queryset` attribute, "
-            "or override the `get_queryset()` method."
-            % self.__class__.__name__
-        )
-
-        queryset = self.queryset
-        if isinstance(queryset, QuerySet):
-            # Ensure queryset is re-evaluated on each request.
-            queryset = queryset.all()
-        return queryset
 
 
 class RatePostView(PatchModelMixin, GenericViewSet):

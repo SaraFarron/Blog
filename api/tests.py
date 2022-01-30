@@ -45,7 +45,7 @@ class BaseTestClass:
     def create_comment(self):
         self.comment = Comment.objects.create(
             post=self.post,
-            author=self.test_guest,
+            user=self.test_guest,
             text='Lorem ipsum dolor sit amet'
         )
 
@@ -180,12 +180,12 @@ class CreateCommentTest(APITestCase, BaseTestClass):
         self.create_post()
         self.valid_payload = {
             'post': self.post.id,
-            'author': self.test_guest.id,
+            'user': self.test_guest.id,
             'text': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit dor'
         }
         self.invalid_payload = {
             'post': '',
-            'author': self.test_guest.id,
+            'user': self.test_guest.id,
             'text': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit dor'
         }
 
@@ -196,6 +196,7 @@ class CreateCommentTest(APITestCase, BaseTestClass):
             content_type='application/json',
         )
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(self.post.number_of_comments, 1)
 
     def test_create_invalid(self):
         response = client.post(
@@ -213,17 +214,17 @@ class GetCommentTest(APITestCase, BaseTestClass):
         self.create_post()
         self.first_comment = Comment.objects.create(
             post=self.post,
-            author=self.test_guest,
+            user=self.test_guest,
             text='Lorem ipsum dolor sit amet'
         )
         self.second_comment = Comment.objects.create(
             post=self.post,
-            author=self.test_guest,
+            user=self.test_guest,
             text='Lorem ipsum dolor sit amet, consectetur'
         )
         self.third_comment = Comment.objects.create(
             post=self.post,
-            author=self.test_guest,
+            user=self.test_guest,
             text='Lorem ipsum dolor sit amet, consectetur adipiscing elit'
         )
 
@@ -258,14 +259,13 @@ class RatePostTest(APITestCase, BaseTestClass):
         self.create_post()
 
     def test_upvote_valid(self):
-        response = client.patch(f'/en/api/posts/rate/{self.post.pk}/', kwargs={'rating': 'upvote'})
-        print(self.post.pk)
+        response = client.patch(f'/en/api/posts/rate/{self.post.pk}/', data={'rating': 'upvote'})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(self.post.rating, 1)
         self.assertEqual(self.test_guest.rating, 1)
 
     def test_upvote_invalid(self):
-        response = client.patch(f'/en/api/posts/rate/{self.post.pk}/', kwargs={'rating': 'up'})
+        response = client.patch(f'/en/api/posts/rate/{self.post.pk}/', data={'rating': 'up'})
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertEqual(self.test_guest.rating, 0)
         self.assertEqual(self.post.rating, 0)
@@ -279,13 +279,13 @@ class RateCommentTest(APITestCase, BaseTestClass):
         self.create_comment()
 
     def test_upvote_valid(self):
-        response = client.patch(f'/en/api/comments/rate/{self.comment.pk}/', kwargs={'rating': 'upvote'})
+        response = client.patch(f'/en/api/comments/rate/{self.comment.pk}/', data={'rating': 'upvote'})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(self.post.rating, 1)
+        self.assertEqual(self.comment.rating, 1)
         self.assertEqual(self.test_guest.rating, 1)
 
     def test_upvote_invalid(self):
-        response = client.patch(f'/en/api/comments/rate/{self.comment.pk}/', kwargs={'rating': 'up'})
+        response = client.patch(f'/en/api/comments/rate/{self.comment.pk}/', data={'rating': 'up'})
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
-        self.assertEqual(self.post.rating, 0)
+        self.assertEqual(self.comment.rating, 0)
         self.assertEqual(self.test_guest.rating, 0)
