@@ -22,6 +22,10 @@
   style="background-color: #d9ffd9;">
   <div class="container">
 
+      <a class="navbar-brand" href="https://github.com/SaraFarron/Blog">
+      <img src="{% static 'images/github_logo.png' %}" alt="Github link" width="25px" height="25px">
+    </a>
+
       {% get_current_language as CURRENT_LANGUAGE %}
       {% get_available_languages as AVAILABLE_LANGUAGES %}
       {% get_language_info_list for AVAILABLE_LANGUAGES as languages %}

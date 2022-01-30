@@ -55,7 +55,7 @@ API Docs:
 + Add save post feature
 + Add sort by popular feature
 + Add comments history section to profile
-+ Add GitHub link to navbar
++ Add GitHub link to navbar ✅
 + Add markdown support to posts
 + Add DMs
 + Add encryption (lets encrypt)?
