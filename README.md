@@ -19,3 +19,5 @@ Right now images do not upload in users' profiles because of a [bug](https://git
 with django 4.0.1 and whitenoise. As soon as I will find a solution or a fix will be released I (hopefully) will remove 
 this bug. It is only present on [Heroku](https://pacific-lake-54676.herokuapp.com/en/) though, with running project 
 locally (as described in README_dev.md) this problem won't appear.
+
+Если поставить дефолтную аватарку то вылетает 500 / Default avatar button creates 500
