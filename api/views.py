@@ -231,7 +231,6 @@ class SavePostView(SaveModelMixin, GenericViewSet):
         Save post
     """
     queryset = Post.objects.all()
-    # serializer_class = PostSerializer
 
 
 class SaveCommentView(SaveModelMixin, GenericViewSet):
@@ -239,4 +238,3 @@ class SaveCommentView(SaveModelMixin, GenericViewSet):
         Save comment
     """
     queryset = Comment.objects.all()
-    # serializer_class = CommentSerializer
