@@ -4,7 +4,11 @@
     {% load i18n %}
 
 <div class="post">
-    <img class="profile-pic" src="{{ user.profile_picture.url }}">
+    {% if user.profile_picture %}
+        <img class="profile-pic" src="{{ user.profile_picture.url }}">
+    {% else %}
+        <img src="{% static 'images/profile.png' %}" height="250px" width="250px">
+    {% endif %}
     <h2 id="name">{{ user.name }}</h2>
     {% if request_user == user.user %}
     <h5><a href="{% url 'user:profile_settings' user.user.id %}" style="color: #1F78B4">{% trans 'edit profile' %}</a></h5>

@@ -22,6 +22,10 @@
   style="background-color: #d9ffd9;">
   <div class="container">
 
+      <a class="navbar-brand" href="https://github.com/SaraFarron/Blog">
+      <img src="{% static 'images/github_logo.png' %}" alt="Github link" width="25px" height="25px">
+    </a>
+
       {% get_current_language as CURRENT_LANGUAGE %}
       {% get_available_languages as AVAILABLE_LANGUAGES %}
       {% get_language_info_list for AVAILABLE_LANGUAGES as languages %}
@@ -57,15 +61,19 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'user:profile' request.user.id %}">{% trans 'Profile' %}</a>
         </li>
+          {% if not request.user.is_authenticated %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'user:register' %}">{% trans 'Register' %}</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'user:login' %}">{% trans 'Login' %}</a>
         </li>
+          {% endif %}
+          {% if request.user.is_authenticated %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'user:logout' %}">{% trans 'Logout' %}</a>
         </li>
+      {% endif %}
       </ul>
     </div>
   </div>

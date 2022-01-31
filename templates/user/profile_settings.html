@@ -11,7 +11,11 @@
 			<hr>
 			<h3 style="text-align: center">{% trans 'Account settings' %}</h3>
 			<hr>
-			<img class="profile-pic" src="{{ pfp }}" >
+            {% if user.profile_picture %}
+                <img class="profile-pic" src="{{ user.profile_picture.url }}">
+            {% else %}
+                <img src="{% static 'images/profile.png' %}" height="175px" width="175px">
+            {% endif %}
 
 		</div>
 	</div>

@@ -1,7 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
 from django.shortcuts import render
-from django.template import loader
 from django.utils.decorators import method_decorator
 from django.views import View
 
@@ -10,13 +8,8 @@ from .forms import *
 
 
 class Home(View):
-
     def get(self, request):
-        try:
-            posts = Post.objects.all().order_by('user')
-        except TypeError:
-            template = loader.get_template('blog/unauthenticated.html')
-            return HttpResponse(template.render())
+        posts = Post.objects.all().order_by('user')
 
         context = {'posts': posts, 'user': request.user}
         return render(request, 'index.html', context)
@@ -24,11 +17,7 @@ class Home(View):
 
 class HomeByDate(View):
     def get(self, request):
-        try:
-            posts = Post.objects.all().order_by('-creation_date')
-        except TypeError:
-            template = loader.get_template('blog/unauthenticated.html')
-            return HttpResponse(template.render())
+        posts = Post.objects.all().order_by('-creation_date')
 
         context = {'posts': posts, 'user': request.user.username}
         return render(request, 'index.html', context)
@@ -36,7 +25,6 @@ class HomeByDate(View):
 
 class PostPage(View):
 
-    @method_decorator(login_required(login_url='user:login'))
     def get(self, request, pk):
         post = Post.objects.get(id=pk)
         comments = Comment.objects.filter(post=post)
@@ -127,15 +115,16 @@ class CreateComment(View):
             post = Post.objects.get(id=pk)
             author = Guest.objects.get(name=request.user)
 
-            form.instance.author = author
+            form.instance.user = author
             form.instance.post = post
+            form.instance.post.number_of_comments += 1
             form.save()
 
             return HttpResponseRedirect(reverse('blog:post', args=(post.id,)))
         form = CommentForm
 
         context = {'form': form}
-        return render(request, 'blog/create_post.html', context)
+        return render(request, 'blog/create_comment.html', context)
 
     @method_decorator(login_required(login_url='user:login'))
     def get(self, request, pk):
@@ -147,7 +136,7 @@ class CreateComment(View):
         form = CommentForm
 
         context = {'form': form}
-        return render(request, 'blog/create_post.html', context)
+        return render(request, 'blog/create_comment.html', context)
 
 
 class Reply(View):
@@ -172,7 +161,7 @@ class Reply(View):
             parent_comment = Comment.objects.get(id=comment)
             author = Guest.objects.get(name=request.user)
 
-            form.instance.author = author
+            form.instance.user = author
             form.instance.post = post
             new_comment = form.save()
             parent_comment.replies.add(new_comment)

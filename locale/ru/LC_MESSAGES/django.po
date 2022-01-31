@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-16 15:13+0000\n"
-"PO-Revision-Date: 2022-01-16 15:14+0000\n"
+"POT-Creation-Date: 2022-01-31 06:16+0000\n"
+"PO-Revision-Date: 2022-01-31 06:20+0000\n"
 "Last-Translator:   <admin@admin.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -23,13 +23,16 @@ msgstr ""
 msgid "Untitled"
 msgstr "Безымянный"
 
-#: BlogApp/models.py:8
-#, fuzzy
-#| msgid "username"
+#: BlogApp/models.py:8 user/models.py:9
 msgid "name"
-msgstr "имя пользователя"
+msgstr "имя"
 
-#: BlogApp/models.py:10 BlogApp/models.py:21
+#: BlogApp/models.py:9
+msgid "creation date"
+msgstr "дата создания"
+
+#: BlogApp/models.py:10 BlogApp/models.py:26
+#: templates/blog/create_comment.html:8
 msgid "text"
 msgstr "текст"
 
@@ -37,11 +40,48 @@ msgstr "текст"
 msgid "description"
 msgstr "описание"
 
-#: blog/settings.py:120
+#: BlogApp/models.py:12 BlogApp/models.py:25
+msgid "author"
+msgstr "автор"
+
+#: BlogApp/models.py:13 BlogApp/models.py:30 user/models.py:20
+msgid "rating"
+msgstr "рейтинг"
+
+#: BlogApp/models.py:16
+msgid "number of comments"
+msgstr "количество комментариев"
+
+#: BlogApp/models.py:17
+#| msgid "post name"
+msgid "post saved by"
+msgstr "пост сохранен у"
+
+#: BlogApp/models.py:27
+msgid "publication date"
+msgstr "дата публикации"
+
+#: BlogApp/models.py:28
+msgid "post name"
+msgstr "название поста"
+
+#: BlogApp/models.py:29
+msgid "replies"
+msgstr "ответы"
+
+#: BlogApp/models.py:36
+msgid "comment saved by"
+msgstr "комментарий сохранен у"
+
+#: BlogApp/models.py:39
+msgid "'s comment"
+msgstr "комментарий"
+
+#: blog/settings.py:128
 msgid "English"
 msgstr "Английский"
 
-#: blog/settings.py:121
+#: blog/settings.py:129
 msgid "Russian"
 msgstr "Русский"
 
@@ -70,30 +110,40 @@ msgstr "Страница не найдена"
 msgid "Server not responding"
 msgstr "Сервер не отвечает"
 
-#: templates/blog/base.html:50
+#: templates/blog/base.html:54
 msgid "Hello"
 msgstr "Привет"
 
-#: templates/blog/base.html:53
+#: templates/blog/base.html:57
 msgid "Home"
 msgstr "Главная"
 
-#: templates/blog/base.html:58
+#: templates/blog/base.html:62
 msgid "Profile"
 msgstr "Профиль"
 
-#: templates/blog/base.html:61 templates/blog/unauthenticated.html:23
+#: templates/blog/base.html:66 templates/blog/unauthenticated.html:23
 msgid "Register"
 msgstr "Регистрация"
 
-#: templates/blog/base.html:64 templates/blog/unauthenticated.html:21
+#: templates/blog/base.html:69 templates/blog/unauthenticated.html:21
 #: templates/user/login.html:6
 msgid "Login"
 msgstr "Вход"
 
-#: templates/blog/base.html:67
+#: templates/blog/base.html:74
 msgid "Logout"
 msgstr "Выход"
+
+#: templates/blog/comment_base.html:8 templates/blog/post.html:47
+#: templates/blog/reply.html:9
+msgid "Reply"
+msgstr "Ответить"
+
+#: templates/blog/create_comment.html:10
+#| msgid "'s comment"
+msgid "comment"
+msgstr "комментировать"
 
 #: templates/blog/create_post.html:9
 msgid "post"
@@ -103,7 +153,8 @@ msgstr "запостить"
 msgid "Are you sure you want to delete"
 msgstr "Вы уверены что хотите удалить?"
 
-#: templates/blog/delete_post.html:12 templates/index.html:30
+#: templates/blog/delete_post.html:12 templates/blog/post.html:20
+#: templates/index.html:30
 msgid "Delete"
 msgstr "Удалить"
 
@@ -115,13 +166,13 @@ msgstr "Отмена"
 msgid "Author"
 msgstr "Автор"
 
-#: templates/blog/post.html:20
+#: templates/blog/post.html:18 templates/index.html:28
+msgid "Update"
+msgstr "Обновить"
+
+#: templates/blog/post.html:32
 msgid "Leave a comment"
 msgstr "Оставить Комментарий"
-
-#: templates/blog/post.html:26 templates/blog/reply.html:9
-msgid "Reply"
-msgstr "Ответить"
 
 #: templates/blog/unauthenticated.html:7
 msgid "Error 401"
@@ -131,21 +182,17 @@ msgstr "Ошибка 401"
 msgid "You need to be authorized"
 msgstr "Вы должны быть авторизированы"
 
-#: templates/index.html:9
+#: templates/index.html:8
 msgid "sort by date"
 msgstr "сортировка по дате"
 
-#: templates/index.html:11
+#: templates/index.html:10
 msgid "sort by author"
 msgstr "сортировка по автору"
 
-#: templates/index.html:14
+#: templates/index.html:13
 msgid "Create post"
 msgstr "Создать пост"
-
-#: templates/index.html:28
-msgid "Update"
-msgstr "Обновить"
 
 #: templates/user/guest_does_not_exist.html:6
 msgid "Guest"
@@ -155,47 +202,48 @@ msgstr "Гость"
 msgid "does not exist"
 msgstr "не существует"
 
-#: templates/user/login.html:10 templates/user/register.html:8
+#: templates/user/login.html:10 templates/user/register.html:9
 msgid "username"
 msgstr "имя пользователя"
 
-#: templates/user/login.html:12 templates/user/register.html:11
+#: templates/user/login.html:12 templates/user/register.html:12
 msgid "password"
 msgstr "пароль"
 
-#: templates/user/profile.html:10
+#: templates/user/profile.html:14
 msgid "edit profile"
 msgstr "Настроить профиль"
 
-#: templates/user/profile.html:12 templates/user/register.html:10
+#: templates/user/profile.html:16 templates/user/register.html:11
+#: user/models.py:11
 msgid "email"
 msgstr "эл. почта"
 
-#: templates/user/profile.html:13
+#: templates/user/profile.html:17
 msgid "phone"
 msgstr "телефон"
 
-#: templates/user/profile.html:14
+#: templates/user/profile.html:18
 msgid "skype"
 msgstr "skype"
 
-#: templates/user/profile.html:16
+#: templates/user/profile.html:20
 msgid "API token"
 msgstr "API токен"
 
-#: templates/user/profile.html:20
+#: templates/user/profile.html:24
 msgid "Ban status"
 msgstr "Статус блокировки"
 
-#: templates/user/profile.html:21
+#: templates/user/profile.html:25
 msgid "Mute status"
 msgstr "Статус мута"
 
-#: templates/user/profile.html:23
+#: templates/user/profile.html:27
 msgid "Time since last ban"
 msgstr "Времени с прошлой блокировки"
 
-#: templates/user/profile.html:36
+#: templates/user/profile.html:40
 msgid "No posts yet"
 msgstr "Постов еще не было"
 
@@ -207,13 +255,35 @@ msgstr "Назад к профилю"
 msgid "Account settings"
 msgstr "Настройки аккаунта"
 
-#: templates/user/register.html:5
+#: templates/user/register.html:6
 msgid "Register a new account"
 msgstr "Зарегистрировать новый аккаунт"
 
-#: templates/user/register.html:12
+#: templates/user/register.html:13
 msgid "confirm password"
 msgstr "подтвердить пароль"
+
+#: user/models.py:13
+msgid "profile picture"
+msgstr "фото профиля"
+
+#: user/models.py:15
+#| msgid "API token"
+msgid "token"
+msgstr "API токен"
+
+#: user/models.py:17
+msgid "is banned"
+msgstr "статус бана"
+
+#: user/models.py:18
+msgid "is muted"
+msgstr "статус мута"
+
+#: user/models.py:19
+#| msgid "sort by date"
+msgid "last ban date"
+msgstr "дата последнего бана"
 
 #~ msgid "Language"
 #~ msgstr "Язык"
