@@ -11,10 +11,10 @@ class Post(models.Model):
     description = models.TextField(max_length=200, verbose_name=_('description'))
     user = models.ForeignKey(Guest, on_delete=models.SET_NULL, null=True, verbose_name=_('author'))
     rating = models.IntegerField(default=0, verbose_name=_('rating'))
-    upvoted_users = models.ManyToManyField(Guest, related_name='upvoted_post_users')
-    downvoted_users = models.ManyToManyField(Guest, related_name='downvoted_post_users')
+    upvoted_users = models.ManyToManyField(Guest, blank=True, related_name='upvoted_post_users')
+    downvoted_users = models.ManyToManyField(Guest, blank=True, related_name='downvoted_post_users')
     number_of_comments = models.IntegerField(default=0, verbose_name=_('number of comments'))
-    saved_by = models.ManyToManyField(Guest, related_name='post_saved_by', verbose_name=_('post saved by'))
+    saved_by = models.ManyToManyField(Guest, blank=True, related_name='post_saved_by', verbose_name=_('post saved by'))
 
     def __str__(self):
         return self.name
@@ -28,9 +28,12 @@ class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, verbose_name=_('post name'))
     replies = models.ManyToManyField('Comment', verbose_name=_('replies'))
     rating = models.IntegerField(default=0, verbose_name=_('rating'))
-    upvoted_users = models.ManyToManyField(Guest, related_name='upvoted_comment_users')
-    downvoted_users = models.ManyToManyField(Guest, related_name='downvoted_comment_users')
-    saved_by = models.ManyToManyField(Guest, related_name='comment_saved_by', verbose_name=_('comment saved by'))
+    upvoted_users = models.ManyToManyField(Guest, blank=True, related_name='upvoted_comment_users')
+    downvoted_users = models.ManyToManyField(Guest, blank=True, related_name='downvoted_comment_users')
+    saved_by = models.ManyToManyField(Guest,
+                                      blank=True,
+                                      related_name='comment_saved_by',
+                                      verbose_name=_('comment saved by'))
 
     def __str__(self):
         return f"{self.user}" + _("'s comment")

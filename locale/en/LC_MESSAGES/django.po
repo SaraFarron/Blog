@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-19 14:45+0000\n"
+"POT-Creation-Date: 2022-01-31 06:16+0000\n"
 "PO-Revision-Date: 2022-01-07 12:18+0000\n"
 "Last-Translator:   <admin@admin.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,7 +23,7 @@ msgstr ""
 msgid "Untitled"
 msgstr "Untitled"
 
-#: BlogApp/models.py:8
+#: BlogApp/models.py:8 user/models.py:9
 msgid "name"
 msgstr ""
 
@@ -31,7 +31,8 @@ msgstr ""
 msgid "creation date"
 msgstr ""
 
-#: BlogApp/models.py:10 BlogApp/models.py:25
+#: BlogApp/models.py:10 BlogApp/models.py:26
+#: templates/blog/create_comment.html:8
 msgid "text"
 msgstr ""
 
@@ -39,11 +40,11 @@ msgstr ""
 msgid "description"
 msgstr ""
 
-#: BlogApp/models.py:12 BlogApp/models.py:24
+#: BlogApp/models.py:12 BlogApp/models.py:25
 msgid "author"
 msgstr ""
 
-#: BlogApp/models.py:13 BlogApp/models.py:29
+#: BlogApp/models.py:13 BlogApp/models.py:30 user/models.py:20
 msgid "rating"
 msgstr ""
 
@@ -51,19 +52,27 @@ msgstr ""
 msgid "number of comments"
 msgstr ""
 
-#: BlogApp/models.py:26
-msgid "publication date"
+#: BlogApp/models.py:17
+msgid "post saved by"
 msgstr ""
 
 #: BlogApp/models.py:27
-msgid "post name"
+msgid "publication date"
 msgstr ""
 
 #: BlogApp/models.py:28
+msgid "post name"
+msgstr ""
+
+#: BlogApp/models.py:29
 msgid "replies"
 msgstr ""
 
-#: BlogApp/models.py:34
+#: BlogApp/models.py:36
+msgid "comment saved by"
+msgstr ""
+
+#: BlogApp/models.py:39
 msgid "'s comment"
 msgstr ""
 
@@ -99,34 +108,38 @@ msgstr ""
 msgid "Server not responding"
 msgstr ""
 
-#: templates/blog/base.html:50
+#: templates/blog/base.html:54
 msgid "Hello"
 msgstr ""
 
-#: templates/blog/base.html:53
+#: templates/blog/base.html:57
 msgid "Home"
 msgstr "Home"
 
-#: templates/blog/base.html:58
+#: templates/blog/base.html:62
 msgid "Profile"
 msgstr ""
 
-#: templates/blog/base.html:61 templates/blog/unauthenticated.html:23
+#: templates/blog/base.html:66 templates/blog/unauthenticated.html:23
 msgid "Register"
 msgstr "Register"
 
-#: templates/blog/base.html:64 templates/blog/unauthenticated.html:21
+#: templates/blog/base.html:69 templates/blog/unauthenticated.html:21
 #: templates/user/login.html:6
 msgid "Login"
 msgstr "Login"
 
-#: templates/blog/base.html:67
+#: templates/blog/base.html:74
 msgid "Logout"
 msgstr "Logout"
 
 #: templates/blog/comment_base.html:8 templates/blog/post.html:47
 #: templates/blog/reply.html:9
 msgid "Reply"
+msgstr ""
+
+#: templates/blog/create_comment.html:10
+msgid "comment"
 msgstr ""
 
 #: templates/blog/create_post.html:9
@@ -194,39 +207,40 @@ msgstr ""
 msgid "password"
 msgstr ""
 
-#: templates/user/profile.html:10
+#: templates/user/profile.html:14
 msgid "edit profile"
 msgstr ""
 
-#: templates/user/profile.html:12 templates/user/register.html:11
+#: templates/user/profile.html:16 templates/user/register.html:11
+#: user/models.py:11
 msgid "email"
 msgstr ""
 
-#: templates/user/profile.html:13
+#: templates/user/profile.html:17
 msgid "phone"
 msgstr ""
 
-#: templates/user/profile.html:14
+#: templates/user/profile.html:18
 msgid "skype"
 msgstr ""
 
-#: templates/user/profile.html:16
+#: templates/user/profile.html:20
 msgid "API token"
 msgstr ""
 
-#: templates/user/profile.html:20
+#: templates/user/profile.html:24
 msgid "Ban status"
 msgstr ""
 
-#: templates/user/profile.html:21
+#: templates/user/profile.html:25
 msgid "Mute status"
 msgstr ""
 
-#: templates/user/profile.html:23
+#: templates/user/profile.html:27
 msgid "Time since last ban"
 msgstr ""
 
-#: templates/user/profile.html:36
+#: templates/user/profile.html:40
 msgid "No posts yet"
 msgstr "No posts yet"
 
@@ -244,6 +258,26 @@ msgstr ""
 
 #: templates/user/register.html:13
 msgid "confirm password"
+msgstr ""
+
+#: user/models.py:13
+msgid "profile picture"
+msgstr ""
+
+#: user/models.py:15
+msgid "token"
+msgstr ""
+
+#: user/models.py:17
+msgid "is banned"
+msgstr ""
+
+#: user/models.py:18
+msgid "is muted"
+msgstr ""
+
+#: user/models.py:19
+msgid "last ban date"
 msgstr ""
 
 #~ msgid "Language"
