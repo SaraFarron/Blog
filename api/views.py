@@ -15,7 +15,7 @@ def update_user_rating(user):
     user.save()
 
 
-class PatchModelMixin:
+class RateModelMixin:
     """
         Update a model instance.
     """
@@ -195,7 +195,7 @@ class UsersViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
     permission_classes, action_permissions = set_default_permissions()
 
 
-class RatePostView(PatchModelMixin, GenericViewSet):
+class RatePostView(RateModelMixin, GenericViewSet):
     """
         Rate a post
     """
@@ -203,7 +203,7 @@ class RatePostView(PatchModelMixin, GenericViewSet):
     queryset = Post.objects.all()
 
 
-class RateCommentView(PatchModelMixin, GenericViewSet):
+class RateCommentView(RateModelMixin, GenericViewSet):
     """
         Rate a comment
     """
@@ -211,36 +211,32 @@ class RateCommentView(PatchModelMixin, GenericViewSet):
     serializer_class = RateCommentSerializer
 
 
-class Save:
-    queryset = None
-    permission_classes, action_permissions = set_default_permissions()
+class SaveModelMixin:
 
-    def patch(self, request, id):
-        """
-            Toggle save
-        """
-        query = self.queryset.objects.get(id=id)
-        users = query.saved_by
-        user = request.user
-        if user not in users:
-            query.saved_by.add(user)
+    def partial_update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        user = Guest.objects.get(user=request.user)
+        saved_by_query = instance.saved_by
+
+        if user in saved_by_query.all():
+            saved_by_query.remove(user)
         else:
-            query.saved_by.remove(user)
-        query.save()
+            saved_by_query.add(user)
+        instance.save()
         return Response(status=HTTP_200_OK)
 
 
-class SavePostView(PatchModelMixin, GenericViewSet):
+class SavePostView(SaveModelMixin, GenericViewSet):
     """
         Save post
     """
     queryset = Post.objects.all()
-    serializer_class = PostSerializer
+    # serializer_class = PostSerializer
 
 
-class SaveCommentView(PatchModelMixin, GenericViewSet):
+class SaveCommentView(SaveModelMixin, GenericViewSet):
     """
         Save comment
     """
     queryset = Comment.objects.all()
-    serializer_class = CommentSerializer
+    # serializer_class = CommentSerializer

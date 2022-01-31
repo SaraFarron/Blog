@@ -59,3 +59,19 @@ class RateCommentSerializer(ModelSerializer):
     class Meta:
         model = Comment
         fields = ['rating']
+
+
+# class SavePostSerializer(ModelSerializer):
+#     rating = ChoiceField(choices=['upvote', 'downvote'])
+#
+#     class Meta:
+#         model = Post
+#         fields = ['rating']
+#
+#
+# class SaveCommentSerializer(ModelSerializer):
+#     rating = ChoiceField(choices=['upvote', 'downvote'])
+#
+#     class Meta:
+#         model = Comment
+#         fields = ['rating']

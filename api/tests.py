@@ -290,3 +290,39 @@ class RateCommentTest(APITestCase, BaseTestClass):
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertEqual(self.comment.rating, 0)
         self.assertEqual(self.test_guest.rating, 0)
+
+
+class SavePostTest(APITestCase, BaseTestClass):
+
+    def setUp(self) -> None:
+        self.create_user()
+        self.create_post()
+
+    def test_upvote_valid(self):
+        response = client.patch(f'/en/api/posts/save/{self.post.pk}/')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIn(self.test_guest, self.post.saved_by.all())
+
+    def test_upvote_invalid(self):
+        response = client.patch(f'/en/api/posts/save/99/')
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(len(self.post.saved_by.all()), 0)
+
+
+class SaveCommentTest(APITestCase, BaseTestClass):
+
+    def setUp(self) -> None:
+        self.create_user()
+        self.create_post()
+        self.create_comment()
+
+    def test_upvote_valid(self):
+        response = client.patch(f'/en/api/comments/save/{self.comment.pk}/')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIn(self.test_guest, self.comment.saved_by.all())
+
+    def test_upvote_invalid(self):
+        response = client.patch(f'/en/api/comments/save/99/')
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(len(self.comment.saved_by.all()), 0)
+
