@@ -6,49 +6,55 @@ from rest_framework.viewsets import ModelViewSet, GenericViewSet
 from .serializers import *
 
 
+def update_user_rating(user):
+    posts = Post.objects.filter(user=user)
+    comments = Comment.objects.filter(user=user)
+    posts_rating = sum([post.rating for post in posts])
+    comments_rating = sum([comment.rating for comment in comments])
+    user.rating = posts_rating + comments_rating
+    user.save()
+
+
 class PatchModelMixin:
     """
-    Update a model instance.
+        Update a model instance.
     """
 
     def partial_update(self, request, *args, **kwargs):
         instance = self.get_object()
         action = request.data['rating']
         user = Guest.objects.get(user=request.user)
+        upvoted_users_query = instance.upvoted_users
+        downvoted_users_query = instance.downvoted_users
+        instance_user = instance.user
 
         match action:
             case 'upvote':
-                if user not in instance.upvoted_users.all():
-                    instance.rating += 1
-                    instance.user.rating += 1
-                    instance.upvoted_users.add(user)
-                    if user in instance.downvoted_users.all():
-                        instance.downvoted_users.remove(user)
-                        instance.rating += 1
-                        instance.user.rating += 1
+                if user not in upvoted_users_query.all():
+                    upvoted_users_query.add(user)
+                    if user in downvoted_users_query.all():
+                        downvoted_users_query.remove(user)
                 else:
                     Response({'error': 'You already upvoted this'}, status=HTTP_403_FORBIDDEN)
             case 'downvote':
-                if user not in instance.downvoted_users.all():
-                    instance.rating -= 1
-                    instance.user.rating -= 1
-                    instance.downvoted_users.add(user)
-                    if user in instance.upvoted_users.all():
-                        instance.upvoted_users.remove(user)
-                        instance.rating -= 1
-                        instance.user.rating -= 1
+                if user not in downvoted_users_query.all():
+                    downvoted_users_query.add(user)
+                    if user in upvoted_users_query.all():
+                        upvoted_users_query.remove(user)
                 else:
                     Response({'error': 'You already downvoted this'}, status=HTTP_403_FORBIDDEN)
             case _:
                 return Response(status=HTTP_403_FORBIDDEN)
 
+        instance.rating = len(upvoted_users_query.all()) - len(downvoted_users_query.all())
         instance.save()
+        update_user_rating(instance_user)
         return Response(status=HTTP_200_OK)
 
 
 class ActionBasedPermission(AllowAny):
     """
-    Grant or deny access to a view, based on a mapping in view.action_permissions
+        Grant or deny access to a view, based on a mapping in view.action_permissions
     """
     def has_permission(self, request, view):
         for klass, actions in getattr(view, 'action_permissions', {}).items():
@@ -68,19 +74,19 @@ def set_default_permissions():
 
 class PostViewSet(ModelViewSet):
     """
-    Post ViewSet description
+        Post ViewSet description
 
-    list: List posts
+        list: List posts
 
-    retrieve: Retrieve post
+        retrieve: Retrieve post
 
-    update: Update post
+        update: Update post
 
-    create: Create post
+        create: Create post
 
-    partial_update: Patch post
+        partial_update: Patch post
 
-    destroy: Delete post
+        destroy: Delete post
     """
     queryset = Post.objects.all()
     serializer_class = PostSerializer
@@ -110,19 +116,19 @@ class PostViewSet(ModelViewSet):
 
 class CommentViewSet(CreateModelMixin, ListModelMixin, DestroyModelMixin, GenericViewSet):
     """
-    Comment ViewSet description
+        Comment ViewSet description
 
-    list: List comments
+        list: List comments
 
-    retrieve: Retrieve comment
+        retrieve: Retrieve comment
 
-    update: Update comment
+        update: Update comment
 
-    create: Create comment
+        create: Create comment
 
-    partial_update: Patch comment
+        partial_update: Patch comment
 
-    destroy: Delete comment
+        destroy: Delete comment
     """
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
@@ -157,8 +163,6 @@ class CommentViewSet(CreateModelMixin, ListModelMixin, DestroyModelMixin, Generi
                 user=author
             )
             comment.save()
-            post.number_of_comments += 1
-            post.save()
 
         return Response({}, status=HTTP_201_CREATED)
 
@@ -182,9 +186,9 @@ class CommentViewSet(CreateModelMixin, ListModelMixin, DestroyModelMixin, Generi
 
 class UsersViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
     """
-    list: List users
+        list: List users
 
-    retrieve: Retrieve user
+        retrieve: Retrieve user
     """
     queryset = Guest.objects.all()
     serializer_class = UserSerializer
@@ -193,7 +197,7 @@ class UsersViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
 
 class RatePostView(PatchModelMixin, GenericViewSet):
     """
-    Rate a post
+        Rate a post
     """
     serializer_class = RatePostSerializer
     queryset = Post.objects.all()
@@ -201,7 +205,7 @@ class RatePostView(PatchModelMixin, GenericViewSet):
 
 class RateCommentView(PatchModelMixin, GenericViewSet):
     """
-    Rate a comment
+        Rate a comment
     """
     queryset = Comment.objects.all()
     serializer_class = RateCommentSerializer
@@ -212,7 +216,9 @@ class Save:
     permission_classes, action_permissions = set_default_permissions()
 
     def patch(self, request, id):
-        """Toggle save"""
+        """
+            Toggle save
+        """
         query = self.queryset.objects.get(id=id)
         users = query.saved_by
         user = request.user
@@ -225,12 +231,16 @@ class Save:
 
 
 class SavePostView(PatchModelMixin, GenericViewSet):
-    """Save post"""
+    """
+        Save post
+    """
     queryset = Post.objects.all()
     serializer_class = PostSerializer
 
 
 class SaveCommentView(PatchModelMixin, GenericViewSet):
-    """Save comment"""
+    """
+        Save comment
+    """
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer

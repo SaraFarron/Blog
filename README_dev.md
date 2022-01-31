@@ -24,6 +24,10 @@ Enter db console
 
 `docker exec -it blog_db_1 psql -U postgres`
 
+Run tests
+
+`docker exec -it blog_web_1 python manage.py test`
+
 URL:
 
 `localhost:8000/en/`
