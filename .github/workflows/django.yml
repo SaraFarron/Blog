@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [ main, dev ]
 
-env:
+#env:
 #  DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
 #
 #   db parameters
