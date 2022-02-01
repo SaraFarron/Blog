@@ -14,6 +14,7 @@ class Post(models.Model):
     upvoted_users = models.ManyToManyField(Guest, blank=True, related_name='upvoted_post_users')
     downvoted_users = models.ManyToManyField(Guest, blank=True, related_name='downvoted_post_users')
     saved_by = models.ManyToManyField(Guest, blank=True, related_name='post_saved_by', verbose_name=_('post saved by'))
+    number_of_comments = models.IntegerField(default=0, verbose_name=_('number of comments'))
 
     def __str__(self):
         return self.name

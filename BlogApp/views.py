@@ -117,8 +117,9 @@ class CreateComment(View):
 
             form.instance.user = author
             form.instance.post = post
-            form.instance.post.number_of_comments += 1
+            post.number_of_comments = len(Comment.objects.filter(post=post))
             form.save()
+            post.save()
 
             return HttpResponseRedirect(reverse('blog:post', args=(post.id,)))
         form = CommentForm

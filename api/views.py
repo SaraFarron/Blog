@@ -164,6 +164,8 @@ class CommentViewSet(CreateModelMixin, ListModelMixin, DestroyModelMixin, Generi
             )
             comment.save()
 
+        post.number_of_comments = len(Comment.objects.filter(post=post))
+        post.save()
         return Response({}, status=HTTP_201_CREATED)
 
     def list(self, request, *args, **kwargs):
