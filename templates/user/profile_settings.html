@@ -14,12 +14,12 @@
             {% if user.profile_picture %}
                 <img class="profile-pic" src="{{ user.profile_picture.url }}">
             {% else %}
-                <img src="{% static 'images/profile.png' %}" height="175px" width="175px">
+                <img src="{% static 'images/profile.png' %}">
             {% endif %}
 
 		</div>
 	</div>
-	<div class="col-md-9">
+	<div class="col-md-9" position="absolute">
 		<div class="card card-body">
 
 			<form method="POST" action="" enctype="multipart/form-data">
