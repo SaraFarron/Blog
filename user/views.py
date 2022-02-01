@@ -9,6 +9,7 @@ from rest_framework.authtoken.models import Token
 from datetime import datetime, timezone
 
 from BlogApp.decorators import *
+from BlogApp.models import Comment
 from .forms import *
 
 
@@ -95,9 +96,10 @@ class Profile(View):
             return render(request, 'user/guest_does_not_exist.html')
 
         posts = Post.objects.filter(user=user)
+        comments = Comment.objects.filter(user=user)
         last_time_banned = user.last_ban_date
 
-        context = {'posts': posts, 'user': user, 'request_user': request.user}
+        context = {'posts': posts, 'comments': comments, 'user': user, 'request_user': request.user}
 
         if last_time_banned:
             time_since_ban = datetime.now(timezone.utc) - last_time_banned

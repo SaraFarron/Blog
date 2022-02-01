@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-31 06:16+0000\n"
+"POT-Creation-Date: 2022-02-01 12:45+0000\n"
 "PO-Revision-Date: 2022-01-07 12:18+0000\n"
 "Last-Translator:   <admin@admin.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -49,11 +49,11 @@ msgid "rating"
 msgstr ""
 
 #: BlogApp/models.py:16
-msgid "number of comments"
+msgid "post saved by"
 msgstr ""
 
 #: BlogApp/models.py:17
-msgid "post saved by"
+msgid "number of comments"
 msgstr ""
 
 #: BlogApp/models.py:27
@@ -133,7 +133,7 @@ msgstr "Login"
 msgid "Logout"
 msgstr "Logout"
 
-#: templates/blog/comment_base.html:8 templates/blog/post.html:47
+#: templates/blog/comment_base.html:8 templates/blog/post.html:55
 #: templates/blog/reply.html:9
 msgid "Reply"
 msgstr ""
@@ -150,8 +150,8 @@ msgstr ""
 msgid "Are you sure you want to delete"
 msgstr ""
 
-#: templates/blog/delete_post.html:12 templates/blog/post.html:20
-#: templates/index.html:30
+#: templates/blog/delete_post.html:12 templates/blog/post.html:21
+#: templates/index.html:31
 msgid "Delete"
 msgstr ""
 
@@ -163,11 +163,11 @@ msgstr ""
 msgid "Author"
 msgstr ""
 
-#: templates/blog/post.html:18 templates/index.html:28
+#: templates/blog/post.html:19 templates/index.html:29
 msgid "Update"
 msgstr ""
 
-#: templates/blog/post.html:32
+#: templates/blog/post.html:40
 msgid "Leave a comment"
 msgstr ""
 
@@ -240,8 +240,22 @@ msgstr ""
 msgid "Time since last ban"
 msgstr ""
 
-#: templates/user/profile.html:40
+#: templates/user/profile.html:33
+msgid "posts"
+msgstr ""
+
+#: templates/user/profile.html:42
 msgid "No posts yet"
+msgstr "No posts yet"
+
+#: templates/user/profile.html:47
+msgid "comments"
+msgstr ""
+
+#: templates/user/profile.html:54
+#, fuzzy
+#| msgid "No posts yet"
+msgid "No comments yet"
 msgstr "No posts yet"
 
 #: templates/user/profile_settings.html:10

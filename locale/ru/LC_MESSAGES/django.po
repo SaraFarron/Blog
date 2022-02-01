@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-31 06:16+0000\n"
-"PO-Revision-Date: 2022-01-31 06:20+0000\n"
+"POT-Creation-Date: 2022-02-01 12:45+0000\n"
+"PO-Revision-Date: 2022-02-01 12:46+0000\n"
 "Last-Translator:   <admin@admin.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -49,13 +49,12 @@ msgid "rating"
 msgstr "рейтинг"
 
 #: BlogApp/models.py:16
-msgid "number of comments"
-msgstr "количество комментариев"
-
-#: BlogApp/models.py:17
-#| msgid "post name"
 msgid "post saved by"
 msgstr "пост сохранен у"
+
+#: BlogApp/models.py:17
+msgid "number of comments"
+msgstr "количество комментариев"
 
 #: BlogApp/models.py:27
 msgid "publication date"
@@ -135,13 +134,12 @@ msgstr "Вход"
 msgid "Logout"
 msgstr "Выход"
 
-#: templates/blog/comment_base.html:8 templates/blog/post.html:47
+#: templates/blog/comment_base.html:8 templates/blog/post.html:55
 #: templates/blog/reply.html:9
 msgid "Reply"
 msgstr "Ответить"
 
 #: templates/blog/create_comment.html:10
-#| msgid "'s comment"
 msgid "comment"
 msgstr "комментировать"
 
@@ -153,8 +151,8 @@ msgstr "запостить"
 msgid "Are you sure you want to delete"
 msgstr "Вы уверены что хотите удалить?"
 
-#: templates/blog/delete_post.html:12 templates/blog/post.html:20
-#: templates/index.html:30
+#: templates/blog/delete_post.html:12 templates/blog/post.html:21
+#: templates/index.html:31
 msgid "Delete"
 msgstr "Удалить"
 
@@ -166,11 +164,11 @@ msgstr "Отмена"
 msgid "Author"
 msgstr "Автор"
 
-#: templates/blog/post.html:18 templates/index.html:28
+#: templates/blog/post.html:19 templates/index.html:29
 msgid "Update"
 msgstr "Обновить"
 
-#: templates/blog/post.html:32
+#: templates/blog/post.html:40
 msgid "Leave a comment"
 msgstr "Оставить Комментарий"
 
@@ -243,9 +241,24 @@ msgstr "Статус мута"
 msgid "Time since last ban"
 msgstr "Времени с прошлой блокировки"
 
-#: templates/user/profile.html:40
+#: templates/user/profile.html:33
+#| msgid "post"
+msgid "posts"
+msgstr "посты"
+
+#: templates/user/profile.html:42
 msgid "No posts yet"
 msgstr "Постов еще не было"
+
+#: templates/user/profile.html:47
+#| msgid "comment"
+msgid "comments"
+msgstr "комментарии"
+
+#: templates/user/profile.html:54
+#| msgid "No posts yet"
+msgid "No comments yet"
+msgstr "Комментариев еще не было"
 
 #: templates/user/profile_settings.html:10
 msgid "Back to profile"
@@ -268,7 +281,6 @@ msgid "profile picture"
 msgstr "фото профиля"
 
 #: user/models.py:15
-#| msgid "API token"
 msgid "token"
 msgstr "API токен"
 
@@ -281,7 +293,6 @@ msgid "is muted"
 msgstr "статус мута"
 
 #: user/models.py:19
-#| msgid "sort by date"
 msgid "last ban date"
 msgstr "дата последнего бана"
 

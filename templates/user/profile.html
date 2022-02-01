@@ -16,6 +16,7 @@
     <h3> {% trans 'email' %}: {{ user.email }}</h3>
     <h3> {% trans 'phone' %}: {{ user.phone }}</h3>
     <h3> {% trans 'skype' %}: {{ user.skype }}</h3>
+    <h3> {% trans 'rating' %}: {{ user.rating }}</h3>
     {% if request_user == user.user %}
     <h3> {% trans 'API token' %}: Token {{ user.token }}</h3>
     {% endif %}
@@ -28,17 +29,33 @@
     {% endif %}
 
 </div>
-
-{% for post in posts %}
-<div class="post">
-    <h2><a href="{% url 'blog:post' post.id %}">{{ post.name }}</a></h2>
-    <h3>{{ post.creation_date }}</h3>
-    <h3>{{ post.description }}</h3>
-</div>
-{% empty %}
-    <div class="post">
-    <h3>{% trans 'No posts yet' %}</h3>
+<div class="row">
+    <div class="col-md-5">
+        <span style="font-size: 34px">{% trans 'posts' %}:</span>
+        {% for post in posts %}
+        <div class="post">
+            <h2><a href="{% url 'blog:post' post.id %}">{{ post.name }}</a></h2>
+            <h3>{{ post.creation_date }}</h3>
+            <h3>{{ post.description }}</h3>
+        </div>
+        {% empty %}
+            <div class="post">
+            <h3>{% trans 'No posts yet' %}</h3>
+            </div>
+        {% endfor %}
     </div>
-{% endfor %}
+    <div class="col-md-5">
+        <span style="font-size: 34px">{% trans 'comments' %}:</span>
+        {% for comment in comments %}
+        <div class="post">
+            <h2><a href="{% url 'blog:post' comment.post.id %}">{{ comment.text }}</a></h2>
+        </div>
+        {% empty %}
+            <div class="post">
+            <h3>{% trans 'No comments yet' %}</h3>
+            </div>
+        {% endfor %}
+    </div>
+</div>
 
 {% endblock %}
