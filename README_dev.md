@@ -61,6 +61,6 @@ API Docs:
 + Add comments history section to profile  ✅
 + Add GitHub link to navbar ✅
 + Add markdown support to posts
-+ Add DMs
++ Add DMs ❌
 + Add encryption (lets encrypt)?
 + Login / registration via cart, google account?

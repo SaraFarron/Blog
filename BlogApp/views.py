@@ -23,6 +23,16 @@ class HomeByDate(View):
         return render(request, 'index.html', context)
 
 
+class SavedContents(View):
+    def get(self, request):
+        user = Guest.objects.get(user=request.user)
+        saved_posts = Post.objects.filter(saved_by=user)
+        saved_comments = Comment.objects.filter(saved_by=user)
+
+        context = {'posts': saved_posts, 'comments': saved_comments}
+        return render(request, 'blog/saved.html', context)
+
+
 class PostPage(View):
 
     def get(self, request, pk):
