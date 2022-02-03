@@ -30,11 +30,9 @@ style="width: 70%; margin: 10px; display: inline">{% trans 'Create post' %}</a>
                 <a href="{% url 'blog:delete' post.id %}" class="btn btn-sm btn-danger"
                     style="width: 29%">{% trans 'Delete' %}</a>
                 <span style="bottom: 0;">🗨 {{ post.number_of_comments }}</span>
-                <a href="{% url 'blog:home' %}"
-                   class="btn btn-sm btn-default"
+                <a class="btn btn-sm btn-default"
                    style="position: absolute; right: 0; color: green; font-size: 20px">+</a>
-                <a href="{% url 'blog:home' %}"
-                   class="btn btn-sm btn-default"
+                <a class="btn btn-sm btn-default"
                    style="position: absolute; right: 30px; color: red; font-size: 20px">-</a>
                    <span style="position: absolute; right: 60px; top: 10px;">{{ post.rating }}</span>
             {% else %}

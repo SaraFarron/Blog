@@ -14,25 +14,26 @@
   </h1>
   <h3>{{ post.description }}</h3>
   <h4>{{ post.text }}</h4>
-        {%if request.user == post.user.user %}
-            <a href="{% url 'blog:update' post.id %}" class="btn btn-sm btn-info"
-                style="width: 29%">{% trans 'Update' %}</a>
-            <a href="{% url 'blog:delete' post.id %}" class="btn btn-sm btn-danger"
-                style="width: 29%">{% trans 'Delete' %}</a>
-            <span style="bottom: 0;">🗨 {{ post.number_of_comments }}</span>
-            <a class="btn btn-sm btn-default"
-               style="position: absolute; right: 0; color: green; font-size: 20px">+</a>
-            <a class="btn btn-sm btn-default"
-               style="position: absolute; right: 30px; color: red; font-size: 20px">-</a>
-               <span style="position: absolute; right: 60px; top: 10px;">{{ post.rating }}</span>
-        {% else %}
-            <span style="bottom: 0;">🗨 {{ post.number_of_comments }}</span>
-            <a class="btn btn-sm btn-default"
-               style="position: absolute; right: 0; bottom: 0; color: green; font-size: 20px">+</a>
-            <a class="btn btn-sm btn-default"
-               style="position: absolute; right: 30px; bottom: 0; color: red; font-size: 20px">-</a>
-            <span style="position: absolute; right: 60px; bottom: 7px;">{{ post.rating }}</span>
-        {%endif%}
+    <p></p>
+    {%if request.user == post.user.user %}
+        <a href="{% url 'blog:update' post.id %}" class="btn btn-sm btn-info"
+            style="width: 29%">{% trans 'Update' %}</a>
+        <a href="{% url 'blog:delete' post.id %}" class="btn btn-sm btn-danger"
+            style="width: 29%">{% trans 'Delete' %}</a>
+        <span style="bottom: 0;">🗨 {{ post.number_of_comments }}</span>
+        <a class="btn btn-sm btn-default"
+           style="position: absolute; right: 0; color: green; font-size: 20px">+</a>
+        <a class="btn btn-sm btn-default"
+           style="position: absolute; right: 30px; color: red; font-size: 20px">-</a>
+           <span style="position: absolute; right: 60px; top: 10px;">{{ post.rating }}</span>
+    {% else %}
+        <span style="bottom: 0;">🗨 {{ post.number_of_comments }}</span>
+        <a class="btn btn-sm btn-default"
+           style="position: absolute; right: 0; bottom: 0; color: green; font-size: 20px">+</a>
+        <a class="btn btn-sm btn-default"
+           style="position: absolute; right: 30px; bottom: 0; color: red; font-size: 20px">-</a>
+        <span style="position: absolute; right: 60px; top: 87%;">{{ post.rating }}</span>
+    {%endif%}
     <br>
 </div>
 
