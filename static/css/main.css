@@ -80,3 +80,10 @@ textarea {
 label {
     display: block;
 }
+
+.vline {
+    border-left: 1px solid #6b6b6b;
+    height: 30px;
+    left: 50%;
+    margin-right: 16px;
+}
