@@ -14,10 +14,11 @@ style="width: 70%; margin: 10px; display: inline">{% trans 'Create post' %}</a>
 </div>
 {% for post in posts %}
     <div class="post">
+    <img src="{{ post.user.profile_picture.url }}" width="25px" height="25px" style="border-radius: 50%;" alt="{% trans 'profile picture' %}">
         {% if post.user.is_moderator is True %}
-            <h3 style="color: #e85353">{{ post.user }}</h3>
+            <span style="color: #e85353">{{ post.user }}</span>
         {% else %}
-            <h3>{{ post.user }}</h3>
+            <span>{{ post.user }}</span>
         {% endif %}
         <h3>{{ post.creation_date }}</h3>
         <h1><a href="{% url 'blog:post' post.id %}">{{ post.name }}</a></h1>

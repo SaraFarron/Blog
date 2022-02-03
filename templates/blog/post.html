@@ -4,7 +4,8 @@
 
 <div class="post" style="position: relative">
   <h1>
-      <span>{{ post.name }} <p>{% trans 'Author' %}:
+      <span>{{ post.name }} <p>
+          <img src="{{ post.user.profile_picture.url }}" width="30px" height="30px" style="border-radius: 50%;" alt="{% trans 'profile picture' %}">
           {% if post.user.is_moderator %}
               <a  style="color: #e85353" href="{% url 'user:profile' post.user.user.id %}">{{ post.user }}</a>
       {% else %}
@@ -43,7 +44,8 @@
     {% for comment in comments %}
         <div class="post" style="margin-bottom: 0">
             <div style="position: relative">
-                <a id="name" href="{% url 'user:profile' comment.user.user.id %}">{{ comment.user }}</a> {{comment.publication_date}}
+                <img src="{{ post.user.profile_picture.url }}" width="18px" height="18px" style="border-radius: 50%;">
+                <a id="name" href="{% url 'user:profile' comment.user.user.id %}"> {{ comment.user }}</a> {{comment.publication_date}}
                 <a href="{% url 'blog:home' %}"
                    class="btn btn-sm btn-default"
                    style="position: absolute; right: 0; color: green; font-size: 20px">+</a>
