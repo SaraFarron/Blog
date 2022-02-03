@@ -1,5 +1,6 @@
 {% extends 'blog/base.html' %}
 {% block content %}
+    {% load static %}
     {% load i18n %}
 
 <div class="post" style="position: relative">
@@ -35,6 +36,13 @@
            style="position: absolute; right: 30px; bottom: 0; color: red; font-size: 20px">-</a>
         <span style="position: absolute; right: 60px; top: 87%;">{{ post.rating }}</span>
     {%endif%}
+    <a href="{% url 'blog:post' pk=post.pk save=1 %}" style="top: 1%; left: 3%">
+        {% if save %}
+            <img src="{% static 'images/save_button_active.png' %}" alt="{% trans 'save' %}" height="25px" width="20px">
+        {% else %}
+            <img src="{% static 'images/save_button.png' %}" alt="{% trans 'save' %}" height="25px" width="20px">
+        {% endif %}
+    </a>
     <br>
 </div>
 

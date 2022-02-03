@@ -99,7 +99,14 @@ class Profile(View):
         comments = Comment.objects.filter(user=user)
         last_time_banned = user.last_ban_date
 
-        context = {'posts': posts, 'comments': comments, 'user': user, 'request_user': request.user}
+        saves_posts = Post.objects.filter(saved_by=user)
+        saves_comments = Comment.objects.filter(saved_by=user)
+
+        context = {'posts': posts,
+                   'comments': comments, 'user': user,
+                   'request_user': request.user,
+                   'saves_posts': saves_posts,
+                   'saves_comments': saves_comments}
 
         if last_time_banned:
             time_since_ban = datetime.now(timezone.utc) - last_time_banned

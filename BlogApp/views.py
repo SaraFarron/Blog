@@ -35,7 +35,7 @@ class SavedContents(View):
 
 class PostPage(View):
 
-    def get(self, request, pk):
+    def get(self, request, pk, save):
         post = Post.objects.get(id=pk)
         comments = Comment.objects.filter(post=post)
         replies = []
@@ -43,8 +43,26 @@ class PostPage(View):
             replies += list(comment.replies.all())
         for reply in replies:
             comments = comments.exclude(id=reply.id)
-
         context = {'post': post, 'comments': comments}
+
+        try:
+            user = Guest.objects.get(user=request.user)
+        except TypeError:
+            return render(request, 'blog/post.html', context)
+        saved_content = post.saved_by.all()
+        if post in saved_content:
+            post_saved = True
+        else:
+            post_saved = False
+        context['save'] = post_saved
+
+        if save:
+            if post_saved:
+                post.saved_by.remove(user)
+            else:
+                post.saved_by.add(user)
+            post.save()
+
         return render(request, 'blog/post.html', context)
 
 
