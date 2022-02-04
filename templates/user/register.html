@@ -2,17 +2,17 @@
 {% block content %}
 {% load i18n %}
 
-<div class="post">
-	<h3 style="font-family: Arial, Helvetica, sans-serif">{% trans 'Register a new account' %}</h3>
-    <form action="#" method="POST">
+<div class="post" style="justify-content: center;">
+	<h3 style="font-family: Arial, Helvetica, sans-serif; text-align: center;">{% trans 'Register a new account' %}</h3>
+    <form action="#" method="POST" style=" display: flex; flex-flow: column; text-align: center; justify-content: center;">
     {% csrf_token %}
         <p><input type="text" name="username" placeholder="{% trans 'username' %}"
-                  class="field" style="width: 49%"></p>
+                  class="field" style="width: 49%;"></p>
         <p><input type="email" name="email" placeholder="{% trans 'email' %}" class="field"></p>
 	    <p><input type="password" name="password1" placeholder="{% trans 'password' %}" class="field"></p>
         <p><input type="password" name="password2" placeholder="{% trans 'confirm password' %}" class="field"></p>
 	    <input type="submit" value="Register Account" class="btn btn-success"
-          style="width: 49%">
+          style="width: 30%; margin: 0 auto; margin-bottom: 10px;">
     </form>
 </div>
 

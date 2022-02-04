@@ -6,13 +6,19 @@ from django.views import View
 from .decorators import *
 from .forms import *
 
+class Index(View):
+    def get(self, request):
+
+        context = {'user': request.user}
+        return render(request, 'index.html', context)
+
 
 class Home(View):
     def get(self, request):
         posts = Post.objects.all().order_by('user')
 
         context = {'posts': posts, 'user': request.user}
-        return render(request, 'index.html', context)
+        return render(request, 'home.html', context)
 
 
 class HomeByDate(View):

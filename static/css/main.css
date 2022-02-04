@@ -1,11 +1,18 @@
+:root{
+    --standart-width: calc(1000px + 10%);
+    --minimal-width: 680px;
+}
+
 body {
     background-color: #f2f2f2;
+    min-width: var(--minimal-width);     
+    width: auto !important; 
 }
 
 .post {
     width: 100%;
     display: inline-block;
-    margin: 20px 10px 20px 10px;
+    margin-top: 20px;
     border-radius: 8px;
     padding: 10px;
     background-color: white;
@@ -16,9 +23,27 @@ a {
     color: black;
 }
 
+a:hover{color:#679bda}
+a:focus{color:#679bda}
+
+.order{margin: 0;}  
+
+li.nav-item
+{
+    margin-left: 10px;
+}
+
+div.row-content{
+    margin-top: 20px;
+    margin-left: 16px;
+    justify-content: flex-start;
+}
+
 .content {
-    width: 70%;
+    max-width: var(--standart-width);
+    min-width: var(--minimal-width);
     margin: 0 auto;
+    padding: 0px 15px 0px 15px;
 }
 
 #name {
