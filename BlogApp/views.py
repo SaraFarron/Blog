@@ -9,17 +9,17 @@ from .forms import *
 
 class Home(View):
     def get(self, request):
-        posts = Post.objects.all().order_by('user')
+        posts = Post.objects.all().order_by('-rating')
 
         context = {'posts': posts, 'user': request.user}
         return render(request, 'index.html', context)
 
 
-class HomeByDate(View):
+class HomeByRating(View):
     def get(self, request):
         posts = Post.objects.all().order_by('-creation_date')
 
-        context = {'posts': posts, 'user': request.user.username}
+        context = {'posts': posts, 'user': request.user}
         return render(request, 'index.html', context)
 
 

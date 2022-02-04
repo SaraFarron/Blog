@@ -4,10 +4,10 @@
 
 <div class="container">
     {% if request.path == '/ru/' or request.path == '/en/' %}
-        <a href="{% url 'blog:home_by_date' %}"
-           class="order">{% trans 'sort by date' %}</a>
+        <a href="{% url 'blog:home_popular' %}"
+           class="order">{% trans 'popular' %}</a>
     {% else %}
-        <a href="{% url 'blog:home' %}" class="order">{% trans 'sort by author' %}</a>
+        <a href="{% url 'blog:home' %}" class="order">{% trans 'new' %}</a>
     {% endif %}
     <a href="{% url 'blog:create' %}" class="btn btn-sm btn-success"
 style="width: 70%; margin: 10px; display: inline">{% trans 'Create post' %}</a>
