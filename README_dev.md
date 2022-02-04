@@ -57,7 +57,7 @@ API Docs:
 + Add rating to posts and comments
 + Add comments counter to posts ✅
 + Add save post feature
-+ Add sort by popular feature
++ Add sort by popular feature ✅
 + Add comments history section to profile  ✅
 + Add GitHub link to navbar ✅
 + Add markdown support to posts

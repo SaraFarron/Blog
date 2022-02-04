@@ -50,17 +50,19 @@ class PostPage(View):
         except TypeError:
             return render(request, 'blog/post.html', context)
         saved_content = post.saved_by.all()
-        if post in saved_content:
+        if user in saved_content:
             post_saved = True
         else:
             post_saved = False
-        context['save'] = post_saved
+        context['post_saved'] = post_saved
 
         if save:
             if post_saved:
                 post.saved_by.remove(user)
+                context['post_saved'] = False
             else:
                 post.saved_by.add(user)
+                context['post_saved'] = True
             post.save()
 
         return render(request, 'blog/post.html', context)
