@@ -1,12 +1,14 @@
+from urllib import request
 from django.urls import path
 from .views import *
+
 
 
 app_name = 'blog'
 
 urlpatterns = [
     path('', Home.as_view(), name='home'),
-    path('order_by_date', HomeByRating.as_view(), name='home_popular'),
+    path('order_by_popular', HomeByRating.as_view(), name='home_popular'),
     path('post/<str:pk>/', PostPage.as_view(), {'save': True}, name='post'),
     path('post/<str:pk>/', PostPage.as_view(), {'save': False}, name='post'),
 

@@ -48,6 +48,14 @@ h1 {
     margin-left:10px;
     margin-right: 10px;
 }
+h2 {
+    margin-left:10px;
+    margin-right: 10px;
+}
+h3 {
+    margin-left:10px;
+    margin-right: 10px;
+}
 
 .content {
     max-width: var(--standart-width);
