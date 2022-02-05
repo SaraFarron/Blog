@@ -2,10 +2,9 @@
 {% block content %}
 {% load i18n %}
 
+
 <div class="post">
-        <h1>Приветсвуем тебя!</h1>
-  <p>Зарегистрируйся на сайте или войди в существующий аккаунт, чтобы пользоваться всеми функциями сайта!</p>
-        <p>Этот сайт - проект начинающего веб разработчика <a href="https://github.com/SaraFarron">SaraFarron</a>,
-             созданный с целью изучения веб-разработки с использованием фреймворка Django. В проекте также участвует <a href="https://github.com/YaredFall">YaredFall</a></p>
+    {% trans 'welcome_page' %}
 </div>
+
 {% endblock %}

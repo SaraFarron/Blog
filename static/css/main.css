@@ -1,6 +1,6 @@
 :root{
     --standart-width: calc(1000px + 10%);
-    --minimal-width: 680px;
+    --minimal-width: 720px;
 }
 
 body {
@@ -37,6 +37,16 @@ div.row-content{
     margin-top: 20px;
     margin-left: 16px;
     justify-content: flex-start;
+}
+
+p {
+    margin-left:10px;
+    margin-right: 10px;
+}
+
+h1 {
+    margin-left:10px;
+    margin-right: 10px;
 }
 
 .content {

@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-01 12:45+0000\n"
-"PO-Revision-Date: 2022-01-07 12:18+0000\n"
-"Last-Translator:   <admin@admin.com>\n"
+"POT-Creation-Date: 2022-02-05 07:13+0000\n"
+"PO-Revision-Date: 2022-02-05 09:55+0000\n"
+"Last-Translator:   <yarik@klass.ru>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -31,7 +31,7 @@ msgstr ""
 msgid "creation date"
 msgstr ""
 
-#: BlogApp/models.py:10 BlogApp/models.py:26
+#: BlogApp/models.py:10 BlogApp/models.py:28
 #: templates/blog/create_comment.html:8
 msgid "text"
 msgstr ""
@@ -40,39 +40,48 @@ msgstr ""
 msgid "description"
 msgstr ""
 
-#: BlogApp/models.py:12 BlogApp/models.py:25
+#: BlogApp/models.py:12 BlogApp/models.py:27
 msgid "author"
 msgstr ""
 
-#: BlogApp/models.py:13 BlogApp/models.py:30 user/models.py:20
+#: BlogApp/models.py:13 BlogApp/models.py:32 templates/user/profile.html:19
+#: user/models.py:20
 msgid "rating"
 msgstr ""
 
-#: BlogApp/models.py:16
+#: BlogApp/models.py:15 BlogApp/models.py:34
+msgid "upvoted by"
+msgstr ""
+
+#: BlogApp/models.py:17 BlogApp/models.py:36
+msgid "downvoted by"
+msgstr ""
+
+#: BlogApp/models.py:18
 msgid "post saved by"
 msgstr ""
 
-#: BlogApp/models.py:17
+#: BlogApp/models.py:19
 msgid "number of comments"
 msgstr ""
 
-#: BlogApp/models.py:27
+#: BlogApp/models.py:29
 msgid "publication date"
 msgstr ""
 
-#: BlogApp/models.py:28
+#: BlogApp/models.py:30
 msgid "post name"
 msgstr ""
 
-#: BlogApp/models.py:29
+#: BlogApp/models.py:31
 msgid "replies"
 msgstr ""
 
-#: BlogApp/models.py:36
+#: BlogApp/models.py:38
 msgid "comment saved by"
 msgstr ""
 
-#: BlogApp/models.py:39
+#: BlogApp/models.py:41
 msgid "'s comment"
 msgstr ""
 
@@ -108,32 +117,32 @@ msgstr ""
 msgid "Server not responding"
 msgstr ""
 
-#: templates/blog/base.html:54
+#: templates/blog/base.html:67
 msgid "Hello"
 msgstr ""
 
-#: templates/blog/base.html:57
+#: templates/blog/base.html:70
 msgid "Home"
 msgstr "Home"
 
-#: templates/blog/base.html:62
+#: templates/blog/base.html:76
 msgid "Profile"
 msgstr ""
 
-#: templates/blog/base.html:66 templates/blog/unauthenticated.html:23
+#: templates/blog/base.html:81 templates/blog/unauthenticated.html:23
 msgid "Register"
 msgstr "Register"
 
-#: templates/blog/base.html:69 templates/blog/unauthenticated.html:21
+#: templates/blog/base.html:84 templates/blog/unauthenticated.html:21
 #: templates/user/login.html:6
 msgid "Login"
 msgstr "Login"
 
-#: templates/blog/base.html:74
+#: templates/blog/base.html:89
 msgid "Logout"
 msgstr "Logout"
 
-#: templates/blog/comment_base.html:8 templates/blog/post.html:55
+#: templates/blog/comment_base.html:8 templates/blog/post.html:66
 #: templates/blog/reply.html:9
 msgid "Reply"
 msgstr ""
@@ -150,8 +159,8 @@ msgstr ""
 msgid "Are you sure you want to delete"
 msgstr ""
 
-#: templates/blog/delete_post.html:12 templates/blog/post.html:21
-#: templates/index.html:31
+#: templates/blog/delete_post.html:12 templates/blog/post.html:24
+#: templates/home.html:32
 msgid "Delete"
 msgstr ""
 
@@ -159,15 +168,19 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: templates/blog/post.html:7
-msgid "Author"
+#: templates/blog/post.html:9 templates/home.html:17 user/models.py:13
+msgid "profile picture"
 msgstr ""
 
-#: templates/blog/post.html:19 templates/index.html:29
+#: templates/blog/post.html:22 templates/home.html:30
 msgid "Update"
 msgstr ""
 
-#: templates/blog/post.html:40
+#: templates/blog/post.html:41 templates/blog/post.html:43
+msgid "save"
+msgstr ""
+
+#: templates/blog/post.html:50
 msgid "Leave a comment"
 msgstr ""
 
@@ -179,17 +192,37 @@ msgstr ""
 msgid "You need to be authorized"
 msgstr ""
 
-#: templates/index.html:8
+#: templates/home.html:8
 msgid "sort by date"
 msgstr ""
 
-#: templates/index.html:10
+#: templates/home.html:10
 msgid "sort by author"
 msgstr ""
 
-#: templates/index.html:13
+#: templates/home.html:13
 msgid "Create post"
 msgstr ""
+
+#: templates/index.html:7
+msgid "welcome_page"
+msgstr ""
+"        <h1>Welcome!</h1>\n"
+"  <p>Hello, I'm Nikita (<a href=\"https://github.com/SaraFarron\">SaraFarron on GitHub</a>). This is my website I built in order to learn as much as I can about django and get experience. I am aiming for backend development so sorry for this basic design. This is the biggest project I ever created up to date so most things  I can do in django I did here.</p>\n"
+"  <p><b>What is this website?</b><br>\n"
+"A simple blog website, but here all users can create posts and comment. I took the idea from DTF.ru, you may be familiar with it. You can see the source code by clicking the github icon on the top left.</p>\n"
+"  <p><b>What you can do here?</b><br>\n"
+"This site has 2 parts:<br>\n"
+"    - web interface, which I am not really proud of, you are using it right now;<br>\n"
+"    - api, that I am more proud of.<br>\n"
+"For the most part web interface and api repeat each other functionality. To interact with API there is a swagger, login is made via token auth, you can copy your token in your profile.</p>\n"
+" <p><b>What else I can do?</b><br>\n"
+"- Previously I configured nginx with gunicorn for this project, but since it now is hosted on Heroku, there is no need for it now.<br>\n"
+"- Parsing (BeautifulSoup4, Selenium)<br>\n"
+"- Plots (Matplotlib)<br>\n"
+"- Telegram bots (aiogram)</p>\n"
+" <p><b>Are there any other people working on this project?</b></br>\n"
+"Yes, my friend Yaroslav (<a href=\"https://github.com/YaredFall\">YaredFall on GitHub</a>), who wanted me to join my project. I give him some tasks that I already know I can do, but won't learn anything from it. He also sometimes does things by himself.</p>"
 
 #: templates/user/guest_does_not_exist.html:6
 msgid "Guest"
@@ -224,38 +257,48 @@ msgstr ""
 msgid "skype"
 msgstr ""
 
-#: templates/user/profile.html:20
+#: templates/user/profile.html:21
 msgid "API token"
 msgstr ""
 
-#: templates/user/profile.html:24
+#: templates/user/profile.html:25
 msgid "Ban status"
 msgstr ""
 
-#: templates/user/profile.html:25
+#: templates/user/profile.html:26
 msgid "Mute status"
 msgstr ""
 
-#: templates/user/profile.html:27
+#: templates/user/profile.html:28
 msgid "Time since last ban"
 msgstr ""
 
-#: templates/user/profile.html:33
+#: templates/user/profile.html:34
 msgid "posts"
 msgstr ""
 
-#: templates/user/profile.html:42
+#: templates/user/profile.html:43 templates/user/profile.html:70
 msgid "No posts yet"
 msgstr "No posts yet"
 
-#: templates/user/profile.html:47
+#: templates/user/profile.html:48
 msgid "comments"
 msgstr ""
 
-#: templates/user/profile.html:54
+#: templates/user/profile.html:55
 #, fuzzy
 #| msgid "No posts yet"
 msgid "No comments yet"
+msgstr "No posts yet"
+
+#: templates/user/profile.html:61
+msgid "saved posts"
+msgstr ""
+
+#: templates/user/profile.html:81
+#, fuzzy
+#| msgid "No posts yet"
+msgid "No saved comments yet"
 msgstr "No posts yet"
 
 #: templates/user/profile_settings.html:10
@@ -272,10 +315,6 @@ msgstr ""
 
 #: templates/user/register.html:13
 msgid "confirm password"
-msgstr ""
-
-#: user/models.py:13
-msgid "profile picture"
 msgstr ""
 
 #: user/models.py:15

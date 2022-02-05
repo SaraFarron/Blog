@@ -1,5 +1,6 @@
+import locale
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.views import View
 
@@ -8,14 +9,24 @@ from .forms import *
 
 class Index(View):
     def get(self, request):
+        if 'user_loc' in request.COOKIES:
+            loc = request.COOKIES['user_loc']
+        else:
+            loc = request.LANGUAGE_CODE
+        return HttpResponseRedirect('/'+loc+'/about/')
 
+class About(View):
+    def get(self, request):
+        browser_locale = request.LANGUAGE_CODE #rerutn browser languaga code (ru/en/etc)
         context = {'user': request.user}
-        return render(request, 'index.html', context)
-
+        response = render(request, 'index.html', context)
+        response.set_cookie('user_loc', browser_locale)
+        return response
 
 class Home(View):
     def get(self, request):
         posts = Post.objects.all().order_by('user')
+        print()
 
         context = {'posts': posts, 'user': request.user}
         return render(request, 'home.html', context)
