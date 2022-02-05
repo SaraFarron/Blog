@@ -34,7 +34,7 @@ schema_view = get_schema_view(
         description="Documentation for all api endpoints",
         terms_of_service="https://www.google.com/policies/terms/",
         contact=openapi.Contact(email="syulinnikita@gmail.com"),
-        license=openapi.License(name="MIT License"),
+        license=openapi.License(name="Unlicense"),
     ),
     public=True,
     permission_classes=(permissions.AllowAny, ),

@@ -30,7 +30,7 @@
 
 </div>
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-4">
         <span style="font-size: 34px">{% trans 'posts' %}:</span>
         {% for post in posts %}
         <div class="post">
@@ -44,7 +44,7 @@
             </div>
         {% endfor %}
     </div>
-    <div class="col-md-3">
+    <div class="col-md-4">
         <span style="font-size: 34px">{% trans 'comments' %}:</span>
         {% for comment in comments %}
         <div class="post">
@@ -57,7 +57,7 @@
         {% endfor %}
     </div>
     {% if request_user == user.user %}
-    <div class="col-md-3">
+    <div class="col-md-4">
         <span style="font-size: 34px">{% trans 'saved posts' %}:</span>
         {% for post in saves_posts %}
         <div class="post">
@@ -68,17 +68,6 @@
         {% empty %}
             <div class="post">
             <h3>{% trans 'No posts yet' %}</h3>
-            </div>
-        {% endfor %}
-    </div>
-    <div class="col-md-3">
-        {% for comment in saves_comments %}
-        <div class="post">
-            <h2><a href="{% url 'blog:post' comment.post.id %}">{{ comment.text }}</a></h2>
-        </div>
-        {% empty %}
-            <div class="post">
-            <h3>{% trans 'No saved comments yet' %}</h3>
             </div>
         {% endfor %}
     </div>

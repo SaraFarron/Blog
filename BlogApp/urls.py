@@ -6,7 +6,7 @@ app_name = 'blog'
 
 urlpatterns = [
     path('', Home.as_view(), name='home'),
-    path('order_by_date', HomeByDate.as_view(), name='home_by_date'),
+    path('order_by_date', HomeByRating.as_view(), name='home_popular'),
     path('post/<str:pk>/', PostPage.as_view(), {'save': True}, name='post'),
     path('post/<str:pk>/', PostPage.as_view(), {'save': False}, name='post'),
 

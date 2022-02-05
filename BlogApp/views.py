@@ -1,42 +1,25 @@
-import locale
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views import View
 
 from .decorators import *
 from .forms import *
 
-class Index(View):
-    def get(self, request):
-        if 'user_loc' in request.COOKIES:
-            loc = request.COOKIES['user_loc']
-        else:
-            loc = request.LANGUAGE_CODE
-        return HttpResponseRedirect('/'+loc+'/about/')
-
-class About(View):
-    def get(self, request):
-        browser_locale = request.LANGUAGE_CODE #rerutn browser languaga code (ru/en/etc)
-        context = {'user': request.user}
-        response = render(request, 'index.html', context)
-        response.set_cookie('user_loc', browser_locale)
-        return response
 
 class Home(View):
     def get(self, request):
-        posts = Post.objects.all().order_by('user')
-        print()
+        posts = Post.objects.all().order_by('-rating')
 
         context = {'posts': posts, 'user': request.user}
-        return render(request, 'home.html', context)
+        return render(request, 'index.html', context)
 
 
-class HomeByDate(View):
+class HomeByRating(View):
     def get(self, request):
         posts = Post.objects.all().order_by('-creation_date')
 
-        context = {'posts': posts, 'user': request.user.username}
+        context = {'posts': posts, 'user': request.user}
         return render(request, 'index.html', context)
 
 
@@ -67,17 +50,19 @@ class PostPage(View):
         except TypeError:
             return render(request, 'blog/post.html', context)
         saved_content = post.saved_by.all()
-        if post in saved_content:
+        if user in saved_content:
             post_saved = True
         else:
             post_saved = False
-        context['save'] = post_saved
+        context['post_saved'] = post_saved
 
         if save:
             if post_saved:
                 post.saved_by.remove(user)
+                context['post_saved'] = False
             else:
                 post.saved_by.add(user)
+                context['post_saved'] = True
             post.save()
 
         return render(request, 'blog/post.html', context)
