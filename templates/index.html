@@ -20,7 +20,7 @@ style="width: 70%; margin: 10px; display: inline">{% trans 'Create post' %}</a>
         {% else %}
             <span>{{ post.user }}</span>
         {% endif %}
-        <h3>{{ post.creation_date }}</h3>
+        <h5>{{ post.creation_date }}</h5>
         <h1><a href="{% url 'blog:post' pk=post.id save=0 %}">{{ post.name }}</a></h1>
         <h3>{{ post.description }}</h3>
         <p></p>
