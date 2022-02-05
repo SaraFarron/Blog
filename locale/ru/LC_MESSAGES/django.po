@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-04 14:11+0000\n"
-"PO-Revision-Date: 2022-02-04 14:13+0000\n"
-"Last-Translator:   <admin@admin.com>\n"
+"POT-Creation-Date: 2022-02-05 07:13+0000\n"
+"PO-Revision-Date: 2022-02-05 10:10+0000\n"
+"Last-Translator:   <yarik@klass.ru>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -57,7 +57,7 @@ msgstr "пост сохранен у"
 
 #: BlogApp/models.py:17 BlogApp/models.py:36
 msgid "downvoted by"
-msgstr "не нравится"
+msgstr ""
 
 #: BlogApp/models.py:18
 msgid "post saved by"
@@ -120,28 +120,28 @@ msgstr "Страница не найдена"
 msgid "Server not responding"
 msgstr "Сервер не отвечает"
 
-#: templates/blog/base.html:58
+#: templates/blog/base.html:67
 msgid "Hello"
 msgstr "Привет"
 
-#: templates/blog/base.html:61
+#: templates/blog/base.html:70
 msgid "Home"
 msgstr "Главная"
 
-#: templates/blog/base.html:66
+#: templates/blog/base.html:76
 msgid "Profile"
 msgstr "Профиль"
 
-#: templates/blog/base.html:70 templates/blog/unauthenticated.html:23
+#: templates/blog/base.html:81 templates/blog/unauthenticated.html:23
 msgid "Register"
 msgstr "Регистрация"
 
-#: templates/blog/base.html:73 templates/blog/unauthenticated.html:21
+#: templates/blog/base.html:84 templates/blog/unauthenticated.html:21
 #: templates/user/login.html:6
 msgid "Login"
 msgstr "Вход"
 
-#: templates/blog/base.html:78
+#: templates/blog/base.html:89
 msgid "Logout"
 msgstr "Выход"
 
@@ -163,7 +163,7 @@ msgid "Are you sure you want to delete"
 msgstr "Вы уверены что хотите удалить?"
 
 #: templates/blog/delete_post.html:12 templates/blog/post.html:24
-#: templates/index.html:32
+#: templates/home.html:32
 msgid "Delete"
 msgstr "Удалить"
 
@@ -171,17 +171,17 @@ msgstr "Удалить"
 msgid "Cancel"
 msgstr "Отмена"
 
-#: templates/blog/post.html:9 templates/index.html:17 user/models.py:13
+#: templates/blog/post.html:9 templates/home.html:17 user/models.py:13
 msgid "profile picture"
 msgstr "фото профиля"
 
-#: templates/blog/post.html:22 templates/index.html:30
+#: templates/blog/post.html:22 templates/home.html:30
 msgid "Update"
 msgstr "Обновить"
 
 #: templates/blog/post.html:41 templates/blog/post.html:43
 msgid "save"
-msgstr "сохранить"
+msgstr ""
 
 #: templates/blog/post.html:50
 msgid "Leave a comment"
@@ -195,17 +195,37 @@ msgstr "Ошибка 401"
 msgid "You need to be authorized"
 msgstr "Вы должны быть авторизированы"
 
-#: templates/index.html:8
-msgid "popular"
-msgstr "популярное"
+#: templates/home.html:8
+msgid "sort by date"
+msgstr "сортировка по дате"
 
-#: templates/index.html:10
-msgid "new"
-msgstr "новое"
+#: templates/home.html:10
+msgid "sort by author"
+msgstr "сортировка по автору"
 
-#: templates/index.html:13
+#: templates/home.html:13
 msgid "Create post"
 msgstr "Создать пост"
+
+#: templates/index.html:7
+msgid "welcome_page"
+msgstr ""
+"        <h1>Добро пожаловать!</h1>\n"
+"  <p>Привет, я Никита (<a href=\"https://github.com/SaraFarron\">SaraFarron на Github</a>). Это сайт, который я создал, чтобы изучить джанго и получить опыт в разработкею. Я изучаю backend разработку, поэтому извините за этот невнушительный дизайн. Это самыйй большой проект, который я когда либо делал на джанго, поэтому практически все, что я могу написать реализовано тут.</p>\n"
+"  <p><b>Что это за сайт?</b><br>\n"
+"Обычный блог-сайт, хотя здесь все пользователи могут публиковать посты и комментировать. Я взял идею с DTF.ru, возможно вы знаете о нем. Исходный код можно посмотреть нажав на иконку гитхаба в верхнем левом углу.</p>\n"
+"  <p><b>Что тут можно еще поделать?</b><br>\n"
+"Сайт можно поделить на 2 части:<br>\n"
+"    - веб интерфейс, которым я не сильно доволен, вы пользуетесь им прямо сейчас;<br>\n"
+"    - api, которым я доволен несколько больше.<br>\n"
+"По большей части веб интерфейс и api имеют схожий функционал. Чтобы попробовать api есть swagger, вход сделан через токены, токен можно скопировать из вашего профиля.</p>\n"
+" <p><b>Что еще я умею?</b><br>\n"
+"- Раньше в этом проекте был настроен nginx, но так как теперь сайт хостится на heroku, необходимость в этом пропала<br>\n"
+"- Парсинг (BeautifulSoup4, Selenium)<br>\n"
+"- Графики (Matplotlib)<br>\n"
+"- Телеграм боты (aiogram)</p>\n"
+" <p><b>Работает ли над проектом кто-то ещё?</b></br>\n"
+"Да, мой друг Ярослав (<a href=\"https://github.com/YaredFall\">YaredFall на GitHub</a>), захотевший присоединится к моему проекту. Я делегирую ему некоторые задачи, с которыми я бы справился и сам, но ничего не узнал бы из этого. Он также иногда делает что-то сам.</p>"
 
 #: templates/user/guest_does_not_exist.html:6
 msgid "Guest"
@@ -318,12 +338,6 @@ msgstr "дата последнего бана"
 
 #~ msgid "Author"
 #~ msgstr "Автор"
-
-#~ msgid "sort by date"
-#~ msgstr "сортировка по дате"
-
-#~ msgid "sort by author"
-#~ msgstr "сортировка по автору"
 
 #~ msgid "Language"
 #~ msgstr "Язык"

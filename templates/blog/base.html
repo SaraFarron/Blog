@@ -18,10 +18,14 @@
 
 
 <!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-light static-top" 
-  style="background-color: #d9ffd9;">
-  <div class="container">
-      <a class="navbar-brand" href="https://github.com/SaraFarron/Blog" style="margin-right: 16px">
+<nav class="navbar  navbar-light static-top" 
+  style="background-color: #d9ffd9; padding: 10px 0px 10px 0px;">
+  <div class="container" style="
+    max-width: var(--standart-width);
+    min-width: var(--minimal-width);
+    justify-content: flex-start;
+  ">
+      <a class="navbar-brand" href="https://github.com/SaraFarron/Blog" style="margin-right: 16px; margin-left: 16px;">
           <img src="{% static 'images/github_logo.png' %}" alt="Github link" width="25px" height="25px">
       </a>
   <div class="vline"></div>
@@ -30,22 +34,27 @@
       {% get_available_languages as AVAILABLE_LANGUAGES %}
       {% get_language_info_list for AVAILABLE_LANGUAGES as languages %}
 
-      {% for language in languages %}
-      <div class="nav-item" style="display: flex;" >
-          <a href="/{{ language.code }}/"
-            {% if language.code == CURRENT_LANGUAGE %} style="margin-right: 16px; width: 25px; height: 40px;"
+      {% with request.path|slice:"4:" as path %}
+      <div class="nav-item" style="display: flex; align-items: center;" >
+        {% for language in languages %}
+          
+          <a {% if request.path != '/' %} href="/{{ language.code }}/{{path}}" {% else %} href="{{request.path}}" {%endif%}
+            {% if language.code == CURRENT_LANGUAGE %} 
+                style="margin-right: 16px; width: 25px; height: 40px;"
             {% else %}
                 style="margin-right: 16px; width: 25px; height: 25px;"
             {% endif %} >
-              <img src="{% static 'images/country_flags/' %}{{ language.name }}.png" alt='{% static 'images/country_flags/' %}{{ language.name }}.png' width="25px" height="25px">
+              <img src="{% static 'images/country_flags/' %}{{ language.name }}.png" alt='{{ language.name_local }}' width="25px" height="25px">
+
           </a>
+          {% endfor %} 
       </div>
-      {% endfor %}
+      {% endwith %} 
   <div class="vline"></div>
 {#    <a class="navbar-brand" href="#">#}
 {#      <img src="http://placehold.it/150x50?text=Logo" alt="">#}
 {#    </a>#}
-    <button class="navbar-toggler"
+    <!-- <button class="navbar-toggler"
             type="button"
             data-toggle="collapse"
             data-target="#navbarResponsive"
@@ -53,18 +62,20 @@
             aria-expanded="false"
             aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarResponsive">
-      <h3>{% trans 'Hello' %}, {{ request.user }} </h3>
-      <ul class="navbar-nav ml-auto">
+    </button> -->
+    <!-- <div class="collapse navbar-collapse" id="navbarResponsive"> -->
+      <h3>{% trans 'Hello' %}, {{path}}{{ request.user }} </h3>
+      <ul class="navbar-nav" style="margin-left:auto; margin-right: 0px; flex-direction: row;">
         <li class="nav-item active">
           <a class="nav-link" href="{% url 'blog:home' %}">{% trans 'Home' %}
             <span class="sr-only">(current)</span>
           </a>
         </li>
+        {% if request.user.is_authenticated %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'user:profile' request.user.id %}">{% trans 'Profile' %}</a>
         </li>
+        {%endif%}
           {% if not request.user.is_authenticated %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'user:register' %}">{% trans 'Register' %}</a>
@@ -79,7 +90,7 @@
         </li>
       {% endif %}
       </ul>
-    </div>
+    <!-- </div> -->
   </div>
 </nav>
 

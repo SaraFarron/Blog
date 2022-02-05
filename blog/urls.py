@@ -24,6 +24,7 @@ from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 from rest_framework.documentation import include_docs_urls
+from BlogApp.views import Index, About
 
 
 schema_view = get_schema_view(
@@ -45,12 +46,16 @@ urlpatterns = i18n_patterns(
     path('', include('BlogApp.urls')),
     path('api/', include('api.urls')),
     path('user/', include('user.urls')),
+    path('about/', About.as_view()),
 
     path('docs/', include_docs_urls(title='Blog Api')),
     path(r'swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path(r'redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 
 )
+urlpatterns += [
+    path('', Index.as_view())
+]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

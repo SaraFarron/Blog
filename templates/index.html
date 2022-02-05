@@ -2,52 +2,9 @@
 {% block content %}
 {% load i18n %}
 
-<div class="container">
-    {% if request.path == '/ru/' or request.path == '/en/' %}
-        <a href="{% url 'blog:home_popular' %}"
-           class="order">{% trans 'popular' %}</a>
-    {% else %}
-        <a href="{% url 'blog:home' %}" class="order">{% trans 'new' %}</a>
-    {% endif %}
-    <a href="{% url 'blog:create' %}" class="btn btn-sm btn-success"
-style="width: 70%; margin: 10px; display: inline">{% trans 'Create post' %}</a>
+
+<div class="post">
+    {% trans 'welcome_page' %}
 </div>
-{% for post in posts %}
-    <div class="post">
-    <img src="{{ post.user.profile_picture.url }}" width="25px" height="25px" style="border-radius: 50%;" alt="{% trans 'profile picture' %}">
-        {% if post.user.is_moderator is True %}
-            <span style="color: #e85353">{{ post.user }}</span>
-        {% else %}
-            <span>{{ post.user }}</span>
-        {% endif %}
-        <h5>{{ post.creation_date }}</h5>
-        <h1><a href="{% url 'blog:post' pk=post.id save=0 %}">{{ post.name }}</a></h1>
-        <h3>{{ post.description }}</h3>
-        <p></p>
-        <div style="position: relative">
-            {%if request.user == post.user.user %}
-                <a href="{% url 'blog:update' post.id %}" class="btn btn-sm btn-info"
-                    style="width: 29%">{% trans 'Update' %}</a>
-                <a href="{% url 'blog:delete' post.id %}" class="btn btn-sm btn-danger"
-                    style="width: 29%">{% trans 'Delete' %}</a>
-                <span style="bottom: 0;">🗨 {{ post.number_of_comments }}</span>
-                <a class="btn btn-sm btn-default"
-                   style="position: absolute; right: 0; color: green; font-size: 20px">+</a>
-                <a class="btn btn-sm btn-default"
-                   style="position: absolute; right: 30px; color: red; font-size: 20px">-</a>
-                   <span style="position: absolute; right: 60px; top: 10px;">{{ post.rating }}</span>
-            {% else %}
-                <span style="bottom: 0;">🗨 {{ post.number_of_comments }}</span>
-                <a href="{% url 'blog:home' %}"
-                   class="btn btn-sm btn-default"
-                   style="position: absolute; right: 0; bottom: 0; color: green; font-size: 20px">+</a>
-                <a href="{% url 'blog:home' %}"
-                   class="btn btn-sm btn-default"
-                   style="position: absolute; right: 30px; bottom: 0; color: red; font-size: 20px">-</a>
-                <span style="position: absolute; right: 60px; bottom: 7px;">{{ post.rating }}</span>
-            {%endif%}
-        </div>
-    </div>
-{% endfor %}
 
 {% endblock %}
