@@ -3,40 +3,48 @@
 {% load i18n %}
 
 <div class="row-content">
-    {% if not 'popular' in request.path %}
-        <a href="{% url 'blog:home_popular' %}"
-           class="order">{% trans 'popular' %}</a>
-    {% else %}
-        <a href="{% url 'blog:home' %}" class="order">{% trans 'new' %}</a>
-    {% endif %}
     <a href="{% url 'blog:create' %}" class="btn btn-sm btn-success"
-style="width: 70%; margin: 10px; display: inline">{% trans 'Create post' %}</a>
+        style="width: 20%; vertical-align:middle;">{% trans 'Create post' %}</a>
+    {% if not 'popular' in request.path %}
+        <a href="{% url 'blog:home_popular' %}" class="order pos-right">{% trans 'popular' %}</a>
+    {% else %}
+        <a href="{% url 'blog:home' %}" class="order pos-right">{% trans 'new' %}</a>
+    {% endif %}
+    
 </div>
 {% for post in posts %}
     <div class="post">
-    <img src="{{ post.user.profile_picture.url }}" width="25px" height="25px" style="border-radius: 50%;" alt="{% trans 'profile picture' %}">
-        {% if post.user.is_moderator is True %}
-            <span style="color: #e85353">{{ post.user }}</span>
-        {% else %}
-            <span>{{ post.user }}</span>
-        {% endif %}
-        <h3>{{ post.creation_date }}</h3>
+        <div class="row-content">
+            <div><img src="{{ post.user.profile_picture.url }}" width="25px" height="25px" style="border-radius: 50%;" alt="{% trans 'profile picture' %}">
+            {% if post.user.is_moderator is True %}
+                <span style="color: #e85353">{{ post.user }}</span>
+            {% else %}
+                <span>{{ post.user }}</span>
+            {% endif %}
+            </div>
+            <div class="pos-right">{{ post.creation_date }}</div>
+        </div>
         <h1><a href="{% url 'blog:post' pk=post.id save=False %}">{{ post.name }}</a></h1>
         <h3>{{ post.description }}</h3>
         <p></p>
-        <div style="position: relative">
+        <div class="row-content">
             {%if request.user == post.user.user %}
                 <a href="{% url 'blog:update' post.id %}" class="btn btn-sm btn-info"
-                    style="width: 29%">{% trans 'Update' %}</a>
+                    style="width: 29%;">{% trans 'Update' %}</a>
                 <a href="{% url 'blog:delete' post.id %}" class="btn btn-sm btn-danger"
-                    style="width: 29%">{% trans 'Delete' %}</a>
+                    style="width: 29%;">{% trans 'Delete' %}</a>
             {%endif%}
-                <span style="bottom: 0;">🗨 {{ post.number_of_comments }}</span>
-            {% if post.rating >= 0 %}
-                <span style="position: absolute; right: 10px; bottom: 7px; color: green">{{ post.rating }}</span>
-            {% else %}
-                <span style="position: absolute; right: 10px; bottom: 7px; color: red">{{ post.rating }}</span>
-            {% endif %}
+            
+            <div class="pos-right">
+                <span style="margin-right: 10px; vertical-align: middle;">🗨 {{ post.number_of_comments }}</span>
+                <!-- <a class="btn btn-sm btn-default"
+                style="color: green; font-size: 20px; padding: 0 5px;">+</a> -->
+                <span style="vertical-align: middle; 
+                    {% if post.rating >= 0 %}
+                        color: green {%else%} color: red {%endif%}">{{ post.rating }}</span>
+                <!-- <a class="btn btn-sm btn-default"
+                style="color: red; font-size: 20px; padding: 0 5px;">-</a> -->
+            </div>
         </div>
     </div>
 {% endfor %}
