@@ -2,18 +2,21 @@
 {% block content %}
     {% load i18n %}
 <div class="post">
-    <p style="text-align: center">{% trans 'Are you sure you want to delete' %}? {{ post }}</p>
-<form action="{% url 'blog:delete' post.id %}" method="post">
+    <p style="text-align: center">{% trans 'Are you sure you want to delete' %}</p> 
+    <h1 style="text-align: center"> {{ post }}</h1>
+<form action="{% url 'blog:delete' post.id %}" method="post" style="display: flex; justify-content: center; margin-top: 10px;"> 
     {% csrf_token %}
     {{ form }}
+    <div class="row-content">
     <input type="submit"
            name="Confirm"
            class="btn btn-sm btn-danger"
            value="{% trans 'Delete' %}"
-           style="position: relative; left: 35%">
+           style="margin-left: auto;">
     <a href="{% url 'blog:home' %} "
        class="btn btn-sm btn-info"
-       style="position: relative; left: 45%;">{% trans 'Cancel' %}</a>
+       >{% trans 'Cancel' %}</a>
+    </div>
 </form>
 </div>
 {% endblock %}

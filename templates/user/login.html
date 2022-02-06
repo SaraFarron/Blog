@@ -5,17 +5,15 @@
 <div class="post">
 			<h3 style="font-family: Arial, Helvetica, sans-serif; text-align: center;">{% trans 'Login' %}</h3>
 
-		<form action="#" method="POST" style=" display: flex; flex-flow: column; text-align: center; justify-content: center;">
+		<form action="#" method="POST" style=" display: flex; flex-flow: column; text-align: center; justify-content: center; margin-top: 10px;">
             {% csrf_token %}
 			<p><input type="text" name="username" placeholder="{% trans 'username' %}"
                    class="field" style="width: 49%"></p>
 			<p><input type="password" name="password" placeholder="{% trans 'password' %}" class="field" style="width: 49%"></p>
 			<input type="submit" value="{% trans 'Login' %}" class="btn btn-success"
             style="
-			display: block;
 			width: 30%;
-			margin: 0 auto;
-			margin-bottom: 10px;">
+			margin: 0 auto !important;">
 		</form>
 	</div>
 {% endblock %}

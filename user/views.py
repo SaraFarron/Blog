@@ -127,7 +127,7 @@ class ProfileSettings(View):
         user = Guest.objects.get(name=request.user)
         form = ProfileSetForm(instance=user)
 
-        context = {'form': form}
+        context = {'form': form, 'user' : user}
         return render(request, 'user/profile_settings.html', context)
 
     @method_decorator(login_required(login_url='user:login'))
