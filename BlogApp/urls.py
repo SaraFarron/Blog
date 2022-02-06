@@ -7,8 +7,11 @@ app_name = 'blog'
 urlpatterns = [
     path('', Home.as_view(), name='home'),
     path('order_by_popular', HomeByRating.as_view(), name='home_popular'),
-    path('post/<str:pk>/', PostPage.as_view(), {'save': True}, name='post'),
+
     path('post/<str:pk>/', PostPage.as_view(), {'save': False}, name='post'),
+    path('post/<str:pk>/', PostPage.as_view(), {'save': True}, name='post'),
+    path('post/<str:pk>/', PostPage.as_view(), {'vote': 'upvote'}, name='post'),
+    path('post/<str:pk>/', PostPage.as_view(), {'vote': 'downvote'}, name='post'),
 
     path('create/', CreatePost.as_view(), name='create'),
     path('update/<str:pk>', UpdatePost.as_view(), name='update'),

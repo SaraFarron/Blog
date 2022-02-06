@@ -37,7 +37,6 @@ class CommentSerializer(ModelSerializer):
     upvoted_users = StringRelatedField(read_only=True, many=True)
     downvoted_users = StringRelatedField(read_only=True, many=True)
     saved_by = StringRelatedField(read_only=True, many=True)
-    replies = StringRelatedField(read_only=True, many=True)
 
     class Meta:
         model = Comment

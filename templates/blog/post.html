@@ -24,20 +24,25 @@
             style="width: 29%">{% trans 'Delete' %}</a>
         <span style="bottom: 0;">🗨 {{ post.number_of_comments }}</span>
         <a class="btn btn-sm btn-default"
+           href="{% url 'blog:post' pk=post.pk vote='upvote' %}"
            style="position: absolute; right: 0; color: green; font-size: 20px">+</a>
         <a class="btn btn-sm btn-default"
+           href="{% url 'blog:post' pk=post.pk vote='downvote' %}"
            style="position: absolute; right: 30px; color: red; font-size: 20px">-</a>
-           <span style="position: absolute; right: 60px; top: 87%;">{{ post.rating }}</span>
     {% else %}
         <span style="bottom: 0;">🗨 {{ post.number_of_comments }}</span>
         <a class="btn btn-sm btn-default"
            style="position: absolute; right: 0; bottom: 0; color: green; font-size: 20px">+</a>
         <a class="btn btn-sm btn-default"
            style="position: absolute; right: 30px; bottom: 0; color: red; font-size: 20px">-</a>
-        <span style="position: absolute; right: 60px; top: 87%;">{{ post.rating }}</span>
     {%endif%}
+            {% if post.rating >= 0 %}
+                <span style="position: absolute; right: 60px; top: 87%; color: green">{{ post.rating }}</span>
+            {% else %}
+                <span style="position: absolute; right: 60px; top: 87%; color: red">{{ post.rating }}</span>
+            {% endif %}
     <a href="{% url 'blog:post' pk=post.pk save=1 %}" style="top: 1%; left: 3%">
-        {% if post_saved %}
+        {% if user in saved_by %}
             <img src="{% static 'images/save_button_active.png' %}" alt="{% trans 'save' %}" height="25px" width="20px">
         {% else %}
             <img src="{% static 'images/save_button.png' %}" alt="{% trans 'save' %}" height="25px" width="20px">
@@ -52,22 +57,38 @@
     {% for comment in comments %}
         <div class="post" style="margin-bottom: 0">
             <div style="position: relative">
-                <img src="{{ post.user.profile_picture.url }}" width="18px" height="18px" style="border-radius: 50%;">
+                <img src="{{ comment.user.profile_picture.url }}" width="18px" height="18px" style="border-radius: 50%;">
                 <a id="name" href="{% url 'user:profile' comment.user.user.id %}"> {{ comment.user }}</a> {{comment.publication_date}}
-                <a href="{% url 'blog:home' %}"
+                <a href="{% url 'blog:post' pk=post.pk vote='upvote' %}"
                    class="btn btn-sm btn-default"
                    style="position: absolute; right: 0; color: green; font-size: 20px">+</a>
-                <a href="{% url 'blog:home' %}"
+                <a href="{% url 'blog:post' pk=post.pk vote='downvote' %}"
                    class="btn btn-sm btn-default"
                    style="position: absolute; right: 30px; color: red; font-size: 20px">-</a>
-                <span style="position: absolute; right: 60px; top: 7px;">{{ comment.rating }}</span>
+                {% if comment.rating >= 0 %}
+                    <span style="position: absolute; right: 60px; top: 40%; color: green">{{ comment.rating }}</span>
+                {% else %}
+                    <span style="position: absolute; right: 60px; top: 87%; color: red">{{ comment.rating }}</span>
+                {% endif %}
             </div>
             <h5>{{comment.text}}</h5>
             <a id="name" href="{% url 'blog:reply' post.id comment.id %}">{% trans 'Reply' %}</a>
             {% for reply in comment.replies.all %}
-                <div class="post" style="margin-bottom: 0">
-                <a id="name" href="{% url 'user:profile' reply.user.user.id %}">{{ reply.user }}</a> {{reply.publication_date}}
-                <h5>{{reply.text}}</h5>
+                <div style="position: relative; margin-top: 10px; margin-left: 10px">
+                    <img src="{{ reply.user.profile_picture.url }}" width="18px" height="18px" style="border-radius: 50%;">
+                    <a id="name" href="{% url 'user:profile' reply.user.user.id %}"> {{ reply.user }}</a> {{reply.publication_date}}
+                    <a href="{% url 'blog:post' pk=post.pk vote='upvote' %}"
+                       class="btn btn-sm btn-default"
+                       style="position: absolute; right: 0; color: green; font-size: 20px">+</a>
+                    <a href="{% url 'blog:post' pk=post.pk vote='downvote' %}"
+                       class="btn btn-sm btn-default"
+                       style="position: absolute; right: 30px; color: red; font-size: 20px">-</a>
+                    {% if reply.rating >= 0 %}
+                        <span style="position: absolute; right: 60px; top: 25%; color: green">{{ reply.rating }}</span>
+                    {% else %}
+                        <span style="position: absolute; right: 60px; top: 25%; color: red">{{ reply.rating }}</span>
+                    {% endif %}
+                    <h6>{{ reply.text }}</h6>
                 </div>
             {% endfor %}
         </div>

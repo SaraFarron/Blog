@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views import View
 
+from api.utils import update_instance_rating, toggle_save_instance
 from .decorators import *
 from .forms import *
 
@@ -52,7 +53,7 @@ class SavedContents(View):
 
 class PostPage(View):
 
-    def get(self, request, pk, save):
+    def get(self, request, pk, save=False, vote=None):
         post = Post.objects.get(id=pk)
         comments = Comment.objects.filter(post=post)
         replies = []
@@ -66,21 +67,15 @@ class PostPage(View):
             user = Guest.objects.get(user=request.user)
         except TypeError:
             return render(request, 'blog/post.html', context)
-        saved_content = post.saved_by.all()
-        if user in saved_content:
-            post_saved = True
-        else:
-            post_saved = False
-        context['post_saved'] = post_saved
+        saved_by_users = post.saved_by.all()
+        context |= {'user': user, 'saved_by': saved_by_users}
 
-        if save:
-            if post_saved:
-                post.saved_by.remove(user)
-                context['post_saved'] = False
-            else:
-                post.saved_by.add(user)
-                context['post_saved'] = True
-            post.save()
+        if save is True:  # TODO kwargs are not sent here
+            toggle_save_instance(post, user)
+        elif vote:
+            response = update_instance_rating(post, user, vote)
+            if response.status_code != 200:
+                return render(request, '403page.html')
 
         return render(request, 'blog/post.html', context)
 

@@ -1,55 +1,21 @@
 from rest_framework.mixins import CreateModelMixin, ListModelMixin, DestroyModelMixin, RetrieveModelMixin
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
-from rest_framework.status import HTTP_201_CREATED, HTTP_200_OK, HTTP_403_FORBIDDEN
+from rest_framework.status import HTTP_201_CREATED
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 from .serializers import *
-
-
-def update_user_rating(user):
-    posts = Post.objects.filter(user=user)
-    comments = Comment.objects.filter(user=user)
-    posts_rating = sum([post.rating for post in posts])
-    comments_rating = sum([comment.rating for comment in comments])
-    user.rating = posts_rating + comments_rating
-    user.save()
+from .utils import update_instance_rating, toggle_save_instance
 
 
 class RateModelMixin:
     """
         Update a model instance.
     """
-
     def partial_update(self, request, *args, **kwargs):
         instance = self.get_object()
         action = request.data['rating']
         user = Guest.objects.get(user=request.user)
-        upvoted_users_query = instance.upvoted_users
-        downvoted_users_query = instance.downvoted_users
-        instance_user = instance.user
-
-        match action:
-            case 'upvote':
-                if user not in upvoted_users_query.all():
-                    upvoted_users_query.add(user)
-                    if user in downvoted_users_query.all():
-                        downvoted_users_query.remove(user)
-                else:
-                    Response({'error': 'You already upvoted this'}, status=HTTP_403_FORBIDDEN)
-            case 'downvote':
-                if user not in downvoted_users_query.all():
-                    downvoted_users_query.add(user)
-                    if user in upvoted_users_query.all():
-                        upvoted_users_query.remove(user)
-                else:
-                    Response({'error': 'You already downvoted this'}, status=HTTP_403_FORBIDDEN)
-            case _:
-                return Response(status=HTTP_403_FORBIDDEN)
-
-        instance.rating = len(upvoted_users_query.all()) - len(downvoted_users_query.all())
-        instance.save()
-        update_user_rating(instance_user)
-        return Response(status=HTTP_200_OK)
+        return update_instance_rating(instance, user, action)
 
 
 class ActionBasedPermission(AllowAny):
@@ -218,14 +184,8 @@ class SaveModelMixin:
     def partial_update(self, request, *args, **kwargs):
         instance = self.get_object()
         user = Guest.objects.get(user=request.user)
-        saved_by_query = instance.saved_by
 
-        if user in saved_by_query.all():
-            saved_by_query.remove(user)
-        else:
-            saved_by_query.add(user)
-        instance.save()
-        return Response(status=HTTP_200_OK)
+        return toggle_save_instance(instance, user)
 
 
 class SavePostView(SaveModelMixin, GenericViewSet):

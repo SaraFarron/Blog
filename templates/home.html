@@ -21,7 +21,7 @@ style="width: 70%; margin: 10px; display: inline">{% trans 'Create post' %}</a>
             <span>{{ post.user }}</span>
         {% endif %}
         <h3>{{ post.creation_date }}</h3>
-        <h1><a href="{% url 'blog:post' pk=post.id save=0 %}">{{ post.name }}</a></h1>
+        <h1><a href="{% url 'blog:post' pk=post.id save=False %}">{{ post.name }}</a></h1>
         <h3>{{ post.description }}</h3>
         <p></p>
         <div style="position: relative">
@@ -30,22 +30,13 @@ style="width: 70%; margin: 10px; display: inline">{% trans 'Create post' %}</a>
                     style="width: 29%">{% trans 'Update' %}</a>
                 <a href="{% url 'blog:delete' post.id %}" class="btn btn-sm btn-danger"
                     style="width: 29%">{% trans 'Delete' %}</a>
-                <span style="bottom: 0;">🗨 {{ post.number_of_comments }}</span>
-                <a class="btn btn-sm btn-default"
-                   style="position: absolute; right: 0; color: green; font-size: 20px">+</a>
-                <a class="btn btn-sm btn-default"
-                   style="position: absolute; right: 30px; color: red; font-size: 20px">-</a>
-                   <span style="position: absolute; right: 60px; top: 10px;">{{ post.rating }}</span>
-            {% else %}
-                <span style="bottom: 0;">🗨 {{ post.number_of_comments }}</span>
-                <a href="{% url 'blog:home' %}"
-                   class="btn btn-sm btn-default"
-                   style="position: absolute; right: 0; bottom: 0; color: green; font-size: 20px">+</a>
-                <a href="{% url 'blog:home' %}"
-                   class="btn btn-sm btn-default"
-                   style="position: absolute; right: 30px; bottom: 0; color: red; font-size: 20px">-</a>
-                <span style="position: absolute; right: 60px; bottom: 7px;">{{ post.rating }}</span>
             {%endif%}
+                <span style="bottom: 0;">🗨 {{ post.number_of_comments }}</span>
+            {% if post.rating >= 0 %}
+                <span style="position: absolute; right: 10px; bottom: 7px; color: green">{{ post.rating }}</span>
+            {% else %}
+                <span style="position: absolute; right: 10px; bottom: 7px; color: red">{{ post.rating }}</span>
+            {% endif %}
         </div>
     </div>
 {% endfor %}
