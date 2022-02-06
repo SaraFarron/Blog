@@ -121,7 +121,7 @@ class UpdatePost(View):
         form = PostForm(instance=post)
 
         context = {'form': form}
-        return render(request, 'blog/create_post.html', context)
+        return render(request, 'blog/update_post.html', context)
 
     @method_decorator(decorators)
     def post(self, request, pk):
@@ -133,7 +133,7 @@ class UpdatePost(View):
             return redirect('blog:home')
 
         context = {'form': form}
-        return render(request, 'blog/create_post.html', context)
+        return render(request, 'blog/update_post.html', context)
 
 
 class DeletePost(View):
