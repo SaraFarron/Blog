@@ -1,4 +1,3 @@
-import locale
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
@@ -17,7 +16,7 @@ class Index(View):
 
 class About(View):
     def get(self, request):
-        browser_locale = request.LANGUAGE_CODE #rerutn browser languaga code (ru/en/etc)
+        browser_locale = request.LANGUAGE_CODE #returns browser language code (ru/en/etc)
         context = {'user': request.user}
         response = render(request, 'index.html', context)
         response.set_cookie('user_loc', browser_locale)
