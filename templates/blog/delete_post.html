@@ -2,7 +2,7 @@
 {% block content %}
     {% load i18n %}
 <div class="post">
-    <p style="text-align: center">{% trans 'Are you sure you want to delete' %}? {{ post }}?</p>
+    <p style="text-align: center">{% trans 'Are you sure you want to delete' %}? {{ post }}</p>
 <form action="{% url 'blog:delete' post.id %}" method="post">
     {% csrf_token %}
     {{ form }}

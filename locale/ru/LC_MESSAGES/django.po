@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-05 07:13+0000\n"
-"PO-Revision-Date: 2022-02-05 10:10+0000\n"
-"Last-Translator:   <yarik@klass.ru>\n"
+"POT-Creation-Date: 2022-02-05 11:25+0000\n"
+"PO-Revision-Date: 2022-02-05 11:25+0000\n"
+"Last-Translator:   <admin@admin.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -50,14 +50,13 @@ msgid "rating"
 msgstr "рейтинг"
 
 #: BlogApp/models.py:15 BlogApp/models.py:34
-#, fuzzy
 #| msgid "post saved by"
 msgid "upvoted by"
-msgstr "пост сохранен у"
+msgstr "понравилось"
 
 #: BlogApp/models.py:17 BlogApp/models.py:36
 msgid "downvoted by"
-msgstr ""
+msgstr "не понравилось"
 
 #: BlogApp/models.py:18
 msgid "post saved by"
@@ -125,23 +124,27 @@ msgid "Hello"
 msgstr "Привет"
 
 #: templates/blog/base.html:70
+msgid "API"
+msgstr "API"
+
+#: templates/blog/base.html:75
 msgid "Home"
 msgstr "Главная"
 
-#: templates/blog/base.html:76
+#: templates/blog/base.html:81
 msgid "Profile"
 msgstr "Профиль"
 
-#: templates/blog/base.html:81 templates/blog/unauthenticated.html:23
+#: templates/blog/base.html:86 templates/blog/unauthenticated.html:23
 msgid "Register"
 msgstr "Регистрация"
 
-#: templates/blog/base.html:84 templates/blog/unauthenticated.html:21
-#: templates/user/login.html:6
+#: templates/blog/base.html:89 templates/blog/unauthenticated.html:21
+#: templates/user/login.html:6 templates/user/login.html:13
 msgid "Login"
 msgstr "Вход"
 
-#: templates/blog/base.html:89
+#: templates/blog/base.html:94
 msgid "Logout"
 msgstr "Выход"
 
@@ -181,7 +184,7 @@ msgstr "Обновить"
 
 #: templates/blog/post.html:41 templates/blog/post.html:43
 msgid "save"
-msgstr ""
+msgstr "сохранить"
 
 #: templates/blog/post.html:50
 msgid "Leave a comment"
@@ -196,12 +199,12 @@ msgid "You need to be authorized"
 msgstr "Вы должны быть авторизированы"
 
 #: templates/home.html:8
-msgid "sort by date"
-msgstr "сортировка по дате"
+msgid "popular"
+msgstr "популярное"
 
 #: templates/home.html:10
-msgid "sort by author"
-msgstr "сортировка по автору"
+msgid "new"
+msgstr "новое"
 
 #: templates/home.html:13
 msgid "Create post"
@@ -293,16 +296,9 @@ msgid "No comments yet"
 msgstr "Комментариев еще не было"
 
 #: templates/user/profile.html:61
-#, fuzzy
 #| msgid "Create post"
 msgid "saved posts"
-msgstr "Создать пост"
-
-#: templates/user/profile.html:81
-#, fuzzy
-#| msgid "No comments yet"
-msgid "No saved comments yet"
-msgstr "Комментариев еще не было"
+msgstr "сохраненные посты"
 
 #: templates/user/profile_settings.html:10
 msgid "Back to profile"
@@ -320,6 +316,11 @@ msgstr "Зарегистрировать новый аккаунт"
 msgid "confirm password"
 msgstr "подтвердить пароль"
 
+#: templates/user/register.html:14
+#| msgid "Register a new account"
+msgid "Register Account"
+msgstr "Зарегистрировать новый аккаунт"
+
 #: user/models.py:15
 msgid "token"
 msgstr "API токен"
@@ -335,6 +336,16 @@ msgstr "статус мута"
 #: user/models.py:19
 msgid "last ban date"
 msgstr "дата последнего бана"
+
+#~ msgid "sort by date"
+#~ msgstr "сортировка по дате"
+
+#~ msgid "sort by author"
+#~ msgstr "сортировка по автору"
+
+#, fuzzy
+#~ msgid "No saved comments yet"
+#~ msgstr "Комментариев еще не было"
 
 #~ msgid "Author"
 #~ msgstr "Автор"
