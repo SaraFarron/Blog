@@ -1,4 +1,6 @@
 from typing import Literal
+
+from django.db.models import QuerySet
 from rest_framework.status import HTTP_403_FORBIDDEN, HTTP_200_OK
 from rest_framework.response import Response
 from BlogApp.models import Post, Comment, Guest
@@ -63,3 +65,37 @@ def toggle_save_instance(instance: Comment | Post, user: Guest) -> Response:
         saved_by_query.add(user)
     instance.save()
     return Response(status=HTTP_200_OK)
+
+
+def get_comments_with_replies() -> QuerySet:
+    """
+        Returns queryset with comments and replies without repeating
+    :return: QuerySet object
+    """
+    comments = Comment.objects.all()
+    replies = []
+    for comment in comments:
+        replies += list(comment.replies.all())
+    for reply in replies:
+        comments = comments.exclude(id=reply.id)
+    return comments
+
+
+def create_reply(post: Post, user: Guest, text: str, parent_comment_id: int) -> None:
+    """
+        Creates a reply and updates parent comment
+    :param post: Post object
+    :param user: Guest object
+    :param text: String
+    :param parent_comment_id: Integer
+    :return: None
+    """
+    parent_comment = Comment.objects.get(id=parent_comment_id)
+    comment = Comment.objects.create(
+        text=text,
+        post=post,
+        user=user
+    )
+    comment.save()
+    parent_comment.replies.add(comment)
+    parent_comment.save()

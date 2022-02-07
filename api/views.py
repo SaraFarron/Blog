@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_201_CREATED
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 from .serializers import *
-from .utils import update_instance_rating, toggle_save_instance
+from .utils import update_instance_rating, toggle_save_instance, get_comments_with_replies, create_reply
 
 
 class RateModelMixin:
@@ -67,7 +67,6 @@ class PostViewSet(ModelViewSet):
         if many:
             post_list = [Post(**data, user=author) for data in serializer.validated_data]
             Post.objects.bulk_create(post_list)
-
         else:
             post = Post.objects.create(
                 name=request.data.get('name'),
@@ -104,44 +103,30 @@ class CommentViewSet(CreateModelMixin, ListModelMixin, DestroyModelMixin, Generi
         many = True if isinstance(request.data, list) else False
         serializer = CommentSerializer(data=request.data, many=many)
         serializer.is_valid(raise_exception=True)
-        author = Guest.objects.get(user=request.user)
+        user = Guest.objects.get(user=request.user)
         post = Post.objects.get(id=request.data.get('post'))
+        comment_text = request.data.get('text')
 
         if many:
-            post_list = [Comment(**data, author=author) for data in serializer.validated_data]
+            post_list = [Comment(**data, user=user) for data in serializer.validated_data]
             Comment.objects.bulk_create(post_list)
-
         elif 'parent_comment' in request.data.keys():
-            parent_comment = Comment.objects.get(id=request.data.get('parent_comment'))
-            comment = Comment.objects.create(
-                text=request.data.get('text'),
-                post=post,
-                user=author
-            )
-            comment.save()
-            parent_comment.replies.add(comment)
-            parent_comment.save()
-
+            parent_comment_id = request.data.get('parent_comment')
+            create_reply(post, user, comment_text, parent_comment_id)
         else:
             comment = Comment.objects.create(
-                text=request.data.get('text'),
+                text=comment_text,
                 post=post,
-                user=author
+                user=user
             )
             comment.save()
 
         post.number_of_comments = len(Comment.objects.filter(post=post))
         post.save()
-        return Response({}, status=HTTP_201_CREATED)
+        return Response(status=HTTP_201_CREATED)
 
     def list(self, request, *args, **kwargs):
-        comments = Comment.objects.all()
-        replies = []
-        for comment in comments:
-            replies += list(comment.replies.all())
-        for reply in replies:
-            comments = comments.exclude(id=reply.id)
-        queryset = comments
+        queryset = get_comments_with_replies()
 
         page = self.paginate_queryset(queryset)
         if page is not None:
