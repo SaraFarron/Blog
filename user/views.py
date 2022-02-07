@@ -2,14 +2,14 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib import messages
 from django.contrib.auth import authenticate, logout, login
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.views import View
 from rest_framework.authtoken.models import Token
 from datetime import datetime, timezone
 
-from BlogApp.decorators import *
-from BlogApp.models import Comment
+from BlogApp.decorators import unauthenticated_user
+from BlogApp.models import Comment, Post
 from .forms import *
 
 

@@ -67,12 +67,16 @@ def toggle_save_instance(instance: Comment | Post, user: Guest) -> Response:
     return Response(status=HTTP_200_OK)
 
 
-def get_comments_with_replies() -> QuerySet:
+def get_comments_with_replies(post=None) -> QuerySet:
     """
         Returns queryset with comments and replies without repeating
+    :param post: Post object, if provided will return only comments related to post
     :return: QuerySet object
     """
-    comments = Comment.objects.all()
+    if post:
+        comments = Comment.objects.filter(post=post)
+    else:
+        comments = Comment.objects.all()
     replies = []
     for comment in comments:
         replies += list(comment.replies.all())

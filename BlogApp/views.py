@@ -1,10 +1,11 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views import View
-
-from api.utils import update_instance_rating, toggle_save_instance
-from .decorators import *
+from api.utils import update_instance_rating, toggle_save_instance, get_comments_with_replies
+from .decorators import user_owns_the_post
 from .forms import *
 
 
@@ -36,7 +37,6 @@ class Home(View):
 class HomeByRating(View):
     def get(self, request):
         posts = Post.objects.all().order_by('-creation_date')
-
         context = {'posts': posts, 'user': request.user}
         return render(request, 'home.html', context)
 
@@ -46,7 +46,6 @@ class SavedContents(View):
         user = Guest.objects.get(user=request.user)
         saved_posts = Post.objects.filter(saved_by=user)
         saved_comments = Comment.objects.filter(saved_by=user)
-
         context = {'posts': saved_posts, 'comments': saved_comments}
         return render(request, 'blog/saved.html', context)
 
@@ -55,15 +54,10 @@ class PostPage(View):
 
     def get(self, request, pk, save=False, vote=None):
         post = Post.objects.get(id=pk)
-        comments = Comment.objects.filter(post=post)
-        replies = []
-        for comment in comments:
-            replies += list(comment.replies.all())
-        for reply in replies:
-            comments = comments.exclude(id=reply.id)
+        comments = get_comments_with_replies(post)
         context = {'post': post, 'comments': comments}
 
-        try:
+        try:  # Occurs if user is not authorised
             user = Guest.objects.get(user=request.user)
         except TypeError:
             return render(request, 'blog/post.html', context)
@@ -82,13 +76,11 @@ class PostPage(View):
 
 class CreatePost(View):
 
-    @method_decorator(login_required(login_url='user:login'))
+    @method_decorator(login_required(login_url='user:login'))  # method_decorator is needed for correct work
     def get(self, request, ):
         user = Guest.objects.get(name=request.user.username)
-
         if user.is_banned:
             return render(request, '403page.html')
-
         form = PostForm
 
         context = {'form': form}
@@ -155,9 +147,8 @@ class CreateComment(View):
 
         if form.is_valid():
             post = Post.objects.get(id=pk)
-            author = Guest.objects.get(name=request.user)
-
-            form.instance.user = author
+            user = Guest.objects.get(name=request.user)
+            form.instance.user = user
             form.instance.post = post
             post.number_of_comments = len(Comment.objects.filter(post=post))
             form.save()
@@ -175,7 +166,6 @@ class CreateComment(View):
 
         if user.is_banned or user.is_muted:
             return render(request, '403page.html')
-
         form = CommentForm
 
         context = {'form': form}
@@ -202,9 +192,8 @@ class Reply(View):
         if form.is_valid():
             post = Post.objects.get(id=post_pk)
             parent_comment = Comment.objects.get(id=comment)
-            author = Guest.objects.get(name=request.user)
-
-            form.instance.user = author
+            user = Guest.objects.get(name=request.user)
+            form.instance.user = user
             form.instance.post = post
             new_comment = form.save()
             parent_comment.replies.add(new_comment)
