@@ -30,6 +30,12 @@ ALLOWED_HOSTS = [
     'pacific-lake-54676.herokuapp.com', 'testserver', 'localhost', '127.0.0.1'
 ]
 
+if DEBUG:
+    import socket
+    hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
+    INTERNAL_IPS = [ip[:-1] + '1' for ip in ips] + ['127.0.0.1', 'localhost', '10.0.2.2']
+
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -44,15 +50,17 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'coreapi',
     'drf_yasg',
+    'whitenoise.runserver_nostatic',
+    'rosetta',
+    'debug_toolbar',
     'BlogApp.apps.BlogappConfig',
     'api.apps.ApiConfig',
     'user.apps.UserConfig',
-    'rosetta',
-    'whitenoise.runserver_nostatic',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',  # locale
@@ -125,8 +133,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
 LANGUAGES = (
-    ('en', _('English')),
-    ('ru', _('Russian')),
+    ('en', 'English'),
+    ('ru', 'Russian'),
 )
 
 LOCALE_PATHS = [

@@ -54,7 +54,8 @@ urlpatterns = i18n_patterns(
 
 )
 urlpatterns += [
-    path('', Index.as_view())
+    path('__debug__/', include('debug_toolbar.urls')),
+    path('', Index.as_view()),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
