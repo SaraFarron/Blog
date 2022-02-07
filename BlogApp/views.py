@@ -51,7 +51,6 @@ class SavedContents(View):
 
 
 class PostPage(View):
-
     def get(self, request, pk, save=False, vote=None):
         post = Post.objects.get(id=pk)
         comments = get_comments_with_replies(post)
@@ -75,7 +74,6 @@ class PostPage(View):
 
 
 class CreatePost(View):
-
     @method_decorator(login_required(login_url='user:login'))  # method_decorator is needed for correct work
     def get(self, request, ):
         user = Guest.objects.get(name=request.user.username)
@@ -140,7 +138,6 @@ class DeletePost(View):
 
 
 class CreateComment(View):
-
     @method_decorator(login_required(login_url='user:login'))
     def post(self, request, pk):
         form = CommentForm(request.POST)
@@ -173,7 +170,6 @@ class CreateComment(View):
 
 
 class Reply(View):
-
     @method_decorator(login_required(login_url='user:login'))
     def get(self, request, post_pk, comment):
         user = Guest.objects.get(name=request.user.username)
