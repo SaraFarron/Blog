@@ -4,7 +4,6 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views import View
-from silk.profiling.profiler import silk_profile
 from api.utils import update_instance_rating, toggle_save_instance, get_comments_with_replies
 from .decorators import user_owns_the_post
 from .forms import *
@@ -148,7 +147,7 @@ class CreateComment(View):
             user = Guest.objects.get(name=request.user)
             form.instance.user = user
             form.instance.post = post
-            post.number_of_comments = len(Comment.objects.filter(post=post))
+            post.number_of_comments = Comment.objects.filter(post=post).count() + 1
             form.save()
             post.save()
 
