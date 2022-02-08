@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'rosetta',
     'debug_toolbar',
+    'silk',
     'BlogApp.apps.BlogappConfig',
     'api.apps.ApiConfig',
     'user.apps.UserConfig',
@@ -60,6 +61,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'silk.middleware.SilkyMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -189,3 +191,7 @@ SWAGGER_SETTINGS = {
         }
     },
 }
+
+# Silk Profiling settings
+
+SILKY_PYTHON_PROFILER = True

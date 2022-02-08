@@ -3,9 +3,11 @@ from typing import Literal
 from django.db.models import QuerySet
 from rest_framework.status import HTTP_403_FORBIDDEN, HTTP_200_OK
 from rest_framework.response import Response
+from silk.profiling.profiler import silk_profile
 from BlogApp.models import Post, Comment, Guest
 
 
+@silk_profile(name='update user func')
 def update_user_rating(user: Guest) -> None:
     """
         Updates user's rating
@@ -20,6 +22,7 @@ def update_user_rating(user: Guest) -> None:
     user.save()
 
 
+@silk_profile(name='update instance func')
 def update_instance_rating(instance: Comment | Post, user: Guest, action: Literal['upvote', 'downvote']) -> Response:
     """
         Update rating of instance and it's owner, return 200 or 403
@@ -67,6 +70,7 @@ def toggle_save_instance(instance: Comment | Post, user: Guest) -> Response:
     return Response(status=HTTP_200_OK)
 
 
+# @silk_profile(name='get comments func')
 def get_comments_with_replies(post=None) -> QuerySet:
     """
         Returns queryset with comments and replies without repeating
@@ -85,6 +89,7 @@ def get_comments_with_replies(post=None) -> QuerySet:
     return comments
 
 
+@silk_profile(name='create reply func')
 def create_reply(post: Post, user: Guest, text: str, parent_comment_id: int) -> None:
     """
         Creates a reply and updates parent comment

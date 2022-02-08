@@ -55,6 +55,7 @@ urlpatterns = i18n_patterns(
 )
 urlpatterns += [
     path('__debug__/', include('debug_toolbar.urls')),
+    path('silk/', include('silk.urls', namespace='silk')),
     path('', Index.as_view()),
 ]
 if settings.DEBUG:

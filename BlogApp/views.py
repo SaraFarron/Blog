@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views import View
+from silk.profiling.profiler import silk_profile
 from api.utils import update_instance_rating, toggle_save_instance, get_comments_with_replies
 from .decorators import user_owns_the_post
 from .forms import *
