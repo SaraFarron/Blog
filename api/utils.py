@@ -78,9 +78,9 @@ def get_comments_with_replies(post=None) -> QuerySet:
     :return: QuerySet object
     """
     if post:
-        comments = Comment.objects.filter(post=post)
+        comments = Comment.objects.filter(post=post).prefetch_related('replies')
     else:
-        comments = Comment.objects.all()
+        comments = Comment.objects.prefetch_related('replies')
     replies = []
     for comment in comments:
         replies += list(comment.replies.all())
