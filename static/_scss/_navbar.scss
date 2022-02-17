@@ -1,0 +1,160 @@
+@import "common-vars.scss";
+
+nav.navbar {
+
+    $navbar-height: 60px;
+    $navbar-color: rgb(230, 247, 241);
+
+    background-color: $navbar-color;
+
+    height: $navbar-height;
+    display: flex;
+    position: sticky;
+    flex-flow: row nowrap;
+    align-content: center;
+    align-items:center;
+    justify-content: start;
+    box-sizing: border-box;
+
+    .first-block {
+        max-width: calc(50vw - #{$postlist-max-width}/2);
+        min-width: 113px;
+        display: flex;
+        flex-flow: row;
+        align-content: center;
+        align-items:center;
+        justify-self: flex-start;
+        width: 100%;
+        height: 100%;
+    }
+
+    .textblock {
+        align-self: center;
+        max-width: $postlist-max-width;
+        flex-shrink: 0;
+        margin: 0px 16px;
+        box-sizing: border-box;
+        cursor: default;
+    }
+
+    .navigation {
+        display: flex;
+        align-items: center;
+        margin-right: 8px;
+
+        a {
+            margin-left: 8px;
+
+        }
+    }
+
+    .container-row {
+        height: $navbar-height;
+        margin-right: 8px;
+    }
+
+    a.icon {
+        display: inline-block;
+        margin: 0px 8px;
+        
+        & > img {
+            width: 24px;
+            height: 24px;
+        }
+
+        &-country, &-country-current {
+            margin-left: 8px;
+            & > img {
+                width: 24px;
+                height: 24px;
+                transform: scale(0.8);
+            }
+        }
+
+        &-country-current {
+            & > img {
+                transform: scale(1);
+            }
+        }
+    }
+
+    a.external {
+        cursor: alias;
+    }
+    
+    h1, h2, h3, h4 {
+        margin: 0;
+    }
+
+    .vline {
+        border-left: 1px solid #6b6b6b;
+        height: $navbar-height*0.5;
+        left: 50%;
+        margin-left: 8px;
+    }
+
+    //toggle
+
+    @media screen and (max-width: $optimal-width) {
+        label {
+            visibility: visible !important;
+        }
+
+        .navigation {
+            flex-direction: column;
+            align-content: flex-start;
+            align-self: flex-start;
+            position: absolute;
+            top: $navbar-height;
+            right: 0;
+            background-color: $navbar-color;
+            margin: 0;
+            padding: 8px 0px;
+            border-radius: 0px 0px 0px 8px;
+            overflow: hidden;
+            width: 0;
+            transition: width 0.5s ease-in-out, padding 0.5s ease-in-out;
+
+            .vline {
+                display: none;
+            }
+
+            a {
+                padding: 8px 8px 16px 8px;
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+      }
+        
+    #toggle-navigation{
+        display: none;
+    
+        &:checked ~ .navigation {
+            padding: 8px;
+            width: 136px; //idk if needs to be a global var
+        }
+
+        &:checked + label img {
+            transform: rotateZ(90deg);
+        }
+    }
+
+    label {
+        display: block;
+        position: absolute;
+        top: 2px ;
+        right: 4px;
+        visibility: hidden;
+        margin: 8px;
+        cursor: pointer;
+      
+        & img {
+          height: 40px;
+          width: 40px;
+          transition: transform 0.5s ease-in-out;
+          transform-origin: 50% 50%;
+        }
+      }
+}

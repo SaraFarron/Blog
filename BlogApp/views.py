@@ -8,6 +8,11 @@ from api.utils import update_instance_rating, toggle_save_instance, get_comments
 from .decorators import user_owns_the_post
 from .forms import *
 
+newlo = True
+
+class TestPage(View):
+    def get(self, request):
+        return render(request, 'new-layout/test.html', { })
 
 class Index(View):
     def get(self, request):
@@ -22,16 +27,29 @@ class About(View):
     def get(self, request):
         browser_locale = request.LANGUAGE_CODE  # return browser language code (ru/en/etc)
         context = {'user': request.user}
-        response = render(request, 'index.html', context)
+        response = render(request, 'index.html' if not newlo else 'new-layout/about.hmtl', context)
         response.set_cookie('user_loc', browser_locale)
         return response
 
 
 class Home(View):
     def get(self, request):
+        posts = Post.objects.all().order_by('-id')
+        context = {'posts': posts, 'user': request.user}
+        return render(request, 'home.html' if not newlo else 'new-layout/blog/home.html', context)
+
+    @method_decorator(login_required(login_url='user:login'))
+    def post(self, request, ):
+        form = PostForm(request.POST)
+        if form.is_valid():
+            form.instance.user = Guest.objects.get(name=request.user)
+            form.save()
+            return redirect('blog:home')
+
+        form = PostForm
         posts = Post.objects.all().order_by('-rating')
         context = {'posts': posts, 'user': request.user}
-        return render(request, 'home.html', context)
+        return render(request, 'new-layout/blog/home.html', context)
 
 
 class HomeByRating(View):
@@ -79,7 +97,7 @@ class CreatePost(View):
         user = Guest.objects.get(name=request.user.username)
         if user.is_banned:
             return render(request, '403page.html')
-        form = PostForm
+        form = PostForm #думаю, лучше верстать форму самостоятельно
 
         context = {'form': form}
         return render(request, 'blog/create_post.html', context)

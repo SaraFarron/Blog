@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+{% load static %}
+{% load i18n %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>blog</title>
+    <link rel="stylesheet" type="text/css"
+              href="{% static 'css/bundle.css' %}">
+</head>
+<body>
+    {% include 'new-layout/navbar.html' %}
+    
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

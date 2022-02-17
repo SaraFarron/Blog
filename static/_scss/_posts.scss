@@ -1,0 +1,134 @@
+@import "common-vars.scss";
+
+.postlist {
+    $create-post-section-height: 312px;
+
+    max-width: $postlist-max-width;
+    min-width: $postlist-min-width;
+    align-self: center;
+    margin: 0 auto;
+    display: flex;
+    flex-flow: column;
+    padding: 16px 0px;
+
+    span {
+        vertical-align: middle;
+        cursor: default;
+        margin: 0px 4px;
+    }
+
+    span.link {
+        cursor: pointer;
+    }
+    
+    @keyframes fadeOut {
+        0% {
+            visibility: visible;
+        }
+        100% {
+            visibility: hidden;
+        }
+    }
+
+    #post-creation-submit-label {
+        display: none;
+    }
+    
+    #post-create-expand{
+
+        &:checked ~ .expandable-v {
+            height: $create-post-section-height;
+        }
+
+        &:checked + label {
+            display: none;
+        }
+
+        &:checked ~ #cancel-label {
+            display: initial;
+            visibility: visible;
+            opacity: 100%;
+        }
+
+        &:checked ~ #post-creation-submit-label {
+            display: inline-block;
+        }
+    }
+
+    #post-create-cancel{
+
+
+        & + label {
+            transition: opacity $expand-duration ease-in-out;
+            visibility: hidden;
+            opacity: 0%;
+        }
+
+        &:checked + label {
+            animation: $expand-duration fadeOut;
+        }
+
+        &:checked ~ .expandable-v {
+            height: 0px; 
+        }
+
+        &:checked + #post-create-expand {
+            display: initial;
+        }
+    }
+
+    .expandable-v {
+        width: 100%;
+    }
+}
+
+a {
+    text-decoration: none;
+    color: $text-color-default;
+
+    &:hover {
+        color: $link-on-hover-color;
+    }
+}
+
+h3 {
+    margin-left: 24px;
+}
+
+.icon {
+
+    height: 24px;
+    width: 24px;
+    vertical-align: middle;
+    border-radius: 50%;
+    
+    &.upvote, &.downvote, &.bookmark 
+    {
+        cursor: pointer;
+    }
+
+    &.upvote:hover {
+        filter: invert(100%) brightness(0.5) sepia(1) saturate(10000%) brightness(1) hue-rotate(120deg);
+        background-color: rgba(0, 0, 0, 0.055);
+
+    }
+
+    &.downvote:hover {
+        filter: invert(100%) brightness(0.5) sepia(1) saturate(10000%) brightness(0.8);
+        background-color: rgba(0, 0, 0, 0.055);
+    }
+
+    &.bookmark:hover {
+        filter: invert(50%);
+        background-color: rgba(0, 0, 0, 0.055);
+    }
+
+}
+
+input {
+    margin-bottom: 8px;
+    
+    
+}
+
+

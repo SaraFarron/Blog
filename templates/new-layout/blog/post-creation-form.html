@@ -1,0 +1,22 @@
+{% load i18n %}
+
+<h4>New post</h4><hr>
+<form action="" method="POST" name="create-post">
+    {% csrf_token %}
+    <label>
+        Title:<br>
+        <input type="text" name="name" required maxlength="200"><br>
+    </label>
+    <label>
+        Description:<br>
+        <input type="text" name="description" required maxlength="200"><br>
+    </label>
+    <label>
+        Text:<br>
+        <textarea name="text" rows="6" required></textarea>
+    </label>
+    <input type="submit" name="Submit" style="display: none;" id="post-creation-submit">
+    
+
+    
+</form>
