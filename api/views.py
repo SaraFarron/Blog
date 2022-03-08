@@ -1,41 +1,23 @@
 from rest_framework.mixins import CreateModelMixin, ListModelMixin, DestroyModelMixin, RetrieveModelMixin
-from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.status import HTTP_201_CREATED
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
+from silk.profiling.profiler import silk_profile
 from .serializers import *
-from .utils import update_instance_rating, toggle_save_instance, get_comments_with_replies, create_reply
+from .utils import update_instance_rating, toggle_save_instance, get_comments_with_replies, create_reply, \
+    set_default_permissions
 
 
 class RateModelMixin:
     """
         Update a model instance.
     """
+    @silk_profile(name='Rate Mixin')
     def partial_update(self, request, *args, **kwargs):
         instance = self.get_object()
         action = request.data['rating']
         user = Guest.objects.get(user=request.user)
         return update_instance_rating(instance, user, action)
-
-
-class ActionBasedPermission(AllowAny):
-    """
-        Grant or deny access to a view, based on a mapping in view.action_permissions
-    """
-    def has_permission(self, request, view):
-        for klass, actions in getattr(view, 'action_permissions', {}).items():
-            if view.action in actions:
-                return klass().has_permission(request, view)
-        return False
-
-
-def set_default_permissions():
-    permission_classes = (ActionBasedPermission,)
-    action_permissions = {
-        IsAuthenticated: ['update', 'partial_update', 'destroy', 'create'],
-        AllowAny: ['list', 'retrieve']
-    }
-    return permission_classes, action_permissions
 
 
 class PostViewSet(ModelViewSet):
@@ -58,6 +40,7 @@ class PostViewSet(ModelViewSet):
     serializer_class = PostSerializer
     permission_classes, action_permissions = set_default_permissions()
 
+    @silk_profile(name='Post Create')
     def create(self, request, *args, **kwargs):
         many = True if isinstance(request.data, list) else False
         serializer = PostSerializer(data=request.data, many=many)
@@ -99,6 +82,7 @@ class CommentViewSet(CreateModelMixin, ListModelMixin, DestroyModelMixin, Generi
     serializer_class = CommentSerializer
     permission_classes, action_permissions = set_default_permissions()
 
+    @silk_profile(name='Comment Create')
     def create(self, request, *args, **kwargs):
         many = True if isinstance(request.data, list) else False
         serializer = CommentSerializer(data=request.data, many=many)
@@ -121,7 +105,7 @@ class CommentViewSet(CreateModelMixin, ListModelMixin, DestroyModelMixin, Generi
             )
             comment.save()
 
-        post.number_of_comments = len(Comment.objects.filter(post=post))
+        post.number_of_comments = Comment.objects.filter(post=post).count() + 1
         post.save()
         return Response(status=HTTP_201_CREATED)
 
@@ -166,6 +150,7 @@ class RateCommentView(RateModelMixin, GenericViewSet):
 
 class SaveModelMixin:
 
+    @silk_profile(name='Save Mixin')
     def partial_update(self, request, *args, **kwargs):
         instance = self.get_object()
         user = Guest.objects.get(user=request.user)

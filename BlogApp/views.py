@@ -165,7 +165,7 @@ class CreateComment(View):
             user = Guest.objects.get(name=request.user)
             form.instance.user = user
             form.instance.post = post
-            post.number_of_comments = len(Comment.objects.filter(post=post))
+            post.number_of_comments = Comment.objects.filter(post=post).count() + 1
             form.save()
             post.save()
 
@@ -219,17 +219,13 @@ class Reply(View):
         return render(request, 'blog/reply.html', context)
 
 
-def handler404(request, exception=None):
-    return render(request, '404page.html')
+def handler404(request, exception=None): return render(request, '404page.html')
 
 
-def handler400(request, exception=None):
-    return render(request, '400page.html')
+def handler400(request, exception=None): return render(request, '400page.html')
 
 
-def handler403(request, exception=None):
-    return render(request, '403page.html')
+def handler403(request, exception=None): return render(request, '403page.html')
 
 
-def handler500(request, exception=None):
-    return render(request, '500page.html')
+def handler500(request, exception=None): return render(request, '500page.html')

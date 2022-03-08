@@ -1,11 +1,13 @@
 from typing import Literal
-
 from django.db.models import QuerySet
 from rest_framework.status import HTTP_403_FORBIDDEN, HTTP_200_OK
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from silk.profiling.profiler import silk_profile
 from BlogApp.models import Post, Comment, Guest
 
 
+@silk_profile(name='update user func')
 def update_user_rating(user: Guest) -> None:
     """
         Updates user's rating
@@ -20,6 +22,7 @@ def update_user_rating(user: Guest) -> None:
     user.save()
 
 
+@silk_profile(name='update instance func')
 def update_instance_rating(instance: Comment | Post, user: Guest, action: Literal['upvote', 'downvote']) -> Response:
     """
         Update rating of instance and it's owner, return 200 or 403
@@ -50,7 +53,7 @@ def update_instance_rating(instance: Comment | Post, user: Guest, action: Litera
         case _:
             return Response({'error': f'{instance.__str__()} can only be upvoted or downvoted'},
                             status=HTTP_403_FORBIDDEN)
-    instance.rating = len(upvoted_users_query.all()) - len(downvoted_users_query.all())
+    instance.rating = upvoted_users_query.all().count() - downvoted_users_query.all().count()
     instance.save()
     update_user_rating(instance_user)
     return Response(status=HTTP_200_OK)
@@ -67,6 +70,7 @@ def toggle_save_instance(instance: Comment | Post, user: Guest) -> Response:
     return Response(status=HTTP_200_OK)
 
 
+@silk_profile(name='get comments func')
 def get_comments_with_replies(post=None) -> QuerySet:
     """
         Returns queryset with comments and replies without repeating
@@ -74,9 +78,9 @@ def get_comments_with_replies(post=None) -> QuerySet:
     :return: QuerySet object
     """
     if post:
-        comments = Comment.objects.filter(post=post)
+        comments = Comment.objects.filter(post=post).prefetch_related('replies')
     else:
-        comments = Comment.objects.all()
+        comments = Comment.objects.prefetch_related('replies')
     replies = []
     for comment in comments:
         replies += list(comment.replies.all())
@@ -85,6 +89,7 @@ def get_comments_with_replies(post=None) -> QuerySet:
     return comments
 
 
+@silk_profile(name='create reply func')
 def create_reply(post: Post, user: Guest, text: str, parent_comment_id: int) -> None:
     """
         Creates a reply and updates parent comment
@@ -103,3 +108,23 @@ def create_reply(post: Post, user: Guest, text: str, parent_comment_id: int) -> 
     comment.save()
     parent_comment.replies.add(comment)
     parent_comment.save()
+
+
+class ActionBasedPermission(AllowAny):
+    """
+        Grant or deny access to a view, based on a mapping in view.action_permissions
+    """
+    def has_permission(self, request, view):
+        for klass, actions in getattr(view, 'action_permissions', {}).items():
+            if view.action in actions:
+                return klass().has_permission(request, view)
+        return False
+
+
+def set_default_permissions():
+    permission_classes = (ActionBasedPermission,)
+    action_permissions = {
+        IsAuthenticated: ['update', 'partial_update', 'destroy', 'create'],
+        AllowAny: ['list', 'retrieve']
+    }
+    return permission_classes, action_permissions
