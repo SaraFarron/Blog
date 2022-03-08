@@ -1,3 +1,4 @@
+from urllib import request
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
@@ -27,7 +28,7 @@ class About(View):
     def get(self, request):
         browser_locale = request.LANGUAGE_CODE  # return browser language code (ru/en/etc)
         context = {'user': request.user}
-        response = render(request, 'index.html' if not newlo else 'new-layout/about.hmtl', context)
+        response = render(request, 'index.html' if not newlo else 'new-layout/about.html', context)
         response.set_cookie('user_loc', browser_locale)
         return response
 
@@ -88,7 +89,7 @@ class PostPage(View):
             if response.status_code != 200:
                 return render(request, '403page.html')
 
-        return render(request, 'blog/post.html', context)
+        return render(request, 'blog/post.html' if not newlo else 'new-layout/blog/postpage.html', context)
 
 
 class CreatePost(View):

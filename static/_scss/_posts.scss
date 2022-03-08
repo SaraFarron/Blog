@@ -1,6 +1,6 @@
 @import "common-vars.scss";
 
-.postlist {
+.list-v {
     $create-post-section-height: 312px;
 
     max-width: $postlist-max-width;
@@ -91,9 +91,9 @@ a {
     }
 }
 
-h3 {
-    margin-left: 24px;
-}
+// h3 {
+//     margin-left: 24px;
+// }
 
 .icon {
 

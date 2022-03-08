@@ -6,13 +6,18 @@ body {
     font-family: 'Roboto', Tahoma;
     font-size: medium;
     background-color: rgb(242, 242, 242);
+}
+
+p {
+    text-indent: 8px;
+    margin: 10px 0px;
   }
 
-  h1, h2, h3, h4, h5 {
+h1, h2, h3, h4, h5 {
       margin: 8px 8px 8px 16px;
   }
   
-  .content {
+.content {
       display: flex;
       flex-flow: row;
       width:100vw;

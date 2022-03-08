@@ -86,7 +86,7 @@ nav.navbar {
 
 /* line 19, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
 nav.navbar .first-block {
-  max-width: calc(50vw - 720px/2);
+  max-width: calc((100% - 720px)/2);
   min-width: 113px;
   display: flex;
   flex-flow: row;
@@ -250,11 +250,17 @@ body {
 }
 
 /* line 11, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+p {
+  text-indent: 8px;
+  margin: 10px 0px;
+}
+
+/* line 16, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 h1, h2, h3, h4, h5 {
   margin: 8px 8px 8px 16px;
 }
 
-/* line 15, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+/* line 20, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 .content {
   display: flex;
   flex-flow: row;
@@ -262,7 +268,7 @@ h1, h2, h3, h4, h5 {
   height: 100vh;
 }
 
-/* line 22, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+/* line 27, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 .container {
   background-color: white;
   border-radius: 8px;
@@ -273,7 +279,7 @@ h1, h2, h3, h4, h5 {
   flex-wrap: wrap;
 }
 
-/* line 34, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+/* line 39, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 .container-col {
   display: flex;
   flex-flow: column;
@@ -282,7 +288,7 @@ h1, h2, h3, h4, h5 {
   flex: 1;
 }
 
-/* line 42, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+/* line 47, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 .container-row {
   display: flex;
   flex-flow: row;
@@ -291,7 +297,7 @@ h1, h2, h3, h4, h5 {
   align-items: center;
 }
 
-/* line 51, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+/* line 56, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 .pos-right {
   justify-self: right;
   margin-left: auto;
@@ -300,42 +306,42 @@ h1, h2, h3, h4, h5 {
   align-items: center;
 }
 
-/* line 59, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+/* line 64, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 .mgl-a {
   margin-left: auto;
 }
 
-/* line 63, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+/* line 68, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 .mgr-16 {
   margin-right: 16px;
 }
 
-/* line 67, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+/* line 72, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 .mgr-8 {
   margin-right: 8px;
 }
 
-/* line 71, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+/* line 76, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 .mgr-32 {
   margin-right: 32px;
 }
 
-/* line 75, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+/* line 80, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 .mgb-8 {
   margin-bottom: 8px;
 }
 
-/* line 80, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+/* line 85, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 .red {
   color: #d12323;
 }
 
-/* line 84, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+/* line 89, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 input.toggle {
   display: none;
 }
 
-/* line 88, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+/* line 93, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 .expandable-v {
   height: 0px;
   padding: 0px 8px;
@@ -343,7 +349,7 @@ input.toggle {
   transition: height 0.8s ease-in-out;
 }
 
-/* line 95, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+/* line 100, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 input[type="text"], textarea {
   padding: 4px;
   width: -webkit-fill-available;
@@ -351,7 +357,7 @@ input[type="text"], textarea {
   font-size: medium;
 }
 
-/* line 102, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+/* line 107, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 textarea {
   resize: none;
 }

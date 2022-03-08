@@ -17,7 +17,7 @@ nav.navbar {
     box-sizing: border-box;
 
     .first-block {
-        max-width: calc(50vw - #{$postlist-max-width}/2);
+        max-width: calc((100% - #{$postlist-max-width})/2);
         min-width: 113px;
         display: flex;
         flex-flow: row;

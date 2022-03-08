@@ -1,0 +1,22 @@
+{% extends 'new-layout/base.html' %}
+{% load i18n %}
+{% block content %}
+<div class="list-v">
+    {% include 'new-layout/blog/postlist-item.html' %}
+    <div class="container">
+        <a href="{% url 'blog:create_comment' post.id %}" class="btn-submit">{% trans 'Leave a comment' %}</a>
+        <!-- ТУТ ДОЛЖНА БЫТЬ ОТКРЫВАЮЩАЯСЯ МЕНЮШКА ДЛЯ ФОРМЫ ОТПРАВКИ КОММЕНТАРИЯ -->
+    </div>
+    
+    {% for comment in comments %}
+    <div class="container">
+        Some Comment
+        <!-- ТУТ ДОЛЖДНО БЫТЬ СОДЕРАЖАНИЕ КОММЕНТАРИЯ -->
+        {% for reply in comment.replies.all %}
+        Some reply
+        <!-- ТУТ ДОЛЖЕН БЫТЬ СПИСОК ОТВЕТОВ НА КОММЕНТАРИЙ -->
+        {% endfor %}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
