@@ -1,11 +1,66 @@
 @import "common-vars.scss";
 
+@mixin expand-v-form($desired-height, $cancel-btn-id, $submit-btn-id) {
+
+    &:checked ~ .expandable-v {
+        height: $desired-height;
+    }
+
+    &:checked + label {
+        display: none;
+    }
+
+    &:checked ~ ##{$cancel-btn-id} {
+        display: initial;
+        visibility: visible;
+        opacity: 100%;
+    }
+
+    &:checked ~ ##{$submit-btn-id} {
+        display: inline-block;
+    }
+}
+
+@mixin shrink-v-form($expand-btn) {
+    & + label {
+        transition: opacity $expand-duration ease-in-out;
+        visibility: hidden;
+        opacity: 0%;
+    }
+
+    &:checked + label {
+        animation: $expand-duration fadeOut;
+    }
+
+    &:checked ~ .expandable-v {
+        height: 0px; 
+    }
+
+    &:checked + ##{$expand-btn} {
+        display: initial;
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+        visibility: visible;
+    }
+    100% {
+        visibility: hidden;
+    }
+}
+
+
 body {
     min-width: $postlist-min-width;
     margin: 0;
     font-family: 'Roboto', Tahoma;
     font-size: medium;
     background-color: rgb(242, 242, 242);
+}
+
+hr {
+    width: calc(100% - 8px);
 }
 
 p {
@@ -16,6 +71,10 @@ p {
 h1, h2, h3, h4, h5 {
       margin: 8px 8px 8px 16px;
   }
+
+label {
+    box-sizing: border-box;
+}
   
 .content {
       display: flex;
@@ -29,8 +88,8 @@ h1, h2, h3, h4, h5 {
     background-color: white;
     border-radius: 8px;
     
-
-    padding: 8px;
+    position: relative;
+    padding: 12px;
     margin: 0px;
     margin-bottom: 16px;
     display: flex;
@@ -65,6 +124,11 @@ h1, h2, h3, h4, h5 {
     margin-left: auto;
 }
 
+.mgh-a {
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .mgr-16 {
     margin-right: 16px;
 }
@@ -81,6 +145,10 @@ h1, h2, h3, h4, h5 {
     margin-bottom: 8px;
 }
 
+.mgt-6 {
+    margin-top: 6px;
+}
+
 
 .red {
     color: rgb(209, 35, 35);
@@ -92,18 +160,63 @@ input.toggle {
 
 .expandable-v {
     height: 0px;
-    padding: 0px 8px;
+    padding: 0px 0px;
     overflow: hidden;
     transition: height $expand-duration ease-in-out;
 }
 
-input[type="text"], textarea {
+input[type="text"],input[type="password"], textarea {
     padding: 4px;
     width: -webkit-fill-available;
     font-family: 'Roboto', Tahoma;
     font-size: medium;
+    display: block;
+    -webkit-text-size-adjust: 100%;
+}
+
+input[type="submit"] {
+    display: block;
+}
+
+input {
+    
+    &:-webkit-autofill {
+        font-size: medium !important;
+        font-family: 'Roboto', Tahoma !important;
+    }
+    &:-webkit-autofill::first-line {
+        font-size: medium !important;
+        font-family: 'Roboto', Tahoma !important;
+    }
+    &:autofill {
+        font-size: medium !important;
+        font-family: 'Roboto', Tahoma !important;
+    }
+}
+
+.width-50pc {
+    width: 50% !important;
 }
 
 textarea {
     resize: none;
+}
+
+.popup {
+
+    position: absolute;
+    top:0;
+    left:0;
+    height: calc(100% - 16px);
+    width: calc(100% - 16px);
+
+    &-hidden {
+        @extend .popup;
+        display: none;
+    }
+
+    &-shown {
+        @extend .popup;
+        display: block;
+    }
 }

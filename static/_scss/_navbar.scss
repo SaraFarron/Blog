@@ -10,6 +10,8 @@ nav.navbar {
     height: $navbar-height;
     display: flex;
     position: sticky;
+    top: 0;
+    z-index: 2;
     flex-flow: row nowrap;
     align-content: center;
     align-items:center;
@@ -88,7 +90,7 @@ nav.navbar {
 
     .vline {
         border-left: 1px solid #6b6b6b;
-        height: $navbar-height*0.5;
+        height: $navbar-height*0.4;
         left: 50%;
         margin-left: 8px;
     }

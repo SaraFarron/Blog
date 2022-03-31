@@ -20,61 +20,24 @@
     span.link {
         cursor: pointer;
     }
-    
-    @keyframes fadeOut {
-        0% {
-            visibility: visible;
-        }
-        100% {
-            visibility: hidden;
-        }
-    }
 
     #post-creation-submit-label {
         display: none;
     }
-    
+
     #post-create-expand{
 
-        &:checked ~ .expandable-v {
-            height: $create-post-section-height;
-        }
+        @include expand-v-form($create-post-section-height, cancel-label, post-creation-submit-label)
 
-        &:checked + label {
-            display: none;
-        }
-
-        &:checked ~ #cancel-label {
-            display: initial;
-            visibility: visible;
-            opacity: 100%;
-        }
-
-        &:checked ~ #post-creation-submit-label {
-            display: inline-block;
-        }
     }
 
     #post-create-cancel{
 
+        @include shrink-v-form(post-create-expand)
+    }
 
-        & + label {
-            transition: opacity $expand-duration ease-in-out;
-            visibility: hidden;
-            opacity: 0%;
-        }
-
-        &:checked + label {
-            animation: $expand-duration fadeOut;
-        }
-
-        &:checked ~ .expandable-v {
-            height: 0px; 
-        }
-
-        &:checked + #post-create-expand {
-            display: initial;
-        }
+    #post-edit-expand {
+        @include expand-v-form(100%, edit-label, post-edit-submit-label)
     }
 
     .expandable-v {
@@ -125,10 +88,8 @@ a {
 
 }
 
-input {
+input[type]:not([type='submit']) {
     margin-bottom: 8px;
-    
-    
 }
 
 

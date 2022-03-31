@@ -1,3 +1,4 @@
+from re import template
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib import messages
 from django.contrib.auth import authenticate, logout, login
@@ -12,11 +13,13 @@ from BlogApp.models import Comment, Post
 from .forms import *
 from .utils import create_token, seconds_to_formatted_string
 
+newlo = True
 
 class LoginPage(View):
     @method_decorator(unauthenticated_user)
     def get(self, request):
-        return render(request, 'user/login.html')
+        template = 'user/login.html' if not newlo else 'new-layout/user/login.html'
+        return render(request, template)
 
     @method_decorator(unauthenticated_user)
     def post(self, request):
@@ -30,7 +33,8 @@ class LoginPage(View):
         else:
             messages.info(request, 'Username or password is incorrect')
 
-        return render(request, 'user/login.html')
+        template = 'user/login.html' if not newlo else 'new-layout/user/login.html'
+        return render(request, template)
 
 
 class RegisterPage(View):

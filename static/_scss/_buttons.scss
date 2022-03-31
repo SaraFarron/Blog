@@ -48,13 +48,14 @@ $btn-width: 128px;
     border: none;
     font-family: 'Roboto', Tahoma;
     font-size: medium;
+    box-sizing: border-box;
 
     user-select: none;
     text-decoration: none;
     cursor: pointer;
 
     border-radius: 8px;
-    min-height: 24px;
+    min-height: 28px;
     width: $btn-width;
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 

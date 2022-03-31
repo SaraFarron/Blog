@@ -1,3 +1,4 @@
+from re import template
 from urllib import request
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
@@ -37,7 +38,9 @@ class Home(View):
     def get(self, request):
         posts = Post.objects.all().order_by('-id')
         context = {'posts': posts, 'user': request.user}
-        return render(request, 'home.html' if not newlo else 'new-layout/blog/home.html', context)
+
+        template = 'home.html' if not newlo else 'new-layout/blog/home.html'
+        return render(request, template, context)
 
     @method_decorator(login_required(login_url='user:login'))
     def post(self, request, ):
@@ -50,7 +53,9 @@ class Home(View):
         form = PostForm
         posts = Post.objects.all().order_by('-rating')
         context = {'posts': posts, 'user': request.user}
-        return render(request, 'new-layout/blog/home.html', context)
+
+        template = 'home.html' if not newlo else 'new-layout/blog/home.html'
+        return render(request, template, context)
 
 
 class HomeByRating(View):
@@ -89,7 +94,8 @@ class PostPage(View):
             if response.status_code != 200:
                 return render(request, '403page.html')
 
-        return render(request, 'blog/post.html' if not newlo else 'new-layout/blog/postpage.html', context)
+        template = 'blog/post.html' if not newlo else 'new-layout/blog/postpage.html'
+        return render(request, template, context)
 
 
 class CreatePost(View):
@@ -123,9 +129,10 @@ class UpdatePost(View):
     def get(self, request, pk):
         post = Post.objects.get(id=pk)
         form = PostForm(instance=post)
+        context = {'form': form, 'post': post}
 
-        context = {'form': form}
-        return render(request, 'blog/update_post.html', context)
+        template = 'blog/update_post.html' if not newlo else 'new-layout/blog/post-edit.html'
+        return render(request, template, context)
 
     @method_decorator(decorators)
     def post(self, request, pk):
@@ -136,8 +143,10 @@ class UpdatePost(View):
             form.save()
             return redirect('blog:home')
 
-        context = {'form': form}
-        return render(request, 'blog/update_post.html', context)
+        context = {'form': form, 'post': post}
+
+        template = 'blog/update_post.html' if not newlo else 'new-layout/blog/post-edit.html'
+        return render(request, template, context)
 
 
 class DeletePost(View):

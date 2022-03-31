@@ -3,6 +3,15 @@
 
 <div class="container">
     <div class="container-col">
+        <div class="container popup-hidden" id="popup-edit-{{post.id}}">
+            
+            <button onclick="hidePopup('edit-{{ post.id }}')">btn</button>
+        </div>
+        <div class="container popup-hidden" id="popup-delete-{{post.id}}">
+            {% include 'new-layout/blog/post-delete-form.html' %}
+            
+        </div>
+
         <div class="container-row">
             <a href="{% url 'user:profile' post.user.id %}">
                 <img class="icon" src="{{ post.user.profile_picture.url }}" alt="{% trans 'profile picture' %}"><!-- 
@@ -12,15 +21,16 @@
                 <span>{{ post.creation_date }}</span>
             </div>
         </div>
-        <div class="mgb-8">
-            <h1><a href="{% url 'blog:post' pk=post.id save=False %}">{{ post.name }}</a></h1>
+        <a href="{% url 'blog:post' pk=post.id save=False %}" class="mgb-8">
+            <h1>{{ post.name }}</h1>
             <h3>{{ post.description }}</h3>
-        </div>
+        </a>
         <div class="container-row">
             <div>            
                 {%if request.user == post.user.user %}
                 <a href="{% url 'blog:update' post.id %}" class="btn-edit mgr-8"><img class="icon" src="{% static 'images/icons/edit_icon.svg' %}"><span>{% trans 'Edit' %}</span></a><!--
-                --><a href="{% url 'blog:delete' post.id %}" class="btn-delete"><img class="icon" src="{% static 'images/icons/delete_icon.svg' %}"><span>{% trans 'Delete' %}</span></a>
+                --><button class="btn-delete" onclick="showPopup('delete-{{ post.id }}')"><img class="icon" src="{% static 'images/icons/delete_icon.svg' %}"><span>{% trans 'Delete' %}</span></button>
+
                 {%endif%}
             </div>
             <div class="pos-right">
