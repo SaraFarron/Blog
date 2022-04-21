@@ -3,19 +3,21 @@
 
 <nav class="navbar">
   <div class="first-block">
-    <div> 
+    <div>
       <a class="icon external" href="https://github.com/SaraFarron/Blog" target="_blank">
         <img src="{% static 'images/github_logo.png' %}" alt="Github link">
-      </a>
-    </div>
-    <div class="pos-right"> 
-      {% include 'new-layout/language-list.html' %}
+      </a> 
+      
     </div>
   </div>
-  <div class="textblock">
-    <h2> {% trans 'Hello' %}, {{ request.user }} </h2>
-  </div>
-  <input type="checkbox" id="toggle-navigation" />
+  <div class="second-block">
+    {% include 'new-layout/language-list.html' %}
+
+      <div class="textblock">
+        <h2> {% trans 'Hello' %}, {{ request.user }} </h2>
+      </div>
+
+    <input type="checkbox" id="toggle-navigation" />
     <label for="toggle-navigation"><img id="toggle-img" src="{% static 'images/icons/btn_toggle_icon.svg' %}" ></label>
   <div class="navigation pos-right">
     <a href="{% url 'blog:home' %}">{% trans 'Home' %}</a>
@@ -33,6 +35,8 @@
     <a href="{% url 'schema-swagger-ui' %}">{% trans 'API' %}</a>
     <div class="vline"></div>
     <a href="{% url 'blog:about' %}">{% trans 'About' %}</a>
+
+  </div>
 
   </div>
 </nav>

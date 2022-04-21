@@ -20,9 +20,9 @@ nav.navbar {
 
     .first-block {
         max-width: calc((100% - #{$postlist-max-width})/2);
-        min-width: 113px;
+        min-width: 56px;
         display: flex;
-        flex-flow: row;
+        flex-flow: row-reverse;
         align-content: center;
         align-items:center;
         justify-self: flex-start;
@@ -30,13 +30,29 @@ nav.navbar {
         height: 100%;
     }
 
+    .second-block
+    {
+        width: $postlist-max-width;
+        display: flex;
+        flex-flow: row;
+        align-content: center;
+        align-items:center;
+        justify-self: flex-start;
+    }
+
     .textblock {
         align-self: center;
-        max-width: $postlist-max-width;
+        max-width: 292px;
         flex-shrink: 0;
-        margin: 0px 16px;
+        margin: 0px 8px;
         box-sizing: border-box;
         cursor: default;
+
+        & h2{
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
     }
 
     .navigation {
@@ -82,6 +98,7 @@ nav.navbar {
 
     a.external {
         cursor: alias;
+        margin-right: 16px;
     }
     
     h1, h2, h3, h4 {
