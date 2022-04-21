@@ -83,9 +83,9 @@ class PostPage(View):
         try:  # Occurs if user is not authorised
             user = Guest.objects.get(user=request.user)
         except TypeError:
-            return render(request, 'blog/post.html', context)
+            return render(request, 'blog/post.html' if not newlo else 'new-layout/blog/postpage.html', context)
         saved_by_users = post.saved_by.all()
-        context |= {'user': user, 'saved_by': saved_by_users}
+        context |= {'user': user, 'saved_by': saved_by_users }
 
         if save is True:  # TODO kwargs are not sent here
             toggle_save_instance(post, user)
@@ -97,7 +97,6 @@ class PostPage(View):
         template = 'blog/post.html' if not newlo else 'new-layout/blog/postpage.html'
         return render(request, template, context)
 
-
 class CreatePost(View):
     @method_decorator(login_required(login_url='user:login'))  # method_decorator is needed for correct work
     def get(self, request, ):
@@ -106,7 +105,7 @@ class CreatePost(View):
             return render(request, '403page.html')
         form = PostForm #думаю, лучше верстать форму самостоятельно
 
-        context = {'form': form}
+        context = {'form': form }
         return render(request, 'blog/create_post.html', context)
 
     @method_decorator(login_required(login_url='user:login'))
@@ -221,6 +220,7 @@ class Reply(View):
             form.instance.post = post
             new_comment = form.save()
             parent_comment.replies.add(new_comment)
+            post.number_of_comments = Comment.objects.filter(post=post).count() + 1
 
             return HttpResponseRedirect(reverse('blog:post', args=(post.id,)))
         form = CommentForm

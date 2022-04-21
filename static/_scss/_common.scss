@@ -50,7 +50,6 @@
     }
 }
 
-
 body {
     min-width: $postlist-min-width;
     margin: 0;
@@ -63,14 +62,19 @@ hr {
     width: calc(100% - 8px);
 }
 
-p {
-    text-indent: 8px;
-    margin: 10px 0px;
+// p {
+//     text-indent: 8px;
+//     margin: 8px 8px;
+//     word-break: break-all;
+//   }
+
+p, h1, h2, h3, h4, h5 {
+      margin: 8px 16px 8px 8px;
+      text-indent: 8px;
+      word-break: break-all;
   }
 
-h1, h2, h3, h4, h5 {
-      margin: 8px 8px 8px 16px;
-  }
+
 
 label {
     box-sizing: border-box;
@@ -110,6 +114,14 @@ label {
         align-content: center;
         align-items: center;
     }
+
+    &-inner {
+        margin: 0px 0px 0px 16px;
+    }
+}
+
+.pos-top {
+    align-self: start;
 }
 
 .pos-right {
@@ -122,6 +134,10 @@ label {
 
 .mgl-a {
     margin-left: auto;
+}
+
+.mgl-8 {
+    margin-left: 8px;
 }
 
 .mgh-a {
@@ -145,10 +161,21 @@ label {
     margin-bottom: 8px;
 }
 
-.mgt-6 {
-    margin-top: 6px;
+.mgb-16 {
+    margin-bottom: 16px;
 }
 
+.mgt-8 {
+    margin-top: 8px;
+}
+
+.mgt-10 {
+    margin-top: 10px;
+}
+
+.pdb-4 {
+    padding-bottom: 4px;
+}
 
 .red {
     color: rgb(209, 35, 35);
@@ -163,9 +190,15 @@ input.toggle {
     padding: 0px 0px;
     overflow: hidden;
     transition: height $expand-duration ease-in-out;
+
+    //only for comment replies expantion
+    &.expanded {
+        @extend .expandable-v;
+        height: $reply-comment-form-height;
+    }
 }
 
-input[type="text"],input[type="password"], textarea {
+input[type="text"],input[type="password"],input[type="email"],textarea {
     padding: 4px;
     width: -webkit-fill-available;
     font-family: 'Roboto', Tahoma;
@@ -198,6 +231,16 @@ input {
     width: 50% !important;
 }
 
+.width-fit {
+    width: fit-content !important;
+}
+
+.height-100pc {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
 textarea {
     resize: none;
 }
@@ -207,8 +250,8 @@ textarea {
     position: absolute;
     top:0;
     left:0;
-    height: calc(100% - 16px);
-    width: calc(100% - 16px);
+    height: 100%;
+    width: 100%;
 
     &-hidden {
         @extend .popup;
@@ -219,4 +262,9 @@ textarea {
         @extend .popup;
         display: block;
     }
+}
+
+span.date {
+    font-size: small;
+    color: $date-color;
 }

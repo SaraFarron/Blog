@@ -5,7 +5,6 @@
     <div class="container-col">
         <div class="container popup-hidden" id="popup-delete-{{post.id}}">
             {% include 'new-layout/blog/post-delete-form.html' %}
-            
         </div>
 
         <div class="container-row">
@@ -27,10 +26,12 @@
                 </div>
             {% endif %}
         </div>
-        <a href="{% url 'blog:post' pk=post.id save=False %}">
+
+        <div>
             <h1>{{ post.name }}</h1>
             <h3>{{ post.description }}</h3>
-        </a>
+            <p>{{ post.text }}</p>
+        </div>
         <div class="container-row">
             <div class="pos-right">
                 <a class="mgr-32">

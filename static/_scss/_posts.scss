@@ -2,6 +2,7 @@
 
 .list-v {
     $create-post-section-height: 312px;
+    $comment-post-section-height: 78px;
 
     max-width: $postlist-max-width;
     min-width: $postlist-min-width;
@@ -40,8 +41,28 @@
         @include expand-v-form(100%, edit-label, post-edit-submit-label)
     }
 
+    #post-comment-submit-label {
+        display: none;
+    }
+
+    #post-comment-expand{
+
+        @include expand-v-form($comment-post-section-height, comment-label, post-comment-submit-label)
+
+    }
+
+    #post-comment-cancel{
+
+        @include shrink-v-form(post-create-expand)
+    }
+
     .expandable-v {
         width: 100%;
+    }
+
+    &-narrow {
+        @extend .list-v;
+        max-width: $postlist-max-width*0.6;
     }
 }
 
@@ -53,10 +74,6 @@ a {
         color: $link-on-hover-color;
     }
 }
-
-// h3 {
-//     margin-left: 24px;
-// }
 
 .icon {
 
@@ -86,10 +103,33 @@ a {
         background-color: rgba(0, 0, 0, 0.055);
     }
 
+    &-large {
+        @extend .icon;
+        height: 40px;
+        width: 40px;
+    }
+
 }
 
 input[type]:not([type='submit']) {
     margin-bottom: 8px;
 }
 
+.popup-shown form{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
 
+.popup-shown .post
+{
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.container .container {
+    padding: 0px;
+    margin-bottom: 0px;
+}

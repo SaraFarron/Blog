@@ -57,12 +57,14 @@ $btn-width: 128px;
     border-radius: 8px;
     min-height: 28px;
     width: $btn-width;
-    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out,
+        opacity 0.8s ease-in-out;
 
     @include btn-color($btn-default-text-color, $btn-default-background);
 
     span {
         cursor: inherit;
+        line-height: 24px;
     }
 
     &-submit {

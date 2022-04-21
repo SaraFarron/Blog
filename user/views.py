@@ -61,11 +61,13 @@ class RegisterPage(View):
             return render(request, 'user/profile.html', context)
         else:
             messages.error(request, 'Passwords are different or this username has been taken')
-            return render(request, 'user/register.html')
+            template = 'user/register.html' if not newlo else 'new-layout/user/register.html'
+            return render(request, template )
 
     @method_decorator(unauthenticated_user)
     def get(self, request):
-        return render(request, 'user/register.html')
+        template = 'user/register.html' if not newlo else 'new-layout/user/register.html'
+        return render(request, template )
 
 
 class LogoutUser(View):
