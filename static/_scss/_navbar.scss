@@ -1,9 +1,12 @@
 @import "common-vars.scss";
 
+body.dark nav {
+    background-color: $navbar-color-dark;
+}
+
 nav.navbar {
 
     $navbar-height: 60px;
-    $navbar-color: rgb(230, 247, 241);
 
     background-color: $navbar-color;
 
@@ -40,20 +43,20 @@ nav.navbar {
         justify-self: flex-start;
     }
 
-    .textblock {
-        align-self: center;
-        max-width: 292px;
-        flex-shrink: 0;
-        margin: 0px 8px;
-        box-sizing: border-box;
-        cursor: default;
+    // .textblock {
+    //     align-self: center;
+    //     max-width: 316px;
+    //     flex-shrink: 0;
+    //     margin: 0px;
+    //     box-sizing: border-box;
+    //     cursor: default;
 
-        & h2{
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            overflow: hidden;
-        }
-    }
+    //     & h2{
+    //         white-space: nowrap;
+    //         text-overflow: ellipsis;
+    //         overflow: hidden;
+    //     }
+    // }
 
     .navigation {
         display: flex;
@@ -78,20 +81,30 @@ nav.navbar {
         & > img {
             width: 24px;
             height: 24px;
+            vertical-align: middle;
+
+            &:hover {
+                filter: invert(30%) brightness(105%);
+            }
         }
 
         &-country, &-country-current {
-            margin-left: 8px;
+            @extend a.icon;
+            margin-right: 0px;
             & > img {
-                width: 24px;
-                height: 24px;
-                transform: scale(0.8);
+                filter: invert(30%);
+                &:hover {
+                    filter: invert(0%) brightness(105%);
+                }
             }
         }
 
         &-country-current {
             & > img {
-                transform: scale(1);
+                filter: invert(0%) brightness(105%);// drop-shadow(0px 0px 4px rgb(150, 150, 150));
+                &:hover {
+                    filter: invert(0%) brightness(105%);
+                }
             }
         }
     }
@@ -99,10 +112,16 @@ nav.navbar {
     a.external {
         cursor: alias;
         margin-right: 16px;
+        width: 28px;
+        height: 28px;
+        &:hover {
+            filter: invert(30%);
+        }
     }
     
     h1, h2, h3, h4 {
         margin: 0;
+        padding: 0px 8px;
     }
 
     .vline {
@@ -126,7 +145,7 @@ nav.navbar {
             position: absolute;
             top: $navbar-height;
             right: 0;
-            background-color: $navbar-color;
+            background-color: var(--navbar-color);
             margin: 0;
             padding: 8px 0px;
             border-radius: 0px 0px 0px 8px;

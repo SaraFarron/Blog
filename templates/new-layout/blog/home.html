@@ -3,6 +3,21 @@
 {% block content %}
 
 <div class="list-v">
+    <div class="container" style="flex-wrap:nowrap">
+        <h2 class="mgr-16">{% trans 'Hello' %}, {{ request.user }}</h2>
+        <div class="container-row pos-right">
+            <a class="btn-edit width-fit mgr-8"
+            {% if not 'popular' in request.path %} href="{% url 'blog:home_popular' %}"
+                    ><span>{% trans 'popular' %}</span>
+                {% else %}
+                    href="{% url 'blog:home' %}"><span>{% trans 'new' %}</span>
+                {% endif %}
+            </a>
+            <button class="btn-edit width-fit" id="dark-mode-toggle">
+                <span>theme</span>
+            </button>
+        </div>
+    </div>
     {% if request.user.is_authenticated %}
     <div class="container">
         <input type="radio" class="toggle" name="create-post" id="post-create-expand">

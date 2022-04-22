@@ -1,8 +1,8 @@
 @import "common-vars.scss";
 
 .list-v {
-    $create-post-section-height: 312px;
-    $comment-post-section-height: 78px;
+    $create-post-section-height: 320px;
+    $comment-post-section-height: 80px;
 
     max-width: $postlist-max-width;
     min-width: $postlist-min-width;
@@ -63,15 +63,6 @@
     &-narrow {
         @extend .list-v;
         max-width: $postlist-max-width*0.6;
-    }
-}
-
-a {
-    text-decoration: none;
-    color: $text-color-default;
-
-    &:hover {
-        color: $link-on-hover-color;
     }
 }
 

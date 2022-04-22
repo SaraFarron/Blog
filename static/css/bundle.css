@@ -8,32 +8,79 @@
 }
 
 /* line 53, ../nikita - pupsik/Blog/static/_scss/_common.scss */
-body {
+body, body.dark {
   min-width: 480px;
   margin: 0;
   font-family: 'Roboto', Tahoma;
   font-size: medium;
   background-color: #f2f2f2;
+  color: black;
 }
 
-/* line 61, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+/* line 62, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+body.dark {
+  color-scheme: dark;
+  background-color: #202225;
+  color: #dcddde;
+}
+
+/* line 68, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+body.dark .container {
+  background-color: #36393f;
+}
+
+/* line 72, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+body.dark a {
+  color: #dcddde;
+}
+
+/* line 74, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+body.dark a:hover {
+  color: white;
+}
+
+/* line 80, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 hr {
   width: calc(100% - 8px);
+  margin-top: 0px;
 }
 
-/* line 71, ../nikita - pupsik/Blog/static/_scss/_common.scss */
-p, h1, h2, h3, h4, h5 {
-  margin: 8px 16px 8px 8px;
+/* line 85, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+a {
+  text-decoration: none;
+  color: black;
+}
+
+/* line 89, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+a:hover {
+  color: #464646;
+}
+
+/* line 94, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+p, h1, h3, h4, h5 {
+  padding: 0px 8px 8px 8px;
+  margin: 0px;
   text-indent: 8px;
-  word-break: break-all;
+  overflow-wrap: break-word;
+  box-sizing: border-box;
 }
 
-/* line 79, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+/* line 102, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+h2 {
+  padding: 0px;
+  margin: 0px 8px;
+  word-break: keep-all;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* line 112, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 label {
   box-sizing: border-box;
 }
 
-/* line 83, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+/* line 116, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 .content {
   display: flex;
   flex-flow: row;
@@ -41,7 +88,7 @@ label {
   height: 100vh;
 }
 
-/* line 90, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+/* line 123, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 .container {
   background-color: white;
   border-radius: 8px;
@@ -53,7 +100,7 @@ label {
   flex-wrap: wrap;
 }
 
-/* line 102, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+/* line 135, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 .container-col {
   display: flex;
   flex-flow: column;
@@ -62,7 +109,7 @@ label {
   flex: 1;
 }
 
-/* line 110, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+/* line 143, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 .container-row {
   display: flex;
   flex-flow: row;
@@ -71,17 +118,22 @@ label {
   align-items: center;
 }
 
-/* line 118, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+/* line 151, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 .container-inner {
   margin: 0px 0px 0px 16px;
 }
 
-/* line 123, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+/* line 155, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+.container p {
+  max-width: 696px;
+}
+
+/* line 160, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 .pos-top {
   align-self: start;
 }
 
-/* line 127, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+/* line 164, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 .pos-right {
   justify-self: right;
   margin-left: auto;
@@ -90,73 +142,73 @@ label {
   align-items: center;
 }
 
-/* line 135, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+/* line 172, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 .mgl-a {
   margin-left: auto;
 }
 
-/* line 139, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+/* line 176, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 .mgl-8 {
   margin-left: 8px;
 }
 
-/* line 143, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+/* line 180, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 .mgh-a {
   margin-left: auto;
   margin-right: auto;
 }
 
-/* line 148, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+/* line 185, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 .mgr-16 {
   margin-right: 16px;
 }
 
-/* line 152, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+/* line 189, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 .mgr-8 {
   margin-right: 8px;
 }
 
-/* line 156, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+/* line 193, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 .mgr-32 {
   margin-right: 32px;
 }
 
-/* line 160, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+/* line 197, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 .mgb-8 {
   margin-bottom: 8px;
 }
 
-/* line 164, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+/* line 201, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 .mgb-16 {
   margin-bottom: 16px;
 }
 
-/* line 168, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+/* line 205, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 .mgt-8 {
   margin-top: 8px;
 }
 
-/* line 172, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+/* line 209, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 .mgt-10 {
   margin-top: 10px;
 }
 
-/* line 176, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+/* line 213, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 .pdb-4 {
   padding-bottom: 4px;
 }
 
-/* line 180, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+/* line 217, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 .red {
   color: #d12323;
 }
 
-/* line 184, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+/* line 221, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 input.toggle {
   display: none;
 }
 
-/* line 188, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+/* line 225, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 .expandable-v, .expandable-v.expanded {
   height: 0px;
   padding: 0px 0px;
@@ -164,12 +216,12 @@ input.toggle {
   transition: height 0.8s ease-in-out;
 }
 
-/* line 195, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+/* line 232, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 .expanded.expandable-v {
-  height: 75px;
+  height: 77px;
 }
 
-/* line 201, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+/* line 238, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 input[type="text"], input[type="password"], input[type="email"], textarea {
   padding: 4px;
   width: -webkit-fill-available;
@@ -179,77 +231,89 @@ input[type="text"], input[type="password"], input[type="email"], textarea {
   -webkit-text-size-adjust: 100%;
 }
 
-/* line 210, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+/* line 247, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 input[type="submit"] {
   display: block;
 }
 
-/* line 216, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+/* line 253, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 input:-webkit-autofill {
   font-size: medium !important;
   font-family: 'Roboto', Tahoma !important;
 }
 
-/* line 220, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+/* line 257, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 input:-webkit-autofill::first-line {
   font-size: medium !important;
   font-family: 'Roboto', Tahoma !important;
 }
 
-/* line 224, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+/* line 261, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 input:autofill {
   font-size: medium !important;
   font-family: 'Roboto', Tahoma !important;
 }
 
-/* line 230, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+/* line 267, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 .width-50pc {
   width: 50% !important;
 }
 
-/* line 234, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+/* line 271, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 .width-fit {
   width: fit-content !important;
 }
 
-/* line 238, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+/* line 275, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 .height-100pc {
   height: 100%;
   display: flex;
   align-items: center;
 }
 
-/* line 244, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+/* line 281, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 textarea {
   resize: none;
 }
 
-/* line 248, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+/* line 285, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 .popup, .popup-hidden, .popup-shown {
   position: absolute;
   top: 0;
   left: 0;
   height: 100%;
   width: 100%;
+  filter: invert(0%);
+  z-index: 100;
 }
 
-/* line 256, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+/* line 295, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 .popup-hidden {
   display: none;
 }
 
-/* line 261, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+/* line 300, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 .popup-shown {
   display: block;
 }
 
-/* line 267, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+/* line 306, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 span.date {
   font-size: small;
-  color: #646464;
+  color: gray;
+}
+
+/* line 311, ../nikita - pupsik/Blog/static/_scss/_common.scss */
+a .icon:hover, a .icon-large:hover {
+  filter: brightness(90%);
 }
 
 /* line 3, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
+body.dark nav {
+  background-color: #18191c;
+}
+
+/* line 7, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
 nav.navbar {
   background-color: #e6f7f1;
   height: 60px;
@@ -264,7 +328,7 @@ nav.navbar {
   box-sizing: border-box;
 }
 
-/* line 21, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
+/* line 24, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
 nav.navbar .first-block {
   max-width: calc((100% - 720px)/2);
   min-width: 56px;
@@ -277,7 +341,7 @@ nav.navbar .first-block {
   height: 100%;
 }
 
-/* line 33, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
+/* line 36, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
 nav.navbar .second-block {
   width: 720px;
   display: flex;
@@ -287,82 +351,87 @@ nav.navbar .second-block {
   justify-self: flex-start;
 }
 
-/* line 43, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
-nav.navbar .textblock {
-  align-self: center;
-  max-width: 292px;
-  flex-shrink: 0;
-  margin: 0px 8px;
-  box-sizing: border-box;
-  cursor: default;
-}
-
-/* line 51, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
-nav.navbar .textblock h2 {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
-
-/* line 58, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
+/* line 61, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
 nav.navbar .navigation {
   display: flex;
   align-items: center;
   margin-right: 8px;
 }
 
-/* line 63, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
+/* line 66, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
 nav.navbar .navigation a {
   margin-left: 8px;
 }
 
-/* line 69, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
+/* line 72, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
 nav.navbar .container-row {
   height: 60px;
   margin-right: 8px;
 }
 
-/* line 74, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
-nav.navbar a.icon, nav.navbar a.icon-large {
+/* line 77, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
+nav.navbar a.icon, nav.navbar a.icon-country, nav.navbar a.icon-country-current, nav.navbar a.icon-large {
   display: inline-block;
   margin: 0px 8px;
 }
 
-/* line 78, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
-nav.navbar a.icon > img, nav.navbar a.icon-large > img {
+/* line 81, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
+nav.navbar a.icon > img, nav.navbar a.icon-country > img, nav.navbar a.icon-country-current > img, nav.navbar a.icon-large > img {
   width: 24px;
   height: 24px;
+  vertical-align: middle;
 }
 
-/* line 83, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
+/* line 86, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
+nav.navbar a.icon > img:hover, nav.navbar a.icon-country > img:hover, nav.navbar a.icon-country-current > img:hover, nav.navbar a.icon-large > img:hover {
+  filter: invert(30%) brightness(105%);
+}
+
+/* line 91, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
 nav.navbar a.icon-country, nav.navbar a.icon-country-current {
-  margin-left: 8px;
+  margin-right: 0px;
 }
 
-/* line 85, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
+/* line 94, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
 nav.navbar a.icon-country > img, nav.navbar a.icon-country-current > img {
-  width: 24px;
-  height: 24px;
-  transform: scale(0.8);
+  filter: invert(30%);
 }
 
-/* line 93, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
+/* line 96, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
+nav.navbar a.icon-country > img:hover, nav.navbar a.icon-country-current > img:hover {
+  filter: invert(0%) brightness(105%);
+}
+
+/* line 103, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
 nav.navbar a.icon-country-current > img {
-  transform: scale(1);
+  filter: invert(0%) brightness(105%);
 }
 
-/* line 99, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
+/* line 105, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
+nav.navbar a.icon-country-current > img:hover {
+  filter: invert(0%) brightness(105%);
+}
+
+/* line 112, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
 nav.navbar a.external {
   cursor: alias;
   margin-right: 16px;
+  width: 28px;
+  height: 28px;
 }
 
-/* line 104, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
+/* line 117, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
+nav.navbar a.external:hover {
+  filter: invert(30%);
+}
+
+/* line 122, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
 nav.navbar h1, nav.navbar h2, nav.navbar h3, nav.navbar h4 {
   margin: 0;
+  padding: 0px 8px;
 }
 
-/* line 108, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
+/* line 127, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
 nav.navbar .vline {
   border-left: 1px solid #6b6b6b;
   height: 24px;
@@ -371,11 +440,11 @@ nav.navbar .vline {
 }
 
 @media screen and (max-width: 720px) {
-  /* line 118, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
+  /* line 137, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
   nav.navbar label {
     visibility: visible !important;
   }
-  /* line 122, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
+  /* line 141, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
   nav.navbar .navigation {
     flex-direction: column;
     align-content: flex-start;
@@ -383,7 +452,7 @@ nav.navbar .vline {
     position: absolute;
     top: 60px;
     right: 0;
-    background-color: #e6f7f1;
+    background-color: var(--navbar-color);
     margin: 0;
     padding: 8px 0px;
     border-radius: 0px 0px 0px 8px;
@@ -391,11 +460,11 @@ nav.navbar .vline {
     width: 0;
     transition: width 0.5s ease-in-out, padding 0.5s ease-in-out;
   }
-  /* line 137, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
+  /* line 156, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
   nav.navbar .navigation .vline {
     display: none;
   }
-  /* line 141, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
+  /* line 160, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
   nav.navbar .navigation a {
     padding: 8px 8px 16px 8px;
     width: 100%;
@@ -403,23 +472,23 @@ nav.navbar .vline {
   }
 }
 
-/* line 150, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
+/* line 169, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
 nav.navbar #toggle-navigation {
   display: none;
 }
 
-/* line 153, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
+/* line 172, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
 nav.navbar #toggle-navigation:checked ~ .navigation {
   padding: 8px;
   width: 136px;
 }
 
-/* line 158, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
+/* line 177, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
 nav.navbar #toggle-navigation:checked + label img {
   transform: rotateZ(90deg);
 }
 
-/* line 163, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
+/* line 182, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
 nav.navbar label {
   display: block;
   position: absolute;
@@ -430,7 +499,7 @@ nav.navbar label {
   cursor: pointer;
 }
 
-/* line 172, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
+/* line 191, ../nikita - pupsik/Blog/static/_scss/_navbar.scss */
 nav.navbar label img {
   height: 40px;
   width: 40px;
@@ -468,7 +537,7 @@ nav.navbar label img {
 
 /* line 5, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 .list-v #post-create-expand:checked ~ .expandable-v, .list-v-narrow #post-create-expand:checked ~ .expandable-v {
-  height: 312px;
+  height: 320px;
 }
 
 /* line 9, ../nikita - pupsik/Blog/static/_scss/_common.scss */
@@ -539,7 +608,7 @@ nav.navbar label img {
 
 /* line 5, ../nikita - pupsik/Blog/static/_scss/_common.scss */
 .list-v #post-comment-expand:checked ~ .expandable-v, .list-v-narrow #post-comment-expand:checked ~ .expandable-v {
-  height: 78px;
+  height: 80px;
 }
 
 /* line 9, ../nikita - pupsik/Blog/static/_scss/_common.scss */
@@ -592,17 +661,6 @@ nav.navbar label img {
 }
 
 /* line 69, ../nikita - pupsik/Blog/static/_scss/_posts.scss */
-a {
-  text-decoration: none;
-  color: black;
-}
-
-/* line 73, ../nikita - pupsik/Blog/static/_scss/_posts.scss */
-a:hover {
-  color: #3f3f3f;
-}
-
-/* line 78, ../nikita - pupsik/Blog/static/_scss/_posts.scss */
 .icon, .icon-large {
   height: 24px;
   width: 24px;
@@ -610,48 +668,48 @@ a:hover {
   border-radius: 50%;
 }
 
-/* line 85, ../nikita - pupsik/Blog/static/_scss/_posts.scss */
+/* line 76, ../nikita - pupsik/Blog/static/_scss/_posts.scss */
 .icon.upvote, .upvote.icon-large, .icon.downvote, .downvote.icon-large, .icon.bookmark, .bookmark.icon-large {
   cursor: pointer;
 }
 
-/* line 90, ../nikita - pupsik/Blog/static/_scss/_posts.scss */
+/* line 81, ../nikita - pupsik/Blog/static/_scss/_posts.scss */
 .icon.upvote:hover, .upvote.icon-large:hover {
   filter: invert(100%) brightness(0.5) sepia(1) saturate(10000%) brightness(1) hue-rotate(120deg);
   background-color: rgba(0, 0, 0, 0.055);
 }
 
-/* line 96, ../nikita - pupsik/Blog/static/_scss/_posts.scss */
+/* line 87, ../nikita - pupsik/Blog/static/_scss/_posts.scss */
 .icon.downvote:hover, .downvote.icon-large:hover {
   filter: invert(100%) brightness(0.5) sepia(1) saturate(10000%) brightness(0.8);
   background-color: rgba(0, 0, 0, 0.055);
 }
 
-/* line 101, ../nikita - pupsik/Blog/static/_scss/_posts.scss */
+/* line 92, ../nikita - pupsik/Blog/static/_scss/_posts.scss */
 .icon.bookmark:hover, .bookmark.icon-large:hover {
   filter: invert(50%);
   background-color: rgba(0, 0, 0, 0.055);
 }
 
-/* line 106, ../nikita - pupsik/Blog/static/_scss/_posts.scss */
+/* line 97, ../nikita - pupsik/Blog/static/_scss/_posts.scss */
 .icon-large {
   height: 40px;
   width: 40px;
 }
 
-/* line 114, ../nikita - pupsik/Blog/static/_scss/_posts.scss */
+/* line 105, ../nikita - pupsik/Blog/static/_scss/_posts.scss */
 input[type]:not([type='submit']) {
   margin-bottom: 8px;
 }
 
-/* line 118, ../nikita - pupsik/Blog/static/_scss/_posts.scss */
+/* line 109, ../nikita - pupsik/Blog/static/_scss/_posts.scss */
 .popup-shown form {
   display: flex;
   justify-content: center;
   margin-top: 10px;
 }
 
-/* line 124, ../nikita - pupsik/Blog/static/_scss/_posts.scss */
+/* line 115, ../nikita - pupsik/Blog/static/_scss/_posts.scss */
 .popup-shown .post {
   justify-content: center;
   display: flex;
@@ -659,13 +717,35 @@ input[type]:not([type='submit']) {
   height: 100%;
 }
 
-/* line 132, ../nikita - pupsik/Blog/static/_scss/_posts.scss */
+/* line 123, ../nikita - pupsik/Blog/static/_scss/_posts.scss */
 .container .container {
   padding: 0px;
   margin-bottom: 0px;
 }
 
 /* line 42, ../nikita - pupsik/Blog/static/_scss/_buttons.scss */
+body.dark .btn, body.dark .btn-submit, body.dark .btn-edit, body.dark .btn-delete {
+  color: #f8f8f8;
+  background-color: #42464d;
+}
+
+/* line 30, ../nikita - pupsik/Blog/static/_scss/_buttons.scss */
+body.dark .btn:hover, body.dark .btn-submit:hover, body.dark .btn-edit:hover, body.dark .btn-delete:hover {
+  color: #ebebeb;
+  background-color: #202225;
+}
+
+/* line 46, ../nikita - pupsik/Blog/static/_scss/_buttons.scss */
+body.dark img:not([type="userpic"]) {
+  filter: invert(90%);
+}
+
+/* line 49, ../nikita - pupsik/Blog/static/_scss/_buttons.scss */
+body.dark img:not([type="userpic"]):hover {
+  filter: invert(90%);
+}
+
+/* line 57, ../nikita - pupsik/Blog/static/_scss/_buttons.scss */
 .btn, .btn-submit, .btn-edit, .btn-delete {
   padding: 2px;
   text-align: center;
@@ -687,55 +767,55 @@ input[type]:not([type='submit']) {
   background-color: #e6f7f1;
 }
 
-/* line 28, ../nikita - pupsik/Blog/static/_scss/_buttons.scss */
+/* line 30, ../nikita - pupsik/Blog/static/_scss/_buttons.scss */
 .btn:hover, .btn-submit:hover, .btn-edit:hover, .btn-delete:hover {
   color: black;
   background-color: #d3f1e6;
 }
 
-/* line 65, ../nikita - pupsik/Blog/static/_scss/_buttons.scss */
+/* line 80, ../nikita - pupsik/Blog/static/_scss/_buttons.scss */
 .btn span, .btn-submit span, .btn-edit span, .btn-delete span {
   cursor: inherit;
   line-height: 24px;
 }
 
-/* line 70, ../nikita - pupsik/Blog/static/_scss/_buttons.scss */
+/* line 85, ../nikita - pupsik/Blog/static/_scss/_buttons.scss */
 .btn-submit {
   color: black;
   background-color: #e6f7f1;
 }
 
-/* line 28, ../nikita - pupsik/Blog/static/_scss/_buttons.scss */
+/* line 30, ../nikita - pupsik/Blog/static/_scss/_buttons.scss */
 .btn-submit:hover {
   color: black;
   background-color: #d1f8d9;
 }
 
-/* line 75, ../nikita - pupsik/Blog/static/_scss/_buttons.scss */
+/* line 90, ../nikita - pupsik/Blog/static/_scss/_buttons.scss */
 .btn-edit {
   color: black;
   background-color: #e6f7f1;
 }
 
-/* line 28, ../nikita - pupsik/Blog/static/_scss/_buttons.scss */
+/* line 30, ../nikita - pupsik/Blog/static/_scss/_buttons.scss */
 .btn-edit:hover {
   color: black;
   background-color: #cff5f2;
 }
 
-/* line 80, ../nikita - pupsik/Blog/static/_scss/_buttons.scss */
+/* line 95, ../nikita - pupsik/Blog/static/_scss/_buttons.scss */
 .btn-delete {
   color: black;
   background-color: #e6f7f1;
 }
 
-/* line 28, ../nikita - pupsik/Blog/static/_scss/_buttons.scss */
+/* line 30, ../nikita - pupsik/Blog/static/_scss/_buttons.scss */
 .btn-delete:hover {
   color: black;
   background-color: #e9ded9;
 }
 
-/* line 86, ../nikita - pupsik/Blog/static/_scss/_buttons.scss */
+/* line 101, ../nikita - pupsik/Blog/static/_scss/_buttons.scss */
 button[type=submit] {
   display: none;
 }

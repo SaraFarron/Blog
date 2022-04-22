@@ -1,11 +1,25 @@
+//SIZES
 $postlist-max-width: 720px;
 $postlist-min-width: 480px;
 $optimal-width: 720px;
 
-$reply-comment-form-height: 75px;
+$reply-comment-form-height: 77px;
 
-$text-color-default: black;
-$link-on-hover-color: rgb(63, 63, 63);
-$date-color: rgb(100, 100, 100);
+//COLORS (except buttons colors)
+    $navbar-color: rgb(230, 247, 241);
+    $page-background-color: rgb(242, 242, 242);
+    $container-background-color: white;
+    $text-color-default: black;
+    $link-on-hover-color: rgb(70, 70, 70);
+    $date-color: rgb(100, 100, 100);
 
+    //dark
+
+    $navbar-color-dark: #18191c;
+    $page-background-color-dark: #202225;
+    $text-color-dark: #dcddde;
+    $link-on-hover-color-dark: rgb(255, 255, 255);
+    $date-color: rgb(128, 128, 128);
+
+//MISC
 $expand-duration: 0.8s;

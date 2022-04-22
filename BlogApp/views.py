@@ -10,11 +10,13 @@ from api.utils import update_instance_rating, toggle_save_instance, get_comments
 from .decorators import user_owns_the_post
 from .forms import *
 
-newlo = True
+NEWLO = True
+
 
 class TestPage(View):
     def get(self, request):
         return render(request, 'new-layout/test.html', { })
+
 
 class Index(View):
     def get(self, request):
@@ -29,17 +31,17 @@ class About(View):
     def get(self, request):
         browser_locale = request.LANGUAGE_CODE  # return browser language code (ru/en/etc)
         context = {'user': request.user}
-        response = render(request, 'index.html' if not newlo else 'new-layout/about.html', context)
+        response = render(request, 'index.html' if not NEWLO else 'new-layout/about.html', context)
         response.set_cookie('user_loc', browser_locale)
         return response
 
 
 class Home(View):
     def get(self, request):
-        posts = Post.objects.all().order_by('-id')
+        posts = Post.objects.all().order_by('-creation_date')
         context = {'posts': posts, 'user': request.user}
 
-        template = 'home.html' if not newlo else 'new-layout/blog/home.html'
+        template = 'home.html' if not NEWLO else 'new-layout/blog/home.html'
         return render(request, template, context)
 
     @method_decorator(login_required(login_url='user:login'))
@@ -51,18 +53,18 @@ class Home(View):
             return redirect('blog:home')
 
         form = PostForm
-        posts = Post.objects.all().order_by('-rating')
+        posts = Post.objects.all().order_by('-creation_date')
         context = {'posts': posts, 'user': request.user}
 
-        template = 'home.html' if not newlo else 'new-layout/blog/home.html'
+        template = 'home.html' if not NEWLO else 'new-layout/blog/home.html'
         return render(request, template, context)
 
 
 class HomeByRating(View):
     def get(self, request):
-        posts = Post.objects.all().order_by('-creation_date')
+        posts = Post.objects.all().order_by('-number_of_comments')
         context = {'posts': posts, 'user': request.user}
-        return render(request, 'home.html', context)
+        return render(request, 'home.html' if not NEWLO else 'new-layout/blog/home.html', context)
 
 
 class SavedContents(View):
@@ -83,7 +85,7 @@ class PostPage(View):
         try:  # Occurs if user is not authorised
             user = Guest.objects.get(user=request.user)
         except TypeError:
-            return render(request, 'blog/post.html' if not newlo else 'new-layout/blog/postpage.html', context)
+            return render(request, 'blog/post.html' if not NEWLO else 'new-layout/blog/postpage.html', context)
         saved_by_users = post.saved_by.all()
         context |= {'user': user, 'saved_by': saved_by_users }
 
@@ -94,8 +96,9 @@ class PostPage(View):
             if response.status_code != 200:
                 return render(request, '403page.html')
 
-        template = 'blog/post.html' if not newlo else 'new-layout/blog/postpage.html'
+        template = 'blog/post.html' if not NEWLO else 'new-layout/blog/postpage.html'
         return render(request, template, context)
+
 
 class CreatePost(View):
     @method_decorator(login_required(login_url='user:login'))  # method_decorator is needed for correct work
@@ -130,7 +133,7 @@ class UpdatePost(View):
         form = PostForm(instance=post)
         context = {'form': form, 'post': post}
 
-        template = 'blog/update_post.html' if not newlo else 'new-layout/blog/post-edit.html'
+        template = 'blog/update_post.html' if not NEWLO else 'new-layout/blog/post-edit.html'
         return render(request, template, context)
 
     @method_decorator(decorators)
@@ -144,7 +147,7 @@ class UpdatePost(View):
 
         context = {'form': form, 'post': post}
 
-        template = 'blog/update_post.html' if not newlo else 'new-layout/blog/post-edit.html'
+        template = 'blog/update_post.html' if not NEWLO else 'new-layout/blog/post-edit.html'
         return render(request, template, context)
 
 

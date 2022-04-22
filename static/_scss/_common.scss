@@ -55,25 +55,58 @@ body {
     margin: 0;
     font-family: 'Roboto', Tahoma;
     font-size: medium;
-    background-color: rgb(242, 242, 242);
+    background-color: $page-background-color;
+    color: $text-color-default;
+}
+
+body.dark {
+    @extend body;
+    color-scheme: dark;
+    background-color: $page-background-color-dark;
+    color: $text-color-dark;
+
+    & .container {
+        background-color: #36393f;
+    }
+
+    & a {
+        color: $text-color-dark;
+        &:hover {
+            color: $link-on-hover-color-dark;
+        }
+    }
 }
 
 hr {
     width: calc(100% - 8px);
+    margin-top: 0px;
 }
 
-// p {
-//     text-indent: 8px;
-//     margin: 8px 8px;
-//     word-break: break-all;
-//   }
+a {
+    text-decoration: none;
+    color: $text-color-default;
 
-p, h1, h2, h3, h4, h5 {
-      margin: 8px 16px 8px 8px;
+    &:hover {
+        color: $link-on-hover-color;
+    }
+}
+
+p, h1, h3, h4, h5 {
+      padding: 0px 8px 8px 8px;
+      margin: 0px;
       text-indent: 8px;
-      word-break: break-all;
+      overflow-wrap: break-word;
+      box-sizing: border-box;
   }
 
+h2 {
+    padding: 0px;
+    margin: 0px 8px;
+    word-break: keep-all;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
 
 
 label {
@@ -89,7 +122,7 @@ label {
 
 .container {
 
-    background-color: white;
+    background-color: $container-background-color;
     border-radius: 8px;
     
     position: relative;
@@ -117,6 +150,10 @@ label {
 
     &-inner {
         margin: 0px 0px 0px 16px;
+    }
+
+    & p {
+        max-width: 696px;
     }
 }
 
@@ -252,6 +289,8 @@ textarea {
     left:0;
     height: 100%;
     width: 100%;
+    filter: invert(0%);
+    z-index: 100;
 
     &-hidden {
         @extend .popup;
@@ -267,4 +306,8 @@ textarea {
 span.date {
     font-size: small;
     color: $date-color;
+}
+
+a .icon:hover {
+    filter: brightness(90%);
 }

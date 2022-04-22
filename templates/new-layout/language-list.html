@@ -9,7 +9,10 @@
 <div class="container-row">
 {% for language in languages %}
     
-    <a {% if request.path != '/' %} href="/{{ language.code }}/{{path}}" {% else %} href="{{request.path}}" {%endif%}
+    <a {% if language.code != CURRENT_LANGUAGE %}
+            {% if request.path != '/' %} href="/{{ language.code }}/{{path}}" 
+            {% else %} href="{{request.path}}" {%endif%}
+        {%endif%}
         class = "icon-country{% if language.code == CURRENT_LANGUAGE %}-current{% endif %}">
         <img src="{% static 'images/country_flags/' %}{{ language.name }}.png" alt='{{ language.name_local }}'>
     </a>

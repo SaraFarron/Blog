@@ -13,12 +13,13 @@ from BlogApp.models import Comment, Post
 from .forms import *
 from .utils import create_token, seconds_to_formatted_string
 
-newlo = True
+NEWLO = True
+
 
 class LoginPage(View):
     @method_decorator(unauthenticated_user)
     def get(self, request):
-        template = 'user/login.html' if not newlo else 'new-layout/user/login.html'
+        template = 'user/login.html' if not NEWLO else 'new-layout/user/login.html'
         return render(request, template)
 
     @method_decorator(unauthenticated_user)
@@ -33,7 +34,7 @@ class LoginPage(View):
         else:
             messages.info(request, 'Username or password is incorrect')
 
-        template = 'user/login.html' if not newlo else 'new-layout/user/login.html'
+        template = 'user/login.html' if not NEWLO else 'new-layout/user/login.html'
         return render(request, template)
 
 
@@ -61,12 +62,12 @@ class RegisterPage(View):
             return render(request, 'user/profile.html', context)
         else:
             messages.error(request, 'Passwords are different or this username has been taken')
-            template = 'user/register.html' if not newlo else 'new-layout/user/register.html'
+            template = 'user/register.html' if not NEWLO else 'new-layout/user/register.html'
             return render(request, template )
 
     @method_decorator(unauthenticated_user)
     def get(self, request):
-        template = 'user/register.html' if not newlo else 'new-layout/user/register.html'
+        template = 'user/register.html' if not NEWLO else 'new-layout/user/register.html'
         return render(request, template )
 
 
