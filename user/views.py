@@ -13,6 +13,7 @@ from BlogApp.models import Comment, Post
 from .forms import *
 from .utils import create_token, seconds_to_formatted_string
 
+
 NEWLO = True
 
 
@@ -98,7 +99,7 @@ class Profile(View):
             time_since_ban = datetime.now(timezone.utc) - last_time_banned
             time_since_ban = seconds_to_formatted_string(time_since_ban)
             context['time_since_ban'] = time_since_ban
-        return render(request, 'user/profile.html', context)
+        return render(request, 'user/profile.html' if not NEWLO else 'new-layout/user/profile.html', context)
 
 
 class ProfileSettings(View):

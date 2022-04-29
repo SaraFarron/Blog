@@ -24,7 +24,7 @@ from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 from rest_framework.documentation import include_docs_urls
-from BlogApp.views import Index, TestPage
+from BlogApp.views import Index
 
 
 schema_view = get_schema_view(
@@ -59,7 +59,6 @@ urlpatterns += [
     path('__debug__/', include('debug_toolbar.urls')),
     path('silk/', include('silk.urls', namespace='silk')),
     path('', Index.as_view()),
-    path('test/', TestPage.as_view(), name='test')
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

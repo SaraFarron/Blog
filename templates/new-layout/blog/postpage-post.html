@@ -14,7 +14,7 @@
                 </a>
             </div>
             <div class="container-col">
-                <a class="width-fit" href="{% url 'user:profile' post.user.id %}">
+                <a class="width-fit break-all" href="{% url 'user:profile' post.user.id %}">
                     <span class="link" {% if post.user.is_moderator is True %} class="red" {% endif %}>{{ post.user }}</span>
                 </a>
                 <span class="date">{{ post.creation_date }}</span>

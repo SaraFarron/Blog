@@ -95,7 +95,9 @@ p, h1, h3, h4, h5 {
       padding: 0px 8px 8px 8px;
       margin: 0px;
       text-indent: 8px;
-      overflow-wrap: break-word;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      overflow-wrap: anywhere;
       box-sizing: border-box;
   }
 
@@ -141,6 +143,7 @@ label {
     }
 
     &-row {
+        width: 100%;
         display: flex;
         flex-flow: row;
         justify-content: start;
@@ -310,4 +313,15 @@ span.date {
 
 a .icon:hover {
     filter: brightness(90%);
+}
+
+.break-all {
+    word-break: break-all;
+}
+
+.profile-pic
+{
+    width: 250px;
+    height: 250px;
+    border-radius: 4px;
 }

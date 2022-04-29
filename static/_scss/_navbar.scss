@@ -1,6 +1,8 @@
 @import "common-vars.scss";
 
 body.dark nav {
+
+    --navbar-color: #{$navbar-color-dark};
     background-color: $navbar-color-dark;
 }
 
@@ -164,6 +166,9 @@ nav.navbar {
             }
         }
 
+        body.dark .navigation {
+            background-color: $navbar-color-dark;
+        }
       }
         
     #toggle-navigation{

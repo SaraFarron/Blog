@@ -14,8 +14,8 @@
                     <img class="icon-large" type="userpic" src="{{ post.user.profile_picture.url }}" alt="{% trans 'profile picture' %}">
                 </a>
             </div>
-            <div class="container-col">
-                <a class="width-fit" href="{% url 'user:profile' post.user.id %}">
+            <div class="container-col mgr-8">
+                <a class="width-fit break-all" href="{% url 'user:profile' post.user.id %}">
                     <span class="link" {% if post.user.is_moderator is True %} class="red" {% endif %}>{{ post.user }}</span>
                 </a>
                 <span class="date">{{ post.creation_date }}</span>

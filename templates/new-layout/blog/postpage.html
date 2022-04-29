@@ -3,6 +3,15 @@
 {% load static %}
 {% block content %}
 <div class="list-v">
+    <div class="mgb-16">
+        <div class="container-row">
+            <div class="pos-right">
+                <button class="btn-edit width-fit" id="dark-mode-toggle">
+                    <span>{% trans 'change theme' %}</span>
+                </button>
+            </div>
+        </div>
+    </div>
     {% include 'new-layout/blog/postpage-post.html' %}
     <div class="container">
         <input type="radio" class="toggle" name="comment" id="post-comment-expand">

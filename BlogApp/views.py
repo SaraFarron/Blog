@@ -1,3 +1,4 @@
+from datetime import datetime
 from re import template
 from urllib import request
 from django.contrib.auth.decorators import login_required
@@ -10,12 +11,8 @@ from api.utils import update_instance_rating, toggle_save_instance, get_comments
 from .decorators import user_owns_the_post
 from .forms import *
 
+
 NEWLO = True
-
-
-class TestPage(View):
-    def get(self, request):
-        return render(request, 'new-layout/test.html', { })
 
 
 class Index(View):
@@ -24,23 +21,38 @@ class Index(View):
             loc = request.COOKIES['user_loc']
         else:
             loc = request.LANGUAGE_CODE
+        
+        if loc != 'ru':
+            request.LANGUAGE_CODE == 'ru' 
+        else:
+            'en'
         return HttpResponseRedirect('/' + loc + '/about/')
 
 
 class About(View):
     def get(self, request):
         browser_locale = request.LANGUAGE_CODE  # return browser language code (ru/en/etc)
+        if browser_locale != 'ru' :
+            browser_locale = 'en'
         context = {'user': request.user}
         response = render(request, 'index.html' if not NEWLO else 'new-layout/about.html', context)
-        response.set_cookie('user_loc', browser_locale)
+        response.set_cookie('user_loc', browser_locale, expires= datetime.fromisocalendar(9999, 9, 1))
         return response
 
 
 class Home(View):
     def get(self, request):
-        posts = Post.objects.all().order_by('-creation_date')
-        context = {'posts': posts, 'user': request.user}
+        if 'sorting' in request.COOKIES:
+            sorting = request.COOKIES['sorting']
+        else:
+            sorting = 'novelty'
 
+        if sorting == 'novelty':
+            posts = Post.objects.all().order_by('-creation_date')
+        else:
+             posts = Post.objects.all().order_by('-number_of_comments')
+
+        context = {'posts': posts, 'user': request.user, 'sorting': sorting}
         template = 'home.html' if not NEWLO else 'new-layout/blog/home.html'
         return render(request, template, context)
 
@@ -79,7 +91,9 @@ class SavedContents(View):
 class PostPage(View):
     def get(self, request, pk, save=False, vote=None):
         post = Post.objects.get(id=pk)
-        comments = get_comments_with_replies(post)
+        comments = get_comments_with_replies(post).order_by('-publication_date')
+        for c in comments:
+            c.replies = c.replies.order_by.order_by('-publication_date')
         context = {'post': post, 'comments': comments}
 
         try:  # Occurs if user is not authorised
