@@ -1,0 +1,126 @@
+@import "common-vars.scss";
+
+.list-v {
+    $create-post-section-height: 320px;
+    $comment-post-section-height: 80px;
+
+    max-width: $postlist-max-width;
+    min-width: $postlist-min-width;
+    align-self: center;
+    margin: 0 auto;
+    display: flex;
+    flex-flow: column;
+    padding-top: 16px;
+
+    span {
+        vertical-align: middle;
+        cursor: default;
+        margin: 0px 4px;
+    }
+
+    span.link {
+        cursor: pointer;
+    }
+
+    #post-creation-submit-label {
+        display: none;
+    }
+
+    #post-create-expand{
+
+        @include expand-v-form($create-post-section-height, cancel-label, post-creation-submit-label)
+
+    }
+
+    #post-create-cancel{
+
+        @include shrink-v-form(post-create-expand)
+    }
+
+    #post-edit-expand {
+        @include expand-v-form(100%, edit-label, post-edit-submit-label)
+    }
+
+    #post-comment-submit-label {
+        display: none;
+    }
+
+    #post-comment-expand{
+
+        @include expand-v-form($comment-post-section-height, comment-label, post-comment-submit-label)
+
+    }
+
+    #post-comment-cancel{
+
+        @include shrink-v-form(post-create-expand)
+    }
+
+    .expandable-v {
+        width: 100%;
+    }
+
+    &-narrow {
+        @extend .list-v;
+        max-width: $postlist-max-width*0.6;
+    }
+}
+
+.icon {
+
+    height: 24px;
+    width: 24px;
+    vertical-align: middle;
+    border-radius: 50%;
+    
+    &.upvote, &.downvote, &.bookmark 
+    {
+        cursor: pointer;
+    }
+
+    &.upvote:hover {
+        filter: invert(100%) brightness(0.5) sepia(1) saturate(10000%) brightness(1) hue-rotate(120deg);
+        background-color: rgba(0, 0, 0, 0.055);
+
+    }
+
+    &.downvote:hover {
+        filter: invert(100%) brightness(0.5) sepia(1) saturate(10000%) brightness(0.8);
+        background-color: rgba(0, 0, 0, 0.055);
+    }
+
+    &.bookmark:hover {
+        filter: invert(50%);
+        background-color: rgba(0, 0, 0, 0.055);
+    }
+
+    &-large {
+        @extend .icon;
+        height: 40px;
+        width: 40px;
+    }
+
+}
+
+input[type]:not([type='submit']) {
+    margin-bottom: 8px;
+}
+
+.popup-shown form{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.popup-shown .post
+{
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.container .container {
+    padding: 0px;
+    margin-bottom: 0px;
+}

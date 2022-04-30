@@ -1,0 +1,29 @@
+{% load static %}
+{% load i18n %}
+
+<div>
+<h4>{% trans 'Edit post' %}</h4><hr>
+<form action="" method="POST" name="edit-post">
+    {% csrf_token %}
+    <label>
+        {% trans 'Title' %}:<br>
+        <input type="text" name="name" required maxlength="200" value="{{ post.name }}">
+    </label>
+    <label>
+        {% trans 'Description' %}:<br>
+        <input type="text" name="description" required maxlength="200" value="{{ post.description }}">
+    </label>
+    <label>
+        {% trans 'Text' %}:<br>
+        <textarea name="text" rows="6" required>{{ post.text}}</textarea>
+    </label>
+    <div class="row-content mgt-10">
+        <button
+               name="Confirm"
+               class="btn-edit"
+               ><span>{% trans 'Submit' %}</span></button>
+    
+        <a class="btn-delete" href="{{ request.META.HTTP_REFERER }}"><span>{% trans 'Cancel' %}</span></a>
+        </div>
+</form>
+</div>

@@ -1,0 +1,21 @@
+{% extends 'new-layout/base.html' %}
+{% load i18n %}
+{% block content %}
+<div class="list-v-narrow">
+    <div class="container">
+        <div class="container-col">
+            <div>
+                <h4>{% trans 'Register' %}</h4><hr>
+                <form action="#" method="POST">
+                    {% csrf_token %}
+                    <input class="width-50pc mgh-a" type="text" name="username" placeholder="{% trans 'username' %}">
+                    <input class="width-50pc mgh-a" type="email" name="email" placeholder="{% trans 'email' %}">
+                    <input class="width-50pc mgh-a" type="password" name="password1" placeholder="{% trans 'password' %}">
+                    <input class="width-50pc mgh-a" type="password" name="password2" placeholder="{% trans 'confirm password' %}">
+                    <input class="btn-submit mgh-a" type="submit" value="{% trans 'Register' %}">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

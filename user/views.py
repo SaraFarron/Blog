@@ -1,3 +1,4 @@
+from re import template
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib import messages
 from django.contrib.auth import authenticate, logout, login
@@ -13,10 +14,14 @@ from .forms import *
 from .utils import create_token, seconds_to_formatted_string
 
 
+NEWLO = True
+
+
 class LoginPage(View):
     @method_decorator(unauthenticated_user)
     def get(self, request):
-        return render(request, 'user/login.html')
+        template = 'user/login.html' if not NEWLO else 'new-layout/user/login.html'
+        return render(request, template)
 
     @method_decorator(unauthenticated_user)
     def post(self, request):
@@ -30,7 +35,8 @@ class LoginPage(View):
         else:
             messages.info(request, 'Username or password is incorrect')
 
-        return render(request, 'user/login.html')
+        template = 'user/login.html' if not NEWLO else 'new-layout/user/login.html'
+        return render(request, template)
 
 
 class RegisterPage(View):
@@ -57,11 +63,13 @@ class RegisterPage(View):
             return render(request, 'user/profile.html', context)
         else:
             messages.error(request, 'Passwords are different or this username has been taken')
-            return render(request, 'user/register.html')
+            template = 'user/register.html' if not NEWLO else 'new-layout/user/register.html'
+            return render(request, template )
 
     @method_decorator(unauthenticated_user)
     def get(self, request):
-        return render(request, 'user/register.html')
+        template = 'user/register.html' if not NEWLO else 'new-layout/user/register.html'
+        return render(request, template )
 
 
 class LogoutUser(View):
@@ -91,7 +99,7 @@ class Profile(View):
             time_since_ban = datetime.now(timezone.utc) - last_time_banned
             time_since_ban = seconds_to_formatted_string(time_since_ban)
             context['time_since_ban'] = time_since_ban
-        return render(request, 'user/profile.html', context)
+        return render(request, 'user/profile.html' if not NEWLO else 'new-layout/user/profile.html', context)
 
 
 class ProfileSettings(View):

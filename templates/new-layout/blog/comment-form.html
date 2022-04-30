@@ -1,0 +1,9 @@
+{% load i18n %}
+
+<form action="{% url 'blog:create_comment' post.id %}" method="POST" name="comment">
+    {% csrf_token %}
+    <label>
+        <textarea name="text" rows="3" required placeholder="{% trans 'Your comment...' %}"></textarea>
+    </label>
+    <input type="submit" name="Submit" style="display: none;" id="post-comment-submit">
+</form>

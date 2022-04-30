@@ -1,3 +1,6 @@
+from datetime import datetime
+from re import template
+from urllib import request
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
@@ -9,36 +12,71 @@ from .decorators import user_owns_the_post
 from .forms import *
 
 
+NEWLO = True
+
+
 class Index(View):
     def get(self, request):
         if 'user_loc' in request.COOKIES:
             loc = request.COOKIES['user_loc']
         else:
             loc = request.LANGUAGE_CODE
+        
+        if loc != 'ru':
+            request.LANGUAGE_CODE == 'ru' 
+        else:
+            'en'
         return HttpResponseRedirect('/' + loc + '/about/')
 
 
 class About(View):
     def get(self, request):
         browser_locale = request.LANGUAGE_CODE  # return browser language code (ru/en/etc)
+        if browser_locale != 'ru' :
+            browser_locale = 'en'
         context = {'user': request.user}
-        response = render(request, 'index.html', context)
-        response.set_cookie('user_loc', browser_locale)
+        response = render(request, 'index.html' if not NEWLO else 'new-layout/about.html', context)
+        response.set_cookie('user_loc', browser_locale, expires= datetime.fromisocalendar(9999, 9, 1))
         return response
 
 
 class Home(View):
     def get(self, request):
-        posts = Post.objects.all().order_by('-rating')
+        if 'sorting' in request.COOKIES:
+            sorting = request.COOKIES['sorting']
+        else:
+            sorting = 'novelty'
+
+        if sorting == 'novelty':
+            posts = Post.objects.all().order_by('-creation_date')
+        else:
+             posts = Post.objects.all().order_by('-number_of_comments')
+
+        context = {'posts': posts, 'user': request.user, 'sorting': sorting}
+        template = 'home.html' if not NEWLO else 'new-layout/blog/home.html'
+        return render(request, template, context)
+
+    @method_decorator(login_required(login_url='user:login'))
+    def post(self, request, ):
+        form = PostForm(request.POST)
+        if form.is_valid():
+            form.instance.user = Guest.objects.get(name=request.user)
+            form.save()
+            return redirect('blog:home')
+
+        form = PostForm
+        posts = Post.objects.all().order_by('-creation_date')
         context = {'posts': posts, 'user': request.user}
-        return render(request, 'home.html', context)
+
+        template = 'home.html' if not NEWLO else 'new-layout/blog/home.html'
+        return render(request, template, context)
 
 
 class HomeByRating(View):
     def get(self, request):
-        posts = Post.objects.all().order_by('-creation_date')
+        posts = Post.objects.all().order_by('-number_of_comments')
         context = {'posts': posts, 'user': request.user}
-        return render(request, 'home.html', context)
+        return render(request, 'home.html' if not NEWLO else 'new-layout/blog/home.html', context)
 
 
 class SavedContents(View):
@@ -53,15 +91,17 @@ class SavedContents(View):
 class PostPage(View):
     def get(self, request, pk, save=False, vote=None):
         post = Post.objects.get(id=pk)
-        comments = get_comments_with_replies(post)
+        comments = get_comments_with_replies(post).order_by('-publication_date')
+        for c in comments:
+            c.replies = c.replies.order_by.order_by('-publication_date')
         context = {'post': post, 'comments': comments}
 
         try:  # Occurs if user is not authorised
             user = Guest.objects.get(user=request.user)
         except TypeError:
-            return render(request, 'blog/post.html', context)
+            return render(request, 'blog/post.html' if not NEWLO else 'new-layout/blog/postpage.html', context)
         saved_by_users = post.saved_by.all()
-        context |= {'user': user, 'saved_by': saved_by_users}
+        context |= {'user': user, 'saved_by': saved_by_users }
 
         if save is True:  # TODO kwargs are not sent here
             toggle_save_instance(post, user)
@@ -70,7 +110,8 @@ class PostPage(View):
             if response.status_code != 200:
                 return render(request, '403page.html')
 
-        return render(request, 'blog/post.html', context)
+        template = 'blog/post.html' if not NEWLO else 'new-layout/blog/postpage.html'
+        return render(request, template, context)
 
 
 class CreatePost(View):
@@ -79,9 +120,9 @@ class CreatePost(View):
         user = Guest.objects.get(name=request.user.username)
         if user.is_banned:
             return render(request, '403page.html')
-        form = PostForm
+        form = PostForm #думаю, лучше верстать форму самостоятельно
 
-        context = {'form': form}
+        context = {'form': form }
         return render(request, 'blog/create_post.html', context)
 
     @method_decorator(login_required(login_url='user:login'))
@@ -104,9 +145,10 @@ class UpdatePost(View):
     def get(self, request, pk):
         post = Post.objects.get(id=pk)
         form = PostForm(instance=post)
+        context = {'form': form, 'post': post}
 
-        context = {'form': form}
-        return render(request, 'blog/update_post.html', context)
+        template = 'blog/update_post.html' if not NEWLO else 'new-layout/blog/post-edit.html'
+        return render(request, template, context)
 
     @method_decorator(decorators)
     def post(self, request, pk):
@@ -117,8 +159,10 @@ class UpdatePost(View):
             form.save()
             return redirect('blog:home')
 
-        context = {'form': form}
-        return render(request, 'blog/update_post.html', context)
+        context = {'form': form, 'post': post}
+
+        template = 'blog/update_post.html' if not NEWLO else 'new-layout/blog/post-edit.html'
+        return render(request, template, context)
 
 
 class DeletePost(View):
@@ -193,6 +237,7 @@ class Reply(View):
             form.instance.post = post
             new_comment = form.save()
             parent_comment.replies.add(new_comment)
+            post.number_of_comments = Comment.objects.filter(post=post).count() + 1
 
             return HttpResponseRedirect(reverse('blog:post', args=(post.id,)))
         form = CommentForm

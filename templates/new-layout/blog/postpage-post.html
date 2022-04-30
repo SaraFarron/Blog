@@ -1,0 +1,50 @@
+{% load static %}
+{% load i18n %}
+
+<div class="container">
+    <div class="container-col">
+        <div class="container popup-hidden" id="popup-delete-{{post.id}}">
+            {% include 'new-layout/blog/post-delete-form.html' %}
+        </div>
+
+        <div class="container-row mgb-8">
+            <div class="height-100pc">
+                <a href="{% url 'user:profile' post.user.user.id %}">
+                    <img class="icon-large" type="userpic" src="{{ post.user.profile_picture.url }}" alt="{% trans 'profile picture' %}">
+                </a>
+            </div>
+            <div class="container-col">
+                <a class="width-fit break-all" href="{% url 'user:profile' post.user.id %}">
+                    <span class="link" {% if post.user.is_moderator is True %} class="red" {% endif %}>{{ post.user }}</span>
+                </a>
+                <span class="date">{{ post.creation_date }}</span>
+            </div>
+            {%if request.user == post.user.user %}
+                <div class="pos-right">            
+                    <a href="{% url 'blog:update' post.id %}" class="btn-edit width-fit mgr-8"><img class="icon" src="{% static 'images/icons/edit_icon.svg' %}"></a><!--
+                    --><button class="btn-delete width-fit" onclick="showPopup('delete-{{ post.id }}')"><img class="icon" src="{% static 'images/icons/delete_icon.svg' %}"></button>
+                </div>
+            {% endif %}
+        </div>
+
+        <div>
+            <h1>{{ post.name }}</h1>
+            <h3>{{ post.description }}</h3>
+            <p>{{ post.text }}</p>
+        </div>
+        <div class="container-row">
+            <div class="pos-right">
+                <a class="mgr-32">
+                    <img class="icon bookmark"
+                        {% if post_saved %} src="{% static 'images/icons/bookmark_active_icon.svg' %}"
+                        {% else %} src="{% static 'images/icons/bookmark_icon.svg' %}"
+                        {% endif %} alt="{% trans 'bookmark' %}">
+                </a>
+                <div class="mgr-16"><img class="icon" src="{% static 'images/icons/comments_icon.svg' %}"><span>{{ post.number_of_comments }}</span></div>
+                <div><img class="icon upvote" src="{% static 'images/icons/upvote_icon.svg' %}" alt="+"><span
+                    {% if post.rating >= 0 %} class="green" {%else%} class="red" {%endif%}>{{ post.rating }}</span><!--
+                --><img class="icon downvote" src="{% static 'images/icons/downvote_icon.svg' %}" alt="-"></div>
+            </div>
+        </div>
+    </div>
+</div>

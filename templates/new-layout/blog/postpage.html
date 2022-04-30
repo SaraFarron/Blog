@@ -1,0 +1,39 @@
+{% extends 'new-layout/base.html' %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+<div class="list-v">
+    <div class="mgb-16">
+        <div class="container-row">
+            <div class="pos-right">
+                <button class="btn-edit width-fit" id="dark-mode-toggle">
+                    <span>{% trans 'change theme' %}</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    {% include 'new-layout/blog/postpage-post.html' %}
+    <div class="container">
+        <input type="radio" class="toggle" name="comment" id="post-comment-expand">
+        <label class="btn-submit mgr-8" for="post-comment-expand">
+            <span>{% trans 'Comment' %}</span>
+        </label>
+
+        <input type="radio" class="toggle" name="comment" id="post-comment-cancel">
+        <label class="btn-delete" for="post-comment-cancel" id="comment-label">
+            <span>{% trans 'Cancel' %}</span>
+        </label>
+
+        <label class="btn-submit mgr-8" for="post-comment-submit" id="post-comment-submit-label" style="order: -1;">
+            <span>{% trans 'Comment' %}</span>
+        </label>
+
+        <div class="expandable-v" style="order: -2;">
+            {% include 'new-layout/blog/comment-form.html' %}
+        </div>
+
+        <!-- <a href="{% url 'blog:create_comment' post.id %}" class="btn-submit"><span>{% trans 'Comment' %}</span></a> -->
+    </div>
+    {% include 'new-layout/blog/comment-list.html' %}
+</div>
+{% endblock %}

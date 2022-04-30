@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+{% load static %}
+{% load i18n %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>blog</title>
+    <link rel="stylesheet" type="text/css"
+              href="{% static 'css/bundle.css' %}">
+</head>
+<body>
+    {% include 'new-layout/navbar.html' %}
+    
+    {% block content %}
+    {% endblock %}
+</body>
+ <script src="{% static 'javascript/script.js'%}"></script>
+ <script src="{% static 'javascript/darkmode_toggle.js'%}"></script>
+ <script src="{% static 'javascript/sorting_toggle.js'%}"></script>
+</html>

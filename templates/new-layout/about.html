@@ -1,0 +1,18 @@
+{% extends 'new-layout/base.html' %}
+{% load i18n %}
+{% block content %}
+<div class="list-v">
+    <div class="mgb-16">
+        <div class="container-row">
+            <div class="pos-right">
+                <button class="btn-edit width-fit" id="dark-mode-toggle">
+                    <span>{% trans 'change theme' %}</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="container pdb-4">
+        {% trans 'welcome_page' %}
+    </div>
+</div>
+{% endblock %}

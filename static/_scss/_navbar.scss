@@ -1,0 +1,203 @@
+@import "common-vars.scss";
+
+body.dark nav {
+
+    --navbar-color: #{$navbar-color-dark};
+    background-color: $navbar-color-dark;
+}
+
+nav.navbar {
+
+    $navbar-height: 60px;
+
+    background-color: $navbar-color;
+
+    height: $navbar-height;
+    display: flex;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    flex-flow: row nowrap;
+    align-content: center;
+    align-items:center;
+    justify-content: start;
+    box-sizing: border-box;
+
+    .first-block {
+        max-width: calc((100% - #{$postlist-max-width})/2);
+        min-width: 56px;
+        display: flex;
+        flex-flow: row-reverse;
+        align-content: center;
+        align-items:center;
+        justify-self: flex-start;
+        width: 100%;
+        height: 100%;
+    }
+
+    .second-block
+    {
+        width: $postlist-max-width;
+        display: flex;
+        flex-flow: row;
+        align-content: center;
+        align-items:center;
+        justify-self: flex-start;
+    }
+
+    // .textblock {
+    //     align-self: center;
+    //     max-width: 316px;
+    //     flex-shrink: 0;
+    //     margin: 0px;
+    //     box-sizing: border-box;
+    //     cursor: default;
+
+    //     & h2{
+    //         white-space: nowrap;
+    //         text-overflow: ellipsis;
+    //         overflow: hidden;
+    //     }
+    // }
+
+    .navigation {
+        display: flex;
+        align-items: center;
+        margin-right: 8px;
+
+        a {
+            margin-left: 8px;
+
+        }
+    }
+
+    .container-row {
+        height: $navbar-height;
+        margin-right: 8px;
+    }
+
+    a.icon {
+        display: inline-block;
+        margin: 0px 8px;
+        
+        & > img {
+            width: 24px;
+            height: 24px;
+            vertical-align: middle;
+
+            &:hover {
+                filter: invert(30%) brightness(105%);
+            }
+        }
+
+        &-country, &-country-current {
+            @extend a.icon;
+            margin-right: 0px;
+            & > img {
+                filter: invert(30%);
+                &:hover {
+                    filter: invert(0%) brightness(105%);
+                }
+            }
+        }
+
+        &-country-current {
+            & > img {
+                filter: invert(0%) brightness(105%);// drop-shadow(0px 0px 4px rgb(150, 150, 150));
+                &:hover {
+                    filter: invert(0%) brightness(105%);
+                }
+            }
+        }
+    }
+
+    a.external {
+        cursor: alias;
+        margin-right: 16px;
+        width: 28px;
+        height: 28px;
+        &:hover {
+            filter: invert(30%);
+        }
+    }
+    
+    h1, h2, h3, h4 {
+        margin: 0;
+        padding: 0px 8px;
+    }
+
+    .vline {
+        border-left: 1px solid #6b6b6b;
+        height: $navbar-height*0.4;
+        left: 50%;
+        margin-left: 8px;
+    }
+
+    //toggle
+
+    @media screen and (max-width: $optimal-width) {
+        label {
+            visibility: visible !important;
+        }
+
+        .navigation {
+            flex-direction: column;
+            align-content: flex-start;
+            align-self: flex-start;
+            position: absolute;
+            top: $navbar-height;
+            right: 0;
+            background-color: var(--navbar-color);
+            margin: 0;
+            padding: 8px 0px;
+            border-radius: 0px 0px 0px 8px;
+            overflow: hidden;
+            width: 0;
+            transition: width 0.5s ease-in-out, padding 0.5s ease-in-out;
+
+            .vline {
+                display: none;
+            }
+
+            a {
+                padding: 8px 8px 16px 8px;
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        body.dark .navigation {
+            background-color: $navbar-color-dark;
+        }
+      }
+        
+    #toggle-navigation{
+        display: none;
+    
+        &:checked ~ .navigation {
+            padding: 8px;
+            width: 136px; //idk if needs to be a global var
+        }
+
+        &:checked + label img {
+            transform: rotateZ(90deg);
+        }
+    }
+
+    label {
+        display: block;
+        position: absolute;
+        top: 2px ;
+        right: 4px;
+        visibility: hidden;
+        margin: 8px;
+        cursor: pointer;
+      
+        & img {
+          height: 40px;
+          width: 40px;
+          transition: transform 0.5s ease-in-out;
+          transform-origin: 50% 50%;
+        }
+      }
+}
