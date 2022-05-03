@@ -1,6 +1,6 @@
 {% load i18n %}
 
-<form action="{% url 'blog:reply' post.id comment.id %}" method="POST" name="reply">
+<form action="{% url 'blog:reply' comment.post.id comment.id %}" method="POST" name="reply">
     {% csrf_token %}
     <label>
         <textarea name="text" rows="3" required placeholder="{% trans 'Your reply...' %}"></textarea>

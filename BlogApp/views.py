@@ -17,26 +17,13 @@ NEWLO = True
 
 class Index(View):
     def get(self, request):
-        if 'user_loc' in request.COOKIES:
-            loc = request.COOKIES['user_loc']
-        else:
-            loc = request.LANGUAGE_CODE
-        
-        if request.LANGUAGE_CODE == 'ru':
-            loc = 'ru' 
-        else:
-            loc = 'en'
-        return HttpResponseRedirect('/' + loc + '/about/')
+        return HttpResponseRedirect('/about/')
 
 
 class About(View):
     def get(self, request):
-        browser_locale = request.LANGUAGE_CODE  # return browser language code (ru/en/etc)
-        if browser_locale != 'ru' :
-            browser_locale = 'en'
         context = {'user': request.user}
         response = render(request, 'index.html' if not NEWLO else 'new-layout/about.html', context)
-        response.set_cookie('user_loc', browser_locale, expires= datetime.fromisocalendar(9999, 9, 1))
         return response
 
 
@@ -50,7 +37,7 @@ class Home(View):
         if sorting == 'novelty':
             posts = Post.objects.all().order_by('-creation_date')
         else:
-             posts = Post.objects.all().order_by('-number_of_comments')
+            posts = Post.objects.all().order_by('-number_of_comments')
 
         context = {'posts': posts, 'user': request.user, 'sorting': sorting}
         template = 'home.html' if not NEWLO else 'new-layout/blog/home.html'
@@ -91,7 +78,7 @@ class SavedContents(View):
 class PostPage(View):
     def get(self, request, pk, save=False, vote=None):
         post = Post.objects.get(id=pk)
-        comments = get_comments_with_replies(post)#.order_by('-publication_date')
+        comments = get_comments_with_replies(post).order_by('-publication_date')
         for c in comments:
             c.replies.set(c.replies.order_by('-publication_date')) 
         context = {'post': post, 'comments': comments}

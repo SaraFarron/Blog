@@ -50,6 +50,10 @@
     }
 }
 
+html, body {
+    min-height: 100%;
+}
+
 body {
     min-width: $postlist-min-width;
     margin: 0;
@@ -217,12 +221,19 @@ label {
     margin-top: 10px;
 }
 
+.pdl-8 {
+    padding-left: 8px;
+}
+
 .pdb-4 {
     padding-bottom: 4px;
 }
 
 .red {
-    color: rgb(209, 35, 35);
+    color: rgb(206, 53, 53);
+}
+.green {
+    color: rgb(53, 185, 35);
 }
 
 input.toggle {
