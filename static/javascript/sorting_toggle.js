@@ -1,22 +1,30 @@
-// check for saved 'darkMode' in localStorage
+function getCookie(cName) {
+  const name = cName + "=";
+  const cDecoded = decodeURIComponent(document.cookie); //to be careful
+  const cArr = cDecoded.split('; ');
+  let res;
+  cArr.forEach(val => {
+    if (val.indexOf(name) === 0) res = val.substring(name.length);
+  })
+  return res
+}
+
 let sorting = localStorage.getItem('sorting'); 
 
 const sortingToggle = document.querySelector('#sorting-toggle');
 
 const enableSortingByPopularity = () => {
     document.cookie = "sorting=popularity; expires=Tue, 19 Jan 9999 03:14:07 GMT";
-    localStorage.setItem('sorting', 'popularity');
   }
   
   const enableSortingByNovelty = () => {
     document.cookie = "sorting=novelty; expires=Tue, 19 Jan 9999 03:14:07 GMT";
-    localStorage.setItem('sorting', 'novelty');
   }
    
   // When someone clicks the button
   sortingToggle.addEventListener('click', () => {
   
-    sorting = localStorage.getItem('sorting'); 
+    sorting = getCookie('sorting'); 
     
     // if it not current enabled, enable it
     if (sorting !== 'popularity') {

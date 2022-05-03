@@ -86,7 +86,7 @@ class Profile(View):
             user = Guest.objects.get(user=pk)
         except ObjectDoesNotExist:
             return render(request, 'user/guest_does_not_exist.html')
-        posts = Post.objects.filter(user=user)
+        posts = Post.objects.filter(user=user).order_by('-creation_date')
         comments = Comment.objects.filter(user=user)
         saves_posts = Post.objects.filter(saved_by=user)
         last_time_banned = user.last_ban_date

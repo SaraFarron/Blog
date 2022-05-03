@@ -1,5 +1,13 @@
 {% extends 'new-layout/base.html' %}
+{% load static %}
 {% load i18n %}
+
+{% block subhead %}
+    <script src="{% static 'javascript/sorting_toggle.js'%}" defer></script>
+    <script src="{% static 'javascript/popup_toggle.js'%}" defer></script>
+    <title>blog - {% trans 'Home' %}</title>
+{% endblock%}
+
 {% block content %}
 
 <div class="list-v"> 
@@ -31,17 +39,13 @@
     <div class="mgb-16">
         <div class="container-row">
             <button class="btn-edit width-fit mgr-8" id="sorting-toggle">
-            {% if sorting == 'popularity' %}
+            {% if sorting != 'popularity' %}
                     <span>{% trans 'sort by popularity' %}</span>
                 {% else %}
                     <span>{% trans 'sort by novelty' %}</span>
                 {% endif %}
             </button>
-            <div class="pos-right">
-                <button class="btn-edit width-fit" id="dark-mode-toggle">
-                    <span>{% trans 'change theme' %}</span>
-                </button>
-            </div>
+            {% include 'new-layout/blog/change-theme-button.html' %}
         </div>
     </div>
     {% for post in posts %}

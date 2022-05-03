@@ -1,16 +1,15 @@
 {% extends 'new-layout/base.html' %}
 {% load i18n %}
 {% load static %}
+
+{% block subhead %}
+    <script src="{% static 'javascript/popup_toggle.js'%}" defer></script>
+    <title>blog - {% trans 'Post' %} {{ post.id }}</title>
+{% endblock%}
 {% block content %}
 <div class="list-v">
-    <div class="mgb-16">
-        <div class="container-row">
-            <div class="pos-right">
-                <button class="btn-edit width-fit" id="dark-mode-toggle">
-                    <span>{% trans 'change theme' %}</span>
-                </button>
-            </div>
-        </div>
+    <div class="container-row mgb-16">
+        {% include 'new-layout/blog/change-theme-button.html' %}
     </div>
     {% include 'new-layout/blog/postpage-post.html' %}
     <div class="container">
