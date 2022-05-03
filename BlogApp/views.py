@@ -22,10 +22,10 @@ class Index(View):
         else:
             loc = request.LANGUAGE_CODE
         
-        if loc != 'ru':
-            request.LANGUAGE_CODE == 'ru' 
+        if request.LANGUAGE_CODE == 'ru':
+            loc = 'ru' 
         else:
-            'en'
+            loc = 'en'
         return HttpResponseRedirect('/' + loc + '/about/')
 
 

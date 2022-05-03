@@ -45,13 +45,13 @@
         <button class="btn-edit">{% trans 'posts' %}</button>
         <button class="btn-edit pos-right">{% trans 'comments' %}</button>
     </div>
-    <div>
+    <div class="hidden-list shown">
         {% for post in posts %}
             {% include 'new-layout/blog/postlist-item.html' %}
         {% endfor %}
     </div>
-    <div>
-
+    <div class="hidden-list">
+        {% include 'new-layout/blog/comment-list.html' %}
     </div>
 
 </div>
