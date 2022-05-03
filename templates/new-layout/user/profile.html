@@ -1,45 +1,57 @@
 {% extends 'new-layout/base.html' %}
 {% load static %}
 {% load i18n %}
+
+{% block subhead %}
+    <title>blog - {% trans 'Profile' %}</title>
+{% endblock%}
+
 {% block content %}
 <div class="list-v">
-    <div class="mgb-16">
-        <div class="container-row">
-            <div class="pos-right">
-                <button class="btn-edit width-fit" id="dark-mode-toggle">
-                    <span>{% trans 'change theme' %}</span>
-                </button>
-            </div>
-        </div>
+    <div class="container-row mgb-16">
+        {% include 'new-layout/blog/change-theme-button.html' %}
     </div>
 
-    <div class="container">
-        <div class="container-row mgb-8 mgl-8 mgt-8">
-            
+    <div class="container profile">
+        <div class="container-row mgb-8 mgl-8 mgt-8">    
+            <div class="container-col mgr-8">
                 <img class="profile-pic" 
-                    {% if user.profile_picture %} 
-                        type="userpic" src="{{ user.profile_picture.url }}"
-                    {% else %}
-                        src="{% static 'images/profile.png' %}"
-                    {% endif %}>
-            
+                {% if user.profile_picture %} 
+                    type="userpic" src="{{ user.profile_picture.url }}"
+                {% else %}
+                    src="{% static 'images/profile.png' %}"
+                {% endif %}>
+            </div>
+            <div class="container-col mgr-a">
+                <h4> {% trans 'email' %}: {{ user.email }}</h4>
+                <h4> {% trans 'phone' %}: {{ user.phone }}</h4>
+                <h4> {% trans 'skype' %}: {{ user.skype }}</h4>
+                <h4> {% trans 'rating' %}: {{ user.rating }}</h4>
+                <h4> {% trans 'number of posts' %}: {{ posts|length }}</h4>
+                <h4> {% trans 'number of comments' %}: {{ comments|length }}</h4>
+                <h4> {% trans 'registration date' %}: {{ user.date_created }}</h4>
+            </div>
         </div>
         <div class="container-row">
             <h1 id="name">{{ user.name }}</h1>
         </div>
+        {% if request_user == user.user %}
         <div class="container-row">
-            <div class="container-col">
-                <h3> {% trans 'email' %}: {{ user.email }}</h3>
-                <h3> {% trans 'phone' %}: {{ user.phone }}</h3>
-                <h3> {% trans 'skype' %}: {{ user.skype }}</h3>
-                <h3> {% trans 'rating' %}: {{ user.rating }}</h3>
-                <h3> {% trans 'number of posts' %}: {{ posts|length }}</h3>
-                <h3> {% trans 'number of comments' %}: {{ comments|length }}</h3>
-                {% if request_user == user.user %}
-                <h3> {% trans 'API token' %}: {{ user.token }}</h3>
-                {% endif %}
-            </div>
+            <h4> {% trans 'API token' %}: {{ user.token }}</h4>
         </div>
+        {% endif %}
+    </div>
+    <div class="container-row mgb-16">
+        <button class="btn-edit">{% trans 'posts' %}</button>
+        <button class="btn-edit pos-right">{% trans 'comments' %}</button>
+    </div>
+    <div>
+        {% for post in posts %}
+            {% include 'new-layout/blog/postlist-item.html' %}
+        {% endfor %}
+    </div>
+    <div>
+
     </div>
 
 </div>

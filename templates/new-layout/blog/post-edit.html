@@ -1,5 +1,8 @@
 {% extends 'new-layout/base.html' %}
 {% load i18n %}
+{% block subhead %}
+    <title>blog - {% trans 'Edit post' %}</title>
+{% endblock%}
 {% block content %}
 <div class="list-v">
     {% if request.user.is_authenticated %}
