@@ -88,7 +88,7 @@ class SavedContents(View):
 class PostPage(View):
     def get(self, request, pk, save=False, vote=None):
         post = Post.objects.get(id=pk)
-        comments = get_comments_with_replies(post)  # .order_by('-publication_date')
+        comments = get_comments_with_replies(post).order_by('-publication_date')
         for c in comments:
             c.replies.set(c.replies.order_by('-publication_date'))
         context = {'post': post, 'comments': comments}
