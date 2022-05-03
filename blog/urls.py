@@ -46,7 +46,6 @@ urlpatterns = i18n_patterns(
     path('', include('BlogApp.urls')),
     path('api/', include('api.urls')),
     path('user/', include('user.urls')),
-    #path('about/', include('BlogApp.urls'),
 
     path('docs/', include_docs_urls(title='Blog Api')),
     path(r'swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
