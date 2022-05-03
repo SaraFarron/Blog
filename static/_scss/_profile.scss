@@ -9,3 +9,9 @@
 .container.profile .container-col{
     flex: initial;
 }
+
+.hidden-list {
+    pointer-events: none;
+    opacity: 0.5;
+    position: absolute;
+}
