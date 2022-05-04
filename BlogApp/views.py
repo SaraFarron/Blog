@@ -75,9 +75,11 @@ class SavedContents(View):
 class PostPage(View):
     def get(self, request, pk, save=False, vote=None):
         post = Post.objects.get(id=pk)
-        comments = get_comments_with_replies(post).order_by('-publication_date')
-        for c in comments:
-            c.replies.set(c.replies.order_by('-publication_date'))
+        comments = sorted(get_comments_with_replies(post),
+                          key=lambda d: d.publication_date,
+                          reverse=True
+                          )
+
         context = {'post': post, 'comments': comments}
 
         try:  # Occurs if user is not authorised

@@ -61,3 +61,7 @@ API Docs:
 + Add comments history section to profile  ✅
 + Add GitHub link to navbar ✅
 + Add DMs ❌
++ Clean up
++ Make save and upvote (maybe use api?)
++ Do something with pfp size
++ cache?
