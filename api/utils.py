@@ -82,8 +82,8 @@ def get_comments_with_replies(post=None) -> QuerySet:
     else:
         comments = Comment.objects.prefetch_related('replies')
     replies = []
-    for comment in comments:
-        replies += list(comment.replies.all())
+    for c in comments:
+        replies += sorted(c.replies.all(), key=lambda d: d.publication_date, reverse=True)
     for reply in replies:
         comments = comments.exclude(id=reply.id)
     return comments
