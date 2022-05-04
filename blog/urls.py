@@ -51,8 +51,8 @@ urlpatterns = i18n_patterns(
     path(r'swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path(r'redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 
-    path('newlo/', include('BlogApp.urls')),
-    path('newlo/', include('user.urls')),
+    # path('newlo/', include('BlogApp.urls')),
+    # path('newlo/', include('user.urls')),
 )
 urlpatterns += [
     path('__debug__/', include('debug_toolbar.urls')),

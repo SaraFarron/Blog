@@ -3,6 +3,8 @@
 {% load i18n %}
 
 {% block subhead %}
+    <script src="{% static 'javascript/change_pages.js'%}" defer></script>
+    <script src="{% static 'javascript/popup_toggle.js'%}" defer></script>
     <title>blog - {% trans 'Profile' %}</title>
 {% endblock%}
 
@@ -42,16 +44,18 @@
         {% endif %}
     </div>
     <div class="container-row mgb-16">
-        <button class="btn-edit">{% trans 'posts' %}</button>
-        <button class="btn-edit pos-right">{% trans 'comments' %}</button>
+        <button class="btn-edit toggler toggler-active" data-page-toggle="1">{% trans 'posts' %}</button>
+        <button class="btn-edit pos-right toggler" data-page-toggle="2">{% trans 'comments' %}</button>
     </div>
-    <div class="hidden-list shown">
-        {% for post in posts %}
-            {% include 'new-layout/blog/postlist-item.html' %}
-        {% endfor %}
-    </div>
-    <div class="hidden-list">
-        {% include 'new-layout/blog/comment-list.html' %}
+    <div class="profile-pages">
+        <div class="profile-list" data-page>
+            {% for post in posts %}
+                {% include 'new-layout/blog/postlist-item.html' %}
+            {% endfor %}
+        </div>
+        <div class="profile-list hidden" data-page>
+            {% include 'new-layout/blog/comment-list.html' %}
+        </div>
     </div>
 
 </div>

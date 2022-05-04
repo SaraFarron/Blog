@@ -40,9 +40,7 @@
                         {% endif %} alt="{% trans 'bookmark' %}">
                 </a>
                 <div class="mgr-16"><img class="icon" src="{% static 'images/icons/comments_icon.svg' %}"><span>{{ post.number_of_comments }}</span></div>
-                <div><img class="icon upvote" src="{% static 'images/icons/upvote_icon.svg' %}" alt="+"><span
-                    {% if post.rating >= 0 %} class="green" {%else%} class="red" {%endif%}>{{ post.rating }}</span><!--
-                --><img class="icon downvote" src="{% static 'images/icons/downvote_icon.svg' %}" alt="-"></div>
+                {% include 'new-layout/blog/rating-elements.html' %}
             </div>
         </div>
     </div>

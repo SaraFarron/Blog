@@ -14,26 +14,13 @@ NEWLO = True
 
 class Index(View):
     def get(self, request):
-        if 'user_loc' in request.COOKIES:
-            loc = request.COOKIES['user_loc']
-        else:
-            loc = request.LANGUAGE_CODE
-
-        if request.LANGUAGE_CODE == 'ru':
-            loc = 'ru'
-        else:
-            loc = 'en'
-        return HttpResponseRedirect('/' + loc + '/about/')
+        return HttpResponseRedirect('/about/')
 
 
 class About(View):
     def get(self, request):
-        browser_locale = request.LANGUAGE_CODE  # return browser language code (ru/en/etc)
-        if browser_locale != 'ru':
-            browser_locale = 'en'
         context = {'user': request.user}
         response = render(request, 'index.html' if not NEWLO else 'new-layout/about.html', context)
-        response.set_cookie('user_loc', browser_locale, expires=datetime.fromisocalendar(9999, 9, 1))
         return response
 
 

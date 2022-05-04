@@ -4,7 +4,7 @@
 <!-- ТУТ ДОЛЖЕН БЫТЬ СПИСОК ОТВЕТОВ НА КОММЕНТАРИЙ -->
 {% for reply in comment.replies.all %}
 <div>
-    <div class="container-row mgl-8 mgb-8">
+    <div class="container-row pdl-8 mgb-8">
         <div class="height-100pc">
             <a href="{% url 'user:profile' reply.user.user.id %}">
                 <img class="icon" type="userpic" src="{{ reply.user.profile_picture.url }}" alt="{% trans 'profile picture' %}">
@@ -24,12 +24,11 @@
         {% endif %}
     </div>
     <div class="container-row mgl-8"><p class="mgl-8">{{reply.text}}</p></div>
-    <div class="container-row mgl-8 {% if reply.replies.all|length == 0 %}
+    <div class="container-row pdl-8 mgr-8 {% if reply.replies.all|length == 0 %}
         {% else %}mgb-16{% endif %}">
-        
         <div class="pos-right">
             <div><img class="icon upvote" src="{% static 'images/icons/upvote_icon.svg' %}" alt="+"><span
-                {% if reply.rating >= 0 %} class="green" {%else%} class="red" {%endif%}>{{ reply.rating }}</span><!--
+                {% if post.rating > 0 %} class="green" {%elif post.rating < 0%} class="red" {%endif%}>{{ reply.rating }}</span><!--
             --><img class="icon downvote" src="{% static 'images/icons/downvote_icon.svg' %}" alt="-"></div>
         </div>
     </div>

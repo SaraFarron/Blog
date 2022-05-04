@@ -80,18 +80,18 @@
 
     &.upvote:hover {
         filter: invert(100%) brightness(0.5) sepia(1) saturate(10000%) brightness(1) hue-rotate(120deg);
-        background-color: rgba(0, 0, 0, 0.055);
+        background-color: rgba(0, 0, 0, 0.2);
 
     }
 
     &.downvote:hover {
         filter: invert(100%) brightness(0.5) sepia(1) saturate(10000%) brightness(0.8);
-        background-color: rgba(0, 0, 0, 0.055);
+        background-color: rgba(0, 0, 0, 0.2);
     }
 
     &.bookmark:hover {
         filter: invert(50%);
-        background-color: rgba(0, 0, 0, 0.055);
+        background-color: rgba(0, 0, 0, 0.2);
     }
 
     &-large {
