@@ -1,4 +1,3 @@
-from re import template
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib import messages
 from django.contrib.auth import authenticate, logout, login
@@ -12,7 +11,6 @@ from BlogApp.decorators import unauthenticated_user
 from BlogApp.models import Comment, Post
 from .forms import *
 from .utils import create_token, seconds_to_formatted_string
-
 
 NEWLO = True
 
@@ -64,12 +62,12 @@ class RegisterPage(View):
         else:
             messages.error(request, 'Passwords are different or this username has been taken')
             template = 'user/register.html' if not NEWLO else 'new-layout/user/register.html'
-            return render(request, template )
+            return render(request, template)
 
     @method_decorator(unauthenticated_user)
     def get(self, request):
         template = 'user/register.html' if not NEWLO else 'new-layout/user/register.html'
-        return render(request, template )
+        return render(request, template)
 
 
 class LogoutUser(View):

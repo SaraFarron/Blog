@@ -1,6 +1,4 @@
 from datetime import datetime
-from re import template
-from urllib import request
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
@@ -10,7 +8,6 @@ from django.views import View
 from api.utils import update_instance_rating, toggle_save_instance, get_comments_with_replies
 from .decorators import user_owns_the_post
 from .forms import *
-
 
 NEWLO = True
 
@@ -80,7 +77,7 @@ class PostPage(View):
         post = Post.objects.get(id=pk)
         comments = get_comments_with_replies(post).order_by('-publication_date')
         for c in comments:
-            c.replies.set(c.replies.order_by('-publication_date')) 
+            c.replies.set(c.replies.order_by('-publication_date'))
         context = {'post': post, 'comments': comments}
 
         try:  # Occurs if user is not authorised
@@ -88,7 +85,7 @@ class PostPage(View):
         except TypeError:
             return render(request, 'blog/post.html' if not NEWLO else 'new-layout/blog/postpage.html', context)
         saved_by_users = post.saved_by.all()
-        context |= {'user': user, 'saved_by': saved_by_users }
+        context |= {'user': user, 'saved_by': saved_by_users}
 
         if save is True:  # TODO kwargs are not sent here
             toggle_save_instance(post, user)
@@ -107,9 +104,9 @@ class CreatePost(View):
         user = Guest.objects.get(name=request.user.username)
         if user.is_banned:
             return render(request, '403page.html')
-        form = PostForm #думаю, лучше верстать форму самостоятельно
+        form = PostForm  # думаю, лучше верстать форму самостоятельно
 
-        context = {'form': form }
+        context = {'form': form}
         return render(request, 'blog/create_post.html', context)
 
     @method_decorator(login_required(login_url='user:login'))
