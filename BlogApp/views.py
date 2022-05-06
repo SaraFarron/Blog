@@ -39,17 +39,18 @@ class About(View):
 
 class Home(View):
     def get(self, request):
+        request_guest = Guest.objects.get(id=request.user.id)
         if 'sorting' in request.COOKIES:
             sorting = request.COOKIES['sorting']
         else:
             sorting = 'novelty'
 
         if sorting == 'novelty':
-            posts = Post.objects.all().order_by('-creation_date')
+            posts = Post.objects.select_related('user').order_by('-creation_date')
         else:
-            posts = Post.objects.all().order_by('-number_of_comments')
+            posts = Post.objects.select_related('user').order_by('-number_of_comments')
 
-        context = {'posts': posts, 'user': request.user, 'sorting': sorting}
+        context = {'posts': posts, 'user': request.user, 'sorting': sorting, 'request_guest': request_guest}
         template = 'home.html' if not NEWLO else 'new-layout/blog/home.html'
         return render(request, template, context)
 
@@ -87,13 +88,14 @@ class SavedContents(View):
 
 class PostPage(View):
     def get(self, request, pk, save=False, vote=None):
+        request_guest = Guest.objects.get(id=request.user.id)
         post = Post.objects.get(id=pk)
         comments = sorted(get_comments_with_replies(post),
                           key=lambda d: d.publication_date,
                           reverse=True
                           )
 
-        context = {'post': post, 'comments': comments}
+        context = {'post': post, 'comments': comments, 'request_guest': request_guest}
 
         try:  # Occurs if user is not authorised
             user = Guest.objects.get(user=request.user)
