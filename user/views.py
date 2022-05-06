@@ -84,14 +84,17 @@ class Profile(View):
             user = Guest.objects.get(user=pk)
         except ObjectDoesNotExist:
             return render(request, 'user/guest_does_not_exist.html')
-        posts = Post.objects.filter(user=user).order_by('-creation_date')
-        comments = Comment.objects.filter(user=user)
-        saves_posts = Post.objects.filter(saved_by=user)
+        request_guest = Guest.objects.get(id=request.user.id)
+        posts = Post.objects.filter(user=user).select_related('user').order_by('-creation_date')
+        comments = Comment.objects.filter(user=user).prefetch_related('user', 'post', 'replies')
+        saves_posts = Post.objects.filter(saved_by=user).select_related('user')
         last_time_banned = user.last_ban_date
         context = {'posts': posts,
                    'comments': comments, 'user': user,
                    'request_user': request.user,
-                   'saves_posts': saves_posts}
+                   'saves_posts': saves_posts,
+                   'request_guest': request_guest
+                   }
 
         if last_time_banned:
             time_since_ban = datetime.now(timezone.utc) - last_time_banned
