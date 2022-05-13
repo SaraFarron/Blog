@@ -11,17 +11,18 @@
 {% block content %}
 <div class="list-v">
     <div class="container-row mgb-16">
+        {% if request_guest == user %}
+        <a href="{% url 'user:profile_settings' user.user.id %}" class="btn-edit width-fit"><span>{% trans 'Settings' %}</span></a>
+        {% endif %}
         {% include 'new-layout/blog/change-theme-button.html' %}
     </div>
 
     <div class="container profile">
         <div class="container-row mgb-8 mgl-8 mgt-8">    
             <div class="container-col mgr-8">
-                <img class="profile-pic" 
-                {% if user.profile_picture %} 
-                    type="userpic" src="{{ user.profile_picture.url }}"
-                {% else %}
-                    src="{% static 'images/profile.png' %}"
+                <img class="profile-pic" type="userpic" src=
+                {% if user.profile_picture %}"{{ user.profile_picture.url }}"
+                {% else %}"{% static 'images/profile.png' %}" 
                 {% endif %}>
             </div>
             <div class="container-col mgr-a">
@@ -44,8 +45,12 @@
         {% endif %}
     </div>
     <div class="container-row mgb-16">
+        {% if posts %}
         <button class="btn-edit toggler toggler-active" data-page-toggle="1">{% trans 'posts' %}</button>
+        {% endif %}
+        {% if comments %}
         <button class="btn-edit pos-right toggler" data-page-toggle="2">{% trans 'comments' %}</button>
+        {% endif %}
     </div>
     <div class="profile-pages">
         <div class="profile-list" data-page>

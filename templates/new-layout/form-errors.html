@@ -1,0 +1,11 @@
+{% if form.errors %}
+    <div class="container">
+        {% for field in form %}
+            {% for error in field.errors %} 
+               <div class="alert">
+                    <strong class="red">{{field.name}} - {{ error }}</strong>
+               </div>
+            {% endfor %}
+        {% endfor %}
+    </div>
+{% endif %}

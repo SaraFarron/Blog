@@ -12,8 +12,9 @@ class CreateUserForm(UserCreationForm):
 
 class ProfileSetForm(ModelForm):
 
-    name = CharField(disabled=True)
-
+    #name = CharField(disabled=True)
+    delete_img=CharField()
+    
     class Meta:
         model = Guest
-        fields = ['name', 'profile_picture', 'phone', 'skype']
+        fields = ['email', 'profile_picture', 'phone', 'skype', 'delete_img']

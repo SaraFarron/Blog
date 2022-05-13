@@ -23,7 +23,7 @@
                class="btn-edit"
                ><span>{% trans 'Submit' %}</span></button>
     
-        <a class="btn-delete" href="{{ request.META.HTTP_REFERER }}"><span>{% trans 'Cancel' %}</span></a>
+        <a class="btn-delete" href="{% url 'blog:home' %}"><span>{% trans 'Cancel' %}</span></a>
         </div>
 </form>
 </div>
