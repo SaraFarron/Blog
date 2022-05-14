@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views import View
-from api.utils import get_comments_with_replies
+from api.utils import get_comments_with_replies, update_instance_rating
 from .decorators import user_owns_the_post
 from .forms import *
 
@@ -104,7 +104,7 @@ class UpdatePost(View):
         return render(request, 'blog/post/post-edit.html', context)
 
     @method_decorator(decorators)
-    def post(self, request, pk):
+    def put(self, request, pk):
         post = Post.objects.get(id=pk)
         form = PostForm(request.POST, instance=post)
 
@@ -162,6 +162,40 @@ class Reply(View):
             return HttpResponseRedirect(reverse('blog:post', args=(post.id,)))
 
         return render(request, 'errors/400page.html')
+
+
+class Save(View):
+
+    @method_decorator(login_required(login_url='user:login'))
+    def put(self, request, pk):
+        post = Post.objects.get(pk=pk)
+        user = Guest.objects.get(id=request.user.id)
+        post.saved_by.add(user)
+        post.save()
+        return request.META.get('HTTP_REFERER')  # This might not work
+
+
+class Vote(View):
+
+    @method_decorator(login_required(login_url='user:login'))
+    def put(self, request, pk):
+        page = request.META.get('HTTP_REFERER')
+        action = request.headers.action  # TODO
+        if 'post' in page:
+            instance = Post.objects.get(pk=pk)
+        elif 'comment' in page:
+            instance = Comment.objects.get(pk=pk)
+        else:
+            return render(request, 'errors/400page.html')
+
+        user = Guest.objects.get(id=request.user.id)
+        if action == 'upvote':
+            instance.upvoted_users.add(user)
+        elif action == 'downvote':
+            instance.downvoted_users.add(user)
+        instance.save()
+        update_instance_rating(instance)  # This might lead to duplicated requests
+        return request.META.get('HTTP_REFERER')  # This might not work
 
 
 def handler404(request, exception=None): return render(request, 'errors/404page.html')

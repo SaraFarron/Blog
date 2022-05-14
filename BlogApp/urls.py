@@ -16,6 +16,8 @@ urlpatterns = [
     path('new_comment/<str:pk>', CreateComment.as_view(), name='create_comment'),
     path('reply/<str:post_pk>/<str:comment>', Reply.as_view(), name='reply'),
 
-    path('about/', About.as_view(), name='about'),
+    path('vote/<str:pk>', Vote.as_view(), name='vote'),
+    path('save/<str:pk>', Save.as_view(), name='save'),
 
+    path('about/', About.as_view(), name='about'),
 ]
