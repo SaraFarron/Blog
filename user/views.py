@@ -2,6 +2,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib import messages
 from django.contrib.auth import authenticate, logout, login
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.views import View
@@ -12,13 +13,11 @@ from BlogApp.models import Comment, Post
 from .forms import *
 from .utils import create_token, seconds_to_formatted_string
 
-NEWLO = True
-
 
 class LoginPage(View):
     @method_decorator(unauthenticated_user)
     def get(self, request):
-        template = 'user/login.html' if not NEWLO else 'new-layout/user/login.html'
+        template = 'new-layout/user/login.html'
         return render(request, template)
 
     @method_decorator(unauthenticated_user)
@@ -33,8 +32,7 @@ class LoginPage(View):
         else:
             messages.info(request, 'Username or password is incorrect')
 
-        template = 'user/login.html' if not NEWLO else 'new-layout/user/login.html'
-        return render(request, template)
+        return render(request, 'new-layout/user/login.html')
 
 
 class RegisterPage(View):
@@ -57,17 +55,16 @@ class RegisterPage(View):
             login(request, user)
             messages.success(request, f'Account {username} created successfully')
 
-            context = {'user': guest}
-            return render(request, 'user/profile.html', context)
+            context = {'user': guest, 'form': form}
+            return render(request, 'new-layout/user/profile.html', context)
         else:
+            context = {'form': form}
             messages.error(request, 'Passwords are different or this username has been taken')
-            template = 'user/register.html' if not NEWLO else 'new-layout/user/register.html'
-            return render(request, template)
+            return render(request, 'new-layout/user/register.html', context)
 
     @method_decorator(unauthenticated_user)
     def get(self, request):
-        template = 'user/register.html' if not NEWLO else 'new-layout/user/register.html'
-        return render(request, template)
+        return render(request, 'new-layout/user/register.html')
 
 
 class LogoutUser(View):
@@ -100,7 +97,7 @@ class Profile(View):
             time_since_ban = datetime.now(timezone.utc) - last_time_banned
             time_since_ban = seconds_to_formatted_string(time_since_ban)
             context['time_since_ban'] = time_since_ban
-        return render(request, 'user/profile.html' if not NEWLO else 'new-layout/user/profile.html', context)
+        return render(request, 'new-layout/user/profile.html', context)
 
 
 class ProfileSettings(View):
@@ -110,7 +107,7 @@ class ProfileSettings(View):
         form = ProfileSetForm(instance=user)
 
         context = {'form': form, 'user': user}
-        return render(request, 'user/profile_settings.html', context)
+        return render(request, 'new-layout/user/profile-settings.html', context)
 
     @method_decorator(login_required(login_url='user:login'))
     def post(self, request, pk):
@@ -118,7 +115,14 @@ class ProfileSettings(View):
         form = ProfileSetForm(request.POST, request.FILES, instance=user)
 
         if form.is_valid():
-            form.save()
+            if form['delete_img'].value() == 'y':
+                form['profile_picture'].initial= 'profile.png'
 
-        context = {'form': form}
-        return render(request, 'user/profile_settings.html', context)
+            if form['phone'].value() == "":
+                print(True)
+
+            form.save()
+            return HttpResponseRedirect(f'/user/{user.user.id}')
+
+        context = {'form': form, 'user': user}
+        return render(request, 'new-layout/user/profile-settings.html', context)

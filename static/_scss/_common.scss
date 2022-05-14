@@ -253,7 +253,7 @@ input.toggle {
     }
 }
 
-input[type="text"],input[type="password"],input[type="email"],textarea {
+input[type="text"],input[type="number"],input[type="password"],input[type="email"],textarea {
     padding: 4px;
     width: -webkit-fill-available;
     font-family: 'Roboto', Tahoma;
@@ -264,6 +264,10 @@ input[type="text"],input[type="password"],input[type="email"],textarea {
 
 input[type="submit"] {
     display: block;
+}
+
+input[type="file"] {
+    display: none;
 }
 
 input {
@@ -332,4 +336,8 @@ a .icon:hover {
 
 .break-all {
     word-break: break-all;
+}
+
+.alert + .alert {
+    margin-top: 8px;
 }

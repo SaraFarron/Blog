@@ -1,4 +1,3 @@
-from datetime import datetime
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
@@ -9,8 +8,6 @@ from api.utils import update_instance_rating, toggle_save_instance, get_comments
 from .decorators import user_owns_the_post
 from .forms import *
 
-NEWLO = True
-
 
 class Index(View):
     def get(self, request):
@@ -20,8 +17,8 @@ class Index(View):
 class About(View):
     def get(self, request):
         context = {'user': request.user}
-        response = render(request, 'index.html' if not NEWLO else 'new-layout/about.html', context)
-        return response
+
+        return render(request, 'new-layout/about.html', context)
 
 
 class Home(View):
@@ -40,8 +37,8 @@ class Home(View):
             posts = Post.objects.select_related('user').order_by('-number_of_comments')
 
         context = {'posts': posts, 'user': request.user, 'sorting': sorting, 'request_guest': request_guest}
-        template = 'home.html' if not NEWLO else 'new-layout/blog/home.html'
-        return render(request, template, context)
+        
+        return render(request, 'new-layout/blog/home.html', context)
 
     @method_decorator(login_required(login_url='user:login'))
     def post(self, request, ):
@@ -55,24 +52,14 @@ class Home(View):
         posts = Post.objects.all().order_by('-creation_date')
         context = {'posts': posts, 'user': request.user}
 
-        template = 'home.html' if not NEWLO else 'new-layout/blog/home.html'
-        return render(request, template, context)
+        return render(request, 'new-layout/blog/home.html', context)
 
 
 class HomeByRating(View):
     def get(self, request):
         posts = Post.objects.all().order_by('-number_of_comments')
         context = {'posts': posts, 'user': request.user}
-        return render(request, 'home.html' if not NEWLO else 'new-layout/blog/home.html', context)
-
-
-class SavedContents(View):
-    def get(self, request):
-        user = Guest.objects.get(user=request.user)
-        saved_posts = Post.objects.filter(saved_by=user)
-        saved_comments = Comment.objects.filter(saved_by=user)
-        context = {'posts': saved_posts, 'comments': saved_comments}
-        return render(request, 'blog/saved.html', context)
+        return render(request, 'new-layout/blog/home.html', context)
 
 
 class PostPage(View):
@@ -91,7 +78,7 @@ class PostPage(View):
         try:  # Occurs if user is not authorised
             user = Guest.objects.get(user=request.user)
         except TypeError:
-            return render(request, 'blog/post.html' if not NEWLO else 'new-layout/blog/postpage.html', context)
+            return render(request, 'new-layout/blog/postpage.html', context)
         saved_by_users = post.saved_by.all()
         context |= {'user': user, 'saved_by': saved_by_users}
 
@@ -102,21 +89,10 @@ class PostPage(View):
             if response.status_code != 200:
                 return render(request, '403page.html')
 
-        template = 'blog/post.html' if not NEWLO else 'new-layout/blog/postpage.html'
-        return render(request, template, context)
+        return render(request, 'new-layout/blog/postpage.html', context)
 
 
 class CreatePost(View):
-    @method_decorator(login_required(login_url='user:login'))  # method_decorator is needed for correct work
-    def get(self, request, ):
-        user = Guest.objects.get(name=request.user.username)
-        if user.is_banned:
-            return render(request, '403page.html')
-        form = PostForm  # думаю, лучше верстать форму самостоятельно
-
-        context = {'form': form}
-        return render(request, 'blog/create_post.html', context)
-
     @method_decorator(login_required(login_url='user:login'))
     def post(self, request, ):
         form = PostForm(request.POST)
@@ -139,7 +115,7 @@ class UpdatePost(View):
         form = PostForm(instance=post)
         context = {'form': form, 'post': post}
 
-        template = 'blog/update_post.html' if not NEWLO else 'new-layout/blog/post-edit.html'
+        template = 'new-layout/blog/post-edit.html'
         return render(request, template, context)
 
     @method_decorator(decorators)
@@ -153,18 +129,11 @@ class UpdatePost(View):
 
         context = {'form': form, 'post': post}
 
-        template = 'blog/update_post.html' if not NEWLO else 'new-layout/blog/post-edit.html'
-        return render(request, template, context)
+        return render(request, 'new-layout/blog/post-edit.html', context)
 
 
 class DeletePost(View):
     decorators = [login_required(login_url='user:login'), user_owns_the_post]
-
-    @method_decorator(decorators)
-    def get(self, request, pk):
-        post = Post.objects.get(id=pk)
-        context = {'post': post}
-        return render(request, 'blog/delete_post.html', context)
 
     @method_decorator(decorators)
     def post(self, request, pk):
@@ -193,29 +162,8 @@ class CreateComment(View):
         context = {'form': form}
         return render(request, 'blog/create_comment.html', context)
 
-    @method_decorator(login_required(login_url='user:login'))
-    def get(self, request, pk):
-        user = Guest.objects.get(name=request.user.username)
-
-        if user.is_banned or user.is_muted:
-            return render(request, '403page.html')
-        form = CommentForm
-
-        context = {'form': form}
-        return render(request, 'blog/create_comment.html', context)
-
 
 class Reply(View):
-    @method_decorator(login_required(login_url='user:login'))
-    def get(self, request, post_pk, comment):
-        user = Guest.objects.get(name=request.user.username)
-
-        if user.is_banned or user.is_muted:
-            return render(request, '403page.html')
-        form = CommentForm
-
-        context = {'form': form}
-        return render(request, 'blog/reply.html', context)
 
     @method_decorator(login_required(login_url='user:login'))
     def post(self, request, post_pk, comment):

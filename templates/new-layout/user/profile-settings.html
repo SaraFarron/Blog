@@ -1,0 +1,60 @@
+{% extends 'new-layout/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block subhead %}
+    <title>blog - {% trans 'Profile settings' %}</title>
+    <script src="{% static 'javascript/delete_profile_picture.js'%}" defer></script>
+{% endblock%}
+
+{% block content %}
+<div class="list-v">
+    <div class="container-row mgb-16">
+        <a href="{% url 'user:profile' request.user.id %}" class="btn-delete width-fit"><span>{% trans 'Cancel' %}</span></a>
+        {% include 'new-layout/blog/change-theme-button.html' %}
+    </div>
+    {% include 'new-layout/form-errors.html' %}
+    <div class="container profile">
+        <div class="container-row mgb-8 mgl-8 mgt-8">    
+            <div class="container-col mgr-8">
+                <img class="profile-pic" id="profile-picture-image" type="userpic" src=
+                {% if user.profile_picture %}"{{ user.profile_picture.url }}"
+                {% else %}"{% static 'images/profile.png' %}"
+                {% endif %}>
+                <div class="profile-pic-settings">
+                    <label id="edit-btn" for="profile_picture" class="btn-edit profile-pic-btn"><span>{% trans 'Edit' %}</span></label>
+                    <button id="delete-btn" class="btn-delete profile-pic-btn"><span>{% trans 'Delete' %}</span></button>
+                </div>
+            </div>
+            <form method="POST" action="" class="mgr-8" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="hidden" id="delete_img" name="delete_img" value="n">
+                <input type="file" id="profile_picture" name="profile_picture" accept="image/*">
+                <div class="container-row">
+                    <label class="mgb-8" for="email"> {% trans 'email' %}: </label>
+                    <input type="email" id="email"  name="email" value="{{ user.email }}" placeholder="{% trans 'email' %}" required>
+                </div>
+                <div class="container-row">
+                    <label class="mgb-8" for="phone"> {% trans 'phone' %}: </label>
+                    <input type="number" id="phone" name="phone" value="{{ user.phone }}" placeholder="{% trans 'phone' %}">
+                </div>
+                <div class="container-row">
+                    <label class="mgb-8" for="skype"> {% trans 'skype' %}: </label>
+                    <input type="text" id="skype" name="skype" value="{{ user.skype }}" placeholder="{% trans 'skype' %}">
+                </div>
+                <div class="container-row">
+                    <button class="btn-submit">{% trans 'Submit' %}</button>
+                </div>
+            </form>
+        </div>
+        <div class="container-row">
+            <h1 id="name">{{ user.name }}</h1>
+        </div>
+        {% if request_guest == user %}
+        <div class="container-row">
+            <h4> {% trans 'API token' %}: {{ user.token }}</h4>
+        </div>
+        {% endif %}
+    </div>
+</div> 
+{% endblock%}
