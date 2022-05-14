@@ -27,29 +27,12 @@
                     </div>
                 {% endif %}
             </div>
-            <div class="container-row"><p>{{comment.text}}</p></div>
-            <div class="container-row">
-                <button class="btn-submit  mgr-8" id="expand-reply-{{comment.id}}" 
-                onclick="Expand('reply-comment-{{comment.id}}', 'expand-reply-{{comment.id}}', 'submit-reply-{{comment.id}}','cancel-reply-{{comment.id}}')">
-                    <span>{% trans 'Reply' %}</span>
-                </button>
-                <label for="reply-comment-submit-{{comment.id}}" class="btn-submit mgr-8" id="submit-reply-{{comment.id}}" style="display: none;">
-                    <span>{% trans 'Submit' %}</span>
-                </label>
-                <button class="btn-delete" id="cancel-reply-{{comment.id}}" style="opacity: 0%;"
-                    onclick="Shrink('reply-comment-{{comment.id}}', 'expand-reply-{{comment.id}}', 'submit-reply-{{comment.id}}','cancel-reply-{{comment.id}}')">
-                    <span>{% trans 'Cancel' %}</span>
-                </button>
-                <div class="pos-right">
-                    <div><img class="icon upvote" src="{% static 'images/icons/upvote_icon.svg' %}" alt="+"><span
-                        {% if post.rating > 0 %} class="green" {%elif post.rating < 0%} class="red" {%endif%}>{{ comment.rating }}</span><!--
-                    --><img class="icon downvote" src="{% static 'images/icons/downvote_icon.svg' %}" alt="-"></div>
+            <a href="{% url 'blog:post' pk=comment.post.id %}">
+                <div class="container-row">
+                    <p>{{comment.text}}</p>
                 </div>
-            </div>
-            <div class="expandable-v mgt-8" id="reply-comment-{{comment.id}}">
-                {% include 'blog/comment/reply-form.html' %}
-            </div>
-            {% include 'blog/comment/reply-list.html' %}
+            </a>
+            
         </div>
         
         

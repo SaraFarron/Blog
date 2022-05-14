@@ -1,14 +1,7 @@
-{% extends 'errors/base.html' %}
-{% block content %}
+{% extends 'errors/errorbase.html' %}
 {% load i18n %}
-
-    <div style="padding: 10px">
-        <h1> {% trans 'Forbidden! Check your ban or mute status in your profile page' %} </h1>
-    </div>
-
-    <div class="post">
-    <h3>{% trans 'Banned users cannot post or comment' %}</h3>
-    <h3>{% trans 'Muted users cannot comment' %}</h3>
-    </div>
-
+{% block error_message %}
+<h1>{% trans 'Forbidden! Check your ban or mute status in your profile page' %}</h1>
+<h3>{% trans 'Banned users cannot post or comment' %}</h3>
+<h3>{% trans 'Muted users cannot comment' %}</h3>
 {% endblock %}

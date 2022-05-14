@@ -1,9 +1,5 @@
-{% extends 'errors/base.html' %}
-{% block content %}
+{% extends 'errors/errorbase.html' %}
 {% load i18n %}
-
-    <div style="padding: 10px">
-        <h1> {% trans 'Bad Request' %} </h1>
-    </div>
-
+{% block error_message %}
+<h1>{% trans 'Bad Request' %}</h1>
 {% endblock %}

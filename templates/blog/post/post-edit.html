@@ -5,26 +5,11 @@
 {% endblock%}
 {% block content %}
 <div class="list-v">
-    {% if request.user.is_authenticated %}
+    {% include 'form-errors.html' %}
     <div class="container">
-        <!-- <input type="radio" class="toggle" name="create-post" id="post-create-expand">
-        <label class="btn-submit mgr-8" for="post-create-expand">
-            <span>{% trans 'Create post' %}</span>
-        </label>
-
-        <input type="radio" class="toggle" name="create-post" id="post-create-cancel">
-        <label class="btn-delete" for="post-create-cancel" id="cancel-label">
-            <span>{% trans 'Cancel' %}</span>
-        </label>
-
-        <label class="btn-submit mgr-8" for="post-creation-submit" id="post-creation-submit-label" style="order: -1;">
-            <span>{% trans 'Create post' %}</span>
-        </label> -->
-
         <div class="container-col" style="order: -2;">
             {% include 'blog/post/post-edit-form.html' %}
         </div>
     </div>
-    {% endif %}
 </div>
 {% endblock %}

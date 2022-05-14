@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block subhead %}
+    <title>blog - {% trans 'Error' %}</title>
+{% endblock%}
+{% block content %}
+    
+    <div class="list-v">
+        <div class="container">
+            {% block error_message %}Whoops...{% endblock %}
+        </div>
+    </div>
+
+{% endblock %}

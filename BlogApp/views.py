@@ -40,22 +40,31 @@ class Home(View):
 
     @method_decorator(login_required(login_url='user:login'))
     def post(self, request, ):
+        request_guest = Guest.objects.get(id=request.user.id)
+        if 'sorting' in request.COOKIES:
+            sorting = request.COOKIES['sorting']
+        else:
+            sorting = 'novelty'
+
+        if sorting == 'novelty':
+            posts = Post.objects.select_related('user').order_by('-creation_date')
+        else:
+            posts = Post.objects.select_related('user').order_by('-number_of_comments')
+
         form = PostForm(request.POST)
         if form.is_valid():
             form.instance.user = Guest.objects.get(name=request.user)
             form.save()
             return redirect('blog:home')
 
-        posts = Post.objects.all().order_by('-creation_date')
-        context = {'posts': posts, 'user': request.user}
-        return render(request, 'blog/home.html', context)
+        return render(request, 'errors/400page.html')
 
 
-class HomeByRating(View):
-    def get(self, request):
-        posts = Post.objects.all().order_by('-number_of_comments')
-        context = {'posts': posts, 'user': request.user}
-        return render(request, 'blog/home.html', context)
+# class HomeByRating(View):
+#     def get(self, request):
+#         posts = Post.objects.all().order_by('-number_of_comments')
+#         context = {'posts': posts, 'user': request.user}
+#         return render(request, 'blog/home.html', context)
 
 
 class PostPage(View):
@@ -104,7 +113,7 @@ class UpdatePost(View):
         return render(request, 'blog/post/post-edit.html', context)
 
     @method_decorator(decorators)
-    def put(self, request, pk):
+    def post(self, request, pk):
         post = Post.objects.get(id=pk)
         form = PostForm(request.POST, instance=post)
 
@@ -156,9 +165,10 @@ class Reply(View):
             user = Guest.objects.get(name=request.user)
             form.instance.user = user
             form.instance.post = post
-            new_comment = form.save()
-            parent_comment.replies.add(new_comment)
             post.number_of_comments = Comment.objects.filter(post=post).count() + 1
+            new_comment = form.save()
+            post.save()
+            parent_comment.replies.add(new_comment)
             return HttpResponseRedirect(reverse('blog:post', args=(post.id,)))
 
         return render(request, 'errors/400page.html')
@@ -167,7 +177,7 @@ class Reply(View):
 class Save(View):
 
     @method_decorator(login_required(login_url='user:login'))
-    def put(self, request, pk):
+    def post(self, request, pk):
         post = Post.objects.get(pk=pk)
         user = Guest.objects.get(id=request.user.id)
         post.saved_by.add(user)
@@ -178,7 +188,7 @@ class Save(View):
 class Vote(View):
 
     @method_decorator(login_required(login_url='user:login'))
-    def put(self, request, pk):
+    def post(self, request, pk):
         page = request.META.get('HTTP_REFERER')
         action = request.headers.action  # TODO
         if 'post' in page:
