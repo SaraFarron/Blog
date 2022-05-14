@@ -1,4 +1,4 @@
-{% extends 'new-layout/base.html' %}
+{% extends 'base.html' %}
 {% load i18n %}
 {% block subhead %}
     <title>blog - {% trans 'About' %}</title>
@@ -6,7 +6,7 @@
 {% block content %}
 <div class="list-v">
     <div class="container-row mgb-16">
-        {% include 'new-layout/blog/change-theme-button.html' %}
+        {% include 'change-theme-button.html' %}
     </div>
     <div class="container pdb-4">
         {% trans 'welcome_page' %}

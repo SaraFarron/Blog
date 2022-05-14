@@ -17,8 +17,7 @@ from .utils import create_token, seconds_to_formatted_string
 class LoginPage(View):
     @method_decorator(unauthenticated_user)
     def get(self, request):
-        template = 'new-layout/user/login.html'
-        return render(request, template)
+        return render(request, 'user/login.html')
 
     @method_decorator(unauthenticated_user)
     def post(self, request):
@@ -32,7 +31,7 @@ class LoginPage(View):
         else:
             messages.info(request, 'Username or password is incorrect')
 
-        return render(request, 'new-layout/user/login.html')
+        return render(request, 'user/login.html')
 
 
 class RegisterPage(View):
@@ -56,15 +55,15 @@ class RegisterPage(View):
             messages.success(request, f'Account {username} created successfully')
 
             context = {'user': guest, 'form': form}
-            return render(request, 'new-layout/user/profile.html', context)
+            return render(request, 'user/profile.html', context)
         else:
             context = {'form': form}
             messages.error(request, 'Passwords are different or this username has been taken')
-            return render(request, 'new-layout/user/register.html', context)
+            return render(request, 'user/register.html', context)
 
     @method_decorator(unauthenticated_user)
     def get(self, request):
-        return render(request, 'new-layout/user/register.html')
+        return render(request, 'user/register.html')
 
 
 class LogoutUser(View):
@@ -80,7 +79,7 @@ class Profile(View):
         try:
             user = Guest.objects.get(user=pk)
         except ObjectDoesNotExist:
-            return render(request, 'user/guest_does_not_exist.html')
+            return render(request, 'errors/guest_does_not_exist.html')  # Maybe delete this?
         request_guest = Guest.objects.get(id=request.user.id)
         posts = Post.objects.filter(user=user).select_related('user').order_by('-creation_date')
         comments = Comment.objects.filter(user=user).prefetch_related('user', 'post', 'replies')
@@ -97,7 +96,7 @@ class Profile(View):
             time_since_ban = datetime.now(timezone.utc) - last_time_banned
             time_since_ban = seconds_to_formatted_string(time_since_ban)
             context['time_since_ban'] = time_since_ban
-        return render(request, 'new-layout/user/profile.html', context)
+        return render(request, 'user/profile.html', context)
 
 
 class ProfileSettings(View):
@@ -107,7 +106,7 @@ class ProfileSettings(View):
         form = ProfileSetForm(instance=user)
 
         context = {'form': form, 'user': user}
-        return render(request, 'new-layout/user/profile-settings.html', context)
+        return render(request, 'user/profile-settings.html', context)
 
     @method_decorator(login_required(login_url='user:login'))
     def post(self, request, pk):
@@ -116,7 +115,7 @@ class ProfileSettings(View):
 
         if form.is_valid():
             if form['delete_img'].value() == 'y':
-                form['profile_picture'].initial= 'profile.png'
+                form['profile_picture'].initial = 'profile.png'
 
             if form['phone'].value() == "":
                 print(True)
@@ -125,4 +124,4 @@ class ProfileSettings(View):
             return HttpResponseRedirect(f'/user/{user.user.id}')
 
         context = {'form': form, 'user': user}
-        return render(request, 'new-layout/user/profile-settings.html', context)
+        return render(request, 'user/profile-settings.html', context)

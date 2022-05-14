@@ -17,8 +17,7 @@ class Index(View):
 class About(View):
     def get(self, request):
         context = {'user': request.user}
-
-        return render(request, 'new-layout/about.html', context)
+        return render(request, 'blog/about.html', context)
 
 
 class Home(View):
@@ -37,8 +36,7 @@ class Home(View):
             posts = Post.objects.select_related('user').order_by('-number_of_comments')
 
         context = {'posts': posts, 'user': request.user, 'sorting': sorting, 'request_guest': request_guest}
-        
-        return render(request, 'new-layout/blog/home.html', context)
+        return render(request, 'blog/home.html', context)
 
     @method_decorator(login_required(login_url='user:login'))
     def post(self, request, ):
@@ -48,18 +46,16 @@ class Home(View):
             form.save()
             return redirect('blog:home')
 
-        form = PostForm
         posts = Post.objects.all().order_by('-creation_date')
         context = {'posts': posts, 'user': request.user}
-
-        return render(request, 'new-layout/blog/home.html', context)
+        return render(request, 'blog/home.html', context)
 
 
 class HomeByRating(View):
     def get(self, request):
         posts = Post.objects.all().order_by('-number_of_comments')
         context = {'posts': posts, 'user': request.user}
-        return render(request, 'new-layout/blog/home.html', context)
+        return render(request, 'blog/home.html', context)
 
 
 class PostPage(View):
@@ -78,7 +74,7 @@ class PostPage(View):
         try:  # Occurs if user is not authorised
             user = Guest.objects.get(user=request.user)
         except TypeError:
-            return render(request, 'new-layout/blog/postpage.html', context)
+            return render(request, 'blog/post/postpage.html', context)
         saved_by_users = post.saved_by.all()
         context |= {'user': user, 'saved_by': saved_by_users}
 
@@ -87,9 +83,9 @@ class PostPage(View):
         elif vote:
             response = update_instance_rating(post, user, vote)
             if response.status_code != 200:
-                return render(request, '403page.html')
+                return render(request, 'errors/403page.html')
 
-        return render(request, 'new-layout/blog/postpage.html', context)
+        return render(request, 'blog/post/postpage.html', context)
 
 
 class CreatePost(View):
@@ -100,10 +96,8 @@ class CreatePost(View):
             form.instance.user = Guest.objects.get(name=request.user)
             form.save()
             return redirect('blog:home')
-        form = PostForm
 
-        context = {'form': form}
-        return render(request, 'blog/create_post.html', context)
+        return render(request, 'errors/400page.html')
 
 
 class UpdatePost(View):
@@ -114,9 +108,7 @@ class UpdatePost(View):
         post = Post.objects.get(id=pk)
         form = PostForm(instance=post)
         context = {'form': form, 'post': post}
-
-        template = 'new-layout/blog/post-edit.html'
-        return render(request, template, context)
+        return render(request, 'blog/post/post-edit.html', context)
 
     @method_decorator(decorators)
     def post(self, request, pk):
@@ -128,8 +120,7 @@ class UpdatePost(View):
             return redirect('blog:home')
 
         context = {'form': form, 'post': post}
-
-        return render(request, 'new-layout/blog/post-edit.html', context)
+        return render(request, 'blog/post/post-edit.html', context)
 
 
 class DeletePost(View):
@@ -155,12 +146,9 @@ class CreateComment(View):
             post.number_of_comments = Comment.objects.filter(post=post).count() + 1
             form.save()
             post.save()
-
             return HttpResponseRedirect(reverse('blog:post', args=(post.id,)))
-        form = CommentForm
 
-        context = {'form': form}
-        return render(request, 'blog/create_comment.html', context)
+        return render(request, 'errors/400page.html')
 
 
 class Reply(View):
@@ -178,21 +166,18 @@ class Reply(View):
             new_comment = form.save()
             parent_comment.replies.add(new_comment)
             post.number_of_comments = Comment.objects.filter(post=post).count() + 1
-
             return HttpResponseRedirect(reverse('blog:post', args=(post.id,)))
-        form = CommentForm
 
-        context = {'form': form}
-        return render(request, 'blog/reply.html', context)
+        return render(request, 'errors/400page.html')
 
 
-def handler404(request, exception=None): return render(request, '404page.html')
+def handler404(request, exception=None): return render(request, 'errors/404page.html')
 
 
-def handler400(request, exception=None): return render(request, '400page.html')
+def handler400(request, exception=None): return render(request, 'errors/400page.html')
 
 
-def handler403(request, exception=None): return render(request, '403page.html')
+def handler403(request, exception=None): return render(request, 'errors/403page.html')
 
 
-def handler500(request, exception=None): return render(request, '500page.html')
+def handler500(request, exception=None): return render(request, 'errors/500page.html')

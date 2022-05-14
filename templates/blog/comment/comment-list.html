@@ -8,7 +8,7 @@
         <!-- ТУТ ДОЛЖДНО БЫТЬ СОДЕРАЖАНИЕ КОММЕНТАРИЯ -->
         <div class="container-col">
             <div class="container popup-hidden" id="popup-delete-{{comment.id}}">
-                {% include 'new-layout/blog/comment-delete-form.html' %}
+                {% include 'blog/comment/comment-delete-form.html' %}
             </div>
             <div class="container-row mgb-8">
                 <div class="height-100pc">
@@ -49,9 +49,9 @@
                 </div>
             </div>
             <div class="expandable-v mgt-8" id="reply-comment-{{comment.id}}">
-                {% include 'new-layout/blog/reply-form.html' %}
+                {% include 'blog/comment/reply-form.html' %}
             </div>
-            {% include 'new-layout/blog/reply-list.html' %}
+            {% include 'blog/comment/reply-list.html' %}
         </div>
         
         

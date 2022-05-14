@@ -1,17 +1,17 @@
-{% extends 'new-layout/base.html' %}
+{% extends 'base.html' %}
 {% load i18n %}
 {% load static %}
 
 {% block subhead %}
-    <script src="{% static 'javascript/popup_toggle.js'%}" defer></script>
+    <script src="{% static 'javascript/popup_toggle.js' %}" defer></script>
     <title>blog - {% trans 'Post' %} {{ post.id }}</title>
 {% endblock%}
 {% block content %}
 <div class="list-v">
     <div class="container-row mgb-16">
-        {% include 'new-layout/blog/change-theme-button.html' %}
+        {% include 'change-theme-button.html' %}
     </div>
-    {% include 'new-layout/blog/postpage-post.html' %}
+    {% include 'blog/post/postpage-post.html' %}
     <div class="container">
         <input type="radio" class="toggle" name="comment" id="post-comment-expand">
         <label class="btn-submit mgr-8" for="post-comment-expand">
@@ -28,11 +28,11 @@
         </label>
 
         <div class="expandable-v" style="order: -2;">
-            {% include 'new-layout/blog/comment-form.html' %}
+            {% include 'blog/comment/comment-form.html' %}
         </div>
 
         <!-- <a href="{% url 'blog:create_comment' post.id %}" class="btn-submit"><span>{% trans 'Comment' %}</span></a> -->
     </div>
-    {% include 'new-layout/blog/comment-list.html' %}
+    {% include 'blog/comment/comment-list.html' %}
 </div>
 {% endblock %}

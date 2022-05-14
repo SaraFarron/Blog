@@ -5,13 +5,13 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="{% static 'css/bundle.css' %}">
-    <script src="{% static 'javascript/darkmode_toggle.js'%}" defer></script>
+    <script src="{% static 'javascript/darkmode_toggle.js' %}" defer></script>
     {% block subhead %}
         <title>blog</title>
     {% endblock %}
 </head>
 <body>
-    {% include 'new-layout/navbar.html' %}
+    {% include 'navbar.html' %}
     
     {% block content %}
     {% endblock %}

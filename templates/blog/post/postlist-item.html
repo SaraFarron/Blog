@@ -4,7 +4,7 @@
 <div class="container">
     <div class="container-col">
         <div class="container popup-hidden" id="popup-delete-{{post.id}}">
-            {% include 'new-layout/blog/post-delete-form.html' %}
+            {% include 'blog/post/post-delete-form.html' %}
             
         </div>
 
@@ -40,7 +40,7 @@
                         {% endif %} alt="{% trans 'bookmark' %}">
                 </a>
                 <div class="mgr-16"><img class="icon" src="{% static 'images/icons/comments_icon.svg' %}"><span>{{ post.number_of_comments }}</span></div>
-                {% include 'new-layout/blog/rating-elements.html' %}
+                {% include 'blog/rating-elements.html' %}
             </div>
         </div>
     </div>

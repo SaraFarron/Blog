@@ -1,19 +1,19 @@
-{% extends 'new-layout/base.html' %}
+{% extends 'base.html' %}
 {% load static %}
 {% load i18n %}
 
 {% block subhead %}
     <title>blog - {% trans 'Profile settings' %}</title>
-    <script src="{% static 'javascript/delete_profile_picture.js'%}" defer></script>
+    <script src="{% static 'javascript/delete_profile_picture.js' %}" defer></script>
 {% endblock%}
 
 {% block content %}
 <div class="list-v">
     <div class="container-row mgb-16">
         <a href="{% url 'user:profile' request.user.id %}" class="btn-delete width-fit"><span>{% trans 'Cancel' %}</span></a>
-        {% include 'new-layout/blog/change-theme-button.html' %}
+        {% include 'blog/../change-theme-button.html' %}
     </div>
-    {% include 'new-layout/form-errors.html' %}
+    {% include 'form-errors.html' %}
     <div class="container profile">
         <div class="container-row mgb-8 mgl-8 mgt-8">    
             <div class="container-col mgr-8">
