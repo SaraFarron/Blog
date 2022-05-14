@@ -1,10 +1,10 @@
-{% extends 'new-layout/base.html' %}
+{% extends 'base.html' %}
 {% load static %}
 {% load i18n %}
 
 {% block subhead %}
-    <script src="{% static 'javascript/sorting_toggle.js'%}" defer></script>
-    <script src="{% static 'javascript/popup_toggle.js'%}" defer></script>
+    <script src="{% static 'javascript/sorting_toggle.js' %}" defer></script>
+    <script src="{% static 'javascript/popup_toggle.js' %}" defer></script>
     <title>blog - {% trans 'Home' %}</title>
 {% endblock%}
 
@@ -31,7 +31,7 @@
         </label>
 
         <div class="expandable-v" style="order: -2;">
-            {% include 'new-layout/blog/post-creation-form.html' %}
+            {% include 'blog/post/post-creation-form.html' %}
         </div>
         {% endif %}
     </div>
@@ -45,11 +45,11 @@
                     <span>{% trans 'sort by novelty' %}</span>
                 {% endif %}
             </button>
-            {% include 'new-layout/blog/change-theme-button.html' %}
+            {% include 'change-theme-button.html' %}
         </div>
     </div>
     {% for post in posts %}
-        {% include 'new-layout/blog/postlist-item.html' %}
+        {% include 'blog/post/postlist-item.html' %}
     {% endfor %}
 </div>
 

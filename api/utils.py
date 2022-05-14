@@ -25,7 +25,7 @@ def update_user_rating(user: Guest) -> None:
 @silk_profile(name='update instance func')
 def update_instance_rating(instance: Comment | Post, user: Guest, action: Literal['upvote', 'downvote']) -> Response:
     """
-        Update rating of instance and it's owner, return 200 or 403
+        Update rating of instance, and it's owner, return 200 or 403
     :param instance: Comment or Post instance
     :param user: Guest instance
     :param action: either 'upvote' or 'downvote'

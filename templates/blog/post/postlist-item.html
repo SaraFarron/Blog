@@ -4,7 +4,8 @@
 <div class="container">
     <div class="container-col">
         <div class="container popup-hidden" id="popup-delete-{{post.id}}">
-            {% include 'new-layout/blog/post-delete-form.html' %}
+            {% include 'blog/post/post-delete-form.html' %}
+            
         </div>
 
         <div class="container-row mgb-8">
@@ -13,7 +14,7 @@
                     <img class="icon-large" type="userpic" src="{{ post.user.profile_picture.url }}" alt="{% trans 'profile picture' %}">
                 </a>
             </div>
-            <div class="container-col">
+            <div class="container-col mgr-8">
                 <a class="width-fit break-all" href="{% url 'user:profile' post.user.id %}">
                     <span class="link" {% if post.user.is_moderator is True %} class="red" {% endif %}>{{ post.user }}</span>
                 </a>
@@ -26,12 +27,10 @@
                 </div>
             {% endif %}
         </div>
-
-        <div>
+        <a href="{% url 'blog:post' pk=post.id %}">
             <h1>{{ post.name }}</h1>
             <h3>{{ post.description }}</h3>
-            <p>{{ post.text }}</p>
-        </div>
+        </a>
         <div class="container-row">
             <div class="pos-right">
                 <a class="mgr-32">
@@ -41,7 +40,7 @@
                         {% endif %} alt="{% trans 'bookmark' %}">
                 </a>
                 <div class="mgr-16"><img class="icon" src="{% static 'images/icons/comments_icon.svg' %}"><span>{{ post.number_of_comments }}</span></div>
-                {% include 'new-layout/blog/rating-elements.html' %}
+                {% include 'blog/rating-elements.html' %}
             </div>
         </div>
     </div>

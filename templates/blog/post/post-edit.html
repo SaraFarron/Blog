@@ -1,4 +1,4 @@
-{% extends 'new-layout/base.html' %}
+{% extends 'base.html' %}
 {% load i18n %}
 {% block subhead %}
     <title>blog - {% trans 'Edit post' %}</title>
@@ -22,7 +22,7 @@
         </label> -->
 
         <div class="container-col" style="order: -2;">
-            {% include 'new-layout/blog/post-edit-form.html' %}
+            {% include 'blog/post/post-edit-form.html' %}
         </div>
     </div>
     {% endif %}
