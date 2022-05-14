@@ -20,7 +20,6 @@ urlpatterns = [
     path('new_comment/<str:pk>', CreateComment.as_view(), name='create_comment'),
     path('reply/<str:post_pk>/<str:comment>', Reply.as_view(), name='reply'),
 
-    #path('saved/', SavedContents.as_view(), name='saved'),
     path('about/', About.as_view(), name='about'),
 
 ]

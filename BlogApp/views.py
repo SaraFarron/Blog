@@ -60,15 +60,6 @@ class HomeByRating(View):
         return render(request, 'new-layout/blog/home.html', context)
 
 
-# class SavedContents(View):
-#     def get(self, request):
-#         user = Guest.objects.get(user=request.user)
-#         saved_posts = Post.objects.filter(saved_by=user)
-#         saved_comments = Comment.objects.filter(saved_by=user)
-#         context = {'posts': saved_posts, 'comments': saved_comments}
-#         return render(request, 'blog/saved.html', context)
-
-
 class PostPage(View):
     def get(self, request, pk, save=False, vote=None):
         request_guest = Guest.objects.get(id=request.user.id)
@@ -98,16 +89,6 @@ class PostPage(View):
 
 
 class CreatePost(View):
-    # @method_decorator(login_required(login_url='user:login'))  # method_decorator is needed for correct work
-    # def get(self, request, ):
-    #     user = Guest.objects.get(name=request.user.username)
-    #     if user.is_banned:
-    #         return render(request, '403page.html')
-    #     form = PostForm
-
-    #     context = {'form': form}
-    #     return render(request, 'blog/create_post.html', context)
-
     @method_decorator(login_required(login_url='user:login'))
     def post(self, request, ):
         form = PostForm(request.POST)
@@ -150,12 +131,6 @@ class UpdatePost(View):
 class DeletePost(View):
     decorators = [login_required(login_url='user:login'), user_owns_the_post]
 
-    # @method_decorator(decorators)
-    # def get(self, request, pk):
-    #     post = Post.objects.get(id=pk)
-    #     context = {'post': post}
-    #     return render(request, 'blog/delete_post.html', context)
-
     @method_decorator(decorators)
     def post(self, request, pk):
         post = Post.objects.get(id=pk)
@@ -183,29 +158,8 @@ class CreateComment(View):
         context = {'form': form}
         return render(request, 'blog/create_comment.html', context)
 
-    # @method_decorator(login_required(login_url='user:login'))
-    # def get(self, request, pk):
-    #     user = Guest.objects.get(name=request.user.username)
-
-    #     if user.is_banned or user.is_muted:
-    #         return render(request, '403page.html')
-    #     form = CommentForm
-
-    #     context = {'form': form}
-    #     return render(request, 'blog/create_comment.html', context)
-
 
 class Reply(View):
-    @method_decorator(login_required(login_url='user:login'))
-    # def get(self, request, post_pk, comment):
-    #     user = Guest.objects.get(name=request.user.username)
-
-    #     if user.is_banned or user.is_muted:
-    #         return render(request, '403page.html')
-    #     form = CommentForm
-
-    #     context = {'form': form}
-    #     return render(request, 'blog/reply.html', context)
 
     @method_decorator(login_required(login_url='user:login'))
     def post(self, request, post_pk, comment):
