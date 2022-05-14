@@ -26,7 +26,9 @@ class About(View):
 
 class Home(View):
     def get(self, request):
-        request_guest = Guest.objects.get(id=request.user.id)
+        request_guest = None
+        if request.user.is_authenticated:
+            request_guest = Guest.objects.get(id=request.user.id)
         if 'sorting' in request.COOKIES:
             sorting = request.COOKIES['sorting']
         else:
@@ -75,7 +77,9 @@ class SavedContents(View):
 
 class PostPage(View):
     def get(self, request, pk, save=False, vote=None):
-        request_guest = Guest.objects.get(id=request.user.id)
+        request_guest = None
+        if request.user.is_authenticated:
+            request_guest = Guest.objects.get(id=request.user.id)
         post = Post.objects.get(id=pk)
         comments = sorted(get_comments_with_replies(post),
                           key=lambda d: d.publication_date,
