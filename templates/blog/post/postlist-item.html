@@ -27,7 +27,7 @@
                 </div>
             {% endif %}
         </div>
-        <a href="{% url 'blog:post' pk=post.id save=False %}">
+        <a href="{% url 'blog:post' pk=post.id %}">
             <h1>{{ post.name }}</h1>
             <h3>{{ post.description }}</h3>
         </a>

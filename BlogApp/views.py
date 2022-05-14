@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views import View
-from api.utils import update_instance_rating, toggle_save_instance, get_comments_with_replies
+from api.utils import get_comments_with_replies
 from .decorators import user_owns_the_post
 from .forms import *
 
@@ -59,7 +59,7 @@ class HomeByRating(View):
 
 
 class PostPage(View):
-    def get(self, request, pk, save=False, vote=None):
+    def get(self, request, pk):
         request_guest = None
         if request.user.is_authenticated:
             request_guest = Guest.objects.get(id=request.user.id)
@@ -77,13 +77,6 @@ class PostPage(View):
             return render(request, 'blog/post/postpage.html', context)
         saved_by_users = post.saved_by.all()
         context |= {'user': user, 'saved_by': saved_by_users}
-
-        if save is True:  # TODO kwargs are not sent here
-            toggle_save_instance(post, user)
-        elif vote:
-            response = update_instance_rating(post, user, vote)
-            if response.status_code != 200:
-                return render(request, 'errors/403page.html')
 
         return render(request, 'blog/post/postpage.html', context)
 
