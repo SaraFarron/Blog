@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views import View
 from api.utils import get_comments_with_replies, update_instance_rating
+from .utils import new_comment
 from .decorators import user_owns_the_post
 from .forms import *
 
@@ -58,13 +59,6 @@ class Home(View):
             return redirect('blog:home')
 
         return render(request, 'errors/400page.html')
-
-
-# class HomeByRating(View):
-#     def get(self, request):
-#         posts = Post.objects.all().order_by('-number_of_comments')
-#         context = {'posts': posts, 'user': request.user}
-#         return render(request, 'blog/home.html', context)
 
 
 class PostPage(View):
@@ -136,18 +130,14 @@ class DeletePost(View):
 
 
 class CreateComment(View):
+
     @method_decorator(login_required(login_url='user:login'))
     def post(self, request, pk):
         form = CommentForm(request.POST)
 
         if form.is_valid():
             post = Post.objects.get(id=pk)
-            user = Guest.objects.get(name=request.user)
-            form.instance.user = user
-            form.instance.post = post
-            post.number_of_comments = Comment.objects.filter(post=post).count() + 1
-            form.save()
-            post.save()
+            new_comment(request, form, post)
             return HttpResponseRedirect(reverse('blog:post', args=(post.id,)))
 
         return render(request, 'errors/400page.html')
@@ -161,14 +151,10 @@ class Reply(View):
 
         if form.is_valid():
             post = Post.objects.get(id=post_pk)
+            reply = new_comment(request, form, post)
             parent_comment = Comment.objects.get(id=comment)
-            user = Guest.objects.get(name=request.user)
-            form.instance.user = user
-            form.instance.post = post
-            post.number_of_comments = Comment.objects.filter(post=post).count() + 1
-            new_comment = form.save()
-            post.save()
-            parent_comment.replies.add(new_comment)
+            parent_comment.replies.add(reply)
+            parent_comment.save()
             return HttpResponseRedirect(reverse('blog:post', args=(post.id,)))
 
         return render(request, 'errors/400page.html')
