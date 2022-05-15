@@ -25,6 +25,7 @@ class Post(models.Model):
 class Comment(models.Model):
     id = models.AutoField(primary_key=True)
     user = models.ForeignKey(Guest, on_delete=models.CASCADE, verbose_name=_('author'))
+    owner_id = models.IntegerField(default=0, verbose_name=_('owner id'))
     text = models.TextField(verbose_name=_('text'))
     publication_date = models.DateTimeField(auto_now_add=True, verbose_name=_('publication date'))
     post = models.ForeignKey(Post, on_delete=models.CASCADE, verbose_name=_('post name'))

@@ -151,9 +151,9 @@ class Reply(View):
 
         if form.is_valid():
             post = Post.objects.get(id=post_pk)
-            new_comment(request, form, post)
+            reply = new_comment(request, form, post)
             parent_comment = Comment.objects.get(id=comment)
-            parent_comment.replies.add(new_comment)
+            parent_comment.replies.add(reply)
             parent_comment.save()
             return HttpResponseRedirect(reverse('blog:post', args=(post.id,)))
 

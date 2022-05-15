@@ -101,7 +101,8 @@ class CommentViewSet(CreateModelMixin, ListModelMixin, DestroyModelMixin, Generi
             comment = Comment.objects.create(
                 text=comment_text,
                 post=post,
-                user=user
+                user=user,
+                owner_id=user.id
             )
             comment.save()
 
