@@ -102,6 +102,8 @@ class Profile(View):
 class ProfileSettings(View):
     @method_decorator(login_required(login_url='user:login'))
     def get(self, request, pk):
+        # Maybe check if request.user == Guest.objects.get(pk=pk)?
+        # if not then redirect to 403
         user = Guest.objects.get(name=request.user)
         form = ProfileSetForm(instance=user)
 
