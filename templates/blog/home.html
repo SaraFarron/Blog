@@ -11,7 +11,7 @@
 {% block content %}
 
 <div class="list-v"> 
-    
+    {% include 'form-errors.html' %}
     <div class="container">
         <h2 class="{% if request.user.is_authenticated %}mgb-8{% endif %}" style="order: -3;">{% trans 'Hello' %}, {{ request.user }}</h2>
         {% if request.user.is_authenticated %}

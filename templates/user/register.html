@@ -13,10 +13,10 @@
                 <h4>{% trans 'Register' %}</h4><hr>
                 <form action="#" method="POST">
                     {% csrf_token %}
-                    <input class="width-50pc mgh-a" type="text" name="username" placeholder="{% trans 'username' %}">
-                    <input class="width-50pc mgh-a" type="email" name="email" placeholder="{% trans 'email' %}">
-                    <input class="width-50pc mgh-a" type="password" name="password1" placeholder="{% trans 'password' %}">
-                    <input class="width-50pc mgh-a" type="password" name="password2" placeholder="{% trans 'confirm password' %}">
+                    <input class="width-50pc mgh-a" type="text" name="username" placeholder="{% trans 'username' %}" required>
+                    <input class="width-50pc mgh-a" type="email" name="email" placeholder="{% trans 'email' %}" required>
+                    <input class="width-50pc mgh-a" type="password" name="password1" placeholder="{% trans 'password' %}" required>
+                    <input class="width-50pc mgh-a" type="password" name="password2" placeholder="{% trans 'confirm password' %}" required>
                     <input class="btn-submit mgh-a" type="submit" value="{% trans 'Register' %}">
                 </form>
             </div>

@@ -12,8 +12,8 @@
                 <h4>{% trans 'Login' %}</h4><hr>
                 <form action="#" method="POST">
                     {% csrf_token %}
-                    <input class="width-50pc mgh-a" type="text" name="username" placeholder="{% trans 'username' %}">
-                    <input class="width-50pc mgh-a" type="password" name="password" placeholder="{% trans 'password' %}">
+                    <input class="width-50pc mgh-a" type="text" name="username" placeholder="{% trans 'username' %}" required>
+                    <input class="width-50pc mgh-a" type="password" name="password" placeholder="{% trans 'password' %}" required>
                     <input class="btn-submit mgh-a" type="submit" value="{% trans 'Login' %}">
                 </form>
             </div>

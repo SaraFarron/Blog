@@ -208,11 +208,22 @@ input.toggle {
 
 input[type="text"], input[type="number"], input[type="password"], input[type="email"], textarea {
   padding: 4px;
-  width: -webkit-fill-available;
+  width: 100%;
   font-family: 'Roboto', Tahoma;
-  font-size: medium;
+  font-size: 16px;
+  text-indent: 8px;
   display: block;
-  -webkit-text-size-adjust: 100%;
+  border: 0;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+textarea.post-textarea {
+  height: 132px;
+}
+
+textarea.comment-textarea {
+  height: 70px;
 }
 
 input[type="submit"] {
@@ -809,5 +820,5 @@ button[type=submit] {
 }
 
 .profile label:not([class*="btn"]) {
-  width: 100px;
+  width: 150px;
 }

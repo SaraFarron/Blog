@@ -31,15 +31,15 @@
                 <input type="hidden" id="delete_img" name="delete_img" value="n">
                 <input type="file" id="profile_picture" name="profile_picture" accept="image/*">
                 <div class="container-row">
-                    <label class="mgb-8" for="email"> {% trans 'email' %}: </label>
+                    <label class="mgb-8" for="email"><h4>{% trans 'email' %}:</h4></label>
                     <input type="email" id="email"  name="email" value="{{ user.email }}" placeholder="{% trans 'email' %}" required>
                 </div>
                 <div class="container-row">
-                    <label class="mgb-8" for="phone"> {% trans 'phone' %}: </label>
+                    <label class="mgb-8" for="phone"><h4>{% trans 'phone' %}:</h4></label>
                     <input type="number" id="phone" name="phone" value="{{ user.phone }}" placeholder="{% trans 'phone' %}">
                 </div>
                 <div class="container-row">
-                    <label class="mgb-8" for="skype"> {% trans 'skype' %}: </label>
+                    <label class="mgb-8" for="skype"><h4>{% trans 'skype' %}:</h4></label>
                     <input type="text" id="skype" name="skype" value="{{ user.skype }}" placeholder="{% trans 'skype' %}">
                 </div>
                 <div class="container-row">
@@ -50,9 +50,9 @@
         <div class="container-row">
             <h1 id="name">{{ user.name }}</h1>
         </div>
-        {% if request_guest == user %}
+        {% if request.user.id == user.id %}
         <div class="container-row">
-            <h4> {% trans 'API token' %}: {{ user.token }}</h4>
+            <h4 st  > {% trans 'API token' %}: {{ user.token }}</h4>
         </div>
         {% endif %}
     </div>
