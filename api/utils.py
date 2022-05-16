@@ -105,6 +105,9 @@ def create_reply(post: Post, user: Guest, text: str, parent_comment_id: int) -> 
         post=post,
         user=user,
         owner_id=user.id,
+        owner_name=user.name,
+        owner_is_moderator=user.is_moderator,
+        owner_pfp_url=user.profile_picture.url,
     )
     comment.save()
     parent_comment.replies.add(comment)
