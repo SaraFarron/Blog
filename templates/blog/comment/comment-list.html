@@ -8,12 +8,12 @@
             </div>
             <div class="container-row mgb-8">
                 <div class="height-100pc">
-                    <a href="{% url 'user:profile' comment.user.id %}">
+                    <a href="{% url 'user:profile' comment.owner_id %}">
                         <img class="icon-large" type="userpic" src="{{ comment.user.profile_picture.url }}" alt="{% trans 'profile picture' %}">
                     </a>
                 </div>
                 <div class="container-col">
-                    <a class="width-fit break-all" href="{% url 'user:profile' comment.user.id %}">
+                    <a class="width-fit break-all" href="{% url 'user:profile' comment.owner_id %}">
                         <span class="link" {% if comment.user.is_moderator is True %} class="red" {% endif %}>{{ comment.user }}</span>
                     </a>
                     <span class="date">{{ comment.publication_date }}</span>

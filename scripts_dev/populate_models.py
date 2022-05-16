@@ -78,3 +78,4 @@ def populate_comments(n: int) -> None:
         )
         post.number_of_comments = Comment.objects.filter(post=post).count() + 1
         comment.save()
+        post.save()
