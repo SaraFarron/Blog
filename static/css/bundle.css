@@ -183,6 +183,10 @@ label {
   padding-bottom: 4px;
 }
 
+.pd-0 {
+  padding: 0;
+}
+
 .red {
   color: #ce3535;
 }
@@ -350,6 +354,7 @@ nav.navbar .navigation {
 
 nav.navbar .navigation a {
   margin-left: 8px;
+  white-space: nowrap;
 }
 
 nav.navbar .container-row {
