@@ -7,12 +7,12 @@
     <div class="container-row pdl-8 mgb-8">
         <div class="height-100pc">
             <a href="{% url 'user:profile' reply.owner_id %}">
-                <img class="icon" type="userpic" src="{{ reply.user.profile_picture.url }}" alt="{% trans 'profile picture' %}">
+                <img class="icon" type="userpic" src="{{ reply.owner_pfp_url }}" alt="{% trans 'profile picture' %}">
             </a>
         </div>
         <div class="container-col">
             <a class="width-fit break-all" href="{% url 'user:profile' reply.owner_id %}">
-                <span class="link" {% if reply.user.is_moderator is True %} class="red" {% endif %}>{{ reply.user }}</span>
+                <span class="link" {% if reply.owner_is_moderator is True %} class="red" {% endif %}>{{ reply.owner_name }}</span>
             </a>
             <span class="date">{{ reply.publication_date }}</span>
         </div>
