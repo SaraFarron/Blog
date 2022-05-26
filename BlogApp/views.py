@@ -175,23 +175,26 @@ class Vote(View):
 
     @method_decorator(login_required(login_url='user:login'))
     def post(self, request, pk):
-        page = request.META.get('HTTP_REFERER')
-        action = request.headers.action  # TODO
-        if 'post' in page:
+        user = Guest.objects.get(id=request.user.id)
+
+        type = request.POST['element']
+        if type == 'post':
             instance = Post.objects.get(pk=pk)
-        elif 'comment' in page:
+        elif type == 'comment':
             instance = Comment.objects.get(pk=pk)
         else:
-            return render(request, 'errors/400page.html')
+            print(type + " - wrong type")
 
-        user = Guest.objects.get(id=request.user.id)
+        action = request.POST['action']
         if action == 'upvote':
             instance.upvoted_users.add(user)
         elif action == 'downvote':
             instance.downvoted_users.add(user)
         instance.save()
-        update_instance_rating(instance)  # This might lead to duplicated requests
-        return request.META.get('HTTP_REFERER')  # This might not work
+        update_instance_rating(instance, user, action)  # This might lead to duplicated requests
+        print(action)
+        print(instance.rating)
+        return render(request, 'empty.html')
 
 
 def handler404(request, exception=None): return render(request, 'errors/404page.html')

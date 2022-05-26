@@ -26,9 +26,7 @@
     <div class="container-row mgl-8"><p class="mgl-8">{{reply.text}}</p></div>
     <div class="container-row pdl-8 mgr-8">
         <div class="pos-right">
-            <div><img class="icon upvote" src="{% static 'images/icons/upvote_icon.svg' %}" alt="+"><span
-                {% if post.rating > 0 %} class="green" {%elif post.rating < 0%} class="red" {%endif%}>{{ reply.rating }}</span><!--
-            --><img class="icon downvote" src="{% static 'images/icons/downvote_icon.svg' %}" alt="-"></div>
+            {% include 'blog/reply-rating.html' %}
         </div>
     </div>
 </div>

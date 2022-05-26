@@ -53,13 +53,12 @@ a:hover {
 }
 
 p, h1, h3, h4, h5 {
-  padding: 0px 8px 8px 8px;
-  margin: 0px;
+  padding: 0px;
+  margin: 0px 8px 8px 8px;
   text-indent: 8px;
   overflow: hidden;
   text-overflow: ellipsis;
   overflow-wrap: anywhere;
-  box-sizing: border-box;
 }
 
 h2 {
@@ -157,6 +156,10 @@ label {
 
 .mgr-32 {
   margin-right: 32px;
+}
+
+.mgb-0 {
+  margin-bottom: 0px;
 }
 
 .mgb-8 {
