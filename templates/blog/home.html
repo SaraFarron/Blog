@@ -5,37 +5,32 @@
 {% block subhead %}
     <script src="{% static 'javascript/sorting_toggle.js' %}" defer></script>
     <script src="{% static 'javascript/popup_toggle.js' %}" defer></script>
+    <script src="{% static 'javascript/rating.js' %}" defer></script>
     <title>blog - {% trans 'Home' %}</title>
 {% endblock%}
 
 {% block content %}
 
-<div class="list-v"> 
+<div class="list-v">
+    <div class="container-row mgb-16">
+        {% include 'change-theme-button.html' %}
+    </div>
     {% include 'form-errors.html' %}
     <div class="container">
-        <h2 class="{% if request.user.is_authenticated %}mgb-8{% endif %}" style="order: -3;">{% trans 'Hello' %}, {{ request.user }}</h2>
-        {% if request.user.is_authenticated %}
-        <input type="radio" class="toggle" name="create-post" id="post-create-expand">
-        <label class="btn-submit mgr-8" for="post-create-expand">
-            <span>{% trans 'Create post' %}</span>
-        </label>
-
-        <input type="radio" class="toggle" name="create-post" id="post-create-cancel">
-        <label class="btn-delete" for="post-create-cancel" id="cancel-label">
-            <span>{% trans 'Cancel' %}</span>
-        </label>
-
-        <!-- <button type="submit" name="Submit" form="create-post" id="post-creation-submit"></button> -->
-        <label class="btn-submit mgr-8" for="post-creation-submit" id="post-creation-submit-label" style="order: -1;">
-            <span>{% trans 'Submit' %}</span>
-        </label>
-
-        <div class="expandable-v" style="order: -2;">
-            {% include 'blog/post/post-creation-form.html' %}
-        </div>
-        {% endif %}
+        <h1 class="pd-0">{% trans 'Hello' %}, {{ request.user }}!</h2>
     </div>
     
+    <div class="container">
+        <h1 class="pd-0 mgb-8" style="order: -3;">
+            {% if not posts %}
+            {% trans 'There are no posts here yet. Be first!'%}
+            {% else %}
+            {% trans "What's new?"%}
+            {% endif %}
+        </h1>
+        {% include 'blog/post/post-creation-block.html' %}
+    </div>
+    {% if posts %}
     <div class="mgb-16">
         <div class="container-row">
             <button class="btn-edit width-fit mgr-8" id="sorting-toggle">
@@ -45,12 +40,13 @@
                     <span>{% trans 'sort by novelty' %}</span>
                 {% endif %}
             </button>
-            {% include 'change-theme-button.html' %}
         </div>
     </div>
+    {% endif %}
     {% for post in posts %}
         {% include 'blog/post/postlist-item.html' %}
     {% endfor %}
+
 </div>
 
 {% endblock %}

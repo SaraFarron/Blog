@@ -29,9 +29,9 @@
         </div>
         <a href="{% url 'blog:post' pk=post.id %}">
             <h1>{{ post.name }}</h1>
-            <h3>{{ post.description }}</h3>
+            <h3 class="mgb-0">{{ post.description }}</h3>
         </a>
-        <div class="container-row">
+        <div class="container-row mgt-8">
             <div class="pos-right">
                 <a class="mgr-32">
                     <img class="icon bookmark"
@@ -40,7 +40,7 @@
                         {% endif %} alt="{% trans 'bookmark' %}">
                 </a>
                 <div class="mgr-16"><img class="icon" src="{% static 'images/icons/comments_icon.svg' %}"><span>{{ post.number_of_comments }}</span></div>
-                {% include 'blog/rating-elements.html' %}
+                {% include 'blog/post-rating.html' %}
             </div>
         </div>
     </div>

@@ -1,0 +1,5 @@
+{% load i18n %}
+{% load static %}
+<button data-rating-button><img class="icon upvote" src="{% static 'images/icons/upvote_icon.svg' %}" alt="+"><span data-rating-text
+    {% if post.rating > 0 %} class="green" {%elif post.rating < 0%} class="red" {%endif%}>{{ comment.rating }}</span><!--
+--><img class="icon downvote" src="{% static 'images/icons/downvote_icon.svg' %}" alt="-"></div>

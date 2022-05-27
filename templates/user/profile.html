@@ -49,7 +49,7 @@
         <button class="btn-edit toggler toggler-active" data-page-toggle="1">{% trans 'posts' %}</button>
         {% endif %}
         {% if comments %}
-        <button class="btn-edit pos-right toggler" data-page-toggle="2">{% trans 'comments' %}</button>
+        <button class="btn-edit pos-right toggler {%if not posts%}toggler-active{%endif%}" data-page-toggle="2">{% trans 'comments' %}</button>
         {% endif %}
     </div>
     <div class="profile-pages">
@@ -58,7 +58,7 @@
                 {% include 'blog/post/postlist-item.html' %}
             {% endfor %}
         </div>
-        <div class="profile-list hidden" data-page>
+        <div class="profile-list {%if posts%}hidden{%endif%}" data-page>
             {% include 'user/profile-comment-list.html' %}
         </div>
     </div>

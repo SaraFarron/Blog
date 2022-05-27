@@ -41,9 +41,7 @@
                     <span>{% trans 'Cancel' %}</span>
                 </button>
                 <div class="pos-right">
-                    <div><img class="icon upvote" src="{% static 'images/icons/upvote_icon.svg' %}" alt="+"><span
-                        {% if post.rating > 0 %} class="green" {%elif post.rating < 0%} class="red" {%endif%}>{{ comment.rating }}</span><!--
-                    --><img class="icon downvote" src="{% static 'images/icons/downvote_icon.svg' %}" alt="-"></div>
+                    {% include 'blog/comment-rating.html' %}
                 </div>
             </div>
             <div class="expandable-v mgt-8" id="reply-comment-{{comment.id}}">
