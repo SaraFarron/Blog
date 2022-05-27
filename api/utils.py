@@ -38,18 +38,18 @@ def update_instance_rating(instance: Comment | Post, user: Guest, action: Litera
     match action:
         case 'upvote':
             if user not in upvoted_users_query.all():
-                upvoted_users_query.add(user)
+                instance.upvoted_users.add(user)
                 if user in downvoted_users_query.all():
-                    downvoted_users_query.remove(user)
+                    instance.downvoted_users.remove(user)
             else:
-                Response({'error': 'You already upvoted this'}, status=HTTP_403_FORBIDDEN)
+                instance.upvoted_users.remove(user)
         case 'downvote':
             if user not in downvoted_users_query.all():
-                downvoted_users_query.add(user)
+                instance.downvoted_users.add(user)
                 if user in upvoted_users_query.all():
-                    upvoted_users_query.remove(user)
+                    instance.upvoted_users.remove(user)
             else:
-                Response({'error': 'You already downvoted this'}, status=HTTP_403_FORBIDDEN)
+                instance.downvoted_users.remove(user)
         case _:
             return Response({'error': f'{instance.__str__()} can only be upvoted or downvoted'},
                             status=HTTP_403_FORBIDDEN)

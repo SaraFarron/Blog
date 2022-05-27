@@ -186,14 +186,7 @@ class Vote(View):
             print(type + " - wrong type")
 
         action = request.POST['action']
-        if action == 'upvote':
-            instance.upvoted_users.add(user)
-        elif action == 'downvote':
-            instance.downvoted_users.add(user)
-        instance.save()
         update_instance_rating(instance, user, action)  # This might lead to duplicated requests
-        print(action)
-        print(instance.rating)
         return render(request, 'empty.html')
 
 
