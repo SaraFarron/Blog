@@ -20,7 +20,9 @@
 </div>
 {% else %}
 <div class="container-row">
-    <a class="btn-submit mgr-8" href="{% url 'user:login' %}"><span>{% trans 'Log In' %}</span></a>
-    <a class="btn-submit" href="{% url 'user:register' %}"><span>{% trans 'Register' %}</span></a>
+    <h3><a class="underline" href="{% url 'user:login' %}">{% trans 'Log In' %}</a> {% trans 'to create new posts!' %}</h3>
+</div>
+<div class="container-row">
+    <h3 class="mgb-0">{% trans "Don't have an account yet?" %} <a class="underline" href="{% url 'user:register' %}">{% trans 'Register  here' %}</a>!</h3>
 </div>
 {% endif %}

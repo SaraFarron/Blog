@@ -3,9 +3,11 @@
 {% for comment in comments %}
     <div class="container {% if comment.replies.all|length == 0 %}pdb-4{%endif%}">
         <div class="container-col">
+            <!-- NOT IMPLEMENTED
             <div class="container popup-hidden" id="popup-delete-{{comment.id}}">
                 {% include 'blog/comment/comment-delete-form.html' %}
             </div>
+            -->
             <div class="container-row mgb-8">
                 <div class="height-100pc">
                     <a href="{% url 'user:profile' comment.user.id %}">
@@ -30,6 +32,11 @@
             <a href="{% url 'blog:post' pk=comment.post.id %}">
                 <div class="container-row">
                     <p>{{comment.text}}</p>
+                </div>
+                <div class="container-row mgb-8">
+                    <div class="pos-right">
+                        {% include 'blog/comment/comment-rating.html' %}
+                    </div>
                 </div>
             </a>
             

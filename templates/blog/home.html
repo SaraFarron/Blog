@@ -5,7 +5,7 @@
 {% block subhead %}
     <script src="{% static 'javascript/sorting_toggle.js' %}" defer></script>
     <script src="{% static 'javascript/popup_toggle.js' %}" defer></script>
-    <script src="{% static 'javascript/rating.js' %}" defer></script>
+    <script src="{% static 'javascript/process_rating.js' %}" defer></script>
     <title>blog - {% trans 'Home' %}</title>
 {% endblock%}
 
@@ -17,15 +17,15 @@
     </div>
     {% include 'form-errors.html' %}
     <div class="container">
-        <h1 class="pd-0">{% trans 'Hello' %}, {{ request.user }}!</h2>
+        <h1 class="mgl-0 mgb-0">{% trans 'Hello' %}, {{ request.user }}!</h2>
     </div>
     
     <div class="container">
-        <h1 class="pd-0 mgb-8" style="order: -3;">
+        <h1 class="mgl-0 mgb-8" style="order: -3;">
             {% if not posts %}
             {% trans 'There are no posts here yet. Be first!'%}
             {% else %}
-            {% trans "What's new?"%}
+            {% trans "Have something to tell?"%}
             {% endif %}
         </h1>
         {% include 'blog/post/post-creation-block.html' %}
