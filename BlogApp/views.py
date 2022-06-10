@@ -41,17 +41,6 @@ class Home(View):
 
     @method_decorator(login_required(login_url='user:login'))
     def post(self, request, ):
-        request_guest = Guest.objects.get(id=request.user.id)
-        if 'sorting' in request.COOKIES:
-            sorting = request.COOKIES['sorting']
-        else:
-            sorting = 'novelty'
-
-        if sorting == 'novelty':
-            posts = Post.objects.select_related('user').order_by('-creation_date')
-        else:
-            posts = Post.objects.select_related('user').order_by('-number_of_comments')
-
         form = PostForm(request.POST)
         if form.is_valid():
             form.instance.user = Guest.objects.get(name=request.user)
