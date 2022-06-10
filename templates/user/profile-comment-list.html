@@ -29,16 +29,14 @@
                     </div>
                 {% endif %}
             </div>
-            <a href="{% url 'blog:post' pk=comment.post.id %}">
-                <div class="container-row">
-                    <p>{{comment.text}}</p>
+            <div class="container-row">
+                <p>{{comment.text}}</p>
+            </div>
+            <div class="container-row mgb-8">
+                <div class="pos-right">
+                    {% include 'blog/comment/comment-rating.html' %}
                 </div>
-                <div class="container-row mgb-8">
-                    <div class="pos-right">
-                        {% include 'blog/comment/comment-rating.html' %}
-                    </div>
-                </div>
-            </a>
+            </div>
             
         </div>
         
