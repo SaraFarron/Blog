@@ -178,6 +178,10 @@ label {
   margin-top: 10px;
 }
 
+.mgl-0 {
+  margin-left: 0px;
+}
+
 .pdl-8 {
   padding-left: 8px;
 }
@@ -188,6 +192,10 @@ label {
 
 .pd-0 {
   padding: 0;
+}
+
+.underline {
+  text-decoration: underline !important;
 }
 
 .red {
@@ -660,6 +668,44 @@ input[type]:not([type='submit']) {
 .container .container {
   padding: 0px;
   margin-bottom: 0px;
+}
+
+span[data-rating-text] {
+  opacity: 100%;
+  transition: opacity 0.1s ease-in-out;
+}
+
+span[data-rating-text] ~ span[data-animation-label] {
+  position: absolute;
+  margin-left: 2px;
+  bottom: 75%;
+  right: -4px;
+  left: -4px;
+  text-align: center;
+  opacity: 0%;
+}
+
+span[data-rating-text].animating {
+  opacity: 0%;
+}
+
+span[data-rating-text].animating ~ span[data-animation-label] {
+  animation: ratingAnimation 1s ease-out 0.1s;
+}
+
+@keyframes ratingAnimation {
+  50% {
+    bottom: 0;
+    opacity: 100%;
+  }
+  90% {
+    bottom: 0;
+    opacity: 100%;
+  }
+  100% {
+    bottom: 0;
+    opacity: 0%;
+  }
 }
 
 body.dark .btn, body.dark .btn-submit, body.dark .btn-edit, body.dark .btn-delete {

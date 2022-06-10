@@ -9,8 +9,6 @@ function getCookie(cName) {
   return res
 }
 
-let sorting = localStorage.getItem('sorting'); 
-
 const sortingToggle = document.querySelector('#sorting-toggle');
 
 const enableSortingByPopularity = () => {

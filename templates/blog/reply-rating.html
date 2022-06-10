@@ -1,5 +1,0 @@
-{% load i18n %}
-{% load static %}
-<div><img class="icon upvote" src="{% static 'images/icons/upvote_icon.svg' %}" alt="+"><span
-    {% if post.rating > 0 %} class="green" {%elif post.rating < 0%} class="red" {%endif%}>{{ reply.rating }}</span><!--
---><img class="icon downvote" src="{% static 'images/icons/downvote_icon.svg' %}" alt="-"></div>
