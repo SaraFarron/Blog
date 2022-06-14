@@ -1,0 +1,16 @@
+{% load static %}
+{% load i18n %}
+
+{% with saved_by=post.saved_by.all %}
+<form data-bookmark-form="{% if request_guest in saved_by %}saved{%else%}not-saved{%endif%}"
+  action="{% url 'blog:save' post.id %}" method="post" target="dframe" style="position:relative;">
+    {% csrf_token %}
+    <img data-bookmark-icon-active 
+        class="{%if not request_guest in saved_by%}hidden {%endif%}icon bookmark"
+        src="{% static 'images/icons/bookmark_active_icon.svg' %}" alt="{% trans 'unbookmark' %}">
+    <img data-bookmark-icon-inactive 
+        class="{% if request_guest in saved_by %}hidden {%endif%}icon bookmark"
+        src="{% static 'images/icons/bookmark_icon.svg' %}" alt="{% trans 'bookmark' %}">
+    <input name="element" type="hidden" value="post">
+</form>
+{% endwith %}

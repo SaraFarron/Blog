@@ -72,6 +72,7 @@
     width: 24px;
     vertical-align: middle;
     border-radius: 50%;
+    padding: 1px;
     
     &.upvote, &.downvote, &.bookmark 
     {
@@ -125,10 +126,23 @@ input[type]:not([type='submit']) {
     margin-bottom: 0px;
 }
 
+.rating-box {
+    position: relative; 
+    display: inline-flex; 
+    align-items: center;
+}
+
 span[data-rating-text] {
     opacity: 100%;
     transition: opacity 0.1s ease-in-out;
 }
+
+span[data-animation-label] {
+    font-style: italic;
+    font-size: small;
+    height: 90%;
+}
+
 span[data-rating-text] ~ span[data-animation-label] {
     position: absolute;
     margin-left: 2px;
@@ -159,4 +173,22 @@ span[data-rating-text].animating ~ span[data-animation-label] {
         bottom: 0;
         opacity: 0%;
     }
+}
+
+form[data-bookmark-form] {
+    position: relative;
+    width: 26px;
+    height: 26px;
+    margin-right: 40px;
+    border-radius: 50%;
+}
+
+img[data-bookmark-icon-active], img[data-bookmark-icon-inactive]{
+    position: absolute;
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+img[data-bookmark-icon-active].hidden, img[data-bookmark-icon-inactive].hidden{
+    opacity: 0;
+    transform: scale(0.8);
 }

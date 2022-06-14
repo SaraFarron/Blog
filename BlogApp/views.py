@@ -67,8 +67,7 @@ class PostPage(View):
             user = Guest.objects.get(user=request.user)
         except TypeError:
             return render(request, 'blog/post/postpage.html', context)
-        saved_by_users = post.saved_by.all()
-        context |= {'user': user, 'saved_by': saved_by_users}
+        context |= {'user': user}
 
         return render(request, 'blog/post/postpage.html', context)
 
@@ -149,17 +148,31 @@ class Reply(View):
         return render(request, 'errors/400page.html')
 
 
+#Supposed to work with iframe
 class Save(View):
 
     @method_decorator(login_required(login_url='user:login'))
     def post(self, request, pk):
-        post = Post.objects.get(pk=pk)
         user = Guest.objects.get(id=request.user.id)
-        post.saved_by.add(user)
-        post.save()
-        return request.META.get('HTTP_REFERER')  # This might not work
+
+        type = request.POST['element']
+        if type == 'post':
+            instance = Post.objects.get(pk=pk)
+        elif type == 'comment':
+            instance = Comment.objects.get(pk=pk)
+        else:
+            print(type + " - wrong type")
+
+        if user in instance.saved_by.all():
+            instance.saved_by.remove(user)
+        else:
+            instance.saved_by.add(user)
+
+        instance.save()
+        return render(request, 'empty.html')
 
 
+#Supposed to work with iframe
 class Vote(View):
 
     @method_decorator(login_required(login_url='user:login'))
