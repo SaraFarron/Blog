@@ -77,18 +77,17 @@ class Profile(View):
     @method_decorator(login_required(login_url='user:login'))
     def get(self, request, pk):
         try:
-            user = Guest.objects.get(user=pk)
+            owner = Guest.objects.get(user=pk)
         except ObjectDoesNotExist:
             return render(request, 'errors/guest_does_not_exist.html')  # Maybe delete this?
         request_guest = Guest.objects.get(id=request.user.id)
-        posts = Post.objects.filter(user=user).select_related('user').order_by('-creation_date')
-        comments = Comment.objects.filter(user=user).prefetch_related('user', 'post', 'replies')
-        saves_posts = Post.objects.filter(saved_by=user).select_related('user')
-        last_time_banned = user.last_ban_date
+        posts = Post.objects.filter(user=owner).select_related('user').prefetch_related('upvoted_users', 'downvoted_users', 'saved_by').order_by('-creation_date')
+        comments = Comment.objects.filter(user=owner).prefetch_related('user', 'post', 'replies', 'upvoted_users', 'downvoted_users')
+        saved_posts = Post.objects.filter(saved_by=owner).select_related('user')
+        last_time_banned = owner.last_ban_date
         context = {'posts': posts,
-                   'comments': comments, 'user': user,
-                   'request_user': request.user,
-                   'saves_posts': saves_posts,
+                   'comments': comments, 'user': owner,
+                   'saves_posts': saved_posts,
                    'request_guest': request_guest
                    }
 

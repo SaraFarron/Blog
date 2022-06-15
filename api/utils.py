@@ -1,5 +1,5 @@
 from typing import Literal
-from django.db.models import QuerySet
+from django.db.models import QuerySet, Prefetch
 from rest_framework.status import HTTP_403_FORBIDDEN, HTTP_200_OK
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -78,14 +78,16 @@ def get_comments_with_replies(post=None) -> QuerySet:
     :return: QuerySet object
     """
     if post:
-        comments = Comment.objects.filter(post=post).prefetch_related('replies', 'user', 'post')
+        comments = Comment.objects.filter(post=post).select_related('user', 'post').prefetch_related(
+            Prefetch('replies', Comment.objects.filter(post=post).prefetch_related('upvoted_users', 'downvoted_users')), 'upvoted_users', 'downvoted_users')
     else:
-        comments = Comment.objects.prefetch_related('replies', 'user', 'post')
-    replies = []
+        comments = Comment.objects.select_related('user', 'post').prefetch_related(
+            Prefetch('replies', Comment.objects.prefetch_related('upvoted_users', 'downvoted_users')), 'upvoted_users', 'downvoted_users')
+
     for c in comments:
-        replies += sorted(c.replies.all(), key=lambda d: d.publication_date, reverse=True)
-    for reply in replies:
-        comments = comments.exclude(id=reply.id)
+        for reply in c.replies.all():
+            comments = comments.exclude(id=reply.id)
+    
     return comments
 
 

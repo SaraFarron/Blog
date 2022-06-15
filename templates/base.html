@@ -15,7 +15,7 @@
         <title>blog</title>
     {% endblock %}
 </head>
-<body>
+<body data-user-is-authenticated="{{request.user.is_authenticated|lower}}">
     {% include 'navbar.html' %}
     
     {% block content %}

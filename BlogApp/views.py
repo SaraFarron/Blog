@@ -32,9 +32,9 @@ class Home(View):
             sorting = 'novelty'
 
         if sorting == 'novelty':
-            posts = Post.objects.select_related('user').order_by('-creation_date')
+            posts = Post.objects.prefetch_related('user', 'saved_by', 'upvoted_users', 'downvoted_users').order_by('-creation_date')
         else:
-            posts = Post.objects.select_related('user').order_by('-number_of_comments')
+            posts = Post.objects.prefetch_related('user', 'saved_by', 'upvoted_users', 'downvoted_users').order_by('-number_of_comments')
 
         context = {'posts': posts, 'user': request.user, 'sorting': sorting, 'request_guest': request_guest}
         return render(request, 'blog/home.html', context)
@@ -55,7 +55,7 @@ class PostPage(View):
         request_guest = None
         if request.user.is_authenticated:
             request_guest = Guest.objects.get(id=request.user.id)
-        post = Post.objects.get(id=pk)
+        post = Post.objects.select_related('user').get(id=pk)
         comments = sorted(get_comments_with_replies(post),
                           key=lambda d: d.publication_date,
                           reverse=True
