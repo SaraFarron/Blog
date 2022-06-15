@@ -17,9 +17,11 @@
 </head>
 <body data-user-is-authenticated="{{request.user.is_authenticated|lower}}">
     {% include 'navbar.html' %}
+    {% include 'notifications.html' %}
     
     {% block content %}
     {% endblock %}
+    
     <iframe name="dframe" style="display:none;"></iframe>
 </body>
 </html>

@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-27 12:13+0000\n"
-"PO-Revision-Date: 2022-05-27 12:21+0000\n"
-"Last-Translator:   <admin@admin.com>\n"
+"POT-Creation-Date: 2022-06-15 15:24+0000\n"
+"PO-Revision-Date: 2022-06-15 15:34+0000\n"
+"Last-Translator:   <ya@ti.sobaka>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -43,7 +43,7 @@ msgstr "описание"
 msgid "author"
 msgstr "автор"
 
-#: BlogApp/models.py:13 BlogApp/models.py:36 templates/user/profile.html:32
+#: BlogApp/models.py:13 BlogApp/models.py:36 templates/user/profile.html:33
 #: user/models.py:20
 msgid "rating"
 msgstr "рейтинг"
@@ -60,20 +60,19 @@ msgstr "не понравилось"
 msgid "post saved by"
 msgstr "пост сохранен у"
 
-#: BlogApp/models.py:19 templates/user/profile.html:34
+#: BlogApp/models.py:19 templates/user/profile.html:35
 msgid "number of comments"
 msgstr "количество комментариев"
 
 #: BlogApp/models.py:28
 msgid "owner id"
-msgstr "id влфдельца"
+msgstr "id владельца"
 
 #: BlogApp/models.py:29
 msgid "owner pfp url"
 msgstr "аватар владельца"
 
 #: BlogApp/models.py:30
-#| msgid "username"
 msgid "owner name"
 msgstr "имя владельца"
 
@@ -99,7 +98,7 @@ msgstr "комментарий сохранен у"
 
 #: BlogApp/models.py:45
 msgid "'s comment"
-msgstr "комментарий"
+msgstr " комментарий"
 
 #: templates/blog/about.html:4 templates/navbar.html:35
 msgid "About"
@@ -109,7 +108,7 @@ msgstr "О сайте"
 msgid "welcome_page"
 msgstr ""
 "        <h1>Добро пожаловать!</h1>\n"
-"  <p>Привет, я Никита (<a href=\"https://github.com/SaraFarron\">SaraFarron на Github</a>). Это сайт, который я создал, чтобы изучить джанго и получить опыт в разработке. Я изучаю backend разработку, поэтому извините за этот невнушительный дизайн. Это самый большой проект, который я когда либо делал на джанго, поэтому практически все, что я могу написать реализовано тут.</p>\n"
+"  <p>Привет, я Никита (<a class=\"underline\" href=\"https://github.com/SaraFarron\">SaraFarron на Github</a>). Это сайт, который я создал, чтобы изучить джанго и получить опыт в разработке. Я изучаю backend разработку, поэтому извините за этот невнушительный дизайн. Это самый большой проект, который я когда либо делал на джанго, поэтому практически все, что я могу написать реализовано тут.</p>\n"
 "  <p><b>Что это за сайт?</b><br>\n"
 "Обычный блог-сайт, хотя здесь все пользователи могут публиковать посты и комментировать. Я взял идею с DTF.ru, возможно вы знаете о нем. Исходный код можно посмотреть нажав на иконку гитхаба в верхнем левом углу.</p>\n"
 "  <p><b>Что тут можно еще поделать?</b><br>\n"
@@ -123,10 +122,9 @@ msgstr ""
 "- Графики (Matplotlib)<br>\n"
 "- Телеграм боты (aiogram)</p>\n"
 " <p><b>Работает ли над проектом кто-то ещё?</b></br>\n"
-"Да, мой друг Ярослав (<a href=\"https://github.com/YaredFall\">YaredFall на GitHub</a>), захотевший присоединится к моему проекту. Я делегирую ему некоторые задачи, с которыми я бы справился и сам, но ничего не узнал бы из этого. Он также иногда делает что-то сам.</p>"
+"Да, мой друг Ярослав (<a class=\"underline\" href=\"https://github.com/YaredFall\">YaredFall на GitHub</a>), захотевший присоединится к моему проекту. Я делегирую ему некоторые задачи, с которыми я бы справился и сам, но ничего не узнал бы из этого. Он также иногда делает что-то сам.</p>"
 
 #: templates/blog/comment/comment-delete-form.html:5
-#| msgid "Are you sure you want to delete"
 msgid "Are you sure you want to delete this comment?"
 msgstr "Вы уверены что хотите удалить комментарий?"
 
@@ -141,13 +139,12 @@ msgstr "Удалить"
 #: templates/blog/post/post-creation-block.html:10
 #: templates/blog/post/post-delete-form.html:16
 #: templates/blog/post/post-edit-form.html:26
-#: templates/blog/post/postpage.html:23
+#: templates/blog/post/postpage.html:24
 #: templates/user/profile-settings.html:13
 msgid "Cancel"
 msgstr "Отмена"
 
 #: templates/blog/comment/comment-form.html:6
-#| msgid "'s comment"
 msgid "Your comment..."
 msgstr "Ваш комментарий..."
 
@@ -155,7 +152,7 @@ msgstr "Ваш комментарий..."
 #: templates/blog/comment/reply-list.html:10
 #: templates/blog/post/postlist-item.html:14
 #: templates/blog/post/postpage-post.html:13
-#: templates/user/profile-comment-list.html:12 user/models.py:13
+#: templates/user/profile-comment-list.html:14 user/models.py:13
 msgid "profile picture"
 msgstr "фото профиля"
 
@@ -166,7 +163,7 @@ msgstr "Ответить"
 #: templates/blog/comment/comment-list.html:37
 #: templates/blog/post/post-creation-block.html:15
 #: templates/blog/post/post-edit-form.html:24
-#: templates/user/profile-settings.html:46
+#: templates/blog/post/postpage.html:28
 msgid "Submit"
 msgstr "Опубликовать"
 
@@ -184,50 +181,53 @@ msgstr "Привет"
 
 #: templates/blog/home.html:26
 msgid "There are no posts here yet. Be first!"
-msgstr "Тут пока постов нет, зато ваш будет первый!"
+msgstr "Тут пока нет постов. Будьте первым!"
 
 #: templates/blog/home.html:28
-msgid "What's new?"
-msgstr "Что нового?"
+msgid "Have something to tell?"
+msgstr "Есть что рассказать?"
 
 #: templates/blog/home.html:38
-#| msgid "sort by date"
 msgid "sort by popularity"
-msgstr "сортировка по популярности"
+msgstr "сортировать по популярности"
 
 #: templates/blog/home.html:40
-#| msgid "sort by date"
 msgid "sort by novelty"
-msgstr "сортировка по дате"
+msgstr "сортировать по дате"
 
 #: templates/blog/post/post-creation-block.html:5
 msgid "Create post"
 msgstr "Создать пост"
 
-#: templates/blog/post/post-creation-block.html:23 templates/navbar.html:30
-msgid "Log In"
-msgstr "Войти"
+#: templates/blog/post/post-creation-block.html:23
+msgid "Log In (Войдите)"
+msgstr "Войдите"
 
-#: templates/blog/post/post-creation-block.html:24 templates/navbar.html:28
-#: templates/user/register.html:5 templates/user/register.html:13
-#: templates/user/register.html:20
-msgid "Register"
-msgstr "Регистрация"
+#: templates/blog/post/post-creation-block.html:23
+#| msgid "Create post"
+msgid " to create new posts!"
+msgstr ", чтобы иметь возможность публиковать посты!"
+
+#: templates/blog/post/post-creation-block.html:26
+msgid "Don't have an account yet?"
+msgstr "Нет аккаунта?"
+
+#: templates/blog/post/post-creation-block.html:26
+#| msgid "Register"
+msgid "Register  here"
+msgstr "Зарегестрируйтесь здесь"
 
 #: templates/blog/post/post-creation-form.html:3
-#| msgid "post"
 msgid "New post"
 msgstr "Новый пост"
 
 #: templates/blog/post/post-creation-form.html:7
 #: templates/blog/post/post-edit-form.html:9
-#| msgid "Untitled"
 msgid "Title"
 msgstr "Заголовок"
 
 #: templates/blog/post/post-creation-form.html:11
 #: templates/blog/post/post-edit-form.html:13
-#| msgid "description"
 msgid "Description"
 msgstr "Описание"
 
@@ -242,28 +242,29 @@ msgstr "Вы уверены что хотите удалить?"
 
 #: templates/blog/post/post-edit-form.html:5
 #: templates/blog/post/post-edit.html:4
-#| msgid "post"
 msgid "Edit post"
 msgstr "редактировать пост"
 
-#: templates/blog/post/postlist-item.html:40
-#: templates/blog/post/postpage-post.html:41
-msgid "bookmark"
-msgstr "закладка"
+#: templates/blog/post/post-save.html:10
+#| msgid "bookmark"
+msgid "unbookmark"
+msgstr "в закладки"
 
-#: templates/blog/post/postpage.html:7
+#: templates/blog/post/post-save.html:13
+msgid "bookmark"
+msgstr "в закладки"
+
+#: templates/blog/post/postpage.html:8
 msgid "Post"
 msgstr "Пост"
 
-#: templates/blog/post/postpage.html:18 templates/blog/post/postpage.html:27
-#: templates/blog/post/postpage.html:34
-#| msgid "comment"
+#: templates/blog/post/postpage.html:19 templates/blog/post/postpage.html:35
 msgid "Comment"
 msgstr "Комментировать"
 
 #: templates/change-theme-button.html:5
 msgid "change theme"
-msgstr "поменять тему"
+msgstr "сменить тему"
 
 #: templates/errors/400page.html:4
 msgid "Bad Request"
@@ -291,7 +292,6 @@ msgid "Server not responding"
 msgstr "Сервер не отвечает"
 
 #: templates/errors/errorbase.html:4
-#| msgid "Error 401"
 msgid "Error"
 msgstr "Ошибка"
 
@@ -303,9 +303,18 @@ msgstr "Гость"
 msgid "does not exist"
 msgstr "не существует"
 
-#: templates/navbar.html:26 templates/user/profile.html:8
+#: templates/navbar.html:26 templates/user/profile.html:9
 msgid "Profile"
 msgstr "Профиль"
+
+#: templates/navbar.html:28 templates/user/register.html:5
+#: templates/user/register.html:13 templates/user/register.html:20
+msgid "Register"
+msgstr "Регистрация"
+
+#: templates/navbar.html:30
+msgid "Log In"
+msgstr "Вход"
 
 #: templates/navbar.html:33
 msgid "API"
@@ -314,6 +323,10 @@ msgstr "API"
 #: templates/navbar.html:38
 msgid "Logout"
 msgstr "Выход"
+
+#: templates/notifications.html:4
+msgid "You must be logged in!"
+msgstr "Вы должны быть авторизированы!"
 
 #: templates/user/login.html:5 templates/user/login.html:12
 #: templates/user/login.html:17
@@ -329,67 +342,67 @@ msgid "password"
 msgstr "пароль"
 
 #: templates/user/profile-settings.html:6
-#| msgid "Account settings"
 msgid "Profile settings"
 msgstr "Настройки профиля"
 
 #: templates/user/profile-settings.html:25
 msgid "Edit"
-msgstr "Редактировать"
+msgstr "Изменить"
 
 #: templates/user/profile-settings.html:34
-#: templates/user/profile-settings.html:35 templates/user/profile.html:29
+#: templates/user/profile-settings.html:35 templates/user/profile.html:30
 #: templates/user/register.html:17 user/models.py:11
 msgid "email"
 msgstr "эл. почта"
 
 #: templates/user/profile-settings.html:38
-#: templates/user/profile-settings.html:39 templates/user/profile.html:30
+#: templates/user/profile-settings.html:39 templates/user/profile.html:31
 #: user/models.py:12
 msgid "phone"
 msgstr "телефон"
 
 #: templates/user/profile-settings.html:42
-#: templates/user/profile-settings.html:43 templates/user/profile.html:31
+#: templates/user/profile-settings.html:43 templates/user/profile.html:32
 msgid "skype"
 msgstr "skype"
 
-#: templates/user/profile-settings.html:55 templates/user/profile.html:43
+#: templates/user/profile-settings.html:46
+msgid "Save"
+msgstr "Сохранить"
+
+#: templates/user/profile-settings.html:55 templates/user/profile.html:44
 msgid "API token"
 msgstr "API токен"
 
-#: templates/user/profile.html:15
+#: templates/user/profile.html:16
 msgid "Settings"
 msgstr "Настройки"
 
-#: templates/user/profile.html:33
-#| msgid "number of comments"
+#: templates/user/profile.html:34
 msgid "number of posts"
 msgstr "количество постов"
 
-#: templates/user/profile.html:35
-#| msgid "creation date"
+#: templates/user/profile.html:36
 msgid "registration date"
 msgstr "дата регистрации"
 
-#: templates/user/profile.html:49
+#: templates/user/profile.html:50
 msgid "posts"
 msgstr "посты"
 
-#: templates/user/profile.html:52
+#: templates/user/profile.html:53
 msgid "comments"
 msgstr "комментарии"
 
 #: templates/user/register.html:19
 msgid "confirm password"
-msgstr "подтвердить пароль"
+msgstr "подтвердите пароль"
 
 #: user/models.py:15
 msgid "token"
 msgstr "API токен"
 
 #: user/models.py:16
-#| msgid "Ban status"
 msgid "moderation status"
 msgstr "статус модерации"
 
@@ -404,6 +417,9 @@ msgstr "статус мута"
 #: user/models.py:19
 msgid "last ban date"
 msgstr "дата последнего бана"
+
+#~ msgid "What's new?"
+#~ msgstr "Что нового?"
 
 #~ msgid "English"
 #~ msgstr "Английский"

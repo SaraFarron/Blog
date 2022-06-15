@@ -918,3 +918,59 @@ button[type=submit] {
 .profile label:not([class*="btn"]) {
   width: 150px;
 }
+
+.notifications {
+  z-index: 1000;
+  position: fixed;
+  left: 16px;
+  bottom: 0px;
+}
+
+.notifications > ul {
+  list-style: none;
+  padding: 0px;
+  margin: 0px;
+  max-width: 240px;
+}
+
+.notifications li {
+  text-align: center;
+  background-color: gray;
+  padding: 8px 20px;
+  border-radius: 4px;
+  margin: 8px 0px;
+  font-weight: bold;
+  animation: notificationsLifeCycle 10s ease-in-out forwards;
+}
+
+.notifications li[data-notification-template] {
+  display: none;
+}
+
+.notifications li[data-notification-type="error"] {
+  background-color: #694141;
+  color: red;
+}
+
+@keyframes notificationsLifeCycle {
+  0% {
+    transform: translateX(0) translateY(60px);
+    opacity: 0;
+    max-height: 0;
+  }
+  5% {
+    transform: translateX(0) translateY(0);
+    opacity: 1;
+    max-height: 1000px;
+  }
+  90% {
+    transform: translateX(1px) translateY(0);
+    opacity: 1;
+    max-height: 1000px;
+  }
+  100% {
+    transform: translateX(-300px) translateY(0);
+    opacity: 0;
+    max-height: 1000px;
+  }
+}
