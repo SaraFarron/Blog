@@ -231,6 +231,11 @@ input[type="text"], input[type="number"], input[type="password"], input[type="em
   border: 0;
   border-radius: 4px;
   box-sizing: border-box;
+  background-color: #f7f7f7;
+}
+
+body.dark input[type="text"], body.dark input[type="number"], body.dark input[type="password"], body.dark input[type="email"], body.dark textarea {
+  background-color: #2f3237;
 }
 
 textarea.post-textarea {
@@ -922,7 +927,7 @@ button[type=submit] {
 .notifications {
   z-index: 1000;
   position: fixed;
-  left: 16px;
+  left: 8px;
   bottom: 0px;
 }
 
@@ -948,6 +953,11 @@ button[type=submit] {
 }
 
 .notifications li[data-notification-type="error"] {
+  background-color: #db8f8f;
+  color: #a10000;
+}
+
+body.dark .notifications li[data-notification-type="error"] {
   background-color: #694141;
   color: red;
 }

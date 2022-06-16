@@ -1,7 +1,7 @@
 .notifications {
     z-index: 1000;
     position: fixed;
-    left:16px;
+    left:8px;
     bottom: 0px;
 
     & > ul {
@@ -25,6 +25,11 @@
         }
 
         &[data-notification-type="error"] {
+            background-color: rgb(219, 143, 143);
+            color: rgb(161, 0, 0);
+        }
+
+        body.dark &[data-notification-type="error"] {
             background-color: rgb(105, 65, 65);
             color: rgb(255, 0, 0);
         }

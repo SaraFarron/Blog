@@ -125,6 +125,7 @@ function showNotification(templateName)
     notificationTemplate = document.querySelector(`[data-notification-template="${templateName}"]`);
     if (notificationTemplate != null) {
         let notificationElement = notificationTemplate.cloneNode(true);
+        notificationElement.addEventListener('animationend', () => notificationElement.remove());
         notificationElement.style.display = "block";
         notificationList.append(notificationElement);
     }
