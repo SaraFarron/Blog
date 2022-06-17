@@ -161,6 +161,7 @@ nav.navbar {
                 padding: 8px 8px 16px 8px;
                 width: 100%;
                 text-align: center;
+                font-size: x-large;
             }
         }
 
@@ -174,7 +175,7 @@ nav.navbar {
     
         &:checked ~ .navigation {
             padding: 8px;
-            width: 136px; //idk if needs to be a global var
+            width: 200px; //idk if needs to be a global var
         }
 
         &:checked + label img {

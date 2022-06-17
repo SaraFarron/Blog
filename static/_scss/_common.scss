@@ -70,7 +70,7 @@ body.dark {
     color: $text-color-dark;
 
     & .container {
-        background-color: #36393f;
+        background-color: $container-background-color-dark;
     }
 
     & a {
@@ -279,6 +279,11 @@ input[type="text"],input[type="number"],input[type="password"],input[type="email
     border: 0;
     border-radius: 4px;
     box-sizing: border-box;
+    background-color: darken($container-background-color, 3%);
+
+    body.dark & {
+        background-color: darken($container-background-color-dark, 3%);
+    }
 }
 
 textarea {

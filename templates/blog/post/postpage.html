@@ -4,7 +4,8 @@
 
 {% block subhead %}
     <script src="{% static 'javascript/popup_toggle.js' %}" defer></script>
-    <script src="{% static 'javascript/process_rating.js' %}" defer></script>
+    <script src="{% static 'javascript/process_rating_and_bookmarks.js' %}" defer></script>
+    <script src="{% static 'javascript/prevent_comment.js' %}" defer></script>
     <title>blog - {% trans 'Post' %} {{ post.id }}</title>
 {% endblock%}
 {% block content %}
@@ -25,7 +26,7 @@
         </label>
 
         <label class="btn-submit mgr-8" for="post-comment-submit" id="post-comment-submit-label" style="order: -1;">
-            <span>{% trans 'Comment' %}</span>
+            <span>{% trans 'Submit' %}</span>
         </label>
 
         <div class="expandable-v" style="order: -2;">

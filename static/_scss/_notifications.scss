@@ -1,0 +1,61 @@
+.notifications {
+    z-index: 1000;
+    position: fixed;
+    left:8px;
+    bottom: 0px;
+
+    & > ul {
+        list-style: none;
+        padding: 0px;
+        margin: 0px;
+        max-width: 240px;
+    }
+
+    & li {
+        text-align: center;
+        background-color: rgb(128, 128, 128);
+        padding: 8px 20px;
+        border-radius: 4px;
+        margin: 8px 0px;
+        font-weight: bold;
+        animation: notificationsLifeCycle 10s ease-in-out forwards;
+
+        &[data-notification-template] {
+            display: none;
+        }
+
+        &[data-notification-type="error"] {
+            background-color: rgb(219, 143, 143);
+            color: rgb(161, 0, 0);
+        }
+
+        body.dark &[data-notification-type="error"] {
+            background-color: rgb(105, 65, 65);
+            color: rgb(255, 0, 0);
+        }
+    }
+}
+
+@keyframes notificationsLifeCycle {
+    0% {
+        transform: translateX(0) translateY(60px);
+        opacity: 0;
+        max-height: 0;
+    }
+    5% {
+        transform: translateX(0) translateY(0);
+        opacity: 1;
+        max-height: 1000px;
+    }
+    90% {
+        transform: translateX(1px) translateY(0);
+        opacity: 1;
+        max-height: 1000px;
+    }
+    100% {
+        transform: translateX(-300px) translateY(0);
+        opacity: 0;
+        max-height: 1000px;
+    }
+
+}
