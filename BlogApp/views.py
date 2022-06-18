@@ -39,9 +39,9 @@ class Home(View):
         )
 
         if sorting == 'novelty':
-            posts.order_by('-creation_date')
+            posts = posts.order_by('-creation_date')
         else:
-            posts.order_by('-number_of_comments')
+            posts = posts.order_by('-number_of_comments')
 
         context = {'posts': posts, 'user': request.user, 'sorting': sorting, 'request_guest': request_guest}
         return render(request, 'blog/home.html', context)
