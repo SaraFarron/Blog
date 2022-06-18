@@ -39,3 +39,5 @@ uritemplate==4.1.1
 urllib3==1.26.9
 whitenoise==6.0.0
 Faker==13.13.0
+django-phonenumber-field==6.3.0
+django-phonenumbers==1.0.1

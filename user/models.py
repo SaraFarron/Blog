@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
+from phonenumber_field.modelfields import PhoneNumberField
 
 
 class Guest(models.Model):
@@ -9,7 +10,7 @@ class Guest(models.Model):
     name = models.CharField(max_length=200, unique=True, null=True, verbose_name=_('name'))
     date_created = models.DateTimeField(auto_now_add=True, null=True, verbose_name='registration date')
     email = models.EmailField(default='example@blog.com', verbose_name=_('email'))
-    phone = models.IntegerField(blank=True, null=True, default=111111, verbose_name=_('phone'))
+    phone = PhoneNumberField(null=True, blank=True, verbose_name=_('phone'))
     profile_picture = models.ImageField(null=True, blank=True, default='profile.png', verbose_name=_('profile picture'))
     skype = models.CharField(max_length=50, null=True, blank=True)
     token = models.CharField(max_length=256, unique=True, null=True, verbose_name=_('token'))

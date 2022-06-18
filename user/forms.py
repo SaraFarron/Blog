@@ -1,7 +1,9 @@
 from django.forms import ModelForm, CharField
-from .models import Guest
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from phonenumber_field.formfields import PhoneNumberField
+
+from .models import Guest
 
 
 class CreateUserForm(UserCreationForm):
@@ -12,8 +14,8 @@ class CreateUserForm(UserCreationForm):
 
 class ProfileSetForm(ModelForm):
 
-    #name = CharField(disabled=True)
     delete_img=CharField()
+    phone = PhoneNumberField()
     
     class Meta:
         model = Guest
