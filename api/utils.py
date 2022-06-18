@@ -1,6 +1,6 @@
 from typing import Literal
 from django.db.models import QuerySet, Prefetch
-from rest_framework.status import HTTP_403_FORBIDDEN, HTTP_200_OK
+from rest_framework.status import HTTP_403_FORBIDDEN, HTTP_200_OK, HTTP_404_NOT_FOUND
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from silk.profiling.profiler import silk_profile
@@ -141,3 +141,18 @@ def set_default_permissions():
         AllowAny: ['list', 'retrieve']
     }
     return permission_classes, action_permissions
+
+
+def user_owns_the_post(request, kwargs):
+    try:
+        owner = Post.objects.get(pk=kwargs['pk']).user.id
+    except Post.DoesNotExist:
+        return Response(
+            {'error': 'post does not exist'},
+            status=HTTP_404_NOT_FOUND)
+
+    if request.user.id != owner:
+        return Response(
+            {'error': 'you can only edit your own post'},
+            status=HTTP_403_FORBIDDEN)
+    return None

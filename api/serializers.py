@@ -9,7 +9,9 @@ class UserSerializer(ModelSerializer):
 
     class Meta:
         model = Guest
-        fields = ('name', 'email', 'phone', 'skype', 'is_banned', 'is_muted', 'last_ban_date', 'is_moderator', 'rating')
+        fields = (
+            'name', 'email', 'phone', 'skype', 'is_banned', 'is_muted', 'last_ban_date', 'is_moderator', 'rating'
+        )
 
 
 class PostSerializer(ModelSerializer):

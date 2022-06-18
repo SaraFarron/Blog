@@ -1,11 +1,8 @@
 from rest_framework.mixins import CreateModelMixin, ListModelMixin, DestroyModelMixin, RetrieveModelMixin
-from rest_framework.response import Response
 from rest_framework.status import HTTP_201_CREATED
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
-from silk.profiling.profiler import silk_profile
 from .serializers import *
-from .utils import update_instance_rating, toggle_save_instance, get_comments_with_replies, create_reply, \
-    set_default_permissions
+from .utils import *
 
 
 class RateModelMixin:
@@ -60,6 +57,19 @@ class PostViewSet(ModelViewSet):
             post.save()
 
         return Response({}, status=HTTP_201_CREATED)
+
+    def update(self, request, *args, **kwargs):
+        response = user_owns_the_post(request, kwargs)
+        if response:
+            return response
+
+        return super(PostViewSet, self).update(request, *args, **kwargs)
+
+    def destroy(self, request, *args, **kwargs):
+        response = user_owns_the_post(request, kwargs)
+        if response:
+            return response
+        return super(PostViewSet, self).destroy(request, *args, **kwargs)
 
 
 class CommentViewSet(CreateModelMixin, ListModelMixin, DestroyModelMixin, GenericViewSet):
