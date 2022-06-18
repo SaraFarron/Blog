@@ -1,4 +1,4 @@
-from .models import Comment
+from .models import Comment, Post
 from user.models import Guest
 
 
@@ -14,3 +14,14 @@ def new_comment(request, form, post):
     comment = form.save()
     post.save()
     return comment
+
+
+def get_instance(model, pk):
+    if model == 'post':
+        instance = Post.objects.get(pk=pk)
+    elif model == 'comment':
+        instance = Comment.objects.get(pk=pk)
+    else:
+        raise model + " - wrong type"
+
+    return instance

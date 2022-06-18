@@ -79,10 +79,17 @@ def get_comments_with_replies(post=None) -> QuerySet:
     """
     if post:
         comments = Comment.objects.filter(post=post).select_related('user', 'post').prefetch_related(
-            Prefetch('replies', Comment.objects.filter(post=post).prefetch_related('upvoted_users', 'downvoted_users')), 'upvoted_users', 'downvoted_users')
+            Prefetch('replies',
+                     Comment.objects.filter(post=post).prefetch_related('upvoted_users',
+                                                                        'downvoted_users')),
+            'upvoted_users', 'downvoted_users')
     else:
         comments = Comment.objects.select_related('user', 'post').prefetch_related(
-            Prefetch('replies', Comment.objects.prefetch_related('upvoted_users', 'downvoted_users')), 'upvoted_users', 'downvoted_users')
+            Prefetch('replies',
+                     Comment.objects.prefetch_related('upvoted_users',
+                                                      'downvoted_users')),
+            'upvoted_users',
+            'downvoted_users')
 
     for c in comments:
         for reply in c.replies.all():

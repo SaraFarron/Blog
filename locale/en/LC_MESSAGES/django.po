@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-15 15:24+0000\n"
+"POT-Creation-Date: 2022-06-18 09:36+0000\n"
 "PO-Revision-Date: 2022-06-15 17:06+0000\n"
 "Last-Translator:   <ya@ti.sobaka>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -108,21 +108,35 @@ msgstr ""
 msgid "welcome_page"
 msgstr ""
 "        <h1>Welcome!</h1>\n"
-"  <p>Hello, I'm Nikita (<a class=\"underline\" href=\"https://github.com/SaraFarron\">SaraFarron on GitHub</a>). This is my website I built in order to learn as much as I can about django and get experience. I am aiming for backend development so sorry for this basic design. This is the biggest project I ever created up to date so most things I can do in django I did here.</p>\n"
+"  <p>Hello, I'm Nikita (<a class=\"underline\" href=\"https://github.com/"
+"SaraFarron\">SaraFarron on GitHub</a>). This is my website I built in order "
+"to learn as much as I can about django and get experience. I am aiming for "
+"backend development so sorry for this basic design. This is the biggest "
+"project I ever created up to date so most things I can do in django I did "
+"here.</p>\n"
 "  <p><b>What is this website?</b><br>\n"
-"A simple blog website, but here all users can create posts and comment. I took the idea from DTF.ru, you may be familiar with it. You can see the source code by clicking the github icon on the top left.</p>\n"
+"A simple blog website, but here all users can create posts and comment. I "
+"took the idea from DTF.ru, you may be familiar with it. You can see the "
+"source code by clicking the github icon on the top left.</p>\n"
 "  <p><b>What you can do here?</b><br>\n"
 "This site has 2 parts:<br>\n"
-"    - web interface, which I am not really proud of, you are using it right now;<br>\n"
+"    - web interface, which I am not really proud of, you are using it right "
+"now;<br>\n"
 "    - api, that I am more proud of.<br>\n"
-"For the most part web interface and api repeat each other functionality. To interact with API there is a swagger, login is made via token auth, you can copy your token in your profile.</p>\n"
+"For the most part web interface and api repeat each other functionality. To "
+"interact with API there is a swagger, login is made via token auth, you can "
+"copy your token in your profile.</p>\n"
 " <p><b>What else I can do?</b><br>\n"
-"- Previously I configured nginx with gunicorn for this project, but since it now is hosted on Heroku, there is no need for it now.<br>\n"
+"- Previously I configured nginx with gunicorn for this project, but since it "
+"now is hosted on Heroku, there is no need for it now.<br>\n"
 "- Parsing (BeautifulSoup4, Selenium)<br>\n"
 "- Plots (Matplotlib)<br>\n"
 "- Telegram bots (aiogram)</p>\n"
 " <p><b>Are there any other people working on this project?</b></br>\n"
-"Yes, my friend Yaroslav (<a class=\"underline\" href=\"https://github.com/YaredFall\">YaredFall on GitHub</a>), who wanted to join my project. I give him some tasks that I already know I can do, but won't learn anything from it. He also sometimes does things by himself.</p>"
+"Yes, my friend Yaroslav (<a class=\"underline\" href=\"https://github.com/"
+"YaredFall\">YaredFall on GitHub</a>), who wanted to join my project. I give "
+"him some tasks that I already know I can do, but won't learn anything from "
+"it. He also sometimes does things by himself.</p>"
 
 #: templates/blog/comment/comment-delete-form.html:5
 msgid "Are you sure you want to delete this comment?"
@@ -139,8 +153,7 @@ msgstr ""
 #: templates/blog/post/post-creation-block.html:10
 #: templates/blog/post/post-delete-form.html:16
 #: templates/blog/post/post-edit-form.html:26
-#: templates/blog/post/postpage.html:24
-#: templates/user/profile-settings.html:13
+#: templates/blog/post/postpage.html:25 templates/user/profile-settings.html:13
 msgid "Cancel"
 msgstr ""
 
@@ -165,7 +178,7 @@ msgstr ""
 #: templates/blog/comment/comment-list.html:37
 #: templates/blog/post/post-creation-block.html:15
 #: templates/blog/post/post-edit-form.html:24
-#: templates/blog/post/postpage.html:28
+#: templates/blog/post/postpage.html:29
 msgid "Submit"
 msgstr ""
 
@@ -259,11 +272,11 @@ msgstr ""
 msgid "bookmark"
 msgstr ""
 
-#: templates/blog/post/postpage.html:8
+#: templates/blog/post/postpage.html:9
 msgid "Post"
 msgstr ""
 
-#: templates/blog/post/postpage.html:19 templates/blog/post/postpage.html:35
+#: templates/blog/post/postpage.html:20 templates/blog/post/postpage.html:36
 msgid "Comment"
 msgstr ""
 

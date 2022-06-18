@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views import View
 from api.utils import get_comments_with_replies, update_instance_rating
-from .utils import new_comment
+from .utils import new_comment, get_instance
 from .decorators import user_owns_the_post
 from .forms import *
 
@@ -31,10 +31,17 @@ class Home(View):
         else:
             sorting = 'novelty'
 
+        posts = Post.objects.prefetch_related(
+            'user',
+            'saved_by',
+            'upvoted_users',
+            'downvoted_users'
+        )
+
         if sorting == 'novelty':
-            posts = Post.objects.prefetch_related('user', 'saved_by', 'upvoted_users', 'downvoted_users').order_by('-creation_date')
+            posts.order_by('-creation_date')
         else:
-            posts = Post.objects.prefetch_related('user', 'saved_by', 'upvoted_users', 'downvoted_users').order_by('-number_of_comments')
+            posts.order_by('-number_of_comments')
 
         context = {'posts': posts, 'user': request.user, 'sorting': sorting, 'request_guest': request_guest}
         return render(request, 'blog/home.html', context)
@@ -154,14 +161,8 @@ class Save(View):
     @method_decorator(login_required(login_url='user:login'))
     def post(self, request, pk):
         user = Guest.objects.get(id=request.user.id)
-
-        type = request.POST['element']
-        if type == 'post':
-            instance = Post.objects.get(pk=pk)
-        elif type == 'comment':
-            instance = Comment.objects.get(pk=pk)
-        else:
-            print(type + " - wrong type")
+        model = request.POST['element']
+        instance = get_instance(model, pk)
 
         if user in instance.saved_by.all():
             instance.saved_by.remove(user)
@@ -178,14 +179,8 @@ class Vote(View):
     @method_decorator(login_required(login_url='user:login'))
     def post(self, request, pk):
         user = Guest.objects.get(id=request.user.id)
-
-        type = request.POST['element']
-        if type == 'post':
-            instance = Post.objects.get(pk=pk)
-        elif type == 'comment':
-            instance = Comment.objects.get(pk=pk)
-        else:
-            print(type + " - wrong type")
+        model = request.POST['element']
+        instance = get_instance(model, pk)
 
         action = request.POST['action']
         update_instance_rating(instance, user, action)  # This might lead to duplicated requests
