@@ -64,6 +64,13 @@ class PostViewSet(ModelViewSet):
             return response
 
         return super(PostViewSet, self).update(request, *args, **kwargs)
+    
+    def partial_update(self, request, *args, **kwargs):
+        response = user_owns_the_post(request, kwargs)
+        if response:
+            return response
+        
+        return super(PostViewSet, self).partial_update(request, *args, **kwargs)
 
     def destroy(self, request, *args, **kwargs):
         response = user_owns_the_post(request, kwargs)
