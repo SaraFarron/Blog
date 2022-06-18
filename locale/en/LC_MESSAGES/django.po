@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-18 09:36+0000\n"
+"POT-Creation-Date: 2022-06-18 16:20+0000\n"
 "PO-Revision-Date: 2022-06-15 17:06+0000\n"
 "Last-Translator:   <ya@ti.sobaka>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -203,11 +203,13 @@ msgid "Have something to tell?"
 msgstr ""
 
 #: templates/blog/home.html:38
-msgid "sort by popularity"
-msgstr ""
+#, fuzzy
+#| msgid "No posts yet"
+msgid "new posts"
+msgstr "No posts yet"
 
 #: templates/blog/home.html:40
-msgid "sort by novelty"
+msgid "popular posts"
 msgstr ""
 
 #: templates/blog/post/post-creation-block.html:5
