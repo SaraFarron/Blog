@@ -27,7 +27,7 @@ class PostSerializer(ModelSerializer):
 
 class CommentSerializer(ModelSerializer):
     id = IntegerField(read_only=True)
-    post = CharField(required=True)
+    post = CharField(required=True)  # This should be an int, but with IntegerField error occurs for some reason
     user = SlugRelatedField(
         read_only=True,
         slug_field='name'
@@ -40,7 +40,16 @@ class CommentSerializer(ModelSerializer):
 
     class Meta:
         model = Comment
-        fields = '__all__'
+        fields = ['id',
+                  'post',
+                  'user',
+                  'parent_comment',
+                  'rating',
+                  'upvoted_users',
+                  'downvoted_users',
+                  'saved_by',
+                  'text'
+        ]
         depth = 1
 
 
