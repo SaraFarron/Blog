@@ -1,39 +1,52 @@
-// check for saved 'darkMode' in localStorage
-let darkMode = localStorage.getItem('darkMode'); 
+function getCookie(cName) {
+  const name = cName + "=";
+  const cDecoded = decodeURIComponent(document.cookie); //to be careful
+  const cArr = cDecoded.split('; ');
+  let res;
+  cArr.forEach(val => {
+    if (val.indexOf(name) === 0) res = val.substring(name.length);
+  })
+  return res
+}
+
 
 const darkModeToggle = document.querySelector('#dark-mode-toggle');
 
 const enableDarkMode = () => {
-  // 1. Add the class to the body
   document.body.classList.add("dark");
-  // 2. Update darkMode in localStorage
-  localStorage.setItem('darkMode', 'enabled');
+  document.cookie = "darkMode=enabled; expires=Tue, 19 Jan 9999 03:14:07 GMT; path=/";
+  //localStorage.setItem('darkMode', 'enabled');
 }
 
 const disableDarkMode = () => {
-  // 1. Remove the class from the body
   document.body.classList.remove("dark");
-  // 2. Update darkMode in localStorage 
-  localStorage.setItem('darkMode', null);
+
+  document.cookie = "darkMode=disabled; expires=Tue, 19 Jan 9999 03:14:07 GMT; path=/";
+  //localStorage.setItem('darkMode', null);
 }
- 
-// If the user already visited and enabled darkMode
-// start things off with it on
-if (darkMode === 'enabled') {
+
+//callback in case of absence of backed logic
+//{
+//let darkMode = localStorage.getItem('darkMode');
+
+darkMode = getCookie('darkMode'); 
+if (darkMode === 'enabled' && !document.body.classList.contains('dark')) {
   enableDarkMode();
 }
+//}
 
-// When someone clicks the button
 darkModeToggle.addEventListener('click', () => {
+  darkMode = getCookie('darkMode'); 
 
-  // get their darkMode setting
-  darkMode = localStorage.getItem('darkMode'); 
-  
-  // if it not current enabled, enable it
   if (darkMode !== 'enabled') {
-    enableDarkMode();
-  // if it has been enabled, turn it off  
+    enableDarkMode(); 
   } else {  
     disableDarkMode(); 
   }
+  var url = "/";
+
+  var req = new XMLHttpRequest();
+  req.open("GET", url);
+
+  req.send();
 });
