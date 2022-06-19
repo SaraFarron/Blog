@@ -868,18 +868,26 @@ img[data-bookmark-icon-active].hidden, img[data-bookmark-icon-inactive].hidden {
   padding: 0 !important;
   cursor: default !important;
   padding-left: 4px !important;
+  transition: border-radius 0.5s ease 0.5s !important;
+  border-top-right-radius: 100vmax;
+  border-bottom-right-radius: 100vmax;
 }
 
-[data-sorting-toggle]:hover {
+[data-sorting-toggle]:hover, [data-sorting-toggle]:focus {
   background-color: #e6f7f1;
-}
-
-[data-sorting-toggle] span {
-  margin: 0 8px;
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  transition: border-radius 0.5s ease 0s !important;
 }
 
 [data-sorting-toggle]:hover > [data-sorting-variants], [data-sorting-toggle]:focus > [data-sorting-variants] {
   max-width: 400px;
+  opacity: 1;
+  transition: max-width 0.5s ease;
+}
+
+[data-sorting-toggle] > span {
+  margin: 0 12px 0 8px;
 }
 
 body.dark [data-sorting-toggle] {
@@ -889,7 +897,7 @@ body.dark [data-sorting-toggle] {
 [data-sorting-variants] {
   display: flex;
   background-color: #e6f7f1;
-  padding: 0;
+  padding: 0 !important;
   vertical-align: middle;
   align-items: center;
   font-size: medium;
@@ -898,8 +906,9 @@ body.dark [data-sorting-toggle] {
   border-bottom-right-radius: 100vmax;
   overflow: hidden;
   transform-origin: left center;
-  transition: max-width 0.5s ease-out;
+  transition: max-width 0.5s ease, opacity 0s linear 0.5s;
   max-width: 0;
+  opacity: 0;
 }
 
 [data-sorting-variants] span {
@@ -925,12 +934,12 @@ body.dark [data-sorting-toggle] {
   background-color: #d1f8d9;
 }
 
-[data-sorting-variants] > :last-child {
-  padding-right: 12px;
+[data-sorting-variants] span + span {
+  border-left: 1px solid #6b6b6b;
 }
 
-[data-sorting-variants]:hover {
-  max-width: 400px;
+[data-sorting-variants] > :last-child {
+  padding-right: 12px;
 }
 
 [data-sorting-variants]:hover ~ [data-sorting-toggle] {
@@ -948,13 +957,6 @@ body.dark [data-sorting-variants] > span:hover {
 
 body.dark [data-sorting-variants] > span[disabled] {
   background-color: #5b5d61;
-}
-
-.vline {
-  border-left: 1px solid #6b6b6b;
-  height: 28px;
-  left: 50%;
-  margin: 0;
 }
 
 body.dark .btn, body.dark .btn-submit, body.dark .btn-edit, body.dark .btn-delete {

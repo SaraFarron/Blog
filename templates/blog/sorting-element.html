@@ -5,9 +5,7 @@
             <span>{% trans 'sorting' %}</span>
             <div data-sorting-variants>
             <span {%if request.COOKIES.sorting == 'novelty' %}class="underline" disabled{%endif%} data-sort-by="novelty">{% trans 'by novelty' %}</span>
-                <div class="vline"></div>
                 <span {%if request.COOKIES.sorting == 'popularity' %}class="underline" disabled{%endif%} data-sort-by="popularity">{% trans 'by popularity' %}</span>
-                <div class="vline"></div>
                 <span {%if request.COOKIES.sorting == 'rating' %}class="underline" disabled{%endif%} data-sort-by="rating">{% trans 'by rating' %}</span>
             </div>
         </div>

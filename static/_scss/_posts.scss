@@ -233,22 +233,26 @@ img[data-bookmark-icon-active].hidden, img[data-bookmark-icon-inactive].hidden{
     padding: 0 !important;
     cursor: default !important;
     padding-left: 4px !important;
+    transition: border-radius 0.5s ease 0.5s !important;
+    border-top-right-radius: 100vmax;
+    border-bottom-right-radius: 100vmax;
 
-    &:hover {
+
+    &:hover, &:focus {
         background-color: $btn-default-background;
+        border-top-right-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+        transition: border-radius 0.5s ease 0s !important;
+
+        & > [data-sorting-variants] {
+            max-width: 400px;
+            opacity: 1;
+            transition: max-width 0.5s ease
+        }
     }
 
-    & span {
-        margin: 0 8px;
-    }
-}
-
-[data-sorting-toggle]:hover, [data-sorting-toggle]:focus {
-    // border-top-right-radius: 0;
-    // border-bottom-right-radius: 0;
-
-    & > [data-sorting-variants] {
-        max-width: 400px;
+    & > span {
+        margin: 0 12px 0 8px;
     }
 }
 
@@ -259,7 +263,7 @@ body.dark [data-sorting-toggle] {
 [data-sorting-variants] {
     display: flex;
     background-color: $btn-default-background;
-    padding: 0;
+    padding: 0 !important;
     vertical-align: middle;
     align-items: center;
     font-size: medium;
@@ -268,8 +272,9 @@ body.dark [data-sorting-toggle] {
     border-bottom-right-radius: 100vmax;
     overflow: hidden;
     transform-origin: left center;
-    transition: max-width 0.5s ease-out;
+    transition: max-width 0.5s ease, opacity 0s linear 0.5s;
     max-width: 0;
+    opacity: 0;
 
     & span{
         transition: background-color 0.2s ease-in-out;
@@ -293,14 +298,18 @@ body.dark [data-sorting-toggle] {
             background-color: $btn-submit-on-hover-bg;
         }
     }
+
+    & span + span {
+        border-left:  1px solid #6b6b6b;
+    }
     
     & > :last-child {
         padding-right: 12px;
     }
 
-    &:hover {
-       max-width: 400px;
-    }
+    // &:hover {
+    //    max-width: 400px;
+    // }
 
 }
 
@@ -318,11 +327,4 @@ body.dark [data-sorting-variants] {
     & > span[disabled] {
         background-color: invert($btn-dark-background, 20%);
     }
-}
-
-.vline {
-    border-left: 1px solid #6b6b6b;
-    height: 28px;
-    left: 50%;
-    margin: 0;
 }
