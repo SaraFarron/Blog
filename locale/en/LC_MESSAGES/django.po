@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-18 16:20+0000\n"
+"POT-Creation-Date: 2022-06-19 12:22+0000\n"
 "PO-Revision-Date: 2022-06-15 17:06+0000\n"
 "Last-Translator:   <ya@ti.sobaka>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,7 +23,7 @@ msgstr ""
 msgid "Untitled"
 msgstr "Untitled"
 
-#: BlogApp/models.py:8 user/models.py:9
+#: BlogApp/models.py:8 user/models.py:10
 msgid "name"
 msgstr ""
 
@@ -44,7 +44,7 @@ msgid "author"
 msgstr ""
 
 #: BlogApp/models.py:13 BlogApp/models.py:36 templates/user/profile.html:33
-#: user/models.py:20
+#: user/models.py:21
 msgid "rating"
 msgstr ""
 
@@ -167,7 +167,7 @@ msgstr "No posts yet"
 #: templates/blog/comment/reply-list.html:10
 #: templates/blog/post/postlist-item.html:14
 #: templates/blog/post/postpage-post.html:13
-#: templates/user/profile-comment-list.html:14 user/models.py:13
+#: templates/user/profile-comment-list.html:14 user/models.py:14
 msgid "profile picture"
 msgstr ""
 
@@ -247,12 +247,12 @@ msgstr "No posts yet"
 msgid "Title"
 msgstr "Untitled"
 
-#: templates/blog/post/post-creation-form.html:11
+#: templates/blog/post/post-creation-form.html:10
 #: templates/blog/post/post-edit-form.html:13
 msgid "Description"
 msgstr ""
 
-#: templates/blog/post/post-creation-form.html:15
+#: templates/blog/post/post-creation-form.html:13
 #: templates/blog/post/post-edit-form.html:17
 msgid "Text"
 msgstr ""
@@ -347,16 +347,16 @@ msgstr "Logout"
 msgid "You must be logged in!"
 msgstr ""
 
-#: templates/user/login.html:5 templates/user/login.html:12
-#: templates/user/login.html:17
+#: templates/user/login.html:5 templates/user/login.html:21
+#: templates/user/login.html:26
 msgid "Login"
 msgstr "Login"
 
-#: templates/user/login.html:15 templates/user/register.html:16
+#: templates/user/login.html:24 templates/user/register.html:16
 msgid "username"
 msgstr ""
 
-#: templates/user/login.html:16 templates/user/register.html:18
+#: templates/user/login.html:25 templates/user/register.html:18
 msgid "password"
 msgstr ""
 
@@ -370,31 +370,35 @@ msgstr ""
 
 #: templates/user/profile-settings.html:34
 #: templates/user/profile-settings.html:35 templates/user/profile.html:30
-#: templates/user/register.html:17 user/models.py:11
+#: templates/user/register.html:17 user/models.py:12
 msgid "email"
 msgstr ""
 
 #: templates/user/profile-settings.html:38
 #: templates/user/profile-settings.html:39 templates/user/profile.html:31
-#: user/models.py:12
+#: user/models.py:13
 msgid "phone"
 msgstr ""
 
 #: templates/user/profile-settings.html:42
-#: templates/user/profile-settings.html:43 templates/user/profile.html:32
+#: templates/user/profile-settings.html:44 templates/user/profile.html:32
 msgid "skype"
 msgstr ""
 
-#: templates/user/profile-settings.html:46
+#: templates/user/profile-settings.html:47
 msgid "Save"
 msgstr ""
 
-#: templates/user/profile-settings.html:55 templates/user/profile.html:44
+#: templates/user/profile-settings.html:56 templates/user/profile.html:44
 msgid "API token"
 msgstr ""
 
 #: templates/user/profile.html:16
 msgid "Settings"
+msgstr ""
+
+#: templates/user/profile.html:32
+msgid "Not specified"
 msgstr ""
 
 #: templates/user/profile.html:34
@@ -417,23 +421,23 @@ msgstr ""
 msgid "confirm password"
 msgstr ""
 
-#: user/models.py:15
+#: user/models.py:16
 msgid "token"
 msgstr ""
 
-#: user/models.py:16
+#: user/models.py:17
 msgid "moderation status"
 msgstr ""
 
-#: user/models.py:17
+#: user/models.py:18
 msgid "is banned"
 msgstr ""
 
-#: user/models.py:18
+#: user/models.py:19
 msgid "is muted"
 msgstr ""
 
-#: user/models.py:19
+#: user/models.py:20
 msgid "last ban date"
 msgstr ""
 

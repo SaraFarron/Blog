@@ -1,7 +1,7 @@
 {% load i18n %}
 {% load static %}
 {% for comment in comments %}
-    <div class="container {% if comment.replies.all|length == 0 %}pdb-4{%endif%}">
+    <div class="container">
         <div class="container-col">
             <!-- NOT IMPLEMENTED
             <div class="container popup-hidden" id="popup-delete-{{comment.id}}">
@@ -32,7 +32,7 @@
             <div class="container-row">
                 <p>{{comment.text}}</p>
             </div>
-            <div class="container-row mgb-8">
+            <div class="container-row mgt-8">
                 <div class="pos-right">
                     {% include 'blog/comment/comment-rating.html' %}
                 </div>

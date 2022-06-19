@@ -1,8 +1,8 @@
 @import "common-vars.scss";
 
 .list-v {
-    $create-post-section-height: 306px;
-    $comment-post-section-height: 80px;
+    $create-post-section-height: 239px;
+    $comment-post-section-height: 78px;
 
     max-width: $postlist-max-width;
     min-width: $postlist-min-width;
@@ -191,4 +191,30 @@ img[data-bookmark-icon-active], img[data-bookmark-icon-inactive]{
 img[data-bookmark-icon-active].hidden, img[data-bookmark-icon-inactive].hidden{
     opacity: 0;
     transform: scale(0.8);
+}
+
+.post-stats {
+    justify-content:end;
+    width: 300px;
+
+    & > * {
+        margin: 0 !important;
+        width: 100% !important;
+        
+        justify-self:end;
+    }
+
+    // & > :nth-child(1) {
+    //     max-width: 70px;
+    // }
+
+    // & > :nth-child(2) {
+    //     max-width: 70px;
+    // }
+
+    & > :nth-child(1) {
+        max-width: 100px;
+        display: flex;
+        justify-content: end;
+    }
 }

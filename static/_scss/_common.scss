@@ -50,8 +50,13 @@
     }
 }
 
+html {
+    overflow-y: scroll;
+}
+
 html, body {
     min-height: 100%;
+    
 }
 
 body {
@@ -97,12 +102,16 @@ a {
 
 p, h1, h3, h4, h5 {
     padding: 0px;
-    margin: 0px 8px 8px 8px;
-    text-indent: 8px;
+    //text-indent: 8px;
     overflow: hidden;
     text-overflow: ellipsis;
     overflow-wrap: anywhere;
+    margin: 0;
     //box-sizing: border-box;
+
+    & + & {
+        margin-top: 8px;
+    }
   }
 
 h2 {
@@ -114,6 +123,9 @@ h2 {
     overflow: hidden;
 }
 
+h4 {
+    margin-left: 4px;
+}
 
 label {
     box-sizing: border-box;
@@ -132,7 +144,7 @@ label {
     border-radius: 8px;
     
     position: relative;
-    padding: 12px;
+    padding: 16px;
     margin: 0px;
     margin-bottom: 16px;
     display: flex;
@@ -234,7 +246,7 @@ label {
 }
 
 .pdb-4 {
-    padding-bottom: 4px;
+    padding-bottom: 8px; //too lazy to change all occurrences :)
 }
 
 .pd-0 {
@@ -270,11 +282,10 @@ input.toggle {
 }
 
 input[type="text"],input[type="number"],input[type="password"],input[type="email"],textarea {
-    padding: 4px;
+    padding: 4px 12px;
     width: 100%;
     font-family: 'Roboto', Tahoma;
     font-size: 16px;
-    text-indent: 8px;
     display: block;
     border: 0;
     border-radius: 4px;
