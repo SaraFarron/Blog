@@ -7,6 +7,10 @@
   }
 }
 
+html {
+  overflow-y: scroll;
+}
+
 html, body, body.dark {
   min-height: 100%;
 }
@@ -54,11 +58,14 @@ a:hover {
 
 p, h1, h3, h4, h5 {
   padding: 0px;
-  margin: 0px 8px 8px 8px;
-  text-indent: 8px;
   overflow: hidden;
   text-overflow: ellipsis;
   overflow-wrap: anywhere;
+  margin: 0;
+}
+
+p + p, h1 + p, h3 + p, h4 + p, h5 + p, p + h1, h1 + h1, h3 + h1, h4 + h1, h5 + h1, p + h3, h1 + h3, h3 + h3, h4 + h3, h5 + h3, p + h4, h1 + h4, h3 + h4, h4 + h4, h5 + h4, p + h5, h1 + h5, h3 + h5, h4 + h5, h5 + h5 {
+  margin-top: 8px;
 }
 
 h2 {
@@ -68,6 +75,10 @@ h2 {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+}
+
+h4 {
+  margin-left: 4px;
 }
 
 label {
@@ -85,7 +96,7 @@ label {
   background-color: white;
   border-radius: 8px;
   position: relative;
-  padding: 12px;
+  padding: 16px;
   margin: 0px;
   margin-bottom: 16px;
   display: flex;
@@ -187,7 +198,7 @@ label {
 }
 
 .pdb-4 {
-  padding-bottom: 4px;
+  padding-bottom: 8px;
 }
 
 .pd-0 {
@@ -222,11 +233,10 @@ input.toggle {
 }
 
 input[type="text"], input[type="number"], input[type="password"], input[type="email"], textarea {
-  padding: 4px;
+  padding: 4px 12px;
   width: 100%;
   font-family: 'Roboto', Tahoma;
   font-size: 16px;
-  text-indent: 8px;
   display: block;
   border: 0;
   border-radius: 4px;
@@ -522,7 +532,7 @@ nav.navbar label img {
 }
 
 .list-v #post-create-expand:checked ~ .expandable-v, .list-v-narrow #post-create-expand:checked ~ .expandable-v {
-  height: 306px;
+  height: 239px;
 }
 
 .list-v #post-create-expand:checked + label, .list-v-narrow #post-create-expand:checked + label {
@@ -580,7 +590,7 @@ nav.navbar label img {
 }
 
 .list-v #post-comment-expand:checked ~ .expandable-v, .list-v-narrow #post-comment-expand:checked ~ .expandable-v {
-  height: 80px;
+  height: 78px;
 }
 
 .list-v #post-comment-expand:checked + label, .list-v-narrow #post-comment-expand:checked + label {
@@ -745,6 +755,23 @@ img[data-bookmark-icon-active].hidden, img[data-bookmark-icon-inactive].hidden {
   transform: scale(0.8);
 }
 
+.post-stats {
+  justify-content: end;
+  width: 300px;
+}
+
+.post-stats > * {
+  margin: 0 !important;
+  width: 100% !important;
+  justify-self: end;
+}
+
+.post-stats > :nth-child(1) {
+  max-width: 100px;
+  display: flex;
+  justify-content: end;
+}
+
 body.dark .btn, body.dark .btn-submit, body.dark .btn-edit, body.dark .btn-delete {
   color: #f8f8f8;
   background-color: #42464d;
@@ -854,7 +881,7 @@ button[type=submit] {
   top: 0;
   opacity: 1;
   transform: translate0(100%);
-  transition: opacity 1000ms ease-in-out, transform 500ms ease-in-out;
+  transition: opacity 1.5s ease-in-out, transform 500ms ease-in-out, height 500ms ease-in-out;
 }
 
 .profile-list.hidden {

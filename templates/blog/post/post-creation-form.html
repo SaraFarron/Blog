@@ -4,16 +4,13 @@
 <form action="" method="POST" name="create-post">
     {% csrf_token %}
     <label>
-        {% trans 'Title' %}:<br>
-        <input type="text" name="name" required maxlength="200">
+        <input type="text" name="name" required maxlength="200" placeholder="{% trans 'Title' %}...">
     </label>
     <label>
-        {% trans 'Description' %}:<br>
-        <input type="text" name="description" required maxlength="200">
+        <input type="text" name="description" required maxlength="200" placeholder="{% trans 'Description' %}...">
     </label>
     <label>
-        {% trans 'Text' %}:<br>
-        <textarea name="text" class="post-textarea" required></textarea>
+        <textarea name="text" class="post-textarea" required placeholder="{% trans 'Text' %}..."></textarea>
     </label>
     <input type="submit" name="Submit" style="display: none;" id="post-creation-submit">
 </form>

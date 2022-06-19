@@ -32,10 +32,10 @@
             <h3>{{ post.description }}</h3>
             <p>{{ post.text }}</p>
         </div>
-        <div class="container-row">
-            <div class="pos-right">
-                {% include 'blog/post/post-save.html' %}
-                <div class="mgr-16"><img class="icon" src="{% static 'images/icons/comments_icon.svg' %}"><span>{{ post.number_of_comments }}</span></div>
+        <div class="container-row mgt-8">
+            <div class="mgr-32"><img class="icon" src="{% static 'images/icons/comments_icon.svg' %}"><span>{{ post.number_of_comments }}</span></div>
+            {% include 'blog/post/post-save.html' %}
+            <div class="pos-right post-stats">
                 {% include 'blog/post/post-rating.html' %}
             </div>
         </div>

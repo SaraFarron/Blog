@@ -19,7 +19,7 @@
     </div>
 
     <div class="container profile">
-        <div class="container-row mgb-8 mgl-8 mgt-8">    
+        <div class="container-row mgb-8 mgt-8">    
             <div class="container-col mgr-8">
                 <img class="profile-pic" type="userpic" src=
                 {% if user.profile_picture %}"{{ user.profile_picture.url }}"
@@ -29,14 +29,14 @@
             <div class="container-col mgr-a">
                 <h4> {% trans 'email' %}: {{ user.email }}</h4>
                 <h4> {% trans 'phone' %}: {{ user.phone }}</h4>
-                <h4> {% trans 'skype' %}: {{ user.skype }}</h4>
+                <h4> {% trans 'skype' %}: {%if user.skype != None%}{{user.skype}}{%else%}{%trans 'Not specified'%}{%endif%}</h4>
                 <h4> {% trans 'rating' %}: {{ user.rating }}</h4>
                 <h4> {% trans 'number of posts' %}: {{ posts|length }}</h4>
                 <h4> {% trans 'number of comments' %}: {{ comments|length }}</h4>
                 <h4> {% trans 'registration date' %}: {{ user.date_created }}</h4>
             </div>
         </div>
-        <div class="container-row">
+        <div class="container-row mgb-8">
             <h1 id="name">{{ user.name }}</h1>
         </div>
         {% if request_guest == user %}

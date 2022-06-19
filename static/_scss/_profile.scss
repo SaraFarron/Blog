@@ -21,12 +21,14 @@
 
 .profile-list {
     width: -webkit-fill-available;
+
     position: relative;
     top: 0;
     opacity: 1;
     transform: translate0(100%);
-    transition: opacity 1000ms ease-in-out,
-    transform 500ms ease-in-out;
+    transition: opacity 1.5s ease-in-out,
+                transform 500ms ease-in-out,
+                height 500ms ease-in-out;
 }
 
 .profile-list.hidden {

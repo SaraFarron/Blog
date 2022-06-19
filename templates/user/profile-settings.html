@@ -15,7 +15,7 @@
     </div>
     {% include 'form-errors.html' %}
     <div class="container profile">
-        <div class="container-row mgb-8 mgl-8 mgt-8">    
+        <div class="container-row mgb-8 mgt-8">    
             <div class="container-col mgr-8">
                 <img class="profile-pic" id="profile-picture-image" type="userpic" src=
                 {% if user.profile_picture %}"{{ user.profile_picture.url }}"
@@ -36,18 +36,19 @@
                 </div>
                 <div class="container-row">
                     <label class="mgb-8" for="phone"><h4>{% trans 'phone' %}:</h4></label>
-                    <input type="number" id="phone" name="phone" value="{{ user.phone }}" placeholder="{% trans 'phone' %}">
+                    <input type="text" id="phone" name="phone" value="{{ user.phone }}" placeholder="{% trans 'phone' %}">
                 </div>
                 <div class="container-row">
                     <label class="mgb-8" for="skype"><h4>{% trans 'skype' %}:</h4></label>
-                    <input type="text" id="skype" name="skype" value="{{ user.skype }}" placeholder="{% trans 'skype' %}">
+                    <input type="text" id="skype" name="skype" value="{%if user.skype != None%}{{user.skype}}{%endif%}"
+                         placeholder="{% trans 'skype' %}">
                 </div>
                 <div class="container-row">
                     <button class="btn-submit">{% trans 'Save' %}</button>
                 </div>
             </form>
         </div>
-        <div class="container-row">
+        <div class="container-row mgb-8">
             <h1 id="name">{{ user.name }}</h1>
         </div>
         {% if request.user.id == user.id %}
