@@ -507,6 +507,89 @@ nav.navbar label img {
   transform-origin: 50% 50%;
 }
 
+body.dark .btn, body.dark .btn-submit, body.dark .btn-edit, body.dark .btn-delete {
+  color: #f8f8f8;
+  background-color: #42464d;
+}
+
+body.dark .btn:hover, body.dark .btn-submit:hover, body.dark .btn-edit:hover, body.dark .btn-delete:hover {
+  color: #ebebeb;
+  background-color: #202225;
+}
+
+body.dark img:not([type="userpic"]) {
+  filter: invert(90%);
+}
+
+body.dark img:not([type="userpic"]):hover {
+  filter: invert(90%);
+}
+
+.btn, .btn-submit, .btn-edit, .btn-delete {
+  padding: 2px;
+  text-align: center;
+  vertical-align: middle;
+  align-items: center;
+  display: inline-block;
+  border: none;
+  font-family: 'Roboto', Tahoma;
+  font-size: medium;
+  box-sizing: border-box;
+  user-select: none;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 8px;
+  min-height: 28px;
+  width: 136px;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out, opacity 0.8s ease-in-out;
+  color: black;
+  background-color: #e6f7f1;
+}
+
+.btn:hover, .btn-submit:hover, .btn-edit:hover, .btn-delete:hover {
+  color: black;
+  background-color: #d3f1e6;
+}
+
+.btn span, .btn-submit span, .btn-edit span, .btn-delete span {
+  cursor: inherit;
+  line-height: 24px;
+}
+
+.btn-submit {
+  color: black;
+  background-color: #e6f7f1;
+}
+
+.btn-submit:hover {
+  color: black;
+  background-color: #d1f8d9;
+}
+
+.btn-edit {
+  color: black;
+  background-color: #e6f7f1;
+}
+
+.btn-edit:hover {
+  color: black;
+  background-color: #cff5f2;
+}
+
+.btn-delete {
+  color: black;
+  background-color: #e6f7f1;
+}
+
+.btn-delete:hover {
+  color: black;
+  background-color: #e9ded9;
+}
+
+button[type=submit] {
+  display: none;
+}
+
 .list-v, .list-v-narrow {
   max-width: 720px;
   min-width: 480px;
@@ -770,6 +853,81 @@ img[data-bookmark-icon-active].hidden, img[data-bookmark-icon-inactive].hidden {
   max-width: 100px;
   display: flex;
   justify-content: end;
+}
+
+[data-sorting-toggle] {
+  border-radius: 100vmax !important;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  display: flex !important;
+}
+
+[data-sorting-toggle] span {
+  margin: 0 8px;
+}
+
+[data-sorting-toggle]:hover > [data-sorting-variants] {
+  max-width: 400px;
+}
+
+[data-sorting-variants] {
+  display: flex;
+  background-color: #e6f7f1;
+  padding: 0;
+  vertical-align: middle;
+  align-items: center;
+  font-size: medium;
+  min-height: 28px;
+  border-top-right-radius: 100vmax;
+  border-bottom-right-radius: 100vmax;
+  overflow: hidden;
+  transform-origin: left center;
+  transition: max-width 0.5s ease-out;
+  max-width: 0;
+}
+
+[data-sorting-variants] span {
+  transition: background-color 0.2s ease-in-out;
+  margin: 0 !important;
+  padding: 0px 8px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  word-break: keep-all;
+  word-wrap: none;
+  white-space: nowrap;
+}
+
+[data-sorting-variants] span:hover {
+  background-color: #cff5f2;
+}
+
+[data-sorting-variants] > :last-child {
+  padding-right: 16px;
+}
+
+[data-sorting-variants]:hover {
+  max-width: 400px;
+}
+
+[data-sorting-variants]:hover ~ [data-sorting-toggle] {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+body.dark [data-sorting-variants] {
+  background-color: #42464d;
+}
+
+body.dark [data-sorting-variants] > span:hover {
+  background-color: #202225;
+}
+
+.vline {
+  border-left: 1px solid #6b6b6b;
+  height: 28px;
+  left: 50%;
+  margin: 0;
 }
 
 body.dark .btn, body.dark .btn-submit, body.dark .btn-edit, body.dark .btn-delete {

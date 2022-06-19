@@ -40,8 +40,10 @@ class Home(View):
 
         if sorting == 'novelty':
             posts = posts.order_by('-creation_date')
-        else:
+        elif sorting == 'popularity':
             posts = posts.order_by('-number_of_comments')
+        else:
+            posts = posts.order_by('-rating')
 
         context = {'posts': posts, 'user': request.user, 'sorting': sorting, 'request_guest': request_guest}
         return render(request, 'blog/home.html', context)

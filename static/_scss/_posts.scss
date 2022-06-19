@@ -1,4 +1,5 @@
 @import "common-vars.scss";
+@import "buttons.scss";
 
 .list-v {
     $create-post-section-height: 239px;
@@ -217,4 +218,84 @@ img[data-bookmark-icon-active].hidden, img[data-bookmark-icon-inactive].hidden{
         display: flex;
         justify-content: end;
     }
+}
+
+[data-sorting-toggle] { 
+    border-radius: 100vmax !important;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    display: flex !important;
+
+    & span {
+        margin: 0 8px;
+    }
+}
+
+[data-sorting-toggle]:hover {
+    // border-top-right-radius: 0;
+    // border-bottom-right-radius: 0;
+
+    & > [data-sorting-variants] {
+        max-width: 400px;
+    }
+}
+
+[data-sorting-variants] {
+    display: flex;
+    background-color: $btn-default-background;
+    padding: 0;
+    vertical-align: middle;
+    align-items: center;
+    font-size: medium;
+    min-height: 28px;
+    border-top-right-radius: 100vmax;
+    border-bottom-right-radius: 100vmax;
+    overflow: hidden;
+    transform-origin: left center;
+    transition: max-width 0.5s ease-out;
+    max-width: 0;
+
+    & span{
+        transition: background-color 0.2s ease-in-out;
+        margin: 0 !important;
+        padding: 0px 8px;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        word-break: keep-all;
+        word-wrap: none;
+        white-space: nowrap;
+
+        &:hover {
+            background-color: $btn-edit-on-hover-bg;
+        }
+    }
+    
+    & > :last-child {
+        padding-right: 16px;
+    }
+
+    &:hover {
+       max-width: 400px;
+    }
+
+}
+
+[data-sorting-variants]:hover ~ [data-sorting-toggle] {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+body.dark [data-sorting-variants] {
+    background-color: $btn-dark-background;
+    & > span:hover {
+        background-color: $page-background-color-dark ;
+    }
+}
+
+.vline {
+    border-left: 1px solid #6b6b6b;
+    height: 28px;
+    left: 50%;
+    margin: 0;
 }
