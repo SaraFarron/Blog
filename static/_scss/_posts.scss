@@ -230,19 +230,30 @@ img[data-bookmark-icon-active].hidden, img[data-bookmark-icon-inactive].hidden{
     flex-wrap: nowrap;
     white-space: nowrap;
     display: flex !important;
+    padding: 0 !important;
+    cursor: default !important;
+    padding-left: 4px !important;
+
+    &:hover {
+        background-color: $btn-default-background;
+    }
 
     & span {
         margin: 0 8px;
     }
 }
 
-[data-sorting-toggle]:hover {
+[data-sorting-toggle]:hover, [data-sorting-toggle]:focus {
     // border-top-right-radius: 0;
     // border-bottom-right-radius: 0;
 
     & > [data-sorting-variants] {
         max-width: 400px;
     }
+}
+
+body.dark [data-sorting-toggle] {
+    background-color: $btn-dark-background !important;
 }
 
 [data-sorting-variants] {
@@ -271,13 +282,20 @@ img[data-bookmark-icon-active].hidden, img[data-bookmark-icon-inactive].hidden{
         word-wrap: none;
         white-space: nowrap;
 
-        &:hover {
+        &:not([disabled]):hover {
+            cursor: pointer;
             background-color: $btn-edit-on-hover-bg;
+        }
+
+        &[disabled] {
+            cursor: default;
+            pointer-events: none;
+            background-color: $btn-submit-on-hover-bg;
         }
     }
     
     & > :last-child {
-        padding-right: 16px;
+        padding-right: 12px;
     }
 
     &:hover {
@@ -295,6 +313,10 @@ body.dark [data-sorting-variants] {
     background-color: $btn-dark-background;
     & > span:hover {
         background-color: $page-background-color-dark ;
+    }
+
+    & > span[disabled] {
+        background-color: invert($btn-dark-background, 20%);
     }
 }
 

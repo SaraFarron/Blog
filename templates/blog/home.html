@@ -31,20 +31,7 @@
         {% include 'blog/post/post-creation-block.html' %}
     </div>
     {% if posts %}
-    <div class="mgb-16">
-        <div class="container-row">
-            <div class="btn-edit width-fit" data-sorting-toggle>
-                <span>{% trans 'sorting' %}</span>
-                <div data-sorting-variants>
-                    <span data-sort-by="novelty">{% trans 'by novelty' %}</span>
-                    <div class="vline"></div>
-                    <span data-sort-by="popularity">{% trans 'by popularity' %}</span>
-                    <div class="vline"></div>
-                    <span data-sort-by="rating">{% trans 'by rating' %}</span>
-                </div>
-            </div>
-        </div>
-    </div>
+        {% include 'blog/sorting-element.html' %}
     {% endif %}
     {% for post in posts %}
         {% include 'blog/post/postlist-item.html' %}

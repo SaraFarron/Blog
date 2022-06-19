@@ -5,9 +5,7 @@
     <div class="container-col">
         <div class="container popup-hidden" id="popup-delete-{{post.id}}">
             {% include 'blog/post/post-delete-form.html' %}
-            
         </div>
-
         <div class="container-row mgb-8">
             <div class="height-100pc">
                 <a href="{% url 'user:profile' post.user.id %}">
@@ -32,7 +30,9 @@
             <h3 class="">{{ post.description }}</h3>
         </a>
         <div class="container-row mgt-8 post-stats">
-            <div class=""><img class="icon" src="{% static 'images/icons/comments_icon.svg' %}"><span>{{ post.number_of_comments }}</span></div>
+            <div>
+                <img class="icon" src="{% static 'images/icons/comments_icon.svg' %}"><span>{{ post.number_of_comments }}</span>
+            </div>
             {% include 'blog/post/post-save.html' %}
             <div class="pos-right post-rating">
                 {% include 'blog/post/post-rating.html' %}

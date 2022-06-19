@@ -865,14 +865,25 @@ img[data-bookmark-icon-active].hidden, img[data-bookmark-icon-inactive].hidden {
   flex-wrap: nowrap;
   white-space: nowrap;
   display: flex !important;
+  padding: 0 !important;
+  cursor: default !important;
+  padding-left: 4px !important;
+}
+
+[data-sorting-toggle]:hover {
+  background-color: #e6f7f1;
 }
 
 [data-sorting-toggle] span {
   margin: 0 8px;
 }
 
-[data-sorting-toggle]:hover > [data-sorting-variants] {
+[data-sorting-toggle]:hover > [data-sorting-variants], [data-sorting-toggle]:focus > [data-sorting-variants] {
   max-width: 400px;
+}
+
+body.dark [data-sorting-toggle] {
+  background-color: #42464d !important;
 }
 
 [data-sorting-variants] {
@@ -903,12 +914,19 @@ img[data-bookmark-icon-active].hidden, img[data-bookmark-icon-inactive].hidden {
   white-space: nowrap;
 }
 
-[data-sorting-variants] span:hover {
+[data-sorting-variants] span:not([disabled]):hover {
+  cursor: pointer;
   background-color: #cff5f2;
 }
 
+[data-sorting-variants] span[disabled] {
+  cursor: default;
+  pointer-events: none;
+  background-color: #d1f8d9;
+}
+
 [data-sorting-variants] > :last-child {
-  padding-right: 16px;
+  padding-right: 12px;
 }
 
 [data-sorting-variants]:hover {
@@ -926,6 +944,10 @@ body.dark [data-sorting-variants] {
 
 body.dark [data-sorting-variants] > span:hover {
   background-color: #202225;
+}
+
+body.dark [data-sorting-variants] > span[disabled] {
+  background-color: #5b5d61;
 }
 
 .vline {
