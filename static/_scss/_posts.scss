@@ -194,7 +194,12 @@ img[data-bookmark-icon-active].hidden, img[data-bookmark-icon-inactive].hidden{
     transform: scale(0.8);
 }
 
-.post-stats {
+.post-stats > :first-child() {
+    width: 100px;
+    max-width: 90px;
+}
+
+.post-rating {
     justify-content:end;
     width: 300px;
 

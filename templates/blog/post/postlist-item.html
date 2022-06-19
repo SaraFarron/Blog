@@ -31,10 +31,10 @@
             <h1>{{ post.name }}</h1>
             <h3 class="">{{ post.description }}</h3>
         </a>
-        <div class="container-row mgt-8">
-            <div class="mgr-32"><img class="icon" src="{% static 'images/icons/comments_icon.svg' %}"><span>{{ post.number_of_comments }}</span></div>
+        <div class="container-row mgt-8 post-stats">
+            <div class=""><img class="icon" src="{% static 'images/icons/comments_icon.svg' %}"><span>{{ post.number_of_comments }}</span></div>
             {% include 'blog/post/post-save.html' %}
-            <div class="pos-right post-stats">
+            <div class="pos-right post-rating">
                 {% include 'blog/post/post-rating.html' %}
             </div>
         </div>

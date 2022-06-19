@@ -838,18 +838,23 @@ img[data-bookmark-icon-active].hidden, img[data-bookmark-icon-inactive].hidden {
   transform: scale(0.8);
 }
 
-.post-stats {
+.post-stats > :first-child {
+  width: 100px;
+  max-width: 90px;
+}
+
+.post-rating {
   justify-content: end;
   width: 300px;
 }
 
-.post-stats > * {
+.post-rating > * {
   margin: 0 !important;
   width: 100% !important;
   justify-self: end;
 }
 
-.post-stats > :nth-child(1) {
+.post-rating > :nth-child(1) {
   max-width: 100px;
   display: flex;
   justify-content: end;
