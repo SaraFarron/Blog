@@ -20,21 +20,21 @@ ratingForms.forEach((form) => {
                     change = -1;
                     form.setAttribute("data-rating-form", "unvoted");
                     ratingUpvote.classList.remove("active");
-                    ratingUpvote.setAttribute('title', ratingUpvote.getAttribute('data-active-title'));
+                    ratingUpvote.setAttribute('title', ratingUpvote.getAttribute('data-inactive-title'));
                 }
                 else if (status === 'downvoted') {
                     change = +2;
                     form.setAttribute("data-rating-form", "upvoted");
                     ratingUpvote.classList.add("active");
+                    ratingUpvote.setAttribute('title', ratingUpvote.getAttribute('data-active-title'));
                     ratingDownvote.classList.remove("active");
                     ratingDownvote.setAttribute('title', ratingDownvote.getAttribute('data-inactive-title'));
-                    ratingUpvote.setAttribute('title', ratingUpvote.getAttribute('data-inactive-title'));
                 }
                 else {
                     change = +1;
                     form.setAttribute("data-rating-form", "upvoted");
                     ratingUpvote.classList.add("active");
-                    ratingUpvote.setAttribute('title', ratingUpvote.getAttribute('data-inactive-title'));
+                    ratingUpvote.setAttribute('title', ratingUpvote.getAttribute('data-active-title'));
                 }
                 animLabel.innerHTML = change > 0 ? `+${change}` : change;
 
@@ -55,9 +55,9 @@ ratingForms.forEach((form) => {
                     change = -2;
                     form.setAttribute("data-rating-form", "downvoted");
                     ratingDownvote.classList.add("active");
+                    ratingDownvote.setAttribute('title', ratingDownvote.getAttribute('data-active-title'));
                     ratingUpvote.classList.remove("active");
                     ratingUpvote.setAttribute('title', ratingUpvote.getAttribute('data-inactive-title'));
-                    ratingDownvote.setAttribute('title', ratingDownvote.getAttribute('data-active-title'));
                 }
                 else if (status === 'downvoted') {
                     change = +1;

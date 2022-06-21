@@ -3,14 +3,14 @@
 
 {% with saved_by=post.saved_by.all %}
 <form data-bookmark-form="{% if request_guest in saved_by %}saved{%else%}not-saved{%endif%}"
-  action="{% url 'blog:save' post.id %}" method="post" target="dframe" style="position:relative;">
+  action="{% url 'blog:save' post.id %}" method="post" target="dframe" class="icon bookmark">
     {% csrf_token %}
     <img data-bookmark-icon-active 
-        class="{%if not request_guest in saved_by%}hidden {%endif%}icon bookmark"
+        class="{%if not request_guest in saved_by%}hidden {%endif%}"
         src="{% static 'images/icons/bookmark_active_icon.svg' %}" alt="{% trans 'unbookmark' %}"
         title="{%trans 'remove bookmark'%}">
         <img data-bookmark-icon-inactive 
-        class="{% if request_guest in saved_by %}hidden {%endif%}icon bookmark"
+        class="{% if request_guest in saved_by %}hidden {%endif%}"
         src="{% static 'images/icons/bookmark_icon.svg' %}" alt="{% trans 'bookmark' %}"
         title="{%trans 'bookmark'%}">
         <input name="element" type="hidden" value="post">

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-21 05:58+0000\n"
-"PO-Revision-Date: 2022-06-21 06:05+0000\n"
+"POT-Creation-Date: 2022-06-21 09:54+0000\n"
+"PO-Revision-Date: 2022-06-21 09:57+0000\n"
 "Last-Translator:   <ya@tbl.sobaka>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -43,7 +43,8 @@ msgstr "описание"
 msgid "author"
 msgstr "автор"
 
-#: BlogApp/models.py:13 BlogApp/models.py:36 templates/user/profile.html:33
+#: BlogApp/models.py:13 BlogApp/models.py:36
+#: templates/blog/rating-element-core.html:12 templates/user/profile.html:33
 #: user/models.py:21
 msgid "rating"
 msgstr "рейтинг"
@@ -236,9 +237,19 @@ msgstr "редактировать пост"
 msgid "unbookmark"
 msgstr "в закладки"
 
-#: templates/blog/post/post-save.html:13
+#: templates/blog/post/post-save.html:11
+#| msgid "bookmark"
+msgid "remove bookmark"
+msgstr "убрать закладку"
+
+#: templates/blog/post/post-save.html:14 templates/blog/post/post-save.html:15
 msgid "bookmark"
 msgstr "в закладки"
+
+#: templates/blog/post/postlist-item.html:33
+#: templates/blog/post/postpage-post.html:36 templates/user/profile.html:53
+msgid "comments"
+msgstr "комментарии"
 
 #: templates/blog/post/postpage.html:9
 msgid "Post"
@@ -247,6 +258,26 @@ msgstr "Пост"
 #: templates/blog/post/postpage.html:20 templates/blog/post/postpage.html:36
 msgid "Comment"
 msgstr "Комментировать"
+
+#: templates/blog/rating-element-core.html:9
+#: templates/blog/rating-element-core.html:11
+#: templates/blog/rating-element-core.html:17
+#: templates/blog/rating-element-core.html:19
+#| msgid "upvoted by"
+msgid "unvote"
+msgstr "убрать голос"
+
+#: templates/blog/rating-element-core.html:9
+#: templates/blog/rating-element-core.html:11
+#| msgid "upvoted by"
+msgid "upvote"
+msgstr "нравится"
+
+#: templates/blog/rating-element-core.html:17
+#: templates/blog/rating-element-core.html:19
+#| msgid "downvoted by"
+msgid "downvote"
+msgstr "не нравится"
 
 #: templates/blog/sorting-element.html:5
 msgid "sorting"
@@ -305,6 +336,10 @@ msgstr "Гость"
 msgid "does not exist"
 msgstr "не существует"
 
+#: templates/navbar.html:7
+msgid "Project on GitHub"
+msgstr "Проект на GitHib"
+
 #: templates/navbar.html:26 templates/user/profile.html:9
 msgid "Profile"
 msgstr "Профиль"
@@ -330,16 +365,16 @@ msgstr "Выход"
 msgid "You must be logged in!"
 msgstr "Необходима авторизация!"
 
-#: templates/user/login.html:5 templates/user/login.html:21
-#: templates/user/login.html:26
+#: templates/user/login.html:5 templates/user/login.html:23
+#: templates/user/login.html:28
 msgid "Login"
 msgstr "Вход"
 
-#: templates/user/login.html:24 templates/user/register.html:16
+#: templates/user/login.html:26 templates/user/register.html:16
 msgid "username"
 msgstr "имя пользователя"
 
-#: templates/user/login.html:25 templates/user/register.html:18
+#: templates/user/login.html:27 templates/user/register.html:18
 msgid "password"
 msgstr "пароль"
 
@@ -395,10 +430,6 @@ msgstr "дата регистрации"
 #: templates/user/profile.html:50
 msgid "posts"
 msgstr "посты"
-
-#: templates/user/profile.html:53
-msgid "comments"
-msgstr "комментарии"
 
 #: templates/user/register.html:19
 msgid "confirm password"

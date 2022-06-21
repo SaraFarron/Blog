@@ -842,6 +842,11 @@ form[data-bookmark-form] {
 
 img[data-bookmark-icon-active], img[data-bookmark-icon-inactive] {
   position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 1px;
   transition: opacity 1s ease-out, transform 1s ease-out;
 }
 
