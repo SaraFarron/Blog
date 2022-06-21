@@ -130,10 +130,10 @@
 }
 
 .red {
-    color: rgb(206, 53, 53);
+    color: transparentize(#e60708, 0.15) ;
 }
 .green {
-    color: rgb(53, 185, 35);
+    color: transparentize(#00b100, 0.15) ;
 }
 
 .width-50pc {

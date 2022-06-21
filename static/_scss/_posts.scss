@@ -142,13 +142,9 @@ span[data-rating-text] {
 span[data-animation-label] {
     font-style: italic;
     font-size: small;
-    height: 90%;
-}
-
-span[data-rating-text] ~ span[data-animation-label] {
     position: absolute;
     margin-left: 2px;
-    bottom: 75%;
+    bottom: 100%;
     right: -4px;
     left: -4px;
     text-align: center;
@@ -164,15 +160,15 @@ span[data-rating-text].animating ~ span[data-animation-label] {
 
 @keyframes ratingAnimation {
     50% {
-        bottom: 0;
+        bottom: 20%;
         opacity: 100%;
     }
     90% {
-        bottom: 0;
+        bottom: 20%;
         opacity: 100%;
     }
     100% {
-        bottom: 0;
+        bottom: 20%;
         opacity: 0%;
     }
 }

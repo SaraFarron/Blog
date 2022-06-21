@@ -315,11 +315,11 @@ a .icon:hover, a .icon-large:hover {
 }
 
 .red {
-  color: #ce3535;
+  color: rgba(230, 7, 8, 0.85);
 }
 
 .green {
-  color: #35b923;
+  color: rgba(0, 177, 0, 0.85);
 }
 
 .width-50pc {
@@ -540,7 +540,7 @@ body.dark img:not([type="userpic"]):hover {
 }
 
 .btn, .btn-submit, .btn-edit, .btn-delete {
-  padding: 2px;
+  padding: 2px 4px;
   text-align: center;
   vertical-align: middle;
   align-items: center;
@@ -555,6 +555,7 @@ body.dark img:not([type="userpic"]):hover {
   border-radius: 8px;
   min-height: 28px;
   width: 136px;
+  min-width: fit-content;
   transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out, opacity 0.8s ease-in-out;
   color: black;
   background-color: #e6f7f1;
@@ -796,13 +797,9 @@ span[data-rating-text] {
 span[data-animation-label] {
   font-style: italic;
   font-size: small;
-  height: 90%;
-}
-
-span[data-rating-text] ~ span[data-animation-label] {
   position: absolute;
   margin-left: 2px;
-  bottom: 75%;
+  bottom: 100%;
   right: -4px;
   left: -4px;
   text-align: center;
@@ -819,15 +816,15 @@ span[data-rating-text].animating ~ span[data-animation-label] {
 
 @keyframes ratingAnimation {
   50% {
-    bottom: 0;
+    bottom: 20%;
     opacity: 100%;
   }
   90% {
-    bottom: 0;
+    bottom: 20%;
     opacity: 100%;
   }
   100% {
-    bottom: 0;
+    bottom: 20%;
     opacity: 0%;
   }
 }
