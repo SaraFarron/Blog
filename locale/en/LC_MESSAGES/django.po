@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-19 12:22+0000\n"
-"PO-Revision-Date: 2022-06-19 15:04+0000\n"
-"Last-Translator:   <admin@admin.com>\n"
+"POT-Creation-Date: 2022-06-21 04:26+0000\n"
+"PO-Revision-Date: 2022-06-19 19:33+0000\n"
+"Last-Translator:   <ya@tbl.sobaka>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -108,18 +108,32 @@ msgstr ""
 msgid "welcome_page"
 msgstr ""
 "<h1>Welcome!</h1>\n"
-"  <p>Hi, this is a pet project that slightly got out of hand. This website was created in february 2021 in order to practice in web development. It was redone several times and survived appearing of second developer.</p>\n"
+"  <p>Hi, this is a pet project that slightly got out of hand. The website "
+"was created in february 2021 in order to practice in web development. It was "
+"reworked several times and survived an appearance of a second developer.</"
+"p>\n"
 "  <p><b>What is this site about?</b><br>\n"
-"It's a typical site-blog where all registered users can make posts, comment, upvote/downvote and save them. For the most part inspiration is taken from DTF.ru, you maybe heard of it. The source code is available on GitHub, link is located the top left corner.</p>\n"
+"It's a typical site-blog where all registered users can publish posts, "
+"comment, upvote/downvote and save them. The main source of inspiration is "
+"DTF.ru, you may have heard of it. The source code is available on GitHub, "
+"the link is located in the top left corner.</p>\n"
 "  <p><b>What else do we have here?</b><br>\n"
 "Site can be devided into 2 parts:<br>\n"
 "    - web interface, you are using it right now;<br>\n"
 "    - API.<br>\n"
-"For the most part API and web interface have the same functionality. In order to test API we have Swagger, authentication is made via tokens, you can get your token in your profile (the \"Token \" is a part of your token).</p>\n"
+"For the most part API and web interface have the same functionality. In "
+"order to test API we have Swagger, authentication is made via tokens, you "
+"can get your token in your profile (\"Token \" is a part of your token).</"
+"p>\n"
 " <p><b>Developers</b></br>\n"
-"Backend: Nikita, <a class=\"underline\" href=\"https://github.com/SaraFarron\">SaraFarron on Github</a>, founder of this project, responsible for everything except for design, html/css and js.\n"
+"Backend: Nikita, <a class=\"underline\" href=\"https://github.com/"
+"SaraFarron\">SaraFarron on Github</a>, founder of this project, responsible "
+"for everything except for design, html/css and js.\n"
 "<br>\n"
-"Frontend: Yaroslav, <a class=\"underline\" href=\"https://github.com/YaredFall\">YaredFall on GitHub</a>, he entered project later, responsible for how things look, sometimes translation and optimisation.</p>"
+"Frontend: Yaroslav, <a class=\"underline\" href=\"https://github.com/"
+"YaredFall\">YaredFall on GitHub</a>, entered the project later, responsible "
+"for how things look, some translation, some optimisation and some backend "
+"parts.</p>"
 
 #: templates/blog/comment/comment-delete-form.html:5
 msgid "Are you sure you want to delete this comment?"
@@ -136,8 +150,7 @@ msgstr ""
 #: templates/blog/post/post-creation-block.html:10
 #: templates/blog/post/post-delete-form.html:16
 #: templates/blog/post/post-edit-form.html:26
-#: templates/blog/post/postpage.html:25
-#: templates/user/profile-settings.html:13
+#: templates/blog/post/postpage.html:25 templates/user/profile-settings.html:13
 msgid "Cancel"
 msgstr ""
 
@@ -149,7 +162,7 @@ msgstr "No posts yet"
 
 #: templates/blog/comment/comment-list.html:12
 #: templates/blog/comment/reply-list.html:10
-#: templates/blog/post/postlist-item.html:14
+#: templates/blog/post/postlist-item.html:12
 #: templates/blog/post/postpage-post.html:13
 #: templates/user/profile-comment-list.html:14 user/models.py:14
 msgid "profile picture"
@@ -184,16 +197,6 @@ msgstr ""
 
 #: templates/blog/home.html:28
 msgid "Have something to tell?"
-msgstr ""
-
-#: templates/blog/home.html:38
-#, fuzzy
-#| msgid "No posts yet"
-msgid "new posts"
-msgstr "No posts yet"
-
-#: templates/blog/home.html:40
-msgid "popular posts"
 msgstr ""
 
 #: templates/blog/post/post-creation-block.html:5
@@ -264,6 +267,22 @@ msgstr ""
 
 #: templates/blog/post/postpage.html:20 templates/blog/post/postpage.html:36
 msgid "Comment"
+msgstr ""
+
+#: templates/blog/sorting-element.html:5
+msgid "sorting"
+msgstr ""
+
+#: templates/blog/sorting-element.html:7
+msgid "by novelty"
+msgstr ""
+
+#: templates/blog/sorting-element.html:8
+msgid "by popularity"
+msgstr ""
+
+#: templates/blog/sorting-element.html:9
+msgid "by rating"
 msgstr ""
 
 #: templates/change-theme-button.html:5
@@ -424,6 +443,11 @@ msgstr ""
 #: user/models.py:20
 msgid "last ban date"
 msgstr ""
+
+#, fuzzy
+#~| msgid "No posts yet"
+#~ msgid "new posts"
+#~ msgstr "No posts yet"
 
 #~ msgid "English"
 #~ msgstr "English"

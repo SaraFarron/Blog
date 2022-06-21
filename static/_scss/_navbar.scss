@@ -7,7 +7,7 @@ body.dark nav {
 }
 
 nav.navbar {
-
+    --navbar-color: #{$navbar-color};
     $navbar-height: 60px;
 
     background-color: $navbar-color;
@@ -147,7 +147,7 @@ nav.navbar {
             right: 0;
             background-color: var(--navbar-color);
             margin: 0;
-            padding: 8px 0px;
+            padding: 0px;
             border-radius: 0px 0px 0px 8px;
             overflow: hidden;
             width: 0;
@@ -158,7 +158,7 @@ nav.navbar {
             }
 
             a {
-                padding: 8px 8px 16px 8px;
+                padding: 16px 8px;
                 width: 100%;
                 text-align: center;
                 font-size: x-large;
@@ -174,7 +174,7 @@ nav.navbar {
         display: none;
     
         &:checked ~ .navigation {
-            padding: 8px;
+            padding: 0 8px;
             width: 200px; //idk if needs to be a global var
         }
 

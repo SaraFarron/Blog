@@ -241,7 +241,7 @@ img[data-bookmark-icon-active].hidden, img[data-bookmark-icon-inactive].hidden{
 
 
     &:hover, &:focus {
-        background-color: $btn-default-background;
+        background-color: $btn-default-background !important;
         border-top-right-radius: 0 !important;
         border-bottom-right-radius: 0 !important;
         transition: border-radius 0s ease-out 0s !important;

@@ -338,6 +338,7 @@ body.dark nav {
 }
 
 nav.navbar {
+  --navbar-color: #e6f7f1;
   background-color: #e6f7f1;
   height: 60px;
   display: flex;
@@ -457,7 +458,7 @@ nav.navbar .vline {
     right: 0;
     background-color: var(--navbar-color);
     margin: 0;
-    padding: 8px 0px;
+    padding: 0px;
     border-radius: 0px 0px 0px 8px;
     overflow: hidden;
     width: 0;
@@ -467,7 +468,7 @@ nav.navbar .vline {
     display: none;
   }
   nav.navbar .navigation a {
-    padding: 8px 8px 16px 8px;
+    padding: 16px 8px;
     width: 100%;
     text-align: center;
     font-size: x-large;
@@ -482,7 +483,7 @@ nav.navbar #toggle-navigation {
 }
 
 nav.navbar #toggle-navigation:checked ~ .navigation {
-  padding: 8px;
+  padding: 0 8px;
   width: 200px;
 }
 
@@ -876,7 +877,7 @@ img[data-bookmark-icon-active].hidden, img[data-bookmark-icon-inactive].hidden {
 }
 
 [data-sorting-toggle]:hover, [data-sorting-toggle]:focus {
-  background-color: #e6f7f1;
+  background-color: #e6f7f1 !important;
   border-top-right-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
   transition: border-radius 0s ease-out 0s !important;
