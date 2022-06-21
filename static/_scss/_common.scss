@@ -5,6 +5,10 @@ html {
     overflow-y: scroll;
 }
 
+html.dark {
+    color-scheme: dark;
+}
+
 html, body {
     min-height: 100%;
 }

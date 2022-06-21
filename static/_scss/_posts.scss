@@ -225,7 +225,7 @@ img[data-bookmark-icon-active].hidden, img[data-bookmark-icon-inactive].hidden{
     }
 }
 
-[data-sorting-toggle] { 
+[data-sorting-toggle] {
     border-radius: 100vmax !important;
     flex-wrap: nowrap;
     white-space: nowrap;
@@ -241,7 +241,7 @@ img[data-bookmark-icon-active].hidden, img[data-bookmark-icon-inactive].hidden{
 
 
     &:hover, &:focus {
-        background-color: $btn-default-background !important;
+        background-color: var(--btn-bg-color) !important;
         border-top-right-radius: 0 !important;
         border-bottom-right-radius: 0 !important;
         transition: border-radius 0s ease-out 0s !important;
@@ -258,13 +258,13 @@ img[data-bookmark-icon-active].hidden, img[data-bookmark-icon-inactive].hidden{
     }
 }
 
-body.dark [data-sorting-toggle] {
-    background-color: $btn-dark-background !important;
-}
+// body.dark [data-sorting-toggle] {
+//     background-color: $btn-dark-background !important;
+// }
 
 [data-sorting-variants] {
     display: flex;
-    background-color: $btn-default-background;
+    background-color: var(--btn-bg-color);
     padding: 0 !important;
     vertical-align: middle;
     align-items: center;
@@ -311,10 +311,6 @@ body.dark [data-sorting-toggle] {
         padding-right: 12px;
     }
 
-    // &:hover {
-    //    max-width: 400px;
-    // }
-
 }
 
 [data-sorting-variants]:hover ~ [data-sorting-toggle] {
@@ -322,13 +318,12 @@ body.dark [data-sorting-toggle] {
     border-bottom-right-radius: 0;
 }
 
-body.dark [data-sorting-variants] {
-    background-color: $btn-dark-background;
-    & > span:hover {
+body.dark [data-sorting-variants] > span {
+    &:hover {
         background-color: $page-background-color-dark ;
     }
 
-    & > span[disabled] {
+    &[disabled] {
         background-color: invert($btn-dark-background, 20%);
     }
 }

@@ -234,6 +234,10 @@ html {
   overflow-y: scroll;
 }
 
+html.dark {
+  color-scheme: dark;
+}
+
 html, body, body.dark {
   min-height: 100%;
 }
@@ -450,12 +454,10 @@ a .icon:hover, a .icon-large:hover {
 
 body.dark nav {
   --navbar-color: #18191c;
-  background-color: #18191c;
 }
 
 nav.navbar {
-  --navbar-color: #e6f7f1;
-  background-color: #e6f7f1;
+  background-color: var(--navbar-color, #e6f7f1);
   height: 60px;
   display: flex;
   position: sticky;
@@ -572,7 +574,7 @@ nav.navbar .vline {
     position: absolute;
     top: 60px;
     right: 0;
-    background-color: var(--navbar-color);
+    background-color: var(--navbar-color, #e6f7f1);
     margin: 0;
     padding: 0px;
     border-radius: 0px 0px 0px 8px;
@@ -588,9 +590,6 @@ nav.navbar .vline {
     width: 100%;
     text-align: center;
     font-size: x-large;
-  }
-  nav.navbar body.dark .navigation {
-    background-color: #18191c;
   }
 }
 
@@ -622,6 +621,16 @@ nav.navbar label img {
   width: 40px;
   transition: transform 0.5s ease-in-out;
   transform-origin: 50% 50%;
+}
+
+body, body.dark {
+  --btn-bg-color: #e6f7f1;
+  --btn-text-color: black;
+}
+
+body.dark {
+  --btn-bg-color: #42464d;
+  --btn-text-color: #f8f8f8;
 }
 
 body.dark .btn, body.dark .btn-submit, body.dark .btn-edit, body.dark .btn-delete {
@@ -993,7 +1002,7 @@ img[data-bookmark-icon-active].hidden, img[data-bookmark-icon-inactive].hidden {
 }
 
 [data-sorting-toggle]:hover, [data-sorting-toggle]:focus {
-  background-color: #e6f7f1 !important;
+  background-color: var(--btn-bg-color) !important;
   border-top-right-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
   transition: border-radius 0s ease-out 0s !important;
@@ -1009,13 +1018,9 @@ img[data-bookmark-icon-active].hidden, img[data-bookmark-icon-inactive].hidden {
   margin: 0 12px 0 8px;
 }
 
-body.dark [data-sorting-toggle] {
-  background-color: #42464d !important;
-}
-
 [data-sorting-variants] {
   display: flex;
-  background-color: #e6f7f1;
+  background-color: var(--btn-bg-color);
   padding: 0 !important;
   vertical-align: middle;
   align-items: center;
@@ -1068,16 +1073,22 @@ body.dark [data-sorting-toggle] {
   border-bottom-right-radius: 0;
 }
 
-body.dark [data-sorting-variants] {
-  background-color: #42464d;
-}
-
 body.dark [data-sorting-variants] > span:hover {
   background-color: #202225;
 }
 
 body.dark [data-sorting-variants] > span[disabled] {
   background-color: #5b5d61;
+}
+
+body, body.dark {
+  --btn-bg-color: #e6f7f1;
+  --btn-text-color: black;
+}
+
+body.dark {
+  --btn-bg-color: #42464d;
+  --btn-text-color: #f8f8f8;
 }
 
 body.dark .btn, body.dark .btn-submit, body.dark .btn-edit, body.dark .btn-delete {
@@ -1289,7 +1300,7 @@ button[type=submit] {
 
 .notifications li[data-notification-type="error"] {
   background-color: #db8f8f;
-  color: #a10000;
+  color: #ad0000;
 }
 
 body.dark .notifications li[data-notification-type="error"] {

@@ -9,6 +9,16 @@ $btn-default-background: rgb(230, 247, 241);
 $btn-dark-text-color: rgb(248, 248, 248);
 $btn-dark-background: #42464d;
 
+body {
+    --btn-bg-color: #{$btn-default-background};
+    --btn-text-color: #{$btn-default-text-color};
+}
+
+body.dark {
+    --btn-bg-color: #{$btn-dark-background};
+    --btn-text-color: #{$btn-dark-text-color};
+}
+
 //on hover colors (by default tints background color by 5%)
 
 $btn-submit-on-hover-bg: mix($btn-default-background, rgb(21, 255, 0), 90%);

@@ -14,13 +14,14 @@ const darkModeToggle = document.querySelector('#dark-mode-toggle');
 
 const enableDarkMode = () => {
   document.body.classList.add("dark");
+  document.documentElement.classList.add("dark");
   document.cookie = "darkMode=enabled; expires=Tue, 19 Jan 9999 03:14:07 GMT; path=/";
   //localStorage.setItem('darkMode', 'enabled');
 }
 
 const disableDarkMode = () => {
   document.body.classList.remove("dark");
-
+  document.documentElement.classList.remove("dark");
   document.cookie = "darkMode=disabled; expires=Tue, 19 Jan 9999 03:14:07 GMT; path=/";
   //localStorage.setItem('darkMode', null);
 }

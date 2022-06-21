@@ -3,7 +3,7 @@
 {% load i18n %}
 
 {% get_current_language as CURRENT_LANGUAGE %}
-<html lang="{{CURRENT_LANGUAGE}}">
+<html lang="{{CURRENT_LANGUAGE}}" class="{%if request.COOKIES.darkMode == 'enabled'%}dark{%endif%}">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
