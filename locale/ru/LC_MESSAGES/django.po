@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-21 04:26+0000\n"
-"PO-Revision-Date: 2022-06-21 04:38+0000\n"
+"POT-Creation-Date: 2022-06-21 05:58+0000\n"
+"PO-Revision-Date: 2022-06-21 06:05+0000\n"
 "Last-Translator:   <ya@tbl.sobaka>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -249,22 +249,18 @@ msgid "Comment"
 msgstr "Комментировать"
 
 #: templates/blog/sorting-element.html:5
-#| msgid "rating"
 msgid "sorting"
 msgstr "сортировка"
 
 #: templates/blog/sorting-element.html:7
-#| msgid "sort by novelty"
 msgid "by novelty"
 msgstr "по дате"
 
 #: templates/blog/sorting-element.html:8
-#| msgid "sort by popularity"
 msgid "by popularity"
 msgstr "по популярности"
 
 #: templates/blog/sorting-element.html:9
-#| msgid "rating"
 msgid "by rating"
 msgstr "по рейтингу"
 
@@ -287,7 +283,7 @@ msgstr "Заблокированные пользователи не могут 
 
 #: templates/errors/403page.html:6
 msgid "Muted users cannot comment"
-msgstr "\"Замученные\" пользователи не могут комментировать"
+msgstr "Заглушенные пользователи не могут комментировать"
 
 #: templates/errors/404page.html:4
 msgid "Page not found"
@@ -332,7 +328,7 @@ msgstr "Выход"
 
 #: templates/notifications.html:4
 msgid "You must be logged in!"
-msgstr "Вы должны быть авторизированы!"
+msgstr "Необходима авторизация!"
 
 #: templates/user/login.html:5 templates/user/login.html:21
 #: templates/user/login.html:26
