@@ -119,10 +119,6 @@ label {
   margin: 0px 0px 0px 16px;
 }
 
-.container p {
-  max-width: 696px;
-}
-
 .container:empty {
   display: none;
 }
@@ -251,6 +247,10 @@ a .icon:hover, a .icon-large:hover {
 
 .mgl-8 {
   margin-left: 8px;
+}
+
+.mgl-16 {
+  margin-left: 16px;
 }
 
 .mgh-a {
@@ -567,7 +567,7 @@ body.dark img:not([type="userpic"]):hover {
 }
 
 .btn span, .btn-submit span, .btn-edit span, .btn-delete span {
-  cursor: inherit;
+  cursor: inherit !important;
   line-height: 24px;
 }
 
@@ -772,6 +772,7 @@ input[type]:not([type='submit']) {
 }
 
 .popup-shown .post {
+  align-items: center;
   justify-content: center;
   display: flex;
   flex-direction: column;
@@ -934,12 +935,11 @@ img[data-bookmark-icon-active].hidden, img[data-bookmark-icon-inactive].hidden {
   display: flex;
   align-items: center;
   word-break: keep-all;
-  word-wrap: none;
   white-space: nowrap;
+  cursor: pointer !important;
 }
 
 [data-sorting-variants] span:not([disabled]):hover {
-  cursor: pointer;
   background-color: #cff5f2;
 }
 

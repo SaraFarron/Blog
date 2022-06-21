@@ -117,6 +117,7 @@ input[type]:not([type='submit']) {
 
 .popup-shown .post
 {
+    align-items: center;
     justify-content: center;
     display: flex;
     flex-direction: column;
@@ -291,11 +292,10 @@ img[data-bookmark-icon-active].hidden, img[data-bookmark-icon-inactive].hidden{
         display: flex;
         align-items: center;
         word-break: keep-all;
-        word-wrap: none;
         white-space: nowrap;
+        cursor: pointer !important;
 
         &:not([disabled]):hover {
-            cursor: pointer;
             background-color: $btn-edit-on-hover-bg;
         }
 

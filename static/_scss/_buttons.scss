@@ -89,7 +89,7 @@ body.dark img:not([type="userpic"]) {
     @include btn-color($btn-default-text-color, $btn-default-background);
 
     span {
-        cursor: inherit;
+        cursor: inherit !important;
         line-height: 24px;
     }
 
@@ -112,4 +112,3 @@ body.dark img:not([type="userpic"]) {
 button[type=submit] {
     display: none;
 }
-

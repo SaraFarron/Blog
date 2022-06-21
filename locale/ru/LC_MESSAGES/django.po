@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-06-21 09:54+0000\n"
-"PO-Revision-Date: 2022-06-21 09:57+0000\n"
+"PO-Revision-Date: 2022-06-21 11:36+0000\n"
 "Last-Translator:   <ya@tbl.sobaka>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -231,7 +231,7 @@ msgstr "Вы уверены что хотите удалить?"
 #: templates/blog/post/post-edit-form.html:5
 #: templates/blog/post/post-edit.html:4
 msgid "Edit post"
-msgstr "редактировать пост"
+msgstr "Редактировать пост"
 
 #: templates/blog/post/post-save.html:10
 msgid "unbookmark"
