@@ -1,0 +1,155 @@
+@mixin expand-v-form($desired-height, $cancel-btn-id, $submit-btn-id) {
+
+    &:checked ~ .expandable-v {
+        height: $desired-height;
+    }
+
+    &:checked + label {
+        display: none;
+    }
+
+    &:checked ~ ##{$cancel-btn-id} {
+        display: initial;
+        visibility: visible;
+        opacity: 100%;
+    }
+
+    &:checked ~ ##{$submit-btn-id} {
+        display: inline-block;
+    }
+}
+
+@mixin shrink-v-form($expand-btn) {
+    & + label {
+        transition: opacity $expand-duration ease-in-out;
+        visibility: hidden;
+        opacity: 0%;
+    }
+
+    &:checked + label {
+        animation: $expand-duration fadeOut;
+    }
+
+    &:checked ~ .expandable-v {
+        height: 0px; 
+    }
+
+    &:checked + ##{$expand-btn} {
+        display: initial;
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+        visibility: visible;
+    }
+    100% {
+        visibility: hidden;
+    }
+}
+
+.pos-top {
+    align-self: start;
+}
+
+.pos-right {
+    justify-self: right;
+    margin-left: auto;
+    display: flex;
+    align-content: center;
+    align-items: center;
+}
+
+.mgl-a {
+    margin-left: auto;
+}
+
+.mgl-8 {
+    margin-left: 8px;
+}
+
+.mgh-a {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.mgr-a {
+    margin-right: auto;
+}
+
+.mgr-16 {
+    margin-right: 16px;
+}
+
+.mgr-8 {
+    margin-right: 8px;
+}
+
+.mgr-32 {
+    margin-right: 32px;
+}
+
+.mgb-0 {
+    margin-bottom: 0px;
+}
+
+.mgb-8 {
+    margin-bottom: 8px;
+}
+
+.mgb-16 {
+    margin-bottom: 16px;
+}
+
+.mgt-8 {
+    margin-top: 8px;
+}
+
+.mgt-10 {
+    margin-top: 10px;
+}
+
+.mgl-0 {
+    margin-left: 0px;
+}
+
+.pdl-8 {
+    padding-left: 8px;
+}
+
+.pdb-4 {
+    padding-bottom: 8px; //too lazy to change all occurrences :)
+}
+
+.pd-0 {
+    padding: 0;
+}
+
+.underline {
+    text-decoration: underline !important;
+}
+
+.red {
+    color: rgb(206, 53, 53);
+}
+.green {
+    color: rgb(53, 185, 35);
+}
+
+.width-50pc {
+    width: 50% !important;
+}
+
+.width-fit {
+    width: fit-content !important;
+}
+
+.height-100pc {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.break-all {
+    word-break: break-all;
+}
