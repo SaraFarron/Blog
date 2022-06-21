@@ -28,7 +28,7 @@
                 {% endif %}
             </div>
             <div class="container-row mgb-8"><p>{{comment.text}}</p></div>
-            <div class="container-row">
+            <div class="container-row mgb-8">
                 <button class="btn-submit  mgr-8" id="expand-reply-{{comment.id}}" 
                 onclick="Expand('reply-comment-{{comment.id}}', 'expand-reply-{{comment.id}}', 'submit-reply-{{comment.id}}','cancel-reply-{{comment.id}}')">
                     <span>{% trans 'Reply' %}</span>
@@ -44,7 +44,7 @@
                     {% include 'blog/comment/comment-rating.html' %}
                 </div>
             </div>
-            <div class="expandable-v mgt-8" id="reply-comment-{{comment.id}}">
+            <div class="expandable-v" id="reply-comment-{{comment.id}}">
                 {% include 'blog/comment/reply-form.html' %}
             </div>
             {% include 'blog/comment/reply-list.html' %}

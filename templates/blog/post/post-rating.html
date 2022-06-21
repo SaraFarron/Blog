@@ -1,12 +1,3 @@
-{% load i18n %}
-{% load static %}
-<form data-rating-form="{% if request_guest in post.upvoted_users.all %}upvoted{%elif request_guest in post.downvoted_users.all %}downvoted{%else%}unvoted{%endif%}"
-  action="{% url 'blog:vote' post.id %}" method="post" target="dframe">
-    {% csrf_token %}
-    <img data-rating-upvote class="icon upvote" src="{% static 'images/icons/upvote_icon.svg' %}" alt="+"><!--
- --><span class="rating-box"><span data-rating-text
-    {% if post.rating > 0 %} class="green" {%elif post.rating < 0 %} class="red" {%endif%}>{{ post.rating }}</span><span data-animation-label>+1</span></span><!--
---><img data-rating-downvote class="icon downvote" src="{% static 'images/icons/downvote_icon.svg' %}" alt="-">
-    <input name="element" type="hidden" value="post">
-    <input name="action" data-rating-action-field type="hidden" value="none">
-</form>
+{% with element=post element_string="post" %}
+{% include 'blog/rating-element-core.html' %}
+{%endwith%}

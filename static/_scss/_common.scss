@@ -1,5 +1,4 @@
 @import "common-vars.scss";
-@import "abstract.scss";
 
 html {
     overflow-y: scroll;
@@ -128,6 +127,10 @@ label {
     & p {
         max-width: 696px;
     }
+}
+
+.container:empty {
+    display: none;
 }
 
 input.toggle {

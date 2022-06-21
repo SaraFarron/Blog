@@ -80,18 +80,19 @@
         cursor: pointer;
     }
 
-    &.upvote:hover {
-        filter: invert(100%) brightness(0.5) sepia(1) saturate(10000%) brightness(1) hue-rotate(120deg);
-        background-color: rgba(0, 0, 0, 0.2);
+    &.upvote.active {
+        filter: invert(100%) brightness(0.5) sepia(1) 
+            saturate(10000%) brightness(1) hue-rotate(120deg) saturate(3);
+        //background-color: rgba(0, 0, 0, 0.2);
 
     }
 
-    &.downvote:hover {
-        filter: invert(100%) brightness(0.5) sepia(1) saturate(10000%) brightness(0.8);
-        background-color: rgba(0, 0, 0, 0.2);
+    &.downvote.active {
+        filter: invert(100%) brightness(0.5) sepia(1) saturate(10000%) brightness(0.8) saturate(2);
+        //background-color: rgba(0, 0, 0, 0.2);
     }
 
-    &.bookmark:hover {
+    &.bookmark:hover, &.downvote:hover, &.upvote:hover{
         filter: invert(50%);
         background-color: rgba(0, 0, 0, 0.2);
     }
@@ -192,6 +193,7 @@ img[data-bookmark-icon-active], img[data-bookmark-icon-inactive]{
 img[data-bookmark-icon-active].hidden, img[data-bookmark-icon-inactive].hidden{
     opacity: 0;
     transform: scale(0.8);
+    z-index: -1;
 }
 
 .post-stats > :first-child() {

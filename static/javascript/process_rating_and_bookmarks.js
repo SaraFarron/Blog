@@ -6,9 +6,11 @@ ratingForms.forEach((form) => {
     const ratingLabel = form.querySelector('[data-rating-text]');
     const animLabel = form.querySelector('[data-animation-label]');
     const actionField = form.querySelector('[data-rating-action-field]');
+    const ratingUpvote = form.querySelector('[data-rating-upvote]');
+    const ratingDownvote = form.querySelector('[data-rating-downvote]');
     let change = 0;
 
-    form.querySelector('[data-rating-upvote]').addEventListener('click', () => {
+    ratingUpvote.addEventListener('click', () => {
         if (userIsAuthenticated) {
             if (!ratingLabel.classList.contains('animating')) {
                 ratingLabel.classList.add("animating");
@@ -17,14 +19,22 @@ ratingForms.forEach((form) => {
                 if (status === 'upvoted') {
                     change = -1;
                     form.setAttribute("data-rating-form", "unvoted");
+                    ratingUpvote.classList.remove("active");
+                    ratingUpvote.setAttribute('title', ratingUpvote.getAttribute('data-active-title'));
                 }
                 else if (status === 'downvoted') {
                     change = +2;
                     form.setAttribute("data-rating-form", "upvoted");
+                    ratingUpvote.classList.add("active");
+                    ratingDownvote.classList.remove("active");
+                    ratingDownvote.setAttribute('title', ratingDownvote.getAttribute('data-inactive-title'));
+                    ratingUpvote.setAttribute('title', ratingUpvote.getAttribute('data-inactive-title'));
                 }
                 else {
                     change = +1;
                     form.setAttribute("data-rating-form", "upvoted");
+                    ratingUpvote.classList.add("active");
+                    ratingUpvote.setAttribute('title', ratingUpvote.getAttribute('data-inactive-title'));
                 }
                 animLabel.innerHTML = change > 0 ? `+${change}` : change;
 
@@ -35,7 +45,7 @@ ratingForms.forEach((form) => {
             showNotification('login-required');
         }
     });
-    form.querySelector('[data-rating-downvote]').addEventListener('click', () => {
+    ratingDownvote.addEventListener('click', () => {
         if (userIsAuthenticated) {
             if (!ratingLabel.classList.contains('animating')) {
                 ratingLabel.classList.add("animating");
@@ -44,14 +54,22 @@ ratingForms.forEach((form) => {
                 if (status === 'upvoted') {
                     change = -2;
                     form.setAttribute("data-rating-form", "downvoted");
+                    ratingDownvote.classList.add("active");
+                    ratingUpvote.classList.remove("active");
+                    ratingUpvote.setAttribute('title', ratingUpvote.getAttribute('data-inactive-title'));
+                    ratingDownvote.setAttribute('title', ratingDownvote.getAttribute('data-active-title'));
                 }
                 else if (status === 'downvoted') {
                     change = +1;
                     form.setAttribute("data-rating-form", "unvoted");
+                    ratingDownvote.classList.remove("active");
+                    ratingDownvote.setAttribute('title', ratingDownvote.getAttribute('data-inactive-title'));
                 }
                 else {
                     change = -1;
                     form.setAttribute("data-rating-form", "downvoted");
+                    ratingDownvote.classList.add("active");
+                    ratingDownvote.setAttribute('title', ratingDownvote.getAttribute('data-active-title'));
                 }
                 animLabel.innerHTML = change > 0 ? `+${change}` : change;
 
@@ -68,6 +86,8 @@ ratingForms.forEach((form) => {
         setColor(ratingLabel);
         ratingLabel.classList.remove('animating');
     });
+
+
 });
 
 function setColor(label) {

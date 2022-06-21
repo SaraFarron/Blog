@@ -1,0 +1,23 @@
+{% load i18n %}
+{% load static %}
+
+{% with upvoted_users=element.upvoted_users.all downvoted_users=element.downvoted_users.all %}
+<form data-rating-form="{% if request_guest in upvoted_users %}upvoted{%elif request_guest in downvoted_users %}downvoted{%else%}unvoted{%endif%}"
+  action="{% url 'blog:vote' element.id %}" method="post" target="dframe">
+    {% csrf_token %}
+    <img data-rating-upvote class="icon upvote
+                                  {%if request_guest in upvoted_users%}active" title="{%trans 'unvote'%}"{%else%}" title="{%trans 'upvote'%}"{%endif%}
+      src="{% static 'images/icons/upvote_icon.svg' %}" alt="+"
+      data-active-title="{%trans 'unvote'%}" data-inactive-title="{%trans 'upvote'%}"><!--
+ --><span class="rating-box" title="{%trans 'rating'%}"><span data-rating-text
+    {% if element.rating > 0 %}
+    class="green" {%elif element.rating < 0 %}
+    class="red" {%endif%}>{{ element.rating }}</span><span data-animation-label>+1</span></span><!--
+--><img data-rating-downvote class="icon downvote
+                                    {%if request_guest in downvoted_users%}active" title="{%trans 'unvote'%}"{%else%}" title="{%trans 'downvote'%}"{%endif%}
+      src="{% static 'images/icons/downvote_icon.svg' %}" alt="-"
+      data-active-title="{%trans 'unvote'%}" data-inactive-title="{%trans 'downvote'%}">
+    <input name="element" type="hidden" value={{element_string}}>
+    <input name="action" data-rating-action-field type="hidden" value="none">
+</form>
+{%endwith%}
