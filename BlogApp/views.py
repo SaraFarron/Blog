@@ -41,7 +41,7 @@ class Home(View):
         match sorting:
             case 'novelty':
                 posts = posts.order_by('-creation_date')
-            case 'comments':
+            case 'popularity':
                 posts = posts.order_by('-number_of_comments')
             case 'rating':
                 posts = posts.order_by('-rating')
