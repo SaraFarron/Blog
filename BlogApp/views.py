@@ -91,36 +91,37 @@ class CreatePost(View):
         return render(request, 'errors/400page.html')
 
 
-class UpdatePost(View):
+class UpdateObject(View):
     decorators = [login_required(login_url='user:login'), user_owns_the_post]
 
     @method_decorator(decorators)
     def get(self, request, pk):
-        post = Post.objects.get(id=pk)
-        form = PostForm(instance=post)
-        context = {'form': form, 'post': post}
+        model = request.GET['element']
+        instance, form = get_instance(model, pk)
+        context = {'form': form, 'instance': instance}
         return render(request, 'blog/post/post-edit.html', context)
 
     @method_decorator(decorators)
     def post(self, request, pk):
-        post = Post.objects.get(id=pk)
-        form = PostForm(request.POST, instance=post)
+        model = request.POST['element']
+        instance, form = get_instance(model, pk)
 
         if form.is_valid():
             form.save()
             return redirect('blog:home')
 
-        context = {'form': form, 'post': post}
+        context = {'form': form, 'instance': instance}
         return render(request, 'blog/post/post-edit.html', context)
 
 
-class DeletePost(View):
+class DeleteObject(View):
     decorators = [login_required(login_url='user:login'), user_owns_the_post]
 
     @method_decorator(decorators)
     def post(self, request, pk):
-        post = Post.objects.get(id=pk)
-        post.delete()
+        model = request.POST['element']
+        instance, _ = get_instance(model, pk)
+        instance.delete()
         return redirect('blog:home')
 
 
@@ -155,14 +156,14 @@ class Reply(View):
         return render(request, 'errors/400page.html')
 
 
-#Supposed to work with iframe
+# Supposed to work with iframe
 class Save(View):
 
     @method_decorator(login_required(login_url='user:login'))
     def post(self, request, pk):
         user = Guest.objects.get(id=request.user.id)
         model = request.POST['element']
-        instance = get_instance(model, pk)
+        instance, _ = get_instance(model, pk)
 
         if user in instance.saved_by.all():
             instance.saved_by.remove(user)
@@ -173,14 +174,14 @@ class Save(View):
         return render(request, 'empty.html')
 
 
-#Supposed to work with iframe
+# Supposed to work with iframe
 class Vote(View):
 
     @method_decorator(login_required(login_url='user:login'))
     def post(self, request, pk):
         user = Guest.objects.get(id=request.user.id)
         model = request.POST['element']
-        instance = get_instance(model, pk)
+        instance, _ = get_instance(model, pk)
 
         action = request.POST['action']
         update_instance_rating(instance, user, action)  # This might lead to duplicated requests
