@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-19 12:22+0000\n"
-"PO-Revision-Date: 2022-06-19 15:04+0000\n"
-"Last-Translator:   <admin@admin.com>\n"
+"POT-Creation-Date: 2022-06-21 09:54+0000\n"
+"PO-Revision-Date: 2022-06-21 11:36+0000\n"
+"Last-Translator:   <ya@tbl.sobaka>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -43,7 +43,8 @@ msgstr "описание"
 msgid "author"
 msgstr "автор"
 
-#: BlogApp/models.py:13 BlogApp/models.py:36 templates/user/profile.html:33
+#: BlogApp/models.py:13 BlogApp/models.py:36
+#: templates/blog/rating-element-core.html:12 templates/user/profile.html:33
 #: user/models.py:21
 msgid "rating"
 msgstr "рейтинг"
@@ -108,18 +109,18 @@ msgstr "О сайте"
 msgid "welcome_page"
 msgstr ""
 "<h1>Добро пожаловать!</h1>\n"
-"  <p>Привет, ты находишься на пет-проекте, который слегка вышел из под контроля. Этот сайт был создан для практики в веб разработке, он развивается с февраля 2021 года, пережил несколько переосмыслений и переписываний и появление второго разрботчника.</p>\n"
+"  <p>Привет, вы находитесь на пет-проекте, который слегка вышел из под контроля. Этот сайт был создан в феврале 2021 года для практики в веб разработке , пережил несколько переосмыслений и переписываний и появление второго разработчника.</p>\n"
 "  <p><b>Что это за сайт?</b><br>\n"
-"Это обычный блог-сайт, хотя здесь все зарегистрированные пользователи могут публиковать посты и комментировать их, ставить лайки/дизлайки, добавлять в закладки. Идеи черпаются в основном с DTF.ru, возможно вы знаете о нем. Исходный код можно посмотреть нажав на иконку гитхаба в верхнем левом углу.</p>\n"
+"Это обычный сайт-блог, где все зарегистрированные пользователи могут публиковать посты и комментировать их, ставить лайки/дизлайки, добавлять в закладки. Идеи черпаются в основном с DTF.ru, возможно вы знаете о нем. Исходный код можно посмотреть нажав на иконку гитхаба в верхнем левом углу.</p>\n"
 "  <p><b>Что тут есть еще?</b><br>\n"
 "Сайт можно поделить на 2 части:<br>\n"
-"    - веб интерфейс, которым я не сильно доволен, вы пользуетесь им прямо сейчас;<br>\n"
+"    - веб интерфейс, которым вы пользуетесь прямо сейчас;<br>\n"
 "    - API.<br>\n"
-"По большей части веб интерфейс и api имеют схожий функционал. Чтобы попробовать api есть swagger, вход сделан через токены, токен можно скопировать из вашего профиля (слово Token тоже является частью токена).</p>\n"
+"По большей части веб интерфейс и api имеют схожий функционал. Чтобы попробовать api есть swagger, вход сделан через токены, токен можно скопировать из вашего профиля (\"Token\" тоже является частью токена).</p>\n"
 " <p><b>Разработчики</b></br>\n"
 "Backend: Никита, <a class=\"underline\" href=\"https://github.com/SaraFarron\">SaraFarron на Github</a>, основатель проекта, отвечает за все, кроме дизайна, верстки и js.\n"
 "<br>\n"
-"Frontend: Ярослав, <a class=\"underline\" href=\"https://github.com/YaredFall\">YaredFall на GitHub</a>, присоеденившийся к проекту позже, отвечает за внешний вид, иногда перевод и оптимизацию.</p>"
+"Frontend: Ярослав, <a class=\"underline\" href=\"https://github.com/YaredFall\">YaredFall на GitHub</a>, присоединился к проекту позже, отвечает за внешний вид, частично за перевода, оптимизации и некоторые части бэкэнда.</p>"
 
 #: templates/blog/comment/comment-delete-form.html:5
 msgid "Are you sure you want to delete this comment?"
@@ -147,7 +148,7 @@ msgstr "Ваш комментарий..."
 
 #: templates/blog/comment/comment-list.html:12
 #: templates/blog/comment/reply-list.html:10
-#: templates/blog/post/postlist-item.html:14
+#: templates/blog/post/postlist-item.html:12
 #: templates/blog/post/postpage-post.html:13
 #: templates/user/profile-comment-list.html:14 user/models.py:14
 msgid "profile picture"
@@ -183,14 +184,6 @@ msgstr "Тут пока нет постов. Будьте первым!"
 #: templates/blog/home.html:28
 msgid "Have something to tell?"
 msgstr "Есть что рассказать?"
-
-#: templates/blog/home.html:38
-msgid "new posts"
-msgstr "новое"
-
-#: templates/blog/home.html:40
-msgid "popular posts"
-msgstr "популярное"
 
 #: templates/blog/post/post-creation-block.html:5
 msgid "Create post"
@@ -238,15 +231,25 @@ msgstr "Вы уверены что хотите удалить?"
 #: templates/blog/post/post-edit-form.html:5
 #: templates/blog/post/post-edit.html:4
 msgid "Edit post"
-msgstr "редактировать пост"
+msgstr "Редактировать пост"
 
 #: templates/blog/post/post-save.html:10
 msgid "unbookmark"
 msgstr "в закладки"
 
-#: templates/blog/post/post-save.html:13
+#: templates/blog/post/post-save.html:11
+#| msgid "bookmark"
+msgid "remove bookmark"
+msgstr "убрать закладку"
+
+#: templates/blog/post/post-save.html:14 templates/blog/post/post-save.html:15
 msgid "bookmark"
 msgstr "в закладки"
+
+#: templates/blog/post/postlist-item.html:33
+#: templates/blog/post/postpage-post.html:36 templates/user/profile.html:53
+msgid "comments"
+msgstr "комментарии"
 
 #: templates/blog/post/postpage.html:9
 msgid "Post"
@@ -255,6 +258,42 @@ msgstr "Пост"
 #: templates/blog/post/postpage.html:20 templates/blog/post/postpage.html:36
 msgid "Comment"
 msgstr "Комментировать"
+
+#: templates/blog/rating-element-core.html:9
+#: templates/blog/rating-element-core.html:11
+#: templates/blog/rating-element-core.html:17
+#: templates/blog/rating-element-core.html:19
+#| msgid "upvoted by"
+msgid "unvote"
+msgstr "убрать голос"
+
+#: templates/blog/rating-element-core.html:9
+#: templates/blog/rating-element-core.html:11
+#| msgid "upvoted by"
+msgid "upvote"
+msgstr "нравится"
+
+#: templates/blog/rating-element-core.html:17
+#: templates/blog/rating-element-core.html:19
+#| msgid "downvoted by"
+msgid "downvote"
+msgstr "не нравится"
+
+#: templates/blog/sorting-element.html:5
+msgid "sorting"
+msgstr "сортировка"
+
+#: templates/blog/sorting-element.html:7
+msgid "by novelty"
+msgstr "по дате"
+
+#: templates/blog/sorting-element.html:8
+msgid "by popularity"
+msgstr "по популярности"
+
+#: templates/blog/sorting-element.html:9
+msgid "by rating"
+msgstr "по рейтингу"
 
 #: templates/change-theme-button.html:5
 msgid "change theme"
@@ -275,7 +314,7 @@ msgstr "Заблокированные пользователи не могут 
 
 #: templates/errors/403page.html:6
 msgid "Muted users cannot comment"
-msgstr "\"Замученные\" пользователи не могут комментировать"
+msgstr "Заглушенные пользователи не могут комментировать"
 
 #: templates/errors/404page.html:4
 msgid "Page not found"
@@ -296,6 +335,10 @@ msgstr "Гость"
 #: templates/errors/guest_does_not_exist.html:4
 msgid "does not exist"
 msgstr "не существует"
+
+#: templates/navbar.html:7
+msgid "Project on GitHub"
+msgstr "Проект на GitHib"
 
 #: templates/navbar.html:26 templates/user/profile.html:9
 msgid "Profile"
@@ -320,18 +363,18 @@ msgstr "Выход"
 
 #: templates/notifications.html:4
 msgid "You must be logged in!"
-msgstr "Вы должны быть авторизированы!"
+msgstr "Необходима авторизация!"
 
-#: templates/user/login.html:5 templates/user/login.html:21
-#: templates/user/login.html:26
+#: templates/user/login.html:5 templates/user/login.html:23
+#: templates/user/login.html:28
 msgid "Login"
 msgstr "Вход"
 
-#: templates/user/login.html:24 templates/user/register.html:16
+#: templates/user/login.html:26 templates/user/register.html:16
 msgid "username"
 msgstr "имя пользователя"
 
-#: templates/user/login.html:25 templates/user/register.html:18
+#: templates/user/login.html:27 templates/user/register.html:18
 msgid "password"
 msgstr "пароль"
 
@@ -388,10 +431,6 @@ msgstr "дата регистрации"
 msgid "posts"
 msgstr "посты"
 
-#: templates/user/profile.html:53
-msgid "comments"
-msgstr "комментарии"
-
 #: templates/user/register.html:19
 msgid "confirm password"
 msgstr "подтвердите пароль"
@@ -416,11 +455,11 @@ msgstr "статус мута"
 msgid "last ban date"
 msgstr "дата последнего бана"
 
-#~ msgid "sort by popularity"
-#~ msgstr "сортировать по популярности"
+#~ msgid "new posts"
+#~ msgstr "новое"
 
-#~ msgid "sort by novelty"
-#~ msgstr "сортировать по дате"
+#~ msgid "popular posts"
+#~ msgstr "популярное"
 
 #~ msgid "What's new?"
 #~ msgstr "Что нового?"

@@ -6,7 +6,6 @@
         <div class="container popup-hidden" id="popup-delete-{{post.id}}">
             {% include 'blog/post/post-delete-form.html' %}
         </div>
-
         <div class="container-row mgb-8">
             <div class="height-100pc">
                 <a href="{% url 'user:profile' post.user.id %}">
@@ -21,8 +20,8 @@
             </div>
             {%if request_guest == post.user %}
                 <div class="pos-right">            
-                    <a href="{% url 'blog:update' post.id %}" class="btn-edit width-fit mgr-8"><img class="icon" src="{% static 'images/icons/edit_icon.svg' %}"></a><!--
-                    --><button class="btn-delete width-fit" onclick="showPopup('delete-{{ post.id }}')"><img class="icon" src="{% static 'images/icons/delete_icon.svg' %}"></button>
+                    <a href="{% url 'blog:update' post.id %}" class="btn-edit width-fit mgr-8" title="{%trans 'Edit'%}"><img class="icon" src="{% static 'images/icons/edit_icon.svg' %}"></a><!--
+                --><button class="btn-delete width-fit" onclick="showPopup('delete-{{ post.id }}')" title="{%trans 'Delete'%}"><img class="icon" src="{% static 'images/icons/delete_icon.svg' %}"></button>
                 </div>
             {% endif %}
         </div>
@@ -32,10 +31,10 @@
             <h3>{{ post.description }}</h3>
             <p>{{ post.text }}</p>
         </div>
-        <div class="container-row mgt-8">
-            <div class="mgr-32"><img class="icon" src="{% static 'images/icons/comments_icon.svg' %}"><span>{{ post.number_of_comments }}</span></div>
+        <div class="container-row mgt-8 post-stats">
+            <div title="{%trans 'comments'%}"><img class="icon" src="{% static 'images/icons/comments_icon.svg' %}"><span>{{ post.number_of_comments }}</span></div>
             {% include 'blog/post/post-save.html' %}
-            <div class="pos-right post-stats">
+            <div class="pos-right post-rating">
                 {% include 'blog/post/post-rating.html' %}
             </div>
         </div>

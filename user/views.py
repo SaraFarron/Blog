@@ -29,7 +29,8 @@ class LoginPage(View):
             login(request, user)
             return redirect('blog:home')
         else:
-            messages.info(request, 'Username or password is incorrect')
+            messages.error(request, 'Username or password is incorrect', extra_tags='en')
+            messages.error(request, 'Неверные имя пользователя и пароль', extra_tags='ru')
 
         return render(request, 'user/login.html')
 

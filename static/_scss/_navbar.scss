@@ -1,16 +1,14 @@
 @import "common-vars.scss";
 
 body.dark nav {
-
     --navbar-color: #{$navbar-color-dark};
-    background-color: $navbar-color-dark;
+    //background-color: $navbar-color-dark;
 }
 
 nav.navbar {
-
     $navbar-height: 60px;
 
-    background-color: $navbar-color;
+    background-color: var(--navbar-color, #{$navbar-color});
 
     height: $navbar-height;
     display: flex;
@@ -44,21 +42,6 @@ nav.navbar {
         align-items:center;
         justify-self: flex-start;
     }
-
-    // .textblock {
-    //     align-self: center;
-    //     max-width: 316px;
-    //     flex-shrink: 0;
-    //     margin: 0px;
-    //     box-sizing: border-box;
-    //     cursor: default;
-
-    //     & h2{
-    //         white-space: nowrap;
-    //         text-overflow: ellipsis;
-    //         overflow: hidden;
-    //     }
-    // }
 
     .navigation {
         display: flex;
@@ -145,9 +128,9 @@ nav.navbar {
             position: absolute;
             top: $navbar-height;
             right: 0;
-            background-color: var(--navbar-color);
+            background-color: var(--navbar-color, #{$navbar-color});
             margin: 0;
-            padding: 8px 0px;
+            padding: 0px;
             border-radius: 0px 0px 0px 8px;
             overflow: hidden;
             width: 0;
@@ -158,15 +141,11 @@ nav.navbar {
             }
 
             a {
-                padding: 8px 8px 16px 8px;
+                padding: 16px 8px;
                 width: 100%;
                 text-align: center;
                 font-size: x-large;
             }
-        }
-
-        body.dark .navigation {
-            background-color: $navbar-color-dark;
         }
       }
         
@@ -174,7 +153,7 @@ nav.navbar {
         display: none;
     
         &:checked ~ .navigation {
-            padding: 8px;
+            padding: 0 8px;
             width: 200px; //idk if needs to be a global var
         }
 
