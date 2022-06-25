@@ -38,10 +38,13 @@ class Home(View):
             'downvoted_users'
         )
 
-        if sorting == 'novelty':
-            posts = posts.order_by('-creation_date')
-        else:
-            posts = posts.order_by('-number_of_comments')
+        match sorting:
+            case 'novelty':
+                posts = posts.order_by('-creation_date')
+            case 'comments':
+                posts = posts.order_by('-number_of_comments')
+            case 'rating':
+                posts = posts.order_by('-rating')
 
         context = {'posts': posts, 'user': request.user, 'sorting': sorting, 'request_guest': request_guest}
         return render(request, 'blog/home.html', context)
