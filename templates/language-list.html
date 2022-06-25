@@ -14,7 +14,8 @@
             {% else %} href="{{request.path}}" {%endif%}
         {%endif%}
         class = "icon-country{% if language.code == CURRENT_LANGUAGE %}-current{% endif %}">
-        <img src="{% static 'images/country_flags/' %}{{ language.name }}.png" alt='{{ language.name_local }}'>
+        <img src="{% static 'images/country_flags/' %}{{ language.name }}.png" alt='{{ language.name_local }}'
+            title="{% trans language.name%}">
     </a>
     {% if not language == languages|last %}
     <div class="vline"></div>

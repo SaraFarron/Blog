@@ -31,17 +31,7 @@
         {% include 'blog/post/post-creation-block.html' %}
     </div>
     {% if posts %}
-    <div class="mgb-16">
-        <div class="container-row">
-            <button class="btn-edit width-fit mgr-8" id="sorting-toggle">
-            {% if sorting != 'popularity' %}
-                    <span>{% trans 'new posts' %}</span>
-                {% else %}
-                    <span>{% trans 'popular posts' %}</span>
-                {% endif %}
-            </button>
-        </div>
-    </div>
+        {% include 'blog/sorting-element.html' %}
     {% endif %}
     {% for post in posts %}
         {% include 'blog/post/postlist-item.html' %}

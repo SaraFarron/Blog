@@ -1,4 +1,5 @@
 @import "common-vars.scss";
+@import "buttons.scss";
 
 .list-v {
     $create-post-section-height: 239px;
@@ -79,18 +80,19 @@
         cursor: pointer;
     }
 
-    &.upvote:hover {
-        filter: invert(100%) brightness(0.5) sepia(1) saturate(10000%) brightness(1) hue-rotate(120deg);
-        background-color: rgba(0, 0, 0, 0.2);
+    &.upvote.active {
+        filter: invert(100%) brightness(0.5) sepia(1) 
+            saturate(10000%) brightness(1) hue-rotate(120deg) saturate(3);
+        //background-color: rgba(0, 0, 0, 0.2);
 
     }
 
-    &.downvote:hover {
-        filter: invert(100%) brightness(0.5) sepia(1) saturate(10000%) brightness(0.8);
-        background-color: rgba(0, 0, 0, 0.2);
+    &.downvote.active {
+        filter: invert(100%) brightness(0.5) sepia(1) saturate(10000%) brightness(0.8) saturate(2);
+        //background-color: rgba(0, 0, 0, 0.2);
     }
 
-    &.bookmark:hover {
+    &.bookmark:hover, &.downvote:hover, &.upvote:hover{
         filter: invert(50%);
         background-color: rgba(0, 0, 0, 0.2);
     }
@@ -115,6 +117,7 @@ input[type]:not([type='submit']) {
 
 .popup-shown .post
 {
+    align-items: center;
     justify-content: center;
     display: flex;
     flex-direction: column;
@@ -140,13 +143,9 @@ span[data-rating-text] {
 span[data-animation-label] {
     font-style: italic;
     font-size: small;
-    height: 90%;
-}
-
-span[data-rating-text] ~ span[data-animation-label] {
     position: absolute;
     margin-left: 2px;
-    bottom: 75%;
+    bottom: 100%;
     right: -4px;
     left: -4px;
     text-align: center;
@@ -162,15 +161,15 @@ span[data-rating-text].animating ~ span[data-animation-label] {
 
 @keyframes ratingAnimation {
     50% {
-        bottom: 0;
+        bottom: 20%;
         opacity: 100%;
     }
     90% {
-        bottom: 0;
+        bottom: 20%;
         opacity: 100%;
     }
     100% {
-        bottom: 0;
+        bottom: 20%;
         opacity: 0%;
     }
 }
@@ -185,15 +184,26 @@ form[data-bookmark-form] {
 
 img[data-bookmark-icon-active], img[data-bookmark-icon-inactive]{
     position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 1px;
     transition: opacity 1s ease-out, transform 1s ease-out;
 }
 
 img[data-bookmark-icon-active].hidden, img[data-bookmark-icon-inactive].hidden{
     opacity: 0;
     transform: scale(0.8);
+    z-index: -1;
 }
 
-.post-stats {
+.post-stats > :first-child() {
+    width: 100px;
+    max-width: 90px;
+}
+
+.post-rating {
     justify-content:end;
     width: 300px;
 
@@ -216,5 +226,107 @@ img[data-bookmark-icon-active].hidden, img[data-bookmark-icon-inactive].hidden{
         max-width: 100px;
         display: flex;
         justify-content: end;
+    }
+}
+
+[data-sorting-toggle] {
+    border-radius: 100vmax !important;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    display: flex !important;
+    padding: 0 !important;
+    cursor: default !important;
+    padding-left: 4px !important;
+    transition: border-radius 0.5s ease-out 0.5s !important;
+    border-top-right-radius: 100vmax;
+    border-bottom-right-radius: 100vmax;
+    position: relative;
+    overflow: visible !important;
+
+
+    &:hover, &:focus {
+        background-color: var(--btn-bg-color) !important;
+        border-top-right-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+        transition: border-radius 0s ease-out 0s !important;
+
+        & > [data-sorting-variants] {
+            max-width: 400px;
+            opacity: 1;
+            transition: max-width 0.5s ease-out
+        }
+    }
+
+    & > span {
+        margin: 0 12px 0 8px;
+    }
+}
+
+// body.dark [data-sorting-toggle] {
+//     background-color: $btn-dark-background !important;
+// }
+
+[data-sorting-variants] {
+    display: flex;
+    background-color: var(--btn-bg-color);
+    padding: 0 !important;
+    vertical-align: middle;
+    align-items: center;
+    font-size: medium;
+    min-height: 28px;
+    border-top-right-radius: 100vmax;
+    border-bottom-right-radius: 100vmax;
+    overflow: hidden;
+    transform-origin: left center;
+    transition: max-width 0.5s ease-out, opacity 0s ease-in 0.5s;
+    max-width: 0;
+    opacity: 0;
+    position: absolute;
+    left: 100%;
+
+    & span{
+        transition: background-color 0.2s ease-in-out;
+        margin: 0 !important;
+        padding: 0px 8px;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        word-break: keep-all;
+        white-space: nowrap;
+        cursor: pointer !important;
+
+        &:not([disabled]):hover {
+            background-color: $btn-edit-on-hover-bg;
+        }
+
+        &[disabled] {
+            cursor: default;
+            pointer-events: none;
+            background-color: $btn-submit-on-hover-bg;
+        }
+    }
+
+    & span + span {
+        border-left:  1px solid #6b6b6b;
+    }
+    
+    & > :last-child {
+        padding-right: 12px;
+    }
+
+}
+
+[data-sorting-variants]:hover ~ [data-sorting-toggle] {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+body.dark [data-sorting-variants] > span {
+    &:hover {
+        background-color: $page-background-color-dark ;
+    }
+
+    &[disabled] {
+        background-color: invert($btn-dark-background, 20%);
     }
 }

@@ -6,24 +6,23 @@
 <form action="" method="POST" name="edit-post">
     {% csrf_token %}
     <label>
-        {% trans 'Title' %}:<br>
-        <input type="text" name="name" required maxlength="200" value="{{ post.name }}">
+        <input type="text" name="name" required maxlength="200" value="{{ post.name }}"
+        placeholder="{% trans 'Title' %}..." title="{% trans 'Title' %}">
     </label>
     <label>
-        {% trans 'Description' %}:<br>
-        <input type="text" name="description" required maxlength="200" value="{{ post.description }}">
+        <input type="text" name="description" required maxlength="200" value="{{ post.description }}"
+        placeholder="{% trans 'Description' %}..." title="{% trans 'Description' %}">
     </label>
     <label>
-        {% trans 'Text' %}:<br>
-        <textarea name="text" rows="6" required>{{ post.text}}</textarea>
+        <textarea name="text" class="post-textarea" required
+        placeholder="{% trans 'Text' %}..." title="{% trans 'Text' %}">{{ post.text}}</textarea>
     </label>
-    <div class="row-content mgt-10">
+    <div class="row-content mgt-8">
         <button
                name="Confirm"
-               class="btn-edit"
-               ><span>{% trans 'Submit' %}</span></button>
-    
-        <a class="btn-delete" href="{% url 'blog:home' %}"><span>{% trans 'Cancel' %}</span></a>
+               class="btn-edit mgr-8"
+               ><span>{% trans 'Save' %}</span></button><!--
+            --><a class="btn-delete" href="{% url 'blog:home' %}"><span>{% trans 'Cancel' %}</span></a>
         </div>
 </form>
 </div>
