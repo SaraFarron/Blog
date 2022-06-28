@@ -45,6 +45,8 @@ class Home(View):
                 posts = posts.order_by('-number_of_comments')
             case 'rating':
                 posts = posts.order_by('-rating')
+            case _:
+                posts = posts.order_by('-creation_date')
 
         context = {'posts': posts, 'user': request.user, 'sorting': sorting, 'request_guest': request_guest}
         return render(request, 'blog/home.html', context)
@@ -96,13 +98,6 @@ class CreatePost(View):
 
 class UpdateObject(View):
     decorators = [login_required(login_url='user:login'), user_owns_the_post]
-
-    @method_decorator(decorators)
-    def get(self, request, pk):
-        model = request.GET['element']
-        instance, form = get_instance(model, pk)
-        context = {'form': form, 'instance': instance}
-        return render(request, 'blog/post/post-edit.html', context)
 
     @method_decorator(decorators)
     def post(self, request, pk):
