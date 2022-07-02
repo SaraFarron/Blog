@@ -2,9 +2,11 @@
 
 Docker is required
 
-`git clone https://github.com/SaraFarron/Blog.git
+```
+git clone https://github.com/SaraFarron/Blog.git
 cd Blog
-docker-compose build`
+docker-compose build
+```
 
 ## Использование / Usage
 
