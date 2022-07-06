@@ -203,6 +203,15 @@ textarea {
     resize: none;
 }
 
+::-webkit-scrollbar-corner {
+    background-color: transparent;
+}
+
+.modal-form textarea {
+    resize: vertical;
+    max-height: 50vh;
+}
+
 .popup {
 
     position: absolute;
@@ -215,7 +224,7 @@ textarea {
 
     &-hidden {
         @extend .popup;
-        display: none;
+        display: none !important;
     }
 
     &-shown {
@@ -235,4 +244,21 @@ a .icon:hover {
 
 .alert + .alert {
     margin-top: 8px;
+}
+
+.modal-bg {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }

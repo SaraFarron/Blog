@@ -102,14 +102,14 @@ class UpdateObject(View):
     @method_decorator(decorators)
     def post(self, request, pk):
         model = request.POST['element']
-        instance, form = get_instance(model, pk)
+        instance, form = get_instance(model, pk, request.POST)
 
         if form.is_valid():
             form.save()
-            return redirect('blog:home')
+            return redirect(request.META['HTTP_REFERER'])
 
-        context = {'form': form, 'instance': instance}
-        return render(request, 'blog/post/post-edit.html', context)
+        #errors handling?
+        return redirect(request.META['HTTP_REFERER'])
 
 
 class DeleteObject(View):
