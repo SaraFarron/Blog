@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-21 09:54+0000\n"
-"PO-Revision-Date: 2022-06-21 11:36+0000\n"
+"POT-Creation-Date: 2022-07-14 17:22+0000\n"
+"PO-Revision-Date: 2022-07-14 17:22+0000\n"
 "Last-Translator:   <ya@tbl.sobaka>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -127,17 +127,21 @@ msgid "Are you sure you want to delete this comment?"
 msgstr "Вы уверены что хотите удалить комментарий?"
 
 #: templates/blog/comment/comment-delete-form.html:13
-#: templates/blog/post/post-delete-form.html:14
+#: templates/blog/comment/comment-list.html:24
+#: templates/blog/delete-element-core.html:18
+#: templates/blog/post/postlist-item.html:26
+#: templates/blog/post/postpage-post.html:26
 #: templates/user/profile-settings.html:26
 msgid "Delete"
 msgstr "Удалить"
 
 #: templates/blog/comment/comment-delete-form.html:15
-#: templates/blog/comment/comment-list.html:41
-#: templates/blog/post/post-creation-block.html:10
-#: templates/blog/post/post-delete-form.html:16
-#: templates/blog/post/post-edit-form.html:26
-#: templates/blog/post/postpage.html:25
+#: templates/blog/comment/comment-list.html:39
+#: templates/blog/delete-element-core.html:19
+#: templates/blog/modal-post-edit-form.html:19
+#: templates/blog/post/post-creation-block.html:11
+#: templates/blog/post/post-edit-form.html:25
+#: templates/blog/post/postpage.html:26
 #: templates/user/profile-settings.html:13
 msgid "Cancel"
 msgstr "Отмена"
@@ -148,26 +152,48 @@ msgstr "Ваш комментарий..."
 
 #: templates/blog/comment/comment-list.html:12
 #: templates/blog/comment/reply-list.html:10
-#: templates/blog/post/postlist-item.html:12
-#: templates/blog/post/postpage-post.html:13
+#: templates/blog/post/postlist-item.html:14
+#: templates/blog/post/postpage-post.html:14
 #: templates/user/profile-comment-list.html:14 user/models.py:14
 msgid "profile picture"
 msgstr "фото профиля"
 
-#: templates/blog/comment/comment-list.html:34
+#: templates/blog/comment/comment-list.html:23
+#: templates/blog/post/postlist-item.html:25
+#: templates/blog/post/postpage-post.html:25
+#: templates/user/profile-settings.html:25
+msgid "Edit"
+msgstr "Изменить"
+
+#: templates/blog/comment/comment-list.html:32
 msgid "Reply"
 msgstr "Ответить"
 
-#: templates/blog/comment/comment-list.html:37
-#: templates/blog/post/post-creation-block.html:15
-#: templates/blog/post/post-edit-form.html:24
-#: templates/blog/post/postpage.html:29
+#: templates/blog/comment/comment-list.html:35
+#: templates/blog/post/post-creation-block.html:16
+#: templates/blog/post/postpage.html:30
 msgid "Submit"
 msgstr "Опубликовать"
 
 #: templates/blog/comment/reply-form.html:6
 msgid "Your reply..."
 msgstr "Ваш ответ..."
+
+#: templates/blog/delete-element-core.html:6
+msgid "Are you sure you want to delete this"
+msgstr "Вы уверены что хотите удалить этот"
+
+#: templates/blog/delete-element-core.html:7
+msgid "post"
+msgstr "пост"
+
+#: templates/blog/delete-element-core.html:8
+msgid "comment"
+msgstr "комментарий"
+
+#: templates/blog/delete-element-core.html:9
+msgid "reply"
+msgstr "ответ"
 
 #: templates/blog/home.html:9 templates/navbar.html:23
 msgid "Home"
@@ -185,23 +211,53 @@ msgstr "Тут пока нет постов. Будьте первым!"
 msgid "Have something to tell?"
 msgstr "Есть что рассказать?"
 
-#: templates/blog/post/post-creation-block.html:5
+#: templates/blog/modal-post-edit-form.html:6
+#: templates/blog/post/post-edit-form.html:5
+#: templates/blog/post/post-edit.html:4
+msgid "Edit post"
+msgstr "Редактировать пост"
+
+#: templates/blog/modal-post-edit-form.html:11
+#: templates/blog/post/post-creation-form.html:8
+#: templates/blog/post/post-edit-form.html:10
+msgid "Title"
+msgstr "Заголовок"
+
+#: templates/blog/modal-post-edit-form.html:13
+#: templates/blog/post/post-creation-form.html:12
+#: templates/blog/post/post-edit-form.html:14
+msgid "Description"
+msgstr "Описание"
+
+#: templates/blog/modal-post-edit-form.html:15
+#: templates/blog/post/post-creation-form.html:16
+#: templates/blog/post/post-edit-form.html:18
+msgid "Text"
+msgstr "Текст"
+
+#: templates/blog/modal-post-edit-form.html:18
+#: templates/blog/post/post-edit-form.html:24
+#: templates/user/profile-settings.html:47
+msgid "Save"
+msgstr "Сохранить"
+
+#: templates/blog/post/post-creation-block.html:6
 msgid "Create post"
 msgstr "Создать пост"
 
-#: templates/blog/post/post-creation-block.html:23
+#: templates/blog/post/post-creation-block.html:26
 msgid "Log In (Войдите)"
 msgstr "Войдите"
 
-#: templates/blog/post/post-creation-block.html:23
+#: templates/blog/post/post-creation-block.html:26
 msgid " to create new posts!"
 msgstr ", чтобы иметь возможность публиковать посты!"
 
-#: templates/blog/post/post-creation-block.html:26
+#: templates/blog/post/post-creation-block.html:29
 msgid "Don't have an account yet?"
 msgstr "Нет аккаунта?"
 
-#: templates/blog/post/post-creation-block.html:26
+#: templates/blog/post/post-creation-block.html:29
 msgid "Register  here"
 msgstr "Зарегестрируйтесь здесь"
 
@@ -209,36 +265,11 @@ msgstr "Зарегестрируйтесь здесь"
 msgid "New post"
 msgstr "Новый пост"
 
-#: templates/blog/post/post-creation-form.html:7
-#: templates/blog/post/post-edit-form.html:9
-msgid "Title"
-msgstr "Заголовок"
-
-#: templates/blog/post/post-creation-form.html:10
-#: templates/blog/post/post-edit-form.html:13
-msgid "Description"
-msgstr "Описание"
-
-#: templates/blog/post/post-creation-form.html:13
-#: templates/blog/post/post-edit-form.html:17
-msgid "Text"
-msgstr "Текст"
-
-#: templates/blog/post/post-delete-form.html:5
-msgid "Are you sure you want to delete"
-msgstr "Вы уверены что хотите удалить?"
-
-#: templates/blog/post/post-edit-form.html:5
-#: templates/blog/post/post-edit.html:4
-msgid "Edit post"
-msgstr "Редактировать пост"
-
 #: templates/blog/post/post-save.html:10
 msgid "unbookmark"
 msgstr "в закладки"
 
 #: templates/blog/post/post-save.html:11
-#| msgid "bookmark"
 msgid "remove bookmark"
 msgstr "убрать закладку"
 
@@ -246,8 +277,8 @@ msgstr "убрать закладку"
 msgid "bookmark"
 msgstr "в закладки"
 
-#: templates/blog/post/postlist-item.html:33
-#: templates/blog/post/postpage-post.html:36 templates/user/profile.html:53
+#: templates/blog/post/postlist-item.html:35
+#: templates/blog/post/postpage-post.html:37 templates/user/profile.html:53
 msgid "comments"
 msgstr "комментарии"
 
@@ -255,7 +286,7 @@ msgstr "комментарии"
 msgid "Post"
 msgstr "Пост"
 
-#: templates/blog/post/postpage.html:20 templates/blog/post/postpage.html:36
+#: templates/blog/post/postpage.html:21 templates/blog/post/postpage.html:37
 msgid "Comment"
 msgstr "Комментировать"
 
@@ -263,19 +294,16 @@ msgstr "Комментировать"
 #: templates/blog/rating-element-core.html:11
 #: templates/blog/rating-element-core.html:17
 #: templates/blog/rating-element-core.html:19
-#| msgid "upvoted by"
 msgid "unvote"
 msgstr "убрать голос"
 
 #: templates/blog/rating-element-core.html:9
 #: templates/blog/rating-element-core.html:11
-#| msgid "upvoted by"
 msgid "upvote"
 msgstr "нравится"
 
 #: templates/blog/rating-element-core.html:17
 #: templates/blog/rating-element-core.html:19
-#| msgid "downvoted by"
 msgid "downvote"
 msgstr "не нравится"
 
@@ -382,10 +410,6 @@ msgstr "пароль"
 msgid "Profile settings"
 msgstr "Настройки профиля"
 
-#: templates/user/profile-settings.html:25
-msgid "Edit"
-msgstr "Изменить"
-
 #: templates/user/profile-settings.html:34
 #: templates/user/profile-settings.html:35 templates/user/profile.html:30
 #: templates/user/register.html:17 user/models.py:12
@@ -402,10 +426,6 @@ msgstr "телефон"
 #: templates/user/profile-settings.html:44 templates/user/profile.html:32
 msgid "skype"
 msgstr "skype"
-
-#: templates/user/profile-settings.html:47
-msgid "Save"
-msgstr "Сохранить"
 
 #: templates/user/profile-settings.html:56 templates/user/profile.html:44
 msgid "API token"

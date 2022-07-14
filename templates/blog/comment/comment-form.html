@@ -3,7 +3,7 @@
 <form action="{% url 'blog:create_comment' post.id %}" method="POST" name="comment">
     {% csrf_token %}
     <label>
-        <textarea name="text" class="comment-textarea" required placeholder="{% trans 'Your comment...' %}"></textarea>
+        <textarea name="text" class="comment-textarea" required placeholder="{% trans 'Your comment...' %}" title="{% trans 'Your comment...' %}"></textarea>
     </label>
     <input type="submit" name="Submit" style="display: none;" id="post-comment-submit">
 </form>

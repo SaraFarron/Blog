@@ -14,26 +14,28 @@
         {% include 'change-theme-button.html' %}
     </div>
     {% include 'blog/post/postpage-post.html' %}
-    <div class="container">
-        <input type="radio" class="toggle" name="comment" id="post-comment-expand">
-        <label class="btn-submit mgr-8" for="post-comment-expand">
-            <span>{% trans 'Comment' %}</span>
-        </label>
-
-        <input type="radio" class="toggle" name="comment" id="post-comment-cancel">
-        <label class="btn-delete" for="post-comment-cancel" id="comment-label">
-            <span>{% trans 'Cancel' %}</span>
-        </label>
-
-        <label class="btn-submit mgr-8" for="post-comment-submit" id="post-comment-submit-label" style="order: -1;">
-            <span>{% trans 'Submit' %}</span>
-        </label>
-
-        <div class="expandable-v" style="order: -2;">
-            {% include 'blog/comment/comment-form.html' %}
+    <div class="container pdb-10">
+        <div class="flex-wrap">
+            <input type="radio" class="toggle" name="comment" id="post-comment-expand">
+            <label class="btn-submit mgr-8" for="post-comment-expand">
+                <span>{% trans 'Comment' %}</span>
+            </label>
+    
+            <input type="radio" class="toggle" name="comment" id="post-comment-cancel">
+            <label class="btn-delete" for="post-comment-cancel" id="comment-label">
+                <span>{% trans 'Cancel' %}</span>
+            </label>
+    
+            <label class="btn-submit mgr-8" for="post-comment-submit" id="post-comment-submit-label" style="order: -1;">
+                <span>{% trans 'Submit' %}</span>
+            </label>
+    
+            <div class="expandable-v" style="order: -2;">
+                {% include 'blog/comment/comment-form.html' %}
+            </div>
+    
+            <!-- <a href="{% url 'blog:create_comment' post.id %}" class="btn-submit"><span>{% trans 'Comment' %}</span></a> -->
         </div>
-
-        <!-- <a href="{% url 'blog:create_comment' post.id %}" class="btn-submit"><span>{% trans 'Comment' %}</span></a> -->
     </div>
     {% include 'blog/comment/comment-list.html' %}
 </div>

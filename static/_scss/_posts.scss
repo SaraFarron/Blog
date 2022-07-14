@@ -105,17 +105,13 @@
 
 }
 
-input[type]:not([type='submit']) {
-    margin-bottom: 8px;
-}
-
 .popup-shown form{
     display: flex;
     justify-content: center;
     margin-top: 10px;
 }
 
-.popup-shown .post
+.popup-shown .popup-container
 {
     align-items: center;
     justify-content: center;

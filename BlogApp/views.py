@@ -120,7 +120,8 @@ class DeleteObject(View):
         model = request.POST['element']
         instance, _ = get_instance(model, pk)
         instance.delete()
-        return redirect('blog:home')
+
+        return redirect(reverse('blog:home')) if model == 'post' else redirect(request.META['HTTP_REFERER'])
 
 
 class CreateComment(View):

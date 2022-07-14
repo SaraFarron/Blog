@@ -1,12 +1,11 @@
 {% load static %}
 {% load i18n %}
 
-<div class="modal-bg popup-hidden" id="popup-edit-{{post.id}}">
-    {% include 'modal-form.html' %}
-</div>
-<div class="container">
+
+{% include 'blog/post/modal-post-edit-form.html' %}
+<div class="container pdb-4">
     <div class="container-col">
-        <div class="container popup-hidden" id="popup-delete-{{post.id}}">
+        <div class="container popup-hidden" id="popup-delete-post-{{post.id}}">
             {% include 'blog/post/post-delete-form.html' %}
         </div>
         <div class="container-row mgb-8">
@@ -23,8 +22,8 @@
             </div>
             {%if request_guest == post.user %}
                 <div class="pos-right">            
-                    <button class="btn-edit width-fit mgr-8" onclick="showPopup('edit-{{ post.id }}')" title="{%trans 'Edit'%}"><img class="icon" src="{% static 'images/icons/edit_icon.svg' %}"></button><!--
-                 --><button class="btn-delete width-fit" onclick="showPopup('delete-{{ post.id }}')" title="{%trans 'Delete'%}"><img class="icon" src="{% static 'images/icons/delete_icon.svg' %}"></button>
+                    <button class="btn-edit width-fit mgr-8" onclick="showPopup('edit-post-{{ post.id }}')" title="{%trans 'Edit'%}"><img class="icon" src="{% static 'images/icons/edit_icon.svg' %}"></button><!--
+                 --><button class="btn-delete width-fit" onclick="showPopup('delete-post-{{ post.id }}')" title="{%trans 'Delete'%}"><img class="icon" src="{% static 'images/icons/delete_icon.svg' %}"></button>
                 </div>
             {% endif %}
         </div>

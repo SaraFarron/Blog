@@ -101,7 +101,8 @@ label {
     margin: 0px;
     margin-bottom: 16px;
     display: flex;
-    flex-wrap: wrap;
+    //flex-wrap: wrap;
+    flex-direction: column;
     
     &-col {
         display: flex;
@@ -179,6 +180,11 @@ input[type="submit"] {
     display: block;
 }
 
+
+input[type]:not([type='submit']) {
+    margin-bottom: 8px;
+}
+
 input[type="file"] {
     display: none;
 }
@@ -208,8 +214,11 @@ textarea {
 }
 
 .modal-form textarea {
-    resize: vertical;
-    max-height: 50vh;
+    resize: both;
+    max-height: 60vh;
+    max-width: calc(#{$postlist-max-width} - 32px);
+    min-width: calc(#{$postlist-min-width} - 32px);
+    min-height: 124px;
 }
 
 .popup {
@@ -254,6 +263,10 @@ a .icon:hover {
     display: flex;
     align-items: center;
     justify-content: center;
+
+    & > .container {
+        min-width: calc(#{$postlist-min-width} - 32px);
+    }
 }
 
 .modal-form {
@@ -261,4 +274,9 @@ a .icon:hover {
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+.flex-wrap {
+    display: flex;
+    flex-wrap: wrap;
 }
