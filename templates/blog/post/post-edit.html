@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block subhead %}
+    <title>blog - {% trans 'Edit post' %}</title>
+{% endblock%}
+{% block content %}
+<div class="list-v">
+    {% include 'form-errors.html' %}
+    <div class="container">
+        <div class="container-col" style="order: -2;">
+            {% include 'blog/post/post-edit-form.html' %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,17 +1,34 @@
-{% extends 'blog/base.html' %}
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block subhead %}
+    <title>blog - {% trans 'Login' %}</title>
+{% endblock%}
 {% block content %}
-    {% load i18n %}
-
-<div class="post">
-			<h3 style="font-family: Arial, Helvetica, sans-serif">{% trans 'Login' %}</h3>
-
-		<form action="#" method="POST">
-            {% csrf_token %}
-			<input type="text" name="username" placeholder="{% trans 'username' %}"
-                   class="field" style="width: 49%">
-			<input type="password" name="password" placeholder="{% trans 'password' %}" class="field">
-			<input type="submit" value="Login" class="btn btn-success"
-            style="position: absolute; top: 27%; width: 22.8%; left: 39%;">
-		</form>
-	</div>
+<div class="list-v-narrow">
+    {% if messages %}
+    <div class="container"><!--
+    -->{% for message in messages %}<!--
+        -->{% if 'error' in message.tags and CURRENT_LANGUAGE in message.tags%}
+                <div class="alert">
+                    <strong class="red">{{ message }}</strong>
+                </div>
+            {% endif %}<!--
+    -->{% endfor %}<!--
+--></div>
+    {% endif %}
+    <div class="container">
+        <div class="container-col">
+            <div>
+                <h4>{% trans 'Login' %}</h4><hr>
+                <form action="#" method="POST">
+                    {% csrf_token %}
+                    <input class="width-50pc mgh-a" type="text" name="username" placeholder="{% trans 'username' %}" required>
+                    <input class="width-50pc mgh-a" type="password" name="password" placeholder="{% trans 'password' %}" required>
+                    <input class="btn-submit mgh-a" type="submit" value="{% trans 'Login' %}">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

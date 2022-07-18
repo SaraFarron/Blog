@@ -1,0 +1,114 @@
+
+// Variables block -------------------------------------------
+
+//Colors ---
+
+$btn-default-text-color: rgb(0, 0, 0);
+$btn-default-background: rgb(230, 247, 241);
+
+$btn-dark-text-color: rgb(248, 248, 248);
+$btn-dark-background: #42464d;
+
+body {
+    --btn-bg-color: #{$btn-default-background};
+    --btn-text-color: #{$btn-default-text-color};
+}
+
+body.dark {
+    --btn-bg-color: #{$btn-dark-background};
+    --btn-text-color: #{$btn-dark-text-color};
+}
+
+//on hover colors (by default tints background color by 5%)
+
+$btn-submit-on-hover-bg: mix($btn-default-background, rgb(21, 255, 0), 90%);
+$btn-edit-on-hover-bg: mix($btn-default-background, rgb(0, 225, 255), 90%);
+$btn-delete-on-hover-bg: mix($btn-default-background, rgb(255, 0, 0), 90%);
+
+// ---
+
+$btn-padding: 2px;
+$btn-width: 136px;
+
+// Mixins ----------------------------------------------------
+
+@mixin btn-color($text-color, $background, $on-hover-bg: $background) {
+    
+    color: $text-color;
+    background-color: $background;
+
+    &:hover {
+        color: darken($text-color, 5%);
+        @if $on-hover-bg == $background {
+            background-color:  darken($on-hover-bg, 5%);
+        }
+        @else {
+            background-color: $on-hover-bg;
+        }
+            
+    }
+}
+
+body.dark .btn{
+    @include btn-color($btn-dark-text-color, $btn-dark-background, #202225);
+}
+
+body.dark img:not([type="userpic"]) {
+    filter: invert(90%);
+
+    &:hover {
+        filter: invert(90%)
+    }
+}
+
+
+//
+
+.btn {
+    padding: $btn-padding $btn-padding*2;
+    text-align: center;
+    vertical-align: middle;
+    align-items: center;
+    display: inline-block;
+    border: none;
+    font-family: 'Roboto', Tahoma;
+    font-size: medium;
+    box-sizing: border-box;
+
+    user-select: none;
+    text-decoration: none;
+    cursor: pointer;
+
+    border-radius: 8px;
+    min-height: 28px;
+    width: $btn-width;
+    min-width: fit-content;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out,
+        opacity 0.8s ease-in-out;
+
+    @include btn-color($btn-default-text-color, $btn-default-background);
+
+    span {
+        cursor: inherit !important;
+        line-height: 24px;
+    }
+
+    &-submit {
+        @extend .btn;
+        @include btn-color($btn-default-text-color, $btn-default-background, $btn-submit-on-hover-bg);
+    }
+
+    &-edit {
+        @extend .btn;
+        @include btn-color($btn-default-text-color, $btn-default-background, $btn-edit-on-hover-bg)
+    }
+
+    &-delete{
+        @extend .btn;
+        @include btn-color($btn-default-text-color, $btn-default-background, $btn-delete-on-hover-bg)
+    }
+}
+
+button[type=submit] {
+    display: none;
+}

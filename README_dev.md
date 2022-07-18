@@ -1,4 +1,4 @@
-## Installation
+``## Installation
 
 Docker is required
 
@@ -57,12 +57,13 @@ API Docs:
 + Division into dev and production branches ✅
 + Upload to heroku, github pages, raspberry pi? ✅
 + Add rating to posts and comments
-+ Add comments counter to posts
-+ Add save post feature
-+ Add sort by popular feature
-+ Add comments history section to profile
++ Add comments counter to posts ✅
++ Add save post feature ✅
++ Add sort by popular feature ✅
++ Add comments history section to profile  ✅
 + Add GitHub link to navbar ✅
-+ Add markdown support to posts
-+ Add DMs
-+ Add encryption (lets encrypt)?
-+ Login / registration via cart, google account?
++ Add DMs ❌
++ Clean up
++ Make save and upvote (maybe use api?)
++ Do something with pfp size
++ cache?

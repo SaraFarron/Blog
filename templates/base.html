@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+{% load static %}
+{% load i18n %}
+
+{% get_current_language as CURRENT_LANGUAGE %}
+<html lang="{{CURRENT_LANGUAGE}}" class="{%if request.COOKIES.darkMode == 'enabled'%}dark{%endif%}">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bundle.css' %}">
+    <script src="{% static 'javascript/darkmode_toggle.js' %}" defer></script>
+    {% block subhead %}
+        <title>blog</title>
+    {% endblock %}
+</head>
+<body data-user-is-authenticated="{{request.user.is_authenticated|lower}}" 
+        class="{%if request.COOKIES.darkMode == 'enabled'%}dark{%endif%}">
+    {% include 'navbar.html' %}
+    {% include 'notifications.html' %}
+    
+    {% block content %}
+    {% endblock %}
+    
+    <iframe name="dframe" style="display:none;"></iframe>
+</body>
+</html>

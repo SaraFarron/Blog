@@ -1,75 +1,20 @@
 from rest_framework.mixins import CreateModelMixin, ListModelMixin, DestroyModelMixin, RetrieveModelMixin
-from rest_framework.permissions import IsAuthenticated, AllowAny
-from rest_framework.response import Response
-from rest_framework.status import HTTP_201_CREATED, HTTP_200_OK, HTTP_403_FORBIDDEN
+from rest_framework.status import HTTP_201_CREATED
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 from .serializers import *
-
-
-def update_user_rating(user):
-    posts = Post.objects.filter(user=user)
-    comments = Comment.objects.filter(user=user)
-    posts_rating = sum([post.rating for post in posts])
-    comments_rating = sum([comment.rating for comment in comments])
-    user.rating = posts_rating + comments_rating
-    user.save()
+from .utils import *
 
 
 class RateModelMixin:
     """
         Update a model instance.
     """
-
+    @silk_profile(name='Rate Mixin')
     def partial_update(self, request, *args, **kwargs):
         instance = self.get_object()
         action = request.data['rating']
         user = Guest.objects.get(user=request.user)
-        upvoted_users_query = instance.upvoted_users
-        downvoted_users_query = instance.downvoted_users
-        instance_user = instance.user
-
-        match action:
-            case 'upvote':
-                if user not in upvoted_users_query.all():
-                    upvoted_users_query.add(user)
-                    if user in downvoted_users_query.all():
-                        downvoted_users_query.remove(user)
-                else:
-                    Response({'error': 'You already upvoted this'}, status=HTTP_403_FORBIDDEN)
-            case 'downvote':
-                if user not in downvoted_users_query.all():
-                    downvoted_users_query.add(user)
-                    if user in upvoted_users_query.all():
-                        upvoted_users_query.remove(user)
-                else:
-                    Response({'error': 'You already downvoted this'}, status=HTTP_403_FORBIDDEN)
-            case _:
-                return Response(status=HTTP_403_FORBIDDEN)
-
-        instance.rating = len(upvoted_users_query.all()) - len(downvoted_users_query.all())
-        instance.save()
-        update_user_rating(instance_user)
-        return Response(status=HTTP_200_OK)
-
-
-class ActionBasedPermission(AllowAny):
-    """
-        Grant or deny access to a view, based on a mapping in view.action_permissions
-    """
-    def has_permission(self, request, view):
-        for klass, actions in getattr(view, 'action_permissions', {}).items():
-            if view.action in actions:
-                return klass().has_permission(request, view)
-        return False
-
-
-def set_default_permissions():
-    permission_classes = (ActionBasedPermission,)
-    action_permissions = {
-        IsAuthenticated: ['update', 'partial_update', 'destroy', 'create'],
-        AllowAny: ['list', 'retrieve']
-    }
-    return permission_classes, action_permissions
+        return update_instance_rating(instance, user, action)
 
 
 class PostViewSet(ModelViewSet):
@@ -92,6 +37,7 @@ class PostViewSet(ModelViewSet):
     serializer_class = PostSerializer
     permission_classes, action_permissions = set_default_permissions()
 
+    @silk_profile(name='Post Create')
     def create(self, request, *args, **kwargs):
         many = True if isinstance(request.data, list) else False
         serializer = PostSerializer(data=request.data, many=many)
@@ -101,7 +47,6 @@ class PostViewSet(ModelViewSet):
         if many:
             post_list = [Post(**data, user=author) for data in serializer.validated_data]
             Post.objects.bulk_create(post_list)
-
         else:
             post = Post.objects.create(
                 name=request.data.get('name'),
@@ -112,6 +57,26 @@ class PostViewSet(ModelViewSet):
             post.save()
 
         return Response({}, status=HTTP_201_CREATED)
+
+    def update(self, request, *args, **kwargs):
+        response = user_owns_the_post(request, kwargs)
+        if response:
+            return response
+
+        return super(PostViewSet, self).update(request, *args, **kwargs)
+    
+    def partial_update(self, request, *args, **kwargs):
+        response = user_owns_the_post(request, kwargs)
+        if response:
+            return response
+        
+        return super(PostViewSet, self).partial_update(request, *args, **kwargs)
+
+    def destroy(self, request, *args, **kwargs):
+        response = user_owns_the_post(request, kwargs)
+        if response:
+            return response
+        return super(PostViewSet, self).destroy(request, *args, **kwargs)
 
 
 class CommentViewSet(CreateModelMixin, ListModelMixin, DestroyModelMixin, GenericViewSet):
@@ -134,46 +99,39 @@ class CommentViewSet(CreateModelMixin, ListModelMixin, DestroyModelMixin, Generi
     serializer_class = CommentSerializer
     permission_classes, action_permissions = set_default_permissions()
 
+    @silk_profile(name='Comment Create')
     def create(self, request, *args, **kwargs):
         many = True if isinstance(request.data, list) else False
         serializer = CommentSerializer(data=request.data, many=many)
         serializer.is_valid(raise_exception=True)
-        author = Guest.objects.get(user=request.user)
+        user = Guest.objects.get(user=request.user)
         post = Post.objects.get(id=request.data.get('post'))
+        comment_text = request.data.get('text')
 
         if many:
-            post_list = [Comment(**data, author=author) for data in serializer.validated_data]
+            post_list = [Comment(**data, user=user) for data in serializer.validated_data]
             Comment.objects.bulk_create(post_list)
-
         elif 'parent_comment' in request.data.keys():
-            parent_comment = Comment.objects.get(id=request.data.get('parent_comment'))
-            comment = Comment.objects.create(
-                text=request.data.get('text'),
-                post=post,
-                user=author
-            )
-            comment.save()
-            parent_comment.replies.add(comment)
-            parent_comment.save()
-
+            parent_comment_id = request.data.get('parent_comment')
+            create_reply(post, user, comment_text, parent_comment_id)
         else:
             comment = Comment.objects.create(
-                text=request.data.get('text'),
+                text=comment_text,
                 post=post,
-                user=author
+                user=user,
+                owner_id=user.id,
+                owner_name=user.name,
+                owner_is_moderator=user.is_moderator,
+                owner_pfp_url=user.profile_picture.url,
             )
             comment.save()
 
-        return Response({}, status=HTTP_201_CREATED)
+        post.number_of_comments = Comment.objects.filter(post=post).count() + 1
+        post.save()
+        return Response(status=HTTP_201_CREATED)
 
     def list(self, request, *args, **kwargs):
-        comments = Comment.objects.all()
-        replies = []
-        for comment in comments:
-            replies += list(comment.replies.all())
-        for reply in replies:
-            comments = comments.exclude(id=reply.id)
-        queryset = comments
+        queryset = get_comments_with_replies()
 
         page = self.paginate_queryset(queryset)
         if page is not None:
@@ -213,17 +171,12 @@ class RateCommentView(RateModelMixin, GenericViewSet):
 
 class SaveModelMixin:
 
+    @silk_profile(name='Save Mixin')
     def partial_update(self, request, *args, **kwargs):
         instance = self.get_object()
         user = Guest.objects.get(user=request.user)
-        saved_by_query = instance.saved_by
 
-        if user in saved_by_query.all():
-            saved_by_query.remove(user)
-        else:
-            saved_by_query.add(user)
-        instance.save()
-        return Response(status=HTTP_200_OK)
+        return toggle_save_instance(instance, user)
 
 
 class SavePostView(SaveModelMixin, GenericViewSet):

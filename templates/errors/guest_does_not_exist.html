@@ -1,0 +1,5 @@
+{% extends 'errors/errorbase.html' %}
+{% load i18n %}
+{% block error_message %}
+<h1> {% trans 'Guest' %} {{ request.user }} {% trans 'does not exist' %} </h1>
+{% endblock %}

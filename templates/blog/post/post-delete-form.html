@@ -1,0 +1,18 @@
+{% load static %}
+{% load i18n %}
+
+<div class="post">
+    <p style="text-align: center">{% trans 'Are you sure you want to delete' %}</p> 
+    <h1 class="mgl-16 mgr-16" style="text-align: center"> {{ post }}</h1>
+<form action="{% url 'blog:delete' post.id %}" method="post"> 
+    {% csrf_token %}
+
+    <div class="row-content">
+    <button
+           name="Confirm"
+           class="btn-delete mgr-8"
+           ><img class="icon" src="{% static 'images/icons/delete_icon.svg' %}"><span>{% trans 'Delete' %}</span></button><!--
+        --><button type="button" class="btn-submit" onclick="hidePopup('delete-{{ post.id }}')">{% trans 'Cancel' %}</button>
+    </div>
+</form>
+</div>

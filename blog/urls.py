@@ -24,6 +24,7 @@ from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 from rest_framework.documentation import include_docs_urls
+from BlogApp.views import Index
 
 
 schema_view = get_schema_view(
@@ -33,7 +34,7 @@ schema_view = get_schema_view(
         description="Documentation for all api endpoints",
         terms_of_service="https://www.google.com/policies/terms/",
         contact=openapi.Contact(email="syulinnikita@gmail.com"),
-        license=openapi.License(name="MIT License"),
+        license=openapi.License(name="Unlicense"),
     ),
     public=True,
     permission_classes=(permissions.AllowAny, ),
@@ -51,6 +52,11 @@ urlpatterns = i18n_patterns(
     path(r'redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 
 )
+urlpatterns += [
+    path('__debug__/', include('debug_toolbar.urls')),
+    path('silk/', include('silk.urls', namespace='silk')),
+    path('', Index.as_view()),
+]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

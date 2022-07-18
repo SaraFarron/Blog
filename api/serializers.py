@@ -9,7 +9,9 @@ class UserSerializer(ModelSerializer):
 
     class Meta:
         model = Guest
-        fields = ('name', 'email', 'phone', 'skype', 'is_banned', 'is_muted', 'last_ban_date', 'is_moderator', 'rating')
+        fields = (
+            'name', 'email', 'phone', 'skype', 'is_banned', 'is_muted', 'last_ban_date', 'is_moderator', 'rating'
+        )
 
 
 class PostSerializer(ModelSerializer):
@@ -27,7 +29,7 @@ class PostSerializer(ModelSerializer):
 
 class CommentSerializer(ModelSerializer):
     id = IntegerField(read_only=True)
-    post = CharField(required=True)
+    post = CharField(required=True)  # This should be an int, but with IntegerField error occurs for some reason
     user = SlugRelatedField(
         read_only=True,
         slug_field='name'
@@ -37,11 +39,19 @@ class CommentSerializer(ModelSerializer):
     upvoted_users = StringRelatedField(read_only=True, many=True)
     downvoted_users = StringRelatedField(read_only=True, many=True)
     saved_by = StringRelatedField(read_only=True, many=True)
-    replies = StringRelatedField(read_only=True, many=True)
 
     class Meta:
         model = Comment
-        fields = '__all__'
+        fields = ['id',
+                  'post',
+                  'user',
+                  'parent_comment',
+                  'rating',
+                  'upvoted_users',
+                  'downvoted_users',
+                  'saved_by',
+                  'text'
+        ]
         depth = 1
 
 

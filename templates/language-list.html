@@ -1,0 +1,25 @@
+{% load static %}
+{% load i18n %}
+
+{% get_current_language as CURRENT_LANGUAGE %}
+{% get_available_languages as AVAILABLE_LANGUAGES %}
+{% get_language_info_list for AVAILABLE_LANGUAGES as languages %}
+
+{% with request.path|slice:"4:" as path %}
+<div class="container-row">
+{% for language in languages %}
+    
+    <a {% if language.code != CURRENT_LANGUAGE %}
+            {% if request.path != '/' %} href="/{{ language.code }}/{{path}}" 
+            {% else %} href="{{request.path}}" {%endif%}
+        {%endif%}
+        class = "icon-country{% if language.code == CURRENT_LANGUAGE %}-current{% endif %}">
+        <img src="{% static 'images/country_flags/' %}{{ language.name }}.png" alt='{{ language.name_local }}'
+            title="{% trans language.name%}">
+    </a>
+    {% if not language == languages|last %}
+    <div class="vline"></div>
+    {% endif %} 
+{% endfor %} 
+</div>
+{% endwith %} 

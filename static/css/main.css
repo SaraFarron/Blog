@@ -1,11 +1,19 @@
+:root{
+    --standart-width: calc(1000px + 10%);
+    --minimal-width: 720px;
+    --profilepic-min-width: 200px;
+}
+
 body {
     background-color: #f2f2f2;
+    min-width: var(--minimal-width);     
+    width: auto !important; 
 }
 
 .post {
     width: 100%;
     display: inline-block;
-    margin: 20px 10px 20px 10px;
+    margin-top: 10px;
     border-radius: 8px;
     padding: 10px;
     background-color: white;
@@ -16,9 +24,52 @@ a {
     color: black;
 }
 
+a:hover{color:#679bda}
+a:focus{color:#679bda}
+
+.order{margin: 0;}  
+
+li.nav-item
+{
+    margin-left: 10px;
+}
+
+p {
+    margin: 0px 10px;
+}
+
+h1, h2, h3, h4, h5 {
+    margin: 10px 10px 0px 10px;
+}
+
+
+div.row-content {
+    margin: 10px 10px 0px 10px;
+    display: flex;
+    align-items: center;
+}
+
+
+.pos-right /* preferred use in div.row-content class */
+{
+    justify-self: end;
+    align-items: center;
+    margin-left: auto !important;
+}
+
+.btn
+{
+    margin-right: 10px !important;
+}
+.btn-default {
+    margin: 0px !important;
+}
+
 .content {
-    width: 50%;
+    max-width: var(--standart-width);
+    min-width: var(--minimal-width);
     margin: 0 auto;
+    padding: 0px 15px 0px 15px;
 }
 
 #name {
@@ -28,7 +79,6 @@ a {
 .order {
     display: inline-block;
     position: relative;
-    margin: 10px 0 10px 0;
     padding: 0 3px 0 3px;
     border: 0;
     height: 25px;
@@ -37,46 +87,42 @@ a {
 }
 
 .profile-pic{
-	width: 150px;
-	height: 150px;
-	margin: 0 auto;
-	border-radius: 50%;
+    align-self: center;
+	min-width: var(--profilepic-min-width);
+    max-width: var(--profilepic-min-width);
+    max-height: 200px;
+	margin: 0;
+	border-radius: 10%;
 	}
 
-input[type=text] {
-    width: 70%;
-    padding: 6px 20px;
-    margin: 8px 0;
+input[type=text], input[type=number], textarea {
+    width: calc(100px + 60%);
+    padding: 6px 16px;
+    margin-bottom: 10px;
     box-sizing: border-box;
     border-radius: 5px;
 }
 
-input[type=password] {
+input[type=password], input[type=email] {
     width: 49%;
-    padding: 6px 20px;
-    margin: 8px 0;
-    box-sizing: border-box;
-    border-radius: 5px;
-}
-
-input[type=email] {
-    width: 49%;
-    padding: 6px 20px;
-    margin: 8px 0;
+    padding: 6px 16px;
+    margin-bottom: 10px;
     box-sizing: border-box;
     border-radius: 5px;
 }
 
 textarea {
-    width: 70%;
     height: 150px;
-    padding: 6px 20px;
-    margin: 8px 0;
-    box-sizing: border-box;
-    border-radius: 5px;
     resize: none;
 }
 
 label {
     display: block;
+}
+
+.vline {
+    border-left: 1px solid #6b6b6b;
+    height: 30px;
+    left: 50%;
+    margin-right: 16px;
 }

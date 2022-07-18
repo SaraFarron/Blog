@@ -1,0 +1,28 @@
+{% load i18n %}
+{% if request.user.is_authenticated %}
+<input type="radio" class="toggle" name="create-post" id="post-create-expand">
+<label class="btn-submit mgr-8" for="post-create-expand">
+    <span>{% trans 'Create post' %}</span>
+</label>
+
+<input type="radio" class="toggle" name="create-post" id="post-create-cancel">
+<label class="btn-delete" for="post-create-cancel" id="cancel-label">
+    <span>{% trans 'Cancel' %}</span>
+</label>
+
+<!-- <button type="submit" name="Submit" form="create-post" id="post-creation-submit"></button> -->
+<label class="btn-submit mgr-8" for="post-creation-submit" id="post-creation-submit-label" style="order: -1;">
+    <span>{% trans 'Submit' %}</span>
+</label>
+
+<div class="expandable-v" style="order: -2;">
+    {% include 'blog/post/post-creation-form.html' %}
+</div>
+{% else %}
+<div class="container-row">
+    <h3><a class="underline" href="{% url 'user:login' %}">{% trans 'Log In (Войдите)' %}</a>{% trans ' to create new posts!' %}</h3>
+</div>
+<div class="container-row">
+    <h3 class="mgb-0">{% trans "Don't have an account yet?" %} <a class="underline" href="{% url 'user:register' %}">{% trans 'Register  here' %}</a>!</h3>
+</div>
+{% endif %}

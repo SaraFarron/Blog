@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block subhead %}
+    <title>blog - {% trans 'About' %}</title>
+{% endblock%}
+{% block content %}
+<div class="list-v">
+    <div class="container-row mgb-16">
+        {% include 'change-theme-button.html' %}
+    </div>
+    <div class="container">
+        {% trans 'welcome_page' %}
+    </div>
+</div>
+{% endblock %}

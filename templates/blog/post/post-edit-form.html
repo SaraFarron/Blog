@@ -1,0 +1,28 @@
+{% load static %}
+{% load i18n %}
+
+<div>
+<h4>{% trans 'Edit post' %}</h4><hr>
+<form action="" method="POST" name="edit-post">
+    {% csrf_token %}
+    <label>
+        <input type="text" name="name" required maxlength="200" value="{{ post.name }}"
+        placeholder="{% trans 'Title' %}..." title="{% trans 'Title' %}">
+    </label>
+    <label>
+        <input type="text" name="description" required maxlength="200" value="{{ post.description }}"
+        placeholder="{% trans 'Description' %}..." title="{% trans 'Description' %}">
+    </label>
+    <label>
+        <textarea name="text" class="post-textarea" required
+        placeholder="{% trans 'Text' %}..." title="{% trans 'Text' %}">{{ post.text}}</textarea>
+    </label>
+    <div class="row-content mgt-8">
+        <button
+               name="Confirm"
+               class="btn-edit mgr-8"
+               ><span>{% trans 'Save' %}</span></button><!--
+            --><a class="btn-delete" href="{% url 'blog:home' %}"><span>{% trans 'Cancel' %}</span></a>
+        </div>
+</form>
+</div>

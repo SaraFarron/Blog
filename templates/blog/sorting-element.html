@@ -1,0 +1,13 @@
+{% load i18n %}
+<div class="mgb-16">
+    <div class="container-row">
+        <div class="btn-edit width-fit" data-sorting-toggle>
+            <span>{% trans 'sorting' %}</span>
+            <div data-sorting-variants>
+            <span {%if request.COOKIES.sorting == 'novelty' %}class="underline" disabled{%endif%} data-sort-by="novelty">{% trans 'by novelty' %}</span>
+                <span {%if request.COOKIES.sorting == 'popularity' %}class="underline" disabled{%endif%} data-sort-by="popularity">{% trans 'by popularity' %}</span>
+                <span {%if request.COOKIES.sorting == 'rating' %}class="underline" disabled{%endif%} data-sort-by="rating">{% trans 'by rating' %}</span>
+            </div>
+        </div>
+    </div>
+</div>

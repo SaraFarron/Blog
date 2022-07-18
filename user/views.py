@@ -2,27 +2,25 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib import messages
 from django.contrib.auth import authenticate, logout, login
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.views import View
-from rest_framework.authtoken.models import Token
 from datetime import datetime, timezone
 
-from BlogApp.decorators import *
+from BlogApp.decorators import unauthenticated_user
+from BlogApp.models import Comment, Post
 from .forms import *
+from .utils import create_token, seconds_to_formatted_string
 
 
 class LoginPage(View):
-
     @method_decorator(unauthenticated_user)
     def get(self, request):
-
-        context = {}
-        return render(request, 'user/login.html', context)
+        return render(request, 'user/login.html')
 
     @method_decorator(unauthenticated_user)
     def post(self, request):
-
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
@@ -30,28 +28,23 @@ class LoginPage(View):
         if user is not None:
             login(request, user)
             return redirect('blog:home')
-
         else:
-            messages.info(request, 'Username or password is incorrect')
+            messages.error(request, 'Username or password is incorrect', extra_tags='en')
+            messages.error(request, 'Неверные имя пользователя и пароль', extra_tags='ru')
 
-        context = {}
-        return render(request, 'user/login.html', context)
+        return render(request, 'user/login.html')
 
 
 class RegisterPage(View):
-
     @method_decorator(unauthenticated_user)
     def post(self, request):
-
         form = CreateUserForm(request.POST)
 
         if form.is_valid():
             user = form.save()
-            token = Token.objects.create(user=user)
-            token.save()
-            username = form.cleaned_data.get('username')
-            email = form.cleaned_data.get('email')
-            login(request, user)
+            token = create_token(user)
+            cleaned_data = form.cleaned_data
+            username, email = cleaned_data['username'], cleaned_data['email']
             guest = Guest.objects.create(
                 user=user,
                 name=username,
@@ -59,69 +52,63 @@ class RegisterPage(View):
                 email=email,
             )
             guest.save()
+            login(request, user)
             messages.success(request, f'Account {username} created successfully')
 
-            context = {'user': guest}
+            context = {'user': guest, 'form': form}
             return render(request, 'user/profile.html', context)
-
         else:
+            context = {'form': form}
             messages.error(request, 'Passwords are different or this username has been taken')
-            return render(request, 'user/register.html')
+            return render(request, 'user/register.html', context)
 
     @method_decorator(unauthenticated_user)
     def get(self, request):
-
-        context = {}
-        return render(request, 'user/register.html', context)
+        return render(request, 'user/register.html')
 
 
 class LogoutUser(View):
-
     @method_decorator(login_required(login_url='user:login'))
     def get(self, request):
-
         logout(request)
         return redirect('user:login')
 
 
 class Profile(View):
-
     @method_decorator(login_required(login_url='user:login'))
     def get(self, request, pk):
-
         try:
-            user = Guest.objects.get(user=pk)
+            owner = Guest.objects.get(user=pk)
         except ObjectDoesNotExist:
-            return render(request, 'user/guest_does_not_exist.html')
-
-        posts = Post.objects.filter(user=user)
-        last_time_banned = user.last_ban_date
-
-        context = {'posts': posts, 'user': user, 'request_user': request.user}
+            return render(request, 'errors/guest_does_not_exist.html')  # Maybe delete this?
+        request_guest = Guest.objects.get(id=request.user.id)
+        posts = Post.objects.filter(user=owner).select_related('user').prefetch_related('upvoted_users', 'downvoted_users', 'saved_by').order_by('-creation_date')
+        comments = Comment.objects.filter(user=owner).prefetch_related('user', 'post', 'replies', 'upvoted_users', 'downvoted_users')
+        saved_posts = Post.objects.filter(saved_by=owner).select_related('user')
+        last_time_banned = owner.last_ban_date
+        context = {'posts': posts,
+                   'comments': comments, 'user': owner,
+                   'saves_posts': saved_posts,
+                   'request_guest': request_guest
+                   }
 
         if last_time_banned:
             time_since_ban = datetime.now(timezone.utc) - last_time_banned
-            seconds = time_since_ban.seconds
-
-            match seconds:
-                case seconds if seconds > 86400: time_since_ban = str(time_since_ban.days) + ' days'
-                case seconds if seconds > 3600: time_since_ban = str(round(seconds / 3600)) + ' hours'
-                case seconds if seconds > 60: time_since_ban = str(round(seconds / 60)) + ' minutes'
-                case _: time_since_ban = str(seconds) + ' seconds'
-
+            time_since_ban = seconds_to_formatted_string(time_since_ban)
             context['time_since_ban'] = time_since_ban
         return render(request, 'user/profile.html', context)
 
 
 class ProfileSettings(View):
-
     @method_decorator(login_required(login_url='user:login'))
     def get(self, request, pk):
+        # Maybe check if request.user == Guest.objects.get(pk=pk)?
+        # if not then redirect to 403
         user = Guest.objects.get(name=request.user)
         form = ProfileSetForm(instance=user)
 
-        context = {'form': form}
-        return render(request, 'user/profile_settings.html', context)
+        context = {'form': form, 'user': user}
+        return render(request, 'user/profile-settings.html', context)
 
     @method_decorator(login_required(login_url='user:login'))
     def post(self, request, pk):
@@ -129,7 +116,14 @@ class ProfileSettings(View):
         form = ProfileSetForm(request.POST, request.FILES, instance=user)
 
         if form.is_valid():
-            form.save()
+            if form['delete_img'].value() == 'y':
+                form['profile_picture'].initial = 'profile.png'
 
-        context = {'form': form}
-        return render(request, 'user/profile_settings.html', context)
+            if form['phone'].value() == "":
+                print(True)
+
+            form.save()
+            return HttpResponseRedirect(f'/user/{user.user.id}')
+
+        context = {'form': form, 'user': user}
+        return render(request, 'user/profile-settings.html', context)

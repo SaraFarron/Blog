@@ -1,0 +1,238 @@
+@import "common-vars.scss";
+
+html {
+    overflow-y: scroll;
+}
+
+html.dark {
+    color-scheme: dark;
+}
+
+html, body {
+    min-height: 100%;
+}
+
+body {
+    min-width: $postlist-min-width;
+    margin: 0;
+    font-family: 'Roboto', Tahoma;
+    font-size: medium;
+    background-color: $page-background-color;
+    color: $text-color-default;
+}
+
+body.dark {
+    @extend body;
+    color-scheme: dark;
+    background-color: $page-background-color-dark;
+    color: $text-color-dark;
+
+    & .container {
+        background-color: $container-background-color-dark;
+    }
+
+    & a {
+        color: $text-color-dark;
+        &:hover {
+            color: $link-on-hover-color-dark;
+        }
+    }
+}
+
+hr {
+    width: calc(100% - 8px);
+    margin-top: 0px;
+}
+
+a {
+    text-decoration: none;
+    color: $text-color-default;
+
+    &:hover {
+        color: $link-on-hover-color;
+    }
+}
+
+p, h1, h3, h4, h5 {
+    padding: 0px;
+    //text-indent: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    overflow-wrap: anywhere;
+    margin: 0;
+    //box-sizing: border-box;
+
+    & + & {
+        margin-top: 8px;
+    }
+  }
+
+h2 {
+    padding: 0px;
+    margin: 0px 8px;
+    word-break: keep-all;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+h4 {
+    margin-left: 4px;
+}
+
+label {
+    box-sizing: border-box;
+}
+  
+.content {
+      display: flex;
+      flex-flow: row;
+      width:100vw;
+      height: 100vh;
+    }
+
+.container {
+
+    background-color: $container-background-color;
+    border-radius: 8px;
+    
+    position: relative;
+    padding: 16px;
+    margin: 0px;
+    margin-bottom: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    
+    &-col {
+        display: flex;
+        flex-flow: column;
+        align-content: flex-start;
+        justify-content: start;
+        flex: 1;
+    }
+
+    &-row {
+        width: 100%;
+        display: flex;
+        flex-flow: row;
+        justify-content: start;
+        align-content: center;
+        align-items: center;
+    }
+
+    &-inner {
+        margin: 0px 0px 0px 16px;
+    }
+
+    // & p {
+    //     max-width: 696px;
+    // }
+}
+
+.container:empty {
+    display: none;
+}
+
+input.toggle {
+    display: none;
+}
+
+.expandable-v {
+    height: 0px;
+    padding: 0px 0px;
+    overflow: hidden;
+    transition: height $expand-duration ease-in-out;
+
+    //only for comment replies expantion
+    &.expanded {
+        @extend .expandable-v;
+        height: $reply-comment-form-height;
+    }
+}
+
+input[type="text"],input[type="number"],input[type="password"],input[type="email"],textarea {
+    padding: 4px 12px;
+    width: 100%;
+    font-family: 'Roboto', Tahoma;
+    font-size: 16px;
+    display: block;
+    border: 0;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: darken($container-background-color, 3%);
+
+    body.dark & {
+        background-color: darken($container-background-color-dark, 3%);
+    }
+}
+
+textarea {
+    &.post-textarea {
+        height: 132px;
+    }
+    &.comment-textarea {
+        height: 70px;
+    }
+}
+
+input[type="submit"] {
+    display: block;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+input {
+    
+    &:-webkit-autofill {
+        font-size: medium !important;
+        font-family: 'Roboto', Tahoma !important;
+    }
+    &:-webkit-autofill::first-line {
+        font-size: medium !important;
+        font-family: 'Roboto', Tahoma !important;
+    }
+    &:autofill {
+        font-size: medium !important;
+        font-family: 'Roboto', Tahoma !important;
+    }
+}
+
+textarea {
+    resize: none;
+}
+
+.popup {
+
+    position: absolute;
+    top:0;
+    left:0;
+    height: 100%;
+    width: 100%;
+    filter: invert(0%);
+    z-index: 100;
+
+    &-hidden {
+        @extend .popup;
+        display: none;
+    }
+
+    &-shown {
+        @extend .popup;
+        display: block;
+    }
+}
+
+span.date {
+    font-size: small;
+    color: $date-color;
+}
+
+a .icon:hover {
+    filter: brightness(90%);
+}
+
+.alert + .alert {
+    margin-top: 8px;
+}

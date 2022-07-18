@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block subhead %}
+    <script src="{% static 'javascript/sorting_toggle.js' %}" defer></script>
+    <script src="{% static 'javascript/popup_toggle.js' %}" defer></script>
+    <script src="{% static 'javascript/process_rating_and_bookmarks.js' %}" defer></script>
+    <title>blog - {% trans 'Home' %}</title>
+{% endblock%}
+
+{% block content %}
+
+<div class="list-v">
+    <div class="container-row mgb-16">
+        {% include 'change-theme-button.html' %}
+    </div>
+    {% include 'form-errors.html' %}
+    <div class="container">
+        <h1 class="mgl-0 mgb-0">{% trans 'Hello' %}, {{ request.user }}!</h2>
+    </div>
+    
+    <div class="container">
+        <h1 class="mgl-0 mgb-8" style="order: -3;">
+            {% if not posts %}
+            {% trans 'There are no posts here yet. Be first!'%}
+            {% else %}
+            {% trans "Have something to tell?"%}
+            {% endif %}
+        </h1>
+        {% include 'blog/post/post-creation-block.html' %}
+    </div>
+    {% if posts %}
+        {% include 'blog/sorting-element.html' %}
+    {% endif %}
+    {% for post in posts %}
+        {% include 'blog/post/postlist-item.html' %}
+    {% endfor %}
+</div>
+
+{% endblock %}
