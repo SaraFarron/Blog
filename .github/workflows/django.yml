@@ -15,6 +15,16 @@ jobs:
       matrix:
         python-version: [3.10.0]
 
+    services:
+          db:
+            image: postgres:12.0-alpine
+            env:
+              POSTGRES_DB: postgres
+              POSTGRES_USER: postgres
+              POSTGRES_PASSWORD: postgres
+            ports:
+              - 5432:5432
+
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python ${{ matrix.python-version }}
@@ -26,7 +36,5 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Run Tests
-      env:
-        DB_HOST: 'localhost'
       run: |
         python manage.py test
