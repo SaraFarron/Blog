@@ -91,16 +91,19 @@ class GetPostTest(APITestCase, BaseTestClass):
             description='Lorem',
             text='Lorem ipsum dolor sit amet'
         )
+        self.first_post.save()
         self.second_post = Post.objects.create(
             name='TestPost_2',
             description='Lorem ipsum',
             text='Lorem ipsum dolor sit amet, consectetur'
         )
+        self.second_post.save()
         self.third_post = Post.objects.create(
             name='TestPost_3',
             description='Lorem ipsum dolor',
             text='Lorem ipsum dolor sit amet, consectetur adipiscing elit'
         )
+        self.third_post.save()
 
     def test_list(self):
         response = client.get('/en/api/posts/')
@@ -124,8 +127,10 @@ class UpdatePostTest(APITestCase, BaseTestClass):
         self.first_post = Post.objects.create(
             name='TestPost_1',
             description='Lorem',
-            text='Lorem ipsum dolor sit amet'
+            text='Lorem ipsum dolor sit amet',
+            user=self.test_guest,
         )
+        self.first_post.save()
         self.valid_payload = {
             'name': 'TestPost_4',
             'description': 'Lorem ipsum dolor sit',
@@ -161,8 +166,10 @@ class DeletePostTest(APITestCase, BaseTestClass):
         self.first_post = Post.objects.create(
             name='TestPost_1',
             description='Lorem',
-            text='Lorem ipsum dolor sit amet'
+            text='Lorem ipsum dolor sit amet',
+            user=self.test_guest,
         )
+        self.first_post.save()
 
     def test_delete_valid(self):
         response = client.delete(f'/en/api/posts/{self.first_post.pk}/')
@@ -216,16 +223,19 @@ class GetCommentTest(APITestCase, BaseTestClass):
             user=self.test_guest,
             text='Lorem ipsum dolor sit amet'
         )
+        self.first_comment.save()
         self.second_comment = Comment.objects.create(
             post=self.post,
             user=self.test_guest,
             text='Lorem ipsum dolor sit amet, consectetur'
         )
+        self.second_comment.save()
         self.third_comment = Comment.objects.create(
             post=self.post,
             user=self.test_guest,
             text='Lorem ipsum dolor sit amet, consectetur adipiscing elit'
         )
+        self.third_comment.save()
 
     def test_list(self):
         response = client.get('/en/api/comments/')
