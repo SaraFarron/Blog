@@ -1,0 +1,22 @@
+{% load static %}
+{% load i18n %}
+
+<div class="modal-bg popup-hidden" id="popup-edit-reply-{{reply.id}}">
+    <div class="container">
+        <h4>{% trans 'Edit comment' %}</h4><hr>
+        <!--suppress HtmlUnknownTarget -->
+        <form class="modal-form" action="{% url 'blog:update' reply.id %}" method="POST" name="edit-reply">
+            {% csrf_token %}
+            <input name="element" type="hidden" value="comment">
+            <label>
+                <textarea name="text" class="comment-textarea" required placeholder="{% trans 'Your reply...' %}"
+                          title="{% trans 'Your reply...' %}">{{ reply.text }}</textarea>
+            </label>
+            <div class="mgl-a mgr-a row-content mgt-8">
+                <button class="btn-edit mgr-8"
+                ><span>{% trans 'Save' %}</span></button><!--
+            --><button type="button" onclick="hidePopup('edit-reply-{{ reply.id }}')" class="btn-delete"><span>{% trans 'Cancel' %}</span></button>
+            </div>
+        </form>
+    </div>
+</div>

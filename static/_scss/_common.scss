@@ -144,7 +144,7 @@ input.toggle {
     overflow: hidden;
     transition: height $expand-duration ease-in-out;
 
-    //only for comment replies expantion
+    //only for comment replies expansion
     &.expanded {
         @extend .expandable-v;
         height: $reply-comment-form-height;
@@ -223,6 +223,7 @@ textarea {
 
 .popup {
 
+    box-sizing: border-box;
     position: absolute;
     top:0;
     left:0;
