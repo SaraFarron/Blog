@@ -206,6 +206,7 @@ textarea {
 }
 
 .popup, .popup-hidden, .popup-shown {
+  box-sizing: border-box;
   position: absolute;
   top: 0;
   left: 0;
@@ -344,6 +345,10 @@ a .icon:hover, a .icon-large:hover {
   padding-left: 8px;
 }
 
+.pdr-8 {
+  padding-right: 8px;
+}
+
 .pdb-2 {
   padding-bottom: 2px;
 }
@@ -388,6 +393,10 @@ a .icon:hover, a .icon-large:hover {
 
 .break-all {
   word-break: break-all;
+}
+
+.relative {
+  position: relative;
 }
 
 body.dark nav {
@@ -825,7 +834,7 @@ button[type=submit] {
   height: 100%;
 }
 
-.container .container {
+.container > .container {
   padding: 0px;
   margin-bottom: 0px;
 }

@@ -25,7 +25,7 @@ def get_instance(model, pk, data=None):
         case 'post':
             instance = Post.objects.get(pk=pk)
             form = PostForm(data, instance=instance)
-        case 'comment':
+        case 'comment' | 'reply':
             instance = Comment.objects.get(pk=pk)
             form = CommentForm(data, instance=instance)
         case _:
