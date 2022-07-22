@@ -1,54 +1,51 @@
 {% load i18n %}
 {% load static %}
 {% for comment in comments %}
-    <div class="container {% if comment.replies.all|length == 0 %}pdb-4{%endif%}">
-        <div class="container-col">
-            <div class="container popup-hidden" id="popup-delete-{{comment.id}}">
-                {% include 'blog/comment/comment-delete-form.html' %}
-            </div>
-            <div class="container-row mgb-8">
-                <div class="height-100pc">
-                    <a href="{% url 'user:profile' comment.owner_id %}">
-                        <img class="icon-large" type="userpic" src="{{ comment.user.profile_picture.url }}" alt="{% trans 'profile picture' %}">
-                    </a>
-                </div>
-                <div class="container-col">
-                    <a class="width-fit break-all" href="{% url 'user:profile' comment.owner_id %}">
-                        <span class="link" {% if comment.user.is_moderator is True %} class="red" {% endif %}>{{ comment.user }}</span>
-                    </a>
-                    <span class="date">{{ comment.publication_date }}</span>
-                </div>
-                {% if request_guest == comment.user %}
-                    <div class="pos-right">            
-                        <!-- NOT IMPLEMENTED
-                        <a class="btn-edit width-fit mgr-8"><img class="icon" src="{% static 'images/icons/edit_icon.svg' %}"></a>
-                        <button class="btn-delete width-fit" onclick="showPopup('delete-{{ comment.id }}')"><img class="icon" src="{% static 'images/icons/delete_icon.svg' %}"></button>
-                        -->
-                    </div>
-                {% endif %}
-            </div>
-            <div class="container-row mgb-8"><p>{{comment.text}}</p></div>
-            <div class="container-row mgb-8">
-                <button class="btn-submit  mgr-8" id="expand-reply-{{comment.id}}" 
-                onclick="Expand('reply-comment-{{comment.id}}', 'expand-reply-{{comment.id}}', 'submit-reply-{{comment.id}}','cancel-reply-{{comment.id}}')">
-                    <span>{% trans 'Reply' %}</span>
-                </button>
-                <label for="reply-comment-submit-{{comment.id}}" class="btn-submit mgr-8" id="submit-reply-{{comment.id}}" style="display: none;">
-                    <span>{% trans 'Submit' %}</span>
-                </label>
-                <button class="btn-delete" id="cancel-reply-{{comment.id}}" style="opacity: 0%;"
-                    onclick="Shrink('reply-comment-{{comment.id}}', 'expand-reply-{{comment.id}}', 'submit-reply-{{comment.id}}','cancel-reply-{{comment.id}}')">
-                    <span>{% trans 'Cancel' %}</span>
-                </button>
-                <div class="pos-right">
-                    {% include 'blog/comment/comment-rating.html' %}
-                </div>
-            </div>
-            <div class="expandable-v" id="reply-comment-{{comment.id}}">
-                {% include 'blog/comment/reply-form.html' %}
-            </div>
-            {% include 'blog/comment/reply-list.html' %}
+    {% include 'blog/comment/modal-comment-edit-form.html' %}
+    <div class="container {% if comment.replies.all|length != 0 %}pdb-10{%else%}pdb-2{%endif%}">
+        <div class="container popup-hidden" id="popup-delete-comment-{{comment.id}}" style="z-index: 10">
+            {% include 'blog/comment/comment-delete-form.html' %}
         </div>
+        <div class="container-row mgb-8">
+            <div class="height-100pc">
+                <a href="{% url 'user:profile' comment.owner_id %}">
+                    <img class="icon-large" type="userpic" src="{{ comment.user.profile_picture.url }}" alt="{% trans 'profile picture' %}">
+                </a>
+            </div>
+            <div class="container-col">
+                <a class="width-fit break-all" href="{% url 'user:profile' comment.owner_id %}">
+                    <span class="link" {% if comment.user.is_moderator is True %} class="red" {% endif %}>{{ comment.user }}</span>
+                </a>
+                <span class="date">{{ comment.publication_date }}</span>
+            </div>
+            {% if request_guest == comment.user %}
+                <div class="pos-right">
+                    <button class="btn-edit width-fit mgr-8" onclick="showPopup('edit-comment-{{ comment.id }}')" title="{%trans 'Edit'%}"><img class="icon" src="{% static 'images/icons/edit_icon.svg' %}"></button><!--
+                 --><button class="btn-delete width-fit" onclick="showPopup('delete-comment-{{ comment.id }}')" title="{%trans 'Delete'%}"><img class="icon" src="{% static 'images/icons/delete_icon.svg' %}"></button>
+                </div>
+            {% endif %}
+        </div>
+        <div class="container-row mgb-8"><p>{{comment.text}}</p></div>
+        <div class="container-row mgb-8">
+            <button class="btn-submit  mgr-8" id="expand-reply-{{comment.id}}"
+            onclick="Expand('reply-comment-{{comment.id}}', 'expand-reply-{{comment.id}}', 'submit-reply-{{comment.id}}','cancel-reply-{{comment.id}}')">
+                <span>{% trans 'Reply' %}</span>
+            </button>
+            <label for="reply-comment-submit-{{comment.id}}" class="btn-submit mgr-8" id="submit-reply-{{comment.id}}" style="display: none;">
+                <span>{% trans 'Submit' %}</span>
+            </label>
+            <button class="btn-delete" id="cancel-reply-{{comment.id}}" style="opacity: 0%;"
+                onclick="Shrink('reply-comment-{{comment.id}}', 'expand-reply-{{comment.id}}', 'submit-reply-{{comment.id}}','cancel-reply-{{comment.id}}')">
+                <span>{% trans 'Cancel' %}</span>
+            </button>
+            <div class="pos-right">
+                {% include 'blog/comment/comment-rating.html' %}
+            </div>
+        </div>
+        <div class="expandable-v" id="reply-comment-{{comment.id}}">
+            {% include 'blog/comment/reply-form.html' %}
+        </div>
+        {% include 'blog/comment/reply-list.html' %}
         
         
     </div>

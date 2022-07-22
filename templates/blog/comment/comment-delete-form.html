@@ -1,18 +1,3 @@
-{% load static %}
-{% load i18n %}
-
-<div class="post">
-    <p style="text-align: center">{% trans 'Are you sure you want to delete this comment?' %}</p> 
-<form action="" method="post"> 
-    {% csrf_token %}
-
-    <div class="row-content">
-    <button type="button"
-           name="Confirm"
-           class="btn-delete"
-           ><img class="icon" src="{% static 'images/icons/delete_icon.svg' %}"><span>{% trans 'Delete' %}</span></button>
-
-    <button type="button" class="btn-submit" onclick="hidePopup('delete-{{ comment.id }}')">{% trans 'Cancel' %}</button>
-    </div>
-</form>
-</div>
+{% with element=comment element_string="comment" %}
+{% include 'blog/delete-element-core.html'%}
+{%endwith%}

@@ -17,17 +17,17 @@ def new_comment(request, form, post):
     return comment
 
 
-def get_instance(model, pk):
+def get_instance(model, pk, data=None):
     """
         Returns model and form
     """
     match model:
         case 'post':
             instance = Post.objects.get(pk=pk)
-            form = PostForm(instance=instance)
-        case 'comment':
+            form = PostForm(data, instance=instance)
+        case 'comment' | 'reply':
             instance = Comment.objects.get(pk=pk)
-            form = CommentForm(instance=instance)
+            form = CommentForm(data, instance=instance)
         case _:
             raise model + " - wrong type"
 

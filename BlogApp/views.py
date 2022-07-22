@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -6,7 +7,7 @@ from django.utils.decorators import method_decorator
 from django.views import View
 from api.utils import get_comments_with_replies, update_instance_rating
 from .utils import new_comment, get_instance
-from .decorators import user_owns_the_post
+from .decorators import user_owns_instance
 from .forms import *
 
 
@@ -68,6 +69,7 @@ class PostPage(View):
         if request.user.is_authenticated:
             request_guest = Guest.objects.get(id=request.user.id)
         post = Post.objects.select_related('user').get(id=pk)
+
         comments = sorted(get_comments_with_replies(post),
                           key=lambda d: d.publication_date,
                           reverse=True
@@ -97,30 +99,31 @@ class CreatePost(View):
 
 
 class UpdateObject(View):
-    decorators = [login_required(login_url='user:login'), user_owns_the_post]
+    decorators = [login_required(login_url='user:login'), user_owns_instance]
 
     @method_decorator(decorators)
     def post(self, request, pk):
         model = request.POST['element']
-        instance, form = get_instance(model, pk)
+        instance, form = get_instance(model, pk, request.POST)
 
         if form.is_valid():
             form.save()
-            return redirect('blog:home')
+            return redirect(request.META['HTTP_REFERER'])
 
-        context = {'form': form, 'instance': instance}
-        return render(request, 'blog/post/post-edit.html', context)
+        #errors handling?
+        return redirect(request.META['HTTP_REFERER'])
 
 
 class DeleteObject(View):
-    decorators = [login_required(login_url='user:login'), user_owns_the_post]
+    decorators = [login_required(login_url='user:login'), user_owns_instance]
 
     @method_decorator(decorators)
     def post(self, request, pk):
         model = request.POST['element']
         instance, _ = get_instance(model, pk)
         instance.delete()
-        return redirect('blog:home')
+
+        return redirect(reverse('blog:home')) if model == 'post' else redirect(request.META['HTTP_REFERER'])
 
 
 class CreateComment(View):

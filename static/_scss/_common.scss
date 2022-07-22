@@ -101,7 +101,8 @@ label {
     margin: 0px;
     margin-bottom: 16px;
     display: flex;
-    flex-wrap: wrap;
+    //flex-wrap: wrap;
+    flex-direction: column;
     
     &-col {
         display: flex;
@@ -143,7 +144,7 @@ input.toggle {
     overflow: hidden;
     transition: height $expand-duration ease-in-out;
 
-    //only for comment replies expantion
+    //only for comment replies expansion
     &.expanded {
         @extend .expandable-v;
         height: $reply-comment-form-height;
@@ -179,6 +180,11 @@ input[type="submit"] {
     display: block;
 }
 
+
+input[type]:not([type='submit']) {
+    margin-bottom: 8px;
+}
+
 input[type="file"] {
     display: none;
 }
@@ -203,8 +209,21 @@ textarea {
     resize: none;
 }
 
+::-webkit-scrollbar-corner {
+    background-color: transparent;
+}
+
+.modal-form textarea {
+    resize: both;
+    max-height: 60vh;
+    max-width: calc(#{$postlist-max-width} - 32px);
+    min-width: calc(#{$postlist-min-width} - 32px);
+    min-height: 124px;
+}
+
 .popup {
 
+    box-sizing: border-box;
     position: absolute;
     top:0;
     left:0;
@@ -215,7 +234,7 @@ textarea {
 
     &-hidden {
         @extend .popup;
-        display: none;
+        display: none !important;
     }
 
     &-shown {
@@ -235,4 +254,30 @@ a .icon:hover {
 
 .alert + .alert {
     margin-top: 8px;
+}
+
+.modal-bg {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    & > .container {
+        min-width: calc(#{$postlist-min-width} - 32px);
+    }
+}
+
+.modal-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.flex-wrap {
+    display: flex;
+    flex-wrap: wrap;
 }
