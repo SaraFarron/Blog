@@ -5,12 +5,6 @@ from .views import *
 app_name = 'blog'
 
 urlpatterns = [
-    path('about/', About.as_view(), name='about'), # this line must be earlier then 'home' lines in list
-
-    path('', Home.as_view(), name='home'),
-    path('<str:sort>/', Home.as_view(), name='home'),
-    path('<str:sort>/<str:filter>/', Home.as_view(), name='home'),
-
     path('post/<str:pk>/', PostPage.as_view(), name='post'),
     path('create/', CreatePost.as_view(), name='create'),
     path('update/<str:pk>', UpdateObject.as_view(), name='update'),
@@ -21,4 +15,11 @@ urlpatterns = [
 
     path('vote/<str:pk>', Vote.as_view(), name='vote'),
     path('save/<str:pk>', Save.as_view(), name='save'),
+
+    path('about/', About.as_view(), name='about'),
+
+    # 'home' urlpatterns should be at the end of the list
+    path('', Home.as_view(), name='home'),
+    path('<str:sort>/', Home.as_view(), name='home'),
+    path('<str:sort>/<str:filter>/', Home.as_view(), name='home'),
 ]
