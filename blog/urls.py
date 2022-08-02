@@ -43,9 +43,9 @@ schema_view = get_schema_view(
 urlpatterns = i18n_patterns(
     path('admin/', admin.site.urls),
     path('rosetta', include('rosetta.urls')),
-    path('', include('BlogApp.urls')),
     path('api/', include('api.urls')),
     path('user/', include('user.urls')),
+    path('', include('BlogApp.urls')),
 )
 urlpatterns += [
     path('docs/', include_docs_urls(title='Blog Api')),
