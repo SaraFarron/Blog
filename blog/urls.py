@@ -37,7 +37,7 @@ schema_view = get_schema_view(
         license=openapi.License(name="Unlicense"),
     ),
     public=True,
-    permission_classes=(permissions.AllowAny, ),
+    permission_classes=[permissions.AllowAny, ],
 )
 
 urlpatterns = i18n_patterns(
@@ -46,13 +46,11 @@ urlpatterns = i18n_patterns(
     path('', include('BlogApp.urls')),
     path('api/', include('api.urls')),
     path('user/', include('user.urls')),
-
+)
+urlpatterns += [
     path('docs/', include_docs_urls(title='Blog Api')),
     path(r'swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path(r'redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
-
-)
-urlpatterns += [
     path('__debug__/', include('debug_toolbar.urls')),
     path('silk/', include('silk.urls', namespace='silk')),
     path('', Index.as_view()),
