@@ -1,5 +1,4 @@
 from django.contrib.auth.decorators import login_required
-from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -27,8 +26,25 @@ class Home(View):
         request_guest = None
         if request.user.is_authenticated:
             request_guest = Guest.objects.get(id=request.user.id)
+        elif filter:
+            return render(request, 'errors/user_not_logged_in.html')
 
-        posts = Post.objects.prefetch_related(
+        if request_guest:
+            match filter:
+                case 'bookmarked':
+                    posts = request_guest.post_saved_by
+                case 'liked':
+                    posts = request_guest.upvoted_post_users
+                case 'disliked':
+                    posts = request_guest.downvoted_post_users
+                case None:
+                    posts = Post.objects
+                case _:
+                    return render(request, 'errors/404page.html')
+        else:
+            posts = Post.objects
+
+        posts = posts.prefetch_related(
             'user',
             'saved_by',
             'upvoted_users',
@@ -48,23 +64,14 @@ class Home(View):
             case _:
                 return render(request, 'errors/404page.html')
 
-        if not request_guest and filter:
-            return render(request, 'errors/user_not_logged_in.html')
-
-        match filter:
-            case 'bookmarked':
-                posts = posts #отфильтровать
-            case 'liked':
-                posts = posts #отфильтровать
-            case 'disliked':
-                posts = posts #отфильтровать
-            case None:
-                posts = posts #не фильтровать
-            case _:
-                return render(request, 'errors/404page.html')
-
-
-        context = {'posts': posts, 'user': request.user, 'sorting': sort[3:], 'sort': sort, 'filter': filter, 'request_guest': request_guest}
+        context = {
+            'posts': posts,
+            'user': request.user,
+            'sorting': sort[3:],
+            'sort': sort,
+            'filter': filter,
+            'request_guest': request_guest
+        }
         return render(request, 'blog/home.html', context)
 
     @method_decorator(login_required(login_url='user:login'))
