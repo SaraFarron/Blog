@@ -1,13 +1,15 @@
 {% load i18n %}
-<div class="mgb-16">
-    <div class="container-row">
-        <div class="btn-edit width-fit" data-sorting-toggle>
-            <span>{% trans 'sorting' %}</span>
-            <div data-sorting-variants>
-            <span {%if request.COOKIES.sorting == 'novelty' %}class="underline" disabled{%endif%} data-sort-by="novelty">{% trans 'by novelty' %}</span>
-                <span {%if request.COOKIES.sorting == 'popularity' %}class="underline" disabled{%endif%} data-sort-by="popularity">{% trans 'by popularity' %}</span>
-                <span {%if request.COOKIES.sorting == 'rating' %}class="underline" disabled{%endif%} data-sort-by="rating">{% trans 'by rating' %}</span>
-            </div>
-        </div>
+<div class="btn-edit width-fit" data-sorting-toggle>
+    <span>{% trans 'sorting' %}</span>
+    <div data-sorting-variants href="{{filter}}">
+        <span data-url-to-sorted="{% if not filter %}{% url 'blog:home' 'by_novelty'%}{% else %}{% url 'blog:home' 'by_novelty' filter %}{%endif%}"
+              {%if sorting == 'novelty' %}
+                class="underline" disabled{%endif%} data-sort-by="novelty">{% trans 'by novelty' %}</span>
+        <span data-url-to-sorted="{% if not filter %}{% url 'blog:home' 'by_popularity'%}{% else %}{% url 'blog:home' 'by_popularity' filter %}{%endif%}"
+              {%if sorting == 'popularity' %}
+                class="underline" disabled{%endif%} data-sort-by="popularity">{% trans 'by popularity' %}</span>
+        <span data-url-to-sorted="{% if not filter %}{% url 'blog:home' 'by_rating'%}{% else %}{% url 'blog:home' 'by_rating' filter %}{%endif%}"
+              {%if sorting == 'rating' %}
+                class="underline" disabled{%endif%} data-sort-by="rating">{% trans 'by rating' %}</span>
     </div>
 </div>

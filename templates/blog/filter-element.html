@@ -1,0 +1,12 @@
+{% load i18n %}
+<div class="btn-edit width-fit pos-right" data-filter-toggle>
+  <span>{% trans 'filter' %}</span>
+  <div data-filter-variants>
+    <a href="{% url 'blog:home' sort 'bookmarked' %}"
+      ><span {%if filter == 'bookmarked' %}class="underline" disabled{%endif%} data-filter="bookmarked">{% trans 'bookmarked' %}</span></a>
+    <a href="{% url 'blog:home' sort 'liked' %}"
+      ><span {%if filter == 'liked' %}class="underline" disabled{%endif%} data-filter="liked">{% trans 'liked' %}</span></a>
+    <a href="{% url 'blog:home' sort 'disliked' %}"
+      ><span {%if filter == 'disliked' %}class="underline" disabled{%endif%} data-filter="disliked">{% trans 'disliked' %}</span></a>
+  </div>
+</div>

@@ -5,8 +5,11 @@ from .views import *
 app_name = 'blog'
 
 urlpatterns = [
+    path('about/', About.as_view(), name='about'), # this line must be earlier then 'home' lines in list
+
     path('', Home.as_view(), name='home'),
-    # path('order_by_popular', HomeByRating.as_view(), name='home_popular'),
+    path('<str:sort>/', Home.as_view(), name='home'),
+    path('<str:sort>/<str:filter>/', Home.as_view(), name='home'),
 
     path('post/<str:pk>/', PostPage.as_view(), name='post'),
     path('create/', CreatePost.as_view(), name='create'),
@@ -18,6 +21,4 @@ urlpatterns = [
 
     path('vote/<str:pk>', Vote.as_view(), name='vote'),
     path('save/<str:pk>', Save.as_view(), name='save'),
-
-    path('about/', About.as_view(), name='about'),
 ]
