@@ -1,5 +1,4 @@
 from django.contrib.auth.decorators import login_required
-from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -13,7 +12,7 @@ from .forms import *
 
 class Index(View):
     def get(self, request):
-        return HttpResponseRedirect('/about/')
+        return HttpResponseRedirect(reverse('blog:about'))
 
 
 class About(View):
@@ -23,33 +22,56 @@ class About(View):
 
 
 class Home(View):
-    def get(self, request):
+    def get(self, request, sort=None, filter=None):
         request_guest = None
         if request.user.is_authenticated:
             request_guest = Guest.objects.get(id=request.user.id)
-        if 'sorting' in request.COOKIES:
-            sorting = request.COOKIES['sorting']
-        else:
-            sorting = 'novelty'
+        elif filter:
+            return render(request, 'errors/user_not_logged_in.html')
 
-        posts = Post.objects.prefetch_related(
+        if request_guest:
+            match filter:
+                case 'bookmarked':
+                    posts = request_guest.post_saved_by
+                case 'liked':
+                    posts = request_guest.upvoted_post_users
+                case 'disliked':
+                    posts = request_guest.downvoted_post_users
+                case None:
+                    posts = Post.objects
+                case _:
+                    return render(request, 'errors/404page.html')
+        else:
+            posts = Post.objects
+
+        posts = posts.prefetch_related(
             'user',
             'saved_by',
             'upvoted_users',
             'downvoted_users'
         )
 
-        match sorting:
-            case 'novelty':
+        if sort is None:
+            sort = 'by_' +(request.COOKIES['sorting'] if 'sorting' in request.COOKIES else 'novelty')
+
+        match sort:
+            case 'by_novelty':
                 posts = posts.order_by('-creation_date')
-            case 'popularity':
+            case 'by_popularity':
                 posts = posts.order_by('-number_of_comments')
-            case 'rating':
+            case 'by_rating':
                 posts = posts.order_by('-rating')
             case _:
-                posts = posts.order_by('-creation_date')
+                return render(request, 'errors/404page.html')
 
-        context = {'posts': posts, 'user': request.user, 'sorting': sorting, 'request_guest': request_guest}
+        context = {
+            'posts': posts,
+            'user': request.user,
+            'sorting': sort[3:],
+            'sort': sort,
+            'filter': filter,
+            'request_guest': request_guest
+        }
         return render(request, 'blog/home.html', context)
 
     @method_decorator(login_required(login_url='user:login'))
@@ -61,7 +83,6 @@ class Home(View):
             return redirect('blog:home')
 
         return render(request, 'errors/400page.html')
-
 
 class PostPage(View):
     def get(self, request, pk):

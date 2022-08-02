@@ -5,9 +5,6 @@ from .views import *
 app_name = 'blog'
 
 urlpatterns = [
-    path('', Home.as_view(), name='home'),
-    # path('order_by_popular', HomeByRating.as_view(), name='home_popular'),
-
     path('post/<str:pk>/', PostPage.as_view(), name='post'),
     path('create/', CreatePost.as_view(), name='create'),
     path('update/<str:pk>', UpdateObject.as_view(), name='update'),
@@ -20,4 +17,9 @@ urlpatterns = [
     path('save/<str:pk>', Save.as_view(), name='save'),
 
     path('about/', About.as_view(), name='about'),
+
+    # 'home' urlpatterns should be at the end of the list
+    path('', Home.as_view(), name='home'),
+    path('<str:sort>/', Home.as_view(), name='home'),
+    path('<str:sort>/<str:filter>/', Home.as_view(), name='home'),
 ]

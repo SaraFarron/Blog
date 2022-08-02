@@ -931,7 +931,7 @@ img[data-bookmark-icon-active].hidden, img[data-bookmark-icon-inactive].hidden {
   justify-content: end;
 }
 
-[data-sorting-toggle] {
+[data-sorting-toggle], [data-filter-toggle] {
   border-radius: 100vmax !important;
   flex-wrap: nowrap;
   white-space: nowrap;
@@ -940,30 +940,28 @@ img[data-bookmark-icon-active].hidden, img[data-bookmark-icon-inactive].hidden {
   cursor: default !important;
   padding-left: 4px !important;
   transition: border-radius 0.5s ease-out 0.5s !important;
-  border-top-right-radius: 100vmax;
-  border-bottom-right-radius: 100vmax;
   position: relative;
   overflow: visible !important;
 }
 
-[data-sorting-toggle]:hover, [data-sorting-toggle]:focus {
+[data-sorting-toggle]:hover, [data-sorting-toggle]:focus, [data-filter-toggle]:hover, [data-filter-toggle]:focus {
   background-color: var(--btn-bg-color) !important;
   border-top-right-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
   transition: border-radius 0s ease-out 0s !important;
 }
 
-[data-sorting-toggle]:hover > [data-sorting-variants], [data-sorting-toggle]:focus > [data-sorting-variants] {
+[data-sorting-toggle]:hover > [data-sorting-variants], [data-sorting-toggle]:hover [data-filter-variants], [data-sorting-toggle]:focus > [data-sorting-variants], [data-sorting-toggle]:focus [data-filter-variants], [data-filter-toggle]:hover > [data-sorting-variants], [data-filter-toggle]:hover [data-filter-variants], [data-filter-toggle]:focus > [data-sorting-variants], [data-filter-toggle]:focus [data-filter-variants] {
   max-width: 400px;
   opacity: 1;
   transition: max-width 0.5s ease-out;
 }
 
-[data-sorting-toggle] > span {
+[data-sorting-toggle] > span, [data-filter-toggle] > span {
   margin: 0 12px 0 8px;
 }
 
-[data-sorting-variants] {
+[data-sorting-variants], [data-filter-variants] {
   display: flex;
   background-color: var(--btn-bg-color);
   padding: 0 !important;
@@ -982,7 +980,7 @@ img[data-bookmark-icon-active].hidden, img[data-bookmark-icon-inactive].hidden {
   left: 100%;
 }
 
-[data-sorting-variants] span {
+[data-sorting-variants] span, [data-filter-variants] span {
   transition: background-color 0.2s ease-in-out;
   margin: 0 !important;
   padding: 0px 8px;
@@ -994,35 +992,69 @@ img[data-bookmark-icon-active].hidden, img[data-bookmark-icon-inactive].hidden {
   cursor: pointer !important;
 }
 
-[data-sorting-variants] span:not([disabled]):hover {
+[data-sorting-variants] span:not([disabled]):hover, [data-filter-variants] span:not([disabled]):hover {
   background-color: #cff5f2;
 }
 
-[data-sorting-variants] span[disabled] {
+[data-sorting-variants] span[disabled], [data-filter-variants] span[disabled] {
   cursor: default;
   pointer-events: none;
   background-color: #d1f8d9;
 }
 
-[data-sorting-variants] span + span {
+[data-sorting-variants] span + span, [data-filter-variants] span + span {
   border-left: 1px solid #6b6b6b;
 }
 
-[data-sorting-variants] > :last-child {
+[data-sorting-variants] > :last-child, [data-filter-variants] > :last-child {
   padding-right: 12px;
 }
 
-[data-sorting-variants]:hover ~ [data-sorting-toggle] {
+[data-sorting-variants]:hover ~ [data-sorting-toggle],
+[data-filter-variants]:hover ~ [data-filter-toggle] {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
 
-body.dark [data-sorting-variants] > span:hover {
+body.dark [data-sorting-variants] span:hover, body.dark [data-filter-variants] span:hover {
   background-color: #202225;
 }
 
-body.dark [data-sorting-variants] > span[disabled] {
+body.dark [data-sorting-variants] span[disabled], body.dark [data-filter-variants] span[disabled] {
   background-color: #5b5d61;
+}
+
+[data-filter-variants] {
+  left: unset;
+  right: 100%;
+  transform-origin: right center;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-top-left-radius: 100vmax;
+  border-bottom-left-radius: 100vmax;
+}
+
+[data-filter-variants] span {
+  padding: 0 8px !important;
+}
+
+[data-filter-variants] > :last-child {
+  padding-right: 0;
+}
+
+[data-filter-variants] > :first-child > span {
+  padding-left: 12px !important;
+}
+
+[data-filter-toggle]:focus, [data-filter-toggle]:hover {
+  border-top-right-radius: 100vmax !important;
+  border-bottom-right-radius: 100vmax !important;
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
+
+[data-filter-toggle] > span {
+  margin: 0 8px 0 8px !important;
 }
 
 .profile-pic {
