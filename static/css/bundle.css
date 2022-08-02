@@ -1039,7 +1039,7 @@ body.dark [data-sorting-variants] span[disabled], body.dark [data-filter-variant
 }
 
 [data-filter-variants] > :last-child {
-  padding-right: 8px;
+  padding-right: 0;
 }
 
 [data-filter-variants] > :first-child > span {
