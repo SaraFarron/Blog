@@ -31,7 +31,14 @@
         {% include 'blog/post/post-creation-block.html' %}
     </div>
     {% if posts %}
-        {% include 'blog/sorting-element.html' %}
+        <div class="mgb-16">
+            <div class="container-row">
+            {% include 'blog/sorting-element.html' %}
+            {% if request.user.is_authenticated %}
+                {% include 'blog/filter-element.html' %}
+            {% endif %}
+            </div>
+        </div>
         {% for post in posts %}
             {% include 'blog/post/postlist-item.html' %}
         {% endfor %}
