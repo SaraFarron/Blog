@@ -61,6 +61,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -70,7 +71,6 @@ MIDDLEWARE = [
     'django.middleware.gzip.GZipMiddleware',
     'silk.middleware.SilkyMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 

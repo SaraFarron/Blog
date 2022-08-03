@@ -131,7 +131,7 @@ class UpdateObject(View):
             form.save()
             return redirect(request.META['HTTP_REFERER'])
 
-        #errors handling?
+        # errors handling?
         return redirect(request.META['HTTP_REFERER'])
 
 
@@ -178,7 +178,6 @@ class Reply(View):
         return render(request, 'errors/400page.html')
 
 
-# Supposed to work with iframe
 class Save(View):
 
     @method_decorator(login_required(login_url='user:login'))
@@ -196,7 +195,6 @@ class Save(View):
         return render(request, 'empty.html')
 
 
-# Supposed to work with iframe
 class Vote(View):
 
     @method_decorator(login_required(login_url='user:login'))
