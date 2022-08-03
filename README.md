@@ -1,19 +1,48 @@
-### Описание / Description
+## Description
 
-Сайт-блог, мой клон [DTF](www.dtf.ru) который я нагло копирую для своего развития как backend веб разработчика.
-Моя цель реализовать большую часть функционала бэкенд части DTF возможно с добавлением каких-либо своих особенностей.
-Фронт-энд и веб дизайн меня интересуют в меньшей части, поэтому внешний вид оставляет желать лучшего, а JS нет вообще.
+Hi, this is a pet project that slightly got out of hand. 
+It's a typical site-blog where all registered users can publish posts, 
+comment, upvote/downvote and save them. The main source of inspiration is DTF.ru
 
-Blog-site, my clone of [DTF](www.dtf.ru), which I impudently copy for my personal growth in backend web development.
-My goal is to make most of DTF's backend functionality, maybe with my own features.
-I am not interested as much in frontend, that's why looks of website are not that great and JS is not present at all.
+## Installation
 
-### Текущие известные проблемы / Currently known issues
+Docker is required
 
-Сейчас на сайте не загружаются аватары в профиле пользователя из-за [бага](https://github.com/axnsan12/drf-yasg/issues/761)
-django 4.0.1 и whitenoise. Как только я найду решение проблемы или фикс будет выпущен я (надеюсь) уберу этот баг.
-Проблема присутствует только на [Heroku](https://pacific-lake-54676.herokuapp.com/en/), если запускать локально
-(как описано в README_dev.md) - проблема отсутствует
+`git clone https://github.com/SaraFarron/Blog.git
+cd Blog
+docker-compose build`
+
+## Usage
+
+`docker-compose up`
+
+If you get an ImportError rename folder Blog to blog (the one in the directory with readme)
+
+Create superuser
+
+`docker exec -it blog_web_1 python manage.py createsuperuser`
+
+Enter console
+
+`docker exec -it blog_web_1 python manage.py shell_plus`
+
+Enter db console
+
+`docker exec -it blog_db_1 psql -U postgres`
+
+Run tests
+
+`docker exec -it blog_web_1 python manage.py test`
+
+URL:
+
+`localhost:8000/en/`
+
+API Docs:
+
+`/swagger`
+
+## Currently known issues
 
 Right now images do not upload in users' profiles because of a [bug](https://github.com/axnsan12/drf-yasg/issues/761)
 with django 4.0.1 and whitenoise. As soon as I will find a solution or a fix will be released I (hopefully) will remove 
