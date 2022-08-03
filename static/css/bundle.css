@@ -1,3 +1,4 @@
+@charset "UTF-8";
 html {
   overflow-y: scroll;
 }
@@ -1036,6 +1037,15 @@ body.dark [data-sorting-variants] span[disabled], body.dark [data-filter-variant
 
 [data-filter-variants] span {
   padding: 0 8px !important;
+}
+
+[data-filter-variants] span.underline {
+  background-color: #5b5d61;
+}
+
+[data-filter-variants] span.underline::after {
+  content: '×';
+  margin-left: 2px;
 }
 
 [data-filter-variants] > :last-child {

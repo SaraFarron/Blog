@@ -1,7 +1,7 @@
 {% load i18n %}
 
 <h4>{% trans 'New post' %}</h4><hr>
-<form action="" method="POST" name="create-post">
+<form action="{% url 'blog:create' %}" method="POST" name="create-post">
     {% csrf_token %}
     <label>
         <input type="text" name="name" required maxlength="200"

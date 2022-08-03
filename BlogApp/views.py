@@ -74,16 +74,6 @@ class Home(View):
         }
         return render(request, 'blog/home.html', context)
 
-    @method_decorator(login_required(login_url='user:login'))
-    def post(self, request, ):
-        form = PostForm(request.POST)
-        if form.is_valid():
-            form.instance.user = Guest.objects.get(name=request.user)
-            form.save()
-            return redirect('blog:home')
-
-        return render(request, 'errors/400page.html')
-
 class PostPage(View):
     def get(self, request, pk):
         request_guest = None
