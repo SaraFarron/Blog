@@ -22,7 +22,7 @@
     
     <div class="container pdb-10">
         <h1 class="mgl-0 mgb-8" style="order: -3;">
-            {% if not posts %}
+            {% if not posts and not filter %}
             {% trans 'There are no posts here yet. Be first!'%}
             {% else %}
             {% trans "Have something to tell?"%}
@@ -31,17 +31,25 @@
         {% include 'blog/post/post-creation-block.html' %}
     </div>
     {% if posts %}
-        <div class="mgb-16">
-            <div class="container-row">
+        <div class="container-row mgb-16">
             {% include 'blog/sorting-element.html' %}
             {% if request.user.is_authenticated %}
                 {% include 'blog/filter-element.html' %}
             {% endif %}
-            </div>
         </div>
         {% for post in posts %}
             {% include 'blog/post/postlist-item.html' %}
         {% endfor %}
+    {% elif filter %}
+        <div class="container-row mgb-16">
+            {% if request.user.is_authenticated %}
+                {% include 'blog/filter-element.html' %}
+            {% endif %}
+        </div>
+    <div class="container">
+        <h1>{% trans 'None of the posts match this filter!'%}</h1>
+        
+    </div>
     {% endif %}
 </div>
 

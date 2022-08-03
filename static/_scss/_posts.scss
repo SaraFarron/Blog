@@ -337,6 +337,16 @@ body.dark [data-sorting-variants] span, body.dark [data-filter-variants] span {
 
     & span {
         padding: 0 8px !important;
+
+        &.underline {
+
+            background-color: invert($btn-dark-background, 20%);
+
+            &::after {
+                content: '×';
+                margin-left: 2px;
+            }
+        }
     }
 
     & > :last-child {
@@ -349,6 +359,7 @@ body.dark [data-sorting-variants] span, body.dark [data-filter-variants] span {
             padding-left: 12px !important;
         }
     }
+
 }
 
 [data-filter-toggle]:focus, [data-filter-toggle]:hover {

@@ -2,11 +2,11 @@
 <div class="btn-edit width-fit pos-right" data-filter-toggle>
   <span>{% trans 'filter' %}</span>
   <div data-filter-variants>
-    <a href="{% url 'blog:home' sort 'bookmarked' %}"
-      ><span {%if filter == 'bookmarked' %}class="underline" disabled{%endif%} data-filter="bookmarked">{% trans 'bookmarked' %}</span></a>
-    <a href="{% url 'blog:home' sort 'liked' %}"
-      ><span {%if filter == 'liked' %}class="underline" disabled{%endif%} data-filter="liked">{% trans 'liked' %}</span></a>
-    <a href="{% url 'blog:home' sort 'disliked' %}"
-      ><span {%if filter == 'disliked' %}class="underline" disabled{%endif%} data-filter="disliked">{% trans 'disliked' %}</span></a>
+    <a href="{%if filter == 'bookmarked' %}{% url 'blog:home' sort %}{% else %}{% url 'blog:home' sort 'bookmarked' %}{% endif %}"
+      ><span {%if filter == 'bookmarked' %}class="underline"{%endif%} data-filter="bookmarked">{% trans 'bookmarked' %}</span></a>
+    <a href="{%if filter == 'liked' %}{% url 'blog:home' sort %}{% else %}{% url 'blog:home' sort 'liked' %}{% endif %}"
+      ><span {%if filter == 'liked' %}class="underline"{%endif%} data-filter="liked">{% trans 'liked' %}</span></a>
+    <a href="{%if filter == 'disliked' %}{% url 'blog:home' sort %}{% else %}{% url 'blog:home' sort 'disliked' %}{% endif %}"
+      ><span {%if filter == 'disliked' %}class="underline"{%endif%} data-filter="disliked">{% trans 'disliked' %}</span></a>
   </div>
 </div>
