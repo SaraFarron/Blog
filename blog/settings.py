@@ -39,6 +39,7 @@ if DEBUG:
 # Application definition
 
 INSTALLED_APPS = [
+    'whitenoise.runserver_nostatic',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -50,7 +51,6 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'coreapi',
     'drf_yasg',
-    'whitenoise.runserver_nostatic',
     'rosetta',
     'debug_toolbar',
     'silk',
