@@ -4,7 +4,7 @@
 
 {% block subhead %}
     <title>blog - {% trans 'Profile settings' %}</title>
-    <script src="{% static 'javascript/delete_profile_picture.js' %}" defer></script>
+    <script src="{% static 'javascript/process_profile_picture.js' %}" defer></script>
 {% endblock%}
 
 {% block content %}
@@ -23,7 +23,7 @@
                 {% endif %}>
                 <div class="profile-pic-settings">
                     <label id="edit-btn" for="profile_picture" class="btn-edit profile-pic-btn"><span>{% trans 'Edit' %}</span></label>
-                    <button id="delete-btn" class="btn-delete profile-pic-btn"><span>{% trans 'Delete' %}</span></button>
+                    <button id="delete-btn" class="{% if not user.profile_picture %}hidden {% endif %}btn-delete profile-pic-btn"><span>{% trans 'Delete' %}</span></button>
                 </div>
             </div>
             <form method="POST" action="" class="mgr-8" enctype="multipart/form-data">

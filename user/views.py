@@ -56,7 +56,7 @@ class RegisterPage(View):
             messages.success(request, f'Account {username} created successfully')
 
             context = {'user': guest, 'form': form}
-            return render(request, 'user/profile.html', context)
+            return redirect('user:profile')
         else:
             context = {'form': form}
             messages.error(request, 'Passwords are different or this username has been taken')
@@ -117,12 +117,10 @@ class ProfileSettings(View):
 
         if form.is_valid():
             if form['delete_img'].value() == 'y':
-                form['profile_picture'].initial = 'profile.png'
-
-            if form['phone'].value() == "":
-                print(True)
+                user.profile_picture = None
 
             form.save()
+
             return HttpResponseRedirect(f'/user/{user.user.id}')
 
         context = {'form': form, 'user': user}
