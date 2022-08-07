@@ -22,7 +22,7 @@
         <div class="container-row mgb-8 mgt-8">    
             <div class="container-col mgr-8">
                 <img class="profile-pic" type="userpic" src=
-                {% if user.profile_picture %}"{{ user.profile_picture.url }}"
+                {% if user.profile_picture %}"{{ user.profile_picture }}"
                 {% else %}"{% static 'images/profile.png' %}" 
                 {% endif %}>
             </div>

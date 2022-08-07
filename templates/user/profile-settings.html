@@ -4,6 +4,7 @@
 
 {% block subhead %}
     <title>blog - {% trans 'Profile settings' %}</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="{% static 'javascript/process_profile_picture.js' %}" defer></script>
 {% endblock%}
 
@@ -17,19 +18,20 @@
     <div class="container profile">
         <div class="container-row mgb-8 mgt-8">    
             <div class="container-col mgr-8">
-                <img class="profile-pic" id="profile-picture-image" type="userpic" src=
-                {% if user.profile_picture %}"{{ user.profile_picture.url }}"
+                <img class="profile-pic" id="profile-picture-image" type="userpic" alt="profile picture" src=
+                {% if user.profile_picture %}"{{ user.profile_picture }}"
                 {% else %}"{% static 'images/profile.png' %}"
                 {% endif %}>
                 <div class="profile-pic-settings">
-                    <label id="edit-btn" for="profile_picture" class="btn-edit profile-pic-btn"><span>{% trans 'Edit' %}</span></label>
+                    <label id="edit-btn" for="profile_picture_input" class="btn-edit profile-pic-btn"><span>{% trans 'Edit' %}</span></label>
                     <button id="delete-btn" class="{% if not user.profile_picture %}hidden {% endif %}btn-delete profile-pic-btn"><span>{% trans 'Delete' %}</span></button>
                 </div>
             </div>
             <form method="POST" action="" class="mgr-8" enctype="multipart/form-data">
                 {% csrf_token %}
+                <input type="hidden" id="profile_picture" name="profile_picture" value="{{user.profile_picture}}">
                 <input type="hidden" id="delete_img" name="delete_img" value="n">
-                <input type="file" id="profile_picture" name="profile_picture" accept="image/*">
+                <input type="file" id="profile_picture_input" name="profile_picture_input" accept="image/*">
                 <div class="container-row">
                     <label class="mgb-8" for="email"><h4>{% trans 'email' %}:</h4></label>
                     <input type="email" id="email"  name="email" value="{{ user.email }}" placeholder="{% trans 'email' %}" required>
@@ -44,7 +46,7 @@
                          placeholder="{% trans 'skype' %}">
                 </div>
                 <div class="container-row">
-                    <button class="btn-submit">{% trans 'Save' %}</button>
+                    <button id="submit-btn" class="btn-submit">{% trans 'Save' %}</button>
                 </div>
             </form>
         </div>

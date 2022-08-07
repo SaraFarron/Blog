@@ -56,7 +56,7 @@ class RegisterPage(View):
             messages.success(request, f'Account {username} created successfully')
 
             context = {'user': guest, 'form': form}
-            return redirect('user:profile')
+            return redirect('user:profile', pk=guest.id)
         else:
             context = {'form': form}
             messages.error(request, 'Passwords are different or this username has been taken')
@@ -113,7 +113,7 @@ class ProfileSettings(View):
     @method_decorator(login_required(login_url='user:login'))
     def post(self, request, pk):
         user = Guest.objects.get(name=request.user)
-        form = ProfileSetForm(request.POST, request.FILES, instance=user)
+        form = ProfileSetForm(request.POST, instance=user)
 
         if form.is_valid():
             if form['delete_img'].value() == 'y':

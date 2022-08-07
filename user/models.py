@@ -11,7 +11,7 @@ class Guest(models.Model):
     date_created = models.DateTimeField(auto_now_add=True, null=True, verbose_name='registration date')
     email = models.EmailField(default='example@blog.com', verbose_name=_('email'))
     phone = PhoneNumberField(null=True, blank=True, verbose_name=_('phone'))
-    profile_picture = models.ImageField(null=True, blank=True, default='profile.png', verbose_name=_('profile picture'))
+    profile_picture = models.CharField(max_length=256, null=True, blank=True, default=None, verbose_name=_('profile picture'))
     skype = models.CharField(max_length=50, null=True, blank=True)
     token = models.CharField(max_length=256, unique=True, null=True, verbose_name=_('token'))
     is_moderator = models.BooleanField(default=False, verbose_name=_('moderation status'))
