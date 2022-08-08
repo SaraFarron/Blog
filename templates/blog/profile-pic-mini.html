@@ -1,0 +1,7 @@
+{% load static %}
+{% load i18n %}
+<div class="height-100pc">
+  <a href="{% url 'user:profile' element.user.id %}">
+    <img class="icon-large" type="userpic" src="{{ element.user.profile_picture }}" alt="{% trans 'profile picture' %}">
+  </a>
+</div>

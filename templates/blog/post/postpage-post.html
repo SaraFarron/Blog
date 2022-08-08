@@ -9,11 +9,9 @@
             {% include 'blog/post/post-delete-form.html' %}
         </div>
         <div class="container-row mgb-8">
-            <div class="height-100pc">
-                <a href="{% url 'user:profile' post.user.id %}">
-                    <img class="icon-large" type="userpic" src="{{ post.user.profile_picture.url }}" alt="{% trans 'profile picture' %}">
-                </a>
-            </div>
+            {% with element=post %}
+            {% include 'blog/profile-pic-mini.html' %}
+            {% endwith %}
             <div class="container-col">
                 <a class="width-fit break-all" href="{% url 'user:profile' post.user.id %}">
                     <span class="link" {% if post.user.is_moderator is True %} class="red" {% endif %}>{{ post.user }}</span>
