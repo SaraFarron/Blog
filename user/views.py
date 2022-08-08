@@ -82,8 +82,12 @@ class Profile(View):
         except ObjectDoesNotExist:
             return render(request, 'errors/guest_does_not_exist.html')  # Maybe delete this?
         request_guest = Guest.objects.get(id=request.user.id)
-        posts = Post.objects.filter(user=owner).select_related('user').prefetch_related('upvoted_users', 'downvoted_users', 'saved_by').order_by('-creation_date')
-        comments = Comment.objects.filter(user=owner).prefetch_related('user', 'post', 'replies', 'upvoted_users', 'downvoted_users')
+        posts = Post.objects.filter(user=owner).\
+            select_related('user').\
+            prefetch_related('upvoted_users', 'downvoted_users', 'saved_by').\
+            order_by('-creation_date')
+        comments = Comment.objects.filter(user=owner).\
+            prefetch_related('user', 'post', 'replies', 'upvoted_users', 'downvoted_users')
         saved_posts = Post.objects.filter(saved_by=owner).select_related('user')
         last_time_banned = owner.last_ban_date
         context = {'posts': posts,
