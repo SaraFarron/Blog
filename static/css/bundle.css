@@ -1135,6 +1135,10 @@ body.dark [data-sorting-variants] span[disabled], body.dark [data-filter-variant
   visibility: visible;
 }
 
+.profile-pic-settings .hidden {
+  display: none;
+}
+
 .profile-pic-btn {
   background-color: #00000075 !important;
   width: 90%;

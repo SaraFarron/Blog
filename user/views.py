@@ -56,7 +56,7 @@ class RegisterPage(View):
             messages.success(request, f'Account {username} created successfully')
 
             context = {'user': guest, 'form': form}
-            return render(request, 'user/profile.html', context)
+            return redirect('user:profile', pk=guest.id)
         else:
             context = {'form': form}
             messages.error(request, 'Passwords are different or this username has been taken')
@@ -82,8 +82,12 @@ class Profile(View):
         except ObjectDoesNotExist:
             return render(request, 'errors/guest_does_not_exist.html')  # Maybe delete this?
         request_guest = Guest.objects.get(id=request.user.id)
-        posts = Post.objects.filter(user=owner).select_related('user').prefetch_related('upvoted_users', 'downvoted_users', 'saved_by').order_by('-creation_date')
-        comments = Comment.objects.filter(user=owner).prefetch_related('user', 'post', 'replies', 'upvoted_users', 'downvoted_users')
+        posts = Post.objects.filter(user=owner).\
+            select_related('user').\
+            prefetch_related('upvoted_users', 'downvoted_users', 'saved_by').\
+            order_by('-creation_date')
+        comments = Comment.objects.filter(user=owner).\
+            prefetch_related('user', 'post', 'replies', 'upvoted_users', 'downvoted_users')
         saved_posts = Post.objects.filter(saved_by=owner).select_related('user')
         last_time_banned = owner.last_ban_date
         context = {'posts': posts,
@@ -113,16 +117,14 @@ class ProfileSettings(View):
     @method_decorator(login_required(login_url='user:login'))
     def post(self, request, pk):
         user = Guest.objects.get(name=request.user)
-        form = ProfileSetForm(request.POST, request.FILES, instance=user)
+        form = ProfileSetForm(request.POST, instance=user)
 
         if form.is_valid():
             if form['delete_img'].value() == 'y':
-                form['profile_picture'].initial = 'profile.png'
-
-            if form['phone'].value() == "":
-                print(True)
+                user.profile_picture = None
 
             form.save()
+
             return HttpResponseRedirect(f'/user/{user.user.id}')
 
         context = {'form': form, 'user': user}

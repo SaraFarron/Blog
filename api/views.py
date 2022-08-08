@@ -122,7 +122,7 @@ class CommentViewSet(CreateModelMixin, ListModelMixin, DestroyModelMixin, Generi
                 owner_id=user.id,
                 owner_name=user.name,
                 owner_is_moderator=user.is_moderator,
-                owner_pfp_url=user.profile_picture.url,
+                owner_pfp_url=user.profile_picture,
             )
             comment.save()
 

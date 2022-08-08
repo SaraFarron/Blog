@@ -9,11 +9,9 @@
         <div class="container popup-hidden" id="popup-delete-reply-{{reply.id}}" style="z-index: 5">
             {% include 'blog/comment/reply-delete-form.html' %}
         </div>
-        <div class="height-100pc">
-            <a href="{% url 'user:profile' reply.owner_id %}">
-                <img class="icon" type="userpic" src="{{ reply.owner_pfp_url }}" alt="{% trans 'profile picture' %}">
-            </a>
-        </div>
+        {% with element=reply %}
+        {% include 'blog/profile-pic-mini.html' %}
+        {% endwith %}
         <div class="container-col">
             <a class="width-fit break-all" href="{% url 'user:profile' reply.owner_id %}">
                 <span class="link" {% if reply.owner_is_moderator is True %} class="red" {% endif %}>{{ reply.owner_name }}</span>
