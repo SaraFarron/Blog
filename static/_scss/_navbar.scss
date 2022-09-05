@@ -195,6 +195,11 @@ nav.navbar {
         }
       }
 
+    .outer-block {
+        display: flex;
+        align-items: center;
+    }
+
     .change-theme-icon {
         border: none;
         border-radius: 100vmax;
