@@ -281,3 +281,7 @@ a .icon:hover {
     display: flex;
     flex-wrap: wrap;
 }
+
+img {
+    object-fit: cover;
+}

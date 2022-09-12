@@ -13,10 +13,6 @@ delete_button.addEventListener("click", () => {
     delete_button.classList.add('hidden');
 });
 
-// current_img.onerror= () => {
-//     current_img.src = localStorage.getItem('last_chosen_img');
-// }
-
 img_input_field.onchange = () => {
     if (img_input_field.files[0]) {
         current_img.src = URL.createObjectURL(img_input_field.files[0]);
@@ -29,13 +25,7 @@ img_input_field.onchange = () => {
 submit_btn.addEventListener('click', (e) => {
     e.preventDefault();
     if (img_input_field.files[0] && delete_input.getAttribute('value') === 'n') {
-        postToImgbb('beed806b3aa8cbd114d226e6a927a5a6', img_input_field.files[0])
-            .then(res => {
-                const url = JSON.parse(res).data.url;
-                picture_filed.setAttribute('value', url);
-                //localStorage.setItem('last_chosen_img', url)
-                document.querySelector('form').submit();
-            });
+        postToImageBan("GahZN7n1FqHJ2orzdylQ", img_input_field.files[0]);
     }
     else {
         document.querySelector('form').submit();
@@ -43,20 +33,17 @@ submit_btn.addEventListener('click', (e) => {
         
 });
 
-const postToImgbb = async (apiKey, image) => {
-    
+const postToImageBan = (apiKey, image) => {
     const formData = new FormData();
-    formData.append('image', image)
-    
-    const settings = {
-        "url": `https://api.imgbb.com/1/upload?key=${apiKey}`,
-        "method": "POST",
-        "timeout": 0,
-        "processData": false,
-        "mimeType": "multipart/form-data",
-        "contentType": false,
-        "data": formData
-    };
-    
-    return await $.ajax(settings).done(function (response) {});
-};
+    formData.append('image', image);
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "https://api.imageban.ru/v1");
+    xhr.onload = function() {
+        const url = JSON.parse(xhr.responseText).data.link;
+        picture_filed.setAttribute('value', url);
+        document.querySelector('form').submit();
+    }
+    xhr.setRequestHeader('Authorization', `TOKEN ${apiKey}`);
+    xhr.send(formData);
+}
