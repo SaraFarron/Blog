@@ -11,13 +11,11 @@
 
 {% block content %}
 <div class="list-v">
-    <div class="container-row mgb-16">
-        {% if request_guest == user %}
-        <a href="{% url 'user:profile_settings' user.user.id %}" class="btn-edit width-fit"><span>{% trans 'Settings' %}</span></a>
-        {% endif %}
-        {% include 'blog/../change-theme-button.html' %}
-    </div>
-
+    {% if request_guest == user %}
+        <div class="container-row mgb-16">
+            <a href="{% url 'user:profile_settings' user.user.id %}" class="btn-edit width-fit"><span>{% trans 'Settings' %}</span></a>
+        </div>
+    {% endif %}
     <div class="container profile">
         <div class="container-row mgb-8 mgt-8">    
             <div class="container-col mgr-8">

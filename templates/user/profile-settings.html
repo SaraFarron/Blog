@@ -4,7 +4,6 @@
 
 {% block subhead %}
     <title>blog - {% trans 'Profile settings' %}</title>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="{% static 'javascript/process_profile_picture.js' %}" defer></script>
 {% endblock%}
 
@@ -12,7 +11,6 @@
 <div class="list-v">
     <div class="container-row mgb-16">
         <a href="{% url 'user:profile' request.user.id %}" class="btn-delete width-fit"><span>{% trans 'Cancel' %}</span></a>
-        {% include 'blog/../change-theme-button.html' %}
     </div>
     {% include 'form-errors.html' %}
     <div class="container profile">
@@ -60,4 +58,4 @@
         {% endif %}
     </div>
 </div> 
-{% endblock%}
+{% endblock %}
