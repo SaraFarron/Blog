@@ -1,3 +1,7 @@
+## Current state
+
+Finished
+
 ## Description
 
 Hi, this is a pet project that slightly got out of hand. 
