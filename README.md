@@ -22,29 +22,17 @@ docker-compose build`
 
 If you get an ImportError rename folder Blog to blog (the one in the directory with readme)
 
-Create superuser
+Create superuser `docker exec -it blog_web_1 python manage.py createsuperuser`
 
-`docker exec -it blog_web_1 python manage.py createsuperuser`
+Enter console `docker exec -it blog_web_1 python manage.py shell_plus`
 
-Enter console
+Enter db console `docker exec -it blog_db_1 psql -U postgres`
 
-`docker exec -it blog_web_1 python manage.py shell_plus`
+Run tests `docker exec -it blog_web_1 python manage.py test`
 
-Enter db console
+URL: `localhost:8000/en/`
 
-`docker exec -it blog_db_1 psql -U postgres`
-
-Run tests
-
-`docker exec -it blog_web_1 python manage.py test`
-
-URL:
-
-`localhost:8000/en/`
-
-API Docs:
-
-`/swagger`
+API Docs: `/swagger`
 
 ## Currently known issues
 
